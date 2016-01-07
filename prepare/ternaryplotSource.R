@@ -2,7 +2,7 @@
     if( Sys.info()[["sysname"]] == "Linux" ){
         setwd( "/home/jules/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot" ) 
     }else{
-        setwd( "C:/Users/julienm/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot" ) 
+        setwd( "C:/Users/julienm/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg/ternaryplot" ) 
     }   
     
     source( "R/aa00-ternaryplot-package.R" ) 
