@@ -1,6 +1,13 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.3.2
+    
+    2016/01/07  ternary2xy() now call iternal function 
+        .ternary2xy() that uses specific methods for each 
+        geometry (TTT, FFF, FTX, TXF), based on the 2nd 
+        class-attribute. Makes the code clearer.
+    
 CHANGES IN VERSION 0.3.1
 
     2016/01/07  Further development. Create a 2nd class in 

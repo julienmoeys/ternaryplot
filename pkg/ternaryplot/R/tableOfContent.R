@@ -15,7 +15,7 @@
 #       ternaryCheck.ternaryVariables
 #       ternaryCheck.ternarySystem
 #       
-#       .generateTernaryGeometryClass
+#       .generateTernaryGeometry2ndClass
 #       createTernaryGeometry
 #       createTernaryVariables
 #       createTernarySystem

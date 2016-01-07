@@ -39,7 +39,6 @@ deg2rad <- function(
 #'  or a \code{\link[ternaryplot]{ternaryData}} object. For the 
 #'  latter, if \code{x} is missing, \code{s} will also be used 
 #'  for \code{x}
-#'  
 #'
 #'@param x
 #'  A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
@@ -124,67 +123,19 @@ ternary2xy.ternarySystem <- function(
  x, 
  ... 
 ){  
-    # Set some variables
-    .blrClock  <- blrClock( s ) 
-    .tlrAngles <- tlrAngles( s ) 
-    .fracSum   <- fracSum( s ) 
-    # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
-    
-    blrNames0   <- blrNames( s = s )  
-    
-    
     # Test if the ternary data are conform 
     if( !"ternaryData" %in% class( x ) ){ 
         x <- ternaryData( s = s, x = x ) 
     }   
     
     
-    # Angle transformation: degree to radian
-    tlrAnglesRad <- deg2rad( angle = .tlrAngles )
+    class( s ) <- .generateTernaryGeometry2ndClass( 
+        blrClock = blrClock( s ), 
+        class1   = "ternarySystem" 
+    )   
     
     
-    # "reverse" the bottom and right orientation to 
-    #   fit x and y orientation:
-    for( j in 1:3 ){ 
-        if( !is.na(.blrClock[j]) ){ # Do not reverse NA sides
-            if( j == 2 ){ # Left side 
-                if( !.blrClock[j] ){ # Counter-clockwise
-                    x[  , blrNames0[j] ] <- 
-                        ( .fracSum - x[, blrNames0[j] ] ) 
-                }   
-            }else{        # Bottom or right side
-                if( .blrClock[j] ){ # Clockwise
-                    x[  , blrNames0[j] ] <- 
-                        ( .fracSum - x[, blrNames0[j] ] ) 
-                }   
-            }   
-        }   
-    }   
-     
-    
-    # The x,y coordnates calculation is 1st separated depending on .blrClock[2]
-    if( is.na( .blrClock[2] ) ){ 
-        # Left side direction is NA so right side is counter-clockwise:
-        y <- x[  , blrNames0[3] ] * sin( tlrAnglesRad[3] )
-    }else if( .blrClock[2] ){ 
-        # Left side direction is clockwise:
-        y <- x[  , blrNames0[2] ] * sin( tlrAnglesRad[2] )
-    }else{       
-        # Left side direction counter-clockwise:
-        y <- x[  , blrNames0[3] ] * sin( tlrAnglesRad[3] )
-    }   
-    
-    if( .blrClock[1] ){ 
-        # Bottom side is clockwise
-        #   If .blrClock[2] this is the TTT case, otherwie this is the TXF case.
-        x <- x[  , blrNames0[1] ] - y/tan( tlrAnglesRad[3] ) 
-    }else{            
-        # Bottom side is counter-clockwise
-        #   If .blrClock[2] this is the FTX case, otherwise this is the FFF case.
-        x <- x[  , blrNames0[1] ] + y/tan( tlrAnglesRad[2] ) 
-    }   
-    
-    return( data.frame( "x" = x , "y" = y ) )
+    return( .ternary2xy( s = s, x = x, ... ) ) 
 }   
 
 
@@ -219,3 +170,203 @@ ternary2xy.ternarySystem <- function(
     # polygon( x = fr$"x", y = fr$"y", border = "red" )  
     
     # points( x = tbl$"x", y = tbl$"y" ) 
+
+
+
+
+
+## # Internal geometry specific methods for ternary2xy
+## #
+## #Converts ternary point-data (bottom, left, right axis) into 
+## #  x-y coordinates, according to the specification of a 
+## #  \code{ternarySystem}
+## #
+## #
+## #@param s
+## #  See ternary2xy
+## #
+## #@param x
+## #  See ternary2xy
+## #
+## #@param \dots
+## #  See ternary2xy
+## #
+## #
+## #@return 
+## #  See ternary2xy
+## #
+## #
+## #@rdname ternary2xy-internal-methods
+## #
+## #@export 
+## #
+.ternary2xy <- function( 
+ s, 
+ ... 
+){  
+    UseMethod( ".ternary2xy" ) 
+}   
+
+
+
+## #@rdname ternary2xy-internal-methods
+## #
+## #@method .ternary2xy geo_TTT
+## #
+## #@export
+## #
+.ternary2xy.geo_TTT <- function( 
+ s, 
+ x, 
+ ... 
+){  
+    # Set some variables
+    .blrClock  <- blrClock( s ) 
+    .tlrAngles <- tlrAngles( s ) 
+    .fracSum   <- fracSum( s ) 
+    # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
+    
+    blrNames0   <- blrNames( s = s )  
+    
+    
+    # Angle transformation: degree to radian
+    tlrAnglesRad <- deg2rad( angle = .tlrAngles )
+    
+    
+    #   "reverse" the bottom and right orientation to fit x 
+    #   and y orientation:
+    x[  , blrNames0[ 1L ] ] <- ( .fracSum - x[, blrNames0[ 1L ] ] ) 
+    x[  , blrNames0[ 3L ] ] <- ( .fracSum - x[, blrNames0[ 3L ] ] ) 
+    
+    
+    #   The left side values are used to calculate y
+    y <- x[  , blrNames0[2] ] * sin( tlrAnglesRad[2] ) 
+    
+    #   The bottom and right side values are used to 
+    #   calculate x
+    x <- x[  , blrNames0[1] ] - y/tan( tlrAnglesRad[3] ) 
+    
+    return( data.frame( "x" = x , "y" = y ) )
+}   
+
+
+
+## #@rdname ternary2xy-internal-methods
+## #
+## #@method .ternary2xy geo_FFF
+## #
+## #@export
+## #
+.ternary2xy.geo_FFF <- function( 
+ s, 
+ x, 
+ ... 
+){  
+    #   Set some variables
+    .blrClock  <- blrClock( s ) 
+    .tlrAngles <- tlrAngles( s ) 
+    .fracSum   <- fracSum( s ) 
+    # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
+    
+    blrNames0   <- blrNames( s = s )  
+    
+    
+    #   Angle transformation: degree to radian
+    tlrAnglesRad <- deg2rad( angle = .tlrAngles )
+    
+    
+    #   "reverse" the left side to fit x and y orientation:
+    x[ , blrNames0[ 2L ] ] <- ( .fracSum - x[, blrNames0[ 2L ] ] ) 
+     
+    
+    #   The right side value are used to calculate y
+    y <- x[  , blrNames0[3] ] * sin( tlrAnglesRad[3] )
+    
+    #   The bottom and left side values are used to 
+    #   calculate x
+    x <- x[  , blrNames0[1] ] + y/tan( tlrAnglesRad[2] ) 
+    
+    return( data.frame( "x" = x , "y" = y ) )
+}   
+
+
+
+## #@rdname ternary2xy-internal-methods
+## #
+## #@method .ternary2xy geo_FTX
+## #
+## #@export
+## #
+.ternary2xy.geo_FTX <- function( 
+ s, 
+ x, 
+ ... 
+){  
+    # Set some variables
+    .blrClock  <- blrClock( s ) 
+    .tlrAngles <- tlrAngles( s ) 
+    .fracSum   <- fracSum( s ) 
+    # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
+    
+    blrNames0   <- blrNames( s = s )  
+    
+    
+    # Angle transformation: degree to radian
+    tlrAnglesRad <- deg2rad( angle = .tlrAngles )
+    
+    
+    #   In this case no axis need to be reverted
+     
+    
+    #   y coordinates calculated first based on the 
+    #   left side
+    y <- x[  , blrNames0[2] ] * sin( tlrAnglesRad[2] )
+    
+    #   x coordinates calculated with the bottom and left 
+    #   side
+    x <- x[  , blrNames0[1] ] + y/tan( tlrAnglesRad[2] ) 
+    
+    return( data.frame( "x" = x , "y" = y ) )
+}   
+
+
+
+## #@rdname ternary2xy-internal-methods
+## #
+## #@method .ternary2xy geo_TXF
+## #
+## #@export
+## #
+.ternary2xy.geo_TXF <- function( 
+ s, 
+ x, 
+ ... 
+){  
+    # Set some variables
+    .blrClock  <- blrClock( s ) 
+    .tlrAngles <- tlrAngles( s ) 
+    .fracSum   <- fracSum( s ) 
+    # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
+    
+    blrNames0   <- blrNames( s = s )  
+    
+    
+    # Angle transformation: degree to radian
+    tlrAnglesRad <- deg2rad( angle = .tlrAngles )
+    
+    
+    #   Values on the botton side are reverted
+    x[, blrNames0[ 1L ] ] <- ( .fracSum - x[, blrNames0[ 1L ] ] ) 
+     
+    
+    #   y coordinates are calculated from the right 
+    #   side
+    y <- x[  , blrNames0[3] ] * sin( tlrAnglesRad[3] )
+    
+    #   x coordinates calculated from the bottom 
+    #   and right axis
+    x <- x[  , blrNames0[1] ] - y/tan( tlrAnglesRad[3] ) 
+    
+    return( data.frame( "x" = x , "y" = y ) )
+}   
+

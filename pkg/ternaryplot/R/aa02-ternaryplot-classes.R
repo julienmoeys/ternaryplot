@@ -354,10 +354,11 @@ ternaryCheck.ternarySystem <- function(
 
 # createTernaryGeometry ============================================
 
-## # Function that generates the class of ternaryGeometry object 
-## # (mostly the 2nd class) after the blrClock-argument.
-.generateTernaryGeometryClass <- function( 
- blrClock 
+## # Function that generates the 2ndary class of ternaryGeometry 
+## # object after the blrClock-argument.
+.generateTernaryGeometry2ndClass <- function( 
+ blrClock, 
+ class1 = "ternaryGeometry"
 ){  
     if( !"logical" %in% ( blrClock ) ){
         sprintf(
@@ -366,24 +367,31 @@ ternaryCheck.ternarySystem <- function(
         )   
     }      
     
-    if( all( blrClock ) ){
-        class2 <- "geo_TTT"
-        
-    }else if( all( !blrClock ) ){
-        class2 <- "geo_FFF"
-        
-    }else if( all( blrClock == c( FALSE, TRUE, NA ) ) ){
-        class2 <- "geo_FTX"
-        
-    }else if( all( blrClock == c( TRUE, NA, FALSE ) ) ){
-        class2 <- "geo_TXF"
-        
+    if( !any( is.na( blrClock ) ) ){
+        if( all( blrClock ) ){
+            class2 <- "geo_TTT"
+            
+        }else if( all( !blrClock ) ){
+            class2 <- "geo_FFF"
+            
+        }else{
+            class2 <- character(0)
+            
+        }   
     }else{
-        class2 <- character(0)
-        
+        if( identical( blrClock, c( FALSE, TRUE, NA ) ) ){ 
+            class2 <- "geo_FTX"
+            
+        }else if( identical( blrClock, c( TRUE, NA, FALSE ) ) ){
+            class2 <- "geo_TXF"
+            
+        }else{
+            class2 <- character(0)
+            
+        }   
     }   
     
-    return( c( "ternaryGeometry", class2 ) )
+    return( c( class1, class2 ) )
 }   
 
 #'Creates a ternaryGeometry object: ternary plot geometry definition.
@@ -442,8 +450,8 @@ createTernaryGeometry <- function(
     
     
     #   Set the class
-    class( tg ) <- .generateTernaryGeometryClass( 
-        blrClock = tg[[ "blrClock" ]] ) 
+    class( tg ) <- .generateTernaryGeometry2ndClass( 
+        blrClock = blrClock ) 
     
     
     #   Check:

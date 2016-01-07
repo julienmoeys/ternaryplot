@@ -4,7 +4,7 @@ Date: 2016-01-07
 Title: Infrastructure for ternary plots and ternary classifications (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>
 Maintainer: Julien MOEYS <Julien.Moeys@slu.se>
-Description: Infrastructure for ternary plots and ternary classifications (S3-classes)
+Description: Provides an infrastructure for ternary plots and ternary classifications (S3-classes). Designed primarilly to support the developpment of soil texture ternary plots, but should be valid for other types of ternary plots as well (provided they are based on a single triangles with a horizontal side located at the bottom of the triangle).
 License: AGPL-3
 URL: http://www.slu.se/ckb
 Depends: R (>= 3.2.0)

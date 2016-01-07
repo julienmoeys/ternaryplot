@@ -361,8 +361,8 @@ blrClock.ternaryGeometry <- function(
     
     
     #   Set the class (in case it has changed)
-    class( s[[ 'ternaryGeometry' ]] ) <- .generateTernaryGeometryClass( 
-        blrClock = s[[ "blrClock" ]] ) 
+    class( s[[ 'ternaryGeometry' ]] ) <- 
+        .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
     #   Check the validity
@@ -392,8 +392,7 @@ blrClock.ternaryGeometry <- function(
     
     
     #   Set the class (in case it has changed)
-    class( s ) <- .generateTernaryGeometryClass( 
-        blrClock = s[[ "blrClock" ]] ) 
+    class( s ) <- .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
     ternaryCheck( s, ... ) 
