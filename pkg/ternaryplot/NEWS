@@ -3,7 +3,7 @@
 
 CHANGES IN VERSION 0.3.2
     
-    2016/01/07  ternary2xy() now call iternal function 
+    2016/01/07  ternary2xy() now call internal function 
         .ternary2xy() that uses specific methods for each 
         geometry (TTT, FFF, FTX, TXF), based on the 2nd 
         class-attribute. Makes the code clearer.
