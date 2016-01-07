@@ -12,9 +12,42 @@
 # Create two environment that will contain the package parameters
 
 # - Backup / reference 
+
+#' Environment containng a backup copy of all ternaryplot package-options
+#'
+#' Environment containing a backup copy of all ternaryplot 
+#'  package-options
+#'
+#'
+#' @format 
+#'  An environment, where each item corresponds to an 
+#'  argument in \code{\link[ternaryplot]{tpPar}}.
+#'
+#'
+#'@rdname tpParList-environment-backup
+#'
+#'@keywords internal
+#'
 .tpParList <- new.env() 
 
 # - User visible container
+
+#' Environment containing all ternaryplot package-options
+#'
+#' Environment containing all ternaryplot package-options
+#'
+#'
+#' @format 
+#'  An environment, where each item corresponds to an 
+#'  argument in \code{\link[ternaryplot]{tpPar}}.
+#'
+#'
+#'@rdname tpParList-environment
+#'
+#'@export
+#'
+#'@keywords internal
+#'
 tpParList  <- new.env() 
 
 
@@ -79,12 +112,16 @@ tpParList  <- new.env()
 
 .tpParList[[ "ticksShift" ]]    <- NA_real_ # 0.040 
 
+.tpParList[[ "ticksLabelsShift" ]] <- NA_real_ 
+
 .tpParList[[ "arrowsShift" ]]   <- rep( NA_real_, 2 ) # c( 0.075, 0.125 )
 .tpParList[[ "arrowsHeight" ]]  <- 0.75
 
 .tpParList[[ "arrowsCoords" ]]  <- c( .15, .45, .45, .55 ) 
 
 .tpParList[[ "arrowsBreak" ]]   <- TRUE 
+
+.tpParList[[ "arrowsLength" ]]  <- NA_real_ 
 
 .tpParList[[ "axis.line.lwd" ]] <- NULL 
 
@@ -167,6 +204,13 @@ tpParList  <- new.env()
 #'  in inches, estimated using the internal function 
 #'  \code{.nbMargin2diffXY()}.
 #'
+#'@param ticksLabelsShift
+#'  Single numeric. Tick-label-marks 'size'.
+#'  If \code{NA}, it is calculated internally from 
+#'  \code{par("mgp")} and the height in of a margin line 
+#'  in inches, estimated using the internal function 
+#'  \code{.nbMargin2diffXY()}.
+#'
 #'@param arrowsShift
 #'  Vector of two numeric values. Axis' arrows' shift from their 
 #'  axis, expressed so that \code{arrowsShift * fracSum} is the 
@@ -234,9 +278,17 @@ tpParList  <- new.env()
 #'  Parameters used internally to define axis-arrows location
 #'
 #'@param arrowsBreak
-#'  Single logical value. If \code{TRUE}, axis-arrows are 'browken' 
+#'  Single logical value. If \code{TRUE}, axis-arrows are 'broken' 
 #'  (i.e. with the arrow starting parallel to the axis and finishing 
 #'  toward the axis). 
+#'
+#'@param arrowsLength
+#'  Single numerical value. Length of the arrows' head (see 
+#'  \code{length}-argument in \code{\link[graphics]{arrows}}). 
+#'  in inches. If \code{NA}, calculated internally so that 
+#'  the length of the arrows' head is proportional to 
+#'  the plot dimension (see argument \code{pin} in 
+#'  \code{\link[graphics]{par}}).
 #'
 #'@param axis.line.lwd
 #'  Single numerical value. Line thickness for the axis-lines 
@@ -244,7 +296,7 @@ tpParList  <- new.env()
 #'
 #'@param plot.bg
 #'  Single character value representing a color. Fill-color of the 
-#'  plot region (frame). Set to \code{NA} or \code{"transparemt"} 
+#'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
 #'  to suppress color.
 #'
 #'
@@ -271,10 +323,12 @@ tpPar <- function(
     
     ticksAt, 
     ticksShift, 
+    ticksLabelsShift, 
     arrowsShift, 
     arrowsHeight, 
     arrowsCoords, 
     arrowsBreak, 
+    arrowsLength, 
     grid.line.col, 
     axis.line.lwd, 
     plot.bg
