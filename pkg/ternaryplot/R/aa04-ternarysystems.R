@@ -43,7 +43,8 @@ ternarySystemEnv[[ "dummy" ]] <- createTernarySystem(
         ) ),
         stringsAsFactors = FALSE 
     ),  
-    "scale"             = NULL
+    "scale"             = NULL, 
+    "over"              = NULL 
 )     
 
 
@@ -122,7 +123,8 @@ ternarySystemEnv[[ "hypres" ]] <- createTernarySystem(
         stringsAsFactors = FALSE 
     ),  
     
-    "scale" = NULL 
+    "scale" = NULL, 
+    "over"              = NULL 
 )   
 
 
