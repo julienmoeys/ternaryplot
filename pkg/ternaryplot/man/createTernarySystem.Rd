@@ -7,7 +7,7 @@
 \usage{
 createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,
   main = character(0), vertices = NULL, classes = NULL, scale = NULL,
-  ...)
+  over = NULL, ...)
 }
 \arguments{
 \item{ternaryGeometry}{A ternary geometry (as defined by
@@ -35,6 +35,11 @@ createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,
  default values will be used \code{getTpPar("scale")}, and the
  columns names changed to those of \code{ternaryVariables}.
  NOT USED YET.}
+
+\item{over}{Either \code{NULL} or a \code{\link{function}} with 3
+ arguments, \code{s}, code{x} and \code{scale}. If a
+ \code{\link{function}}, should be used to add arbitrary
+ graphical overlay on top of ternary plots. Experimental.}
 
 \item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}}
 }

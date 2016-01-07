@@ -1,6 +1,6 @@
 
 # +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
+# | Package:    ternaryplot                                     |
 # | Language:   R + roxygen2 inline documentation               |
 # | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
 # | License:    AGPL3, Affero General Public License version 3  |
@@ -221,7 +221,7 @@ ternaryCheck.ternarySystem <- function(
     
     #   Check names:
     nm <- c( "ternaryGeometry", "ternaryVariables", "main", 
-        "vertices", "classes", "scale" )
+        "vertices", "classes", "scale", "over" )
     testNames <- nm %in% names( x ) 
     
     if( any( !testNames ) ){ 
@@ -341,11 +341,39 @@ ternaryCheck.ternarySystem <- function(
     testDiff <- all( testDiff == testDiff[1] ) 
     
     if( any( !testDiff ) ){  
-        onFailure( "In 'scale', the difference between min and max must be identica" ) 
+        onFailure( "In 'scale', the difference between min and max must be identical" ) 
         
         valid <- FALSE 
     }   
     
+    
+    #   Test the overlay function
+    if( !is.null( x[[ "over" ]] ) ){
+        if( !("function" %in% class(x[[ "over" ]])) ){
+            onFailure( sprintf( 
+                "If not 'NULL', item 'over' must be a function (now: %s)", 
+                paste( class(x[[ "over" ]]), collapse = "; " )
+            ) ) 
+            
+            valid <- FALSE 
+        }else{
+            expectArgs <- c( "s", "x", "scale" )
+            
+            testExpectArgs <- expectArgs %in% names( formals( x[[ "over" ]] ) ) 
+            
+            if( any( !testExpectArgs ) ){
+                onFailure( sprintf( 
+                    "Some arguments expected for function defined by item 'over' are missing (%s)", 
+                    paste( expectArgs[ !testExpectArgs ], collapse = "; " )
+                ) ) 
+                
+                valid <- FALSE 
+            }   
+            
+            rm( expectArgs, testExpectArgs )
+        }   
+        
+    }   
     
     return( valid ) 
 }   
@@ -360,7 +388,7 @@ ternaryCheck.ternarySystem <- function(
  blrClock, 
  class1 = "ternaryGeometry"
 ){  
-    if( !"logical" %in% ( blrClock ) ){
+    if( !("logical" %in% class( blrClock )) ){
         sprintf(
             "'blrClock' is not a logical (but: %s).", 
             paste( class( blrClock ), collapse = "; " )
@@ -572,6 +600,12 @@ createTernaryVariables <- function(
 #'  columns names changed to those of \code{ternaryVariables}.
 #'  NOT USED YET.
 #'
+#'@param over
+#'  Either \code{NULL} or a \code{\link{function}} with 3 
+#'  arguments, \code{s}, code{x} and \code{scale}. If a 
+#'  \code{\link{function}}, should be used to add arbitrary 
+#'  graphical overlay on top of ternary plots. Experimental.
+#'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}
 #'
@@ -592,6 +626,7 @@ createTernarySystem <- function(
  vertices = NULL, 
  classes = NULL, 
  scale = NULL, 
+ over = NULL, 
  ...
 ){  
     tsy <- list() 
@@ -642,8 +677,15 @@ createTernarySystem <- function(
     }   
     
     
-    #   Set class:
+    #   Overlay function
+    tsy[ "over" ] <- list( over )
+    
+    
+    #   Set the class
     class( tsy ) <- "ternarySystem"
+    
+    class( tsy ) <- .generateTernaryGeometry2ndClass( 
+        blrClock = blrClock( tsy ), class1 = "ternarySystem" ) 
     
     
     #   Check:
