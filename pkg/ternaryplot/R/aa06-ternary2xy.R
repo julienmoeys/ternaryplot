@@ -129,10 +129,12 @@ ternary2xy.ternarySystem <- function(
     }   
     
     
-    class( s ) <- .generateTernaryGeometry2ndClass( 
-        blrClock = blrClock( s ), 
-        class1   = "ternarySystem" 
-    )   
+    # #   In principle not necessary, but may catch a few 
+    # #   problems
+    # class( s ) <- .generateTernaryGeometry2ndClass( 
+        # blrClock = blrClock( s ), 
+        # class1   = "ternarySystem" 
+    # )   
     
     
     return( .ternary2xy( s = s, x = x, ... ) ) 

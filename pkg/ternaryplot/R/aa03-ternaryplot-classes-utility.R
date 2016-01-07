@@ -365,6 +365,12 @@ blrClock.ternaryGeometry <- function(
         .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
+    #   Set the class (in case it has changed)
+    class( s ) <- .generateTernaryGeometry2ndClass( 
+        blrClock = value, 
+        class1   = "ternarySystem" ) 
+    
+    
     #   Check the validity
     ternaryCheck( s[[ 'ternaryGeometry' ]], ... ) 
 
