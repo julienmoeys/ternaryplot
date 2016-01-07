@@ -5,9 +5,9 @@
 \title{Get or set default parameters for the package.}
 \usage{
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
-  classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, arrowsShift,
-  arrowsHeight, arrowsCoords, arrowsBreak, grid.line.col, axis.line.lwd,
-  plot.bg)
+  classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
+  arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
+  grid.line.col, axis.line.lwd, plot.bg)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -81,6 +81,12 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  in inches, estimated using the internal function
  \code{.nbMargin2diffXY()}.}
 
+\item{ticksLabelsShift}{Single numeric. Tick-label-marks 'size'.
+ If \code{NA}, it is calculated internally from
+ \code{par("mgp")} and the height in of a margin line
+ in inches, estimated using the internal function
+ \code{.nbMargin2diffXY()}.}
+
 \item{arrowsShift}{Vector of two numeric values. Axis' arrows' shift from their
  axis, expressed so that \code{arrowsShift * fracSum} is the
  start and end point. If \code{NA}, the arrow shift from
@@ -95,9 +101,16 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 
 \item{arrowsCoords}{Parameters used internally to define axis-arrows location}
 
-\item{arrowsBreak}{Single logical value. If \code{TRUE}, axis-arrows are 'browken'
+\item{arrowsBreak}{Single logical value. If \code{TRUE}, axis-arrows are 'broken'
  (i.e. with the arrow starting parallel to the axis and finishing
  toward the axis).}
+
+\item{arrowsLength}{Single numerical value. Length of the arrows' head (see
+ \code{length}-argument in \code{\link[graphics]{arrows}}).
+ in inches. If \code{NA}, calculated internally so that
+ the length of the arrows' head is proportional to
+ the plot dimension (see argument \code{pin} in
+ \code{\link[graphics]{par}}).}
 
 \item{grid.line.col}{Single character value representing a color. Color of the
  grid-lines added to a ternary plot.}
@@ -106,7 +119,7 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  (including ticks and arrows)}
 
 \item{plot.bg}{Single character value representing a color. Fill-color of the
- plot region (frame). Set to \code{NA} or \code{"transparemt"}
+ plot region (frame). Set to \code{NA} or \code{"transparent"}
  to suppress color.}
 }
 \value{
