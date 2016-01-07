@@ -1,7 +1,7 @@
 
 rm(list=ls(all=TRUE)) 
 pkgName     <- "ternaryplot"
-pkgDir      <- "D:/Users/julienm/Documents/_WORKS/_PROJECTS/r_packages/soiltexture/pkg"
+pkgDir      <- "C:/Users/julienm/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg"
 
 
 library( "roxygen2" )
