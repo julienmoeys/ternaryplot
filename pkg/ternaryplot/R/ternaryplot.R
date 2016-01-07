@@ -773,22 +773,29 @@ ternaryArrows.ternarySystem <- function(
     tScale       <- s[[ 'scale' ]] 
     .fracSum     <- fracSum( s = s ) 
     marginSize   <- .nbMargin2diffXY()
+    .par         <- par() 
     
     if( type == "ticks" ){ 
-        ticksShiftTo <- getTpPar( "ticksShift" ) 
+        # ticksShiftTo <- getTpPar( "ticksShift" ) 
+        ticksShift <- getTpPar( "ticksShift" ) 
         
-        if( is.na( ticksShiftTo ) ){
-            ticksShiftFrom <- (marginSize / .fracSum) * par( "mgp" )[ 3L ] 
-            ticksShiftTo   <- 
-                ticksShiftFrom + (marginSize / .fracSum) * (-1 * par( "tcl" )) 
+        if( is.na( ticksShift ) ){
+            ticksShift <- (marginSize / .fracSum) * (-1 * .par[[ "tcl" ]])
         }   
+        
+        ticksShiftFrom <- (marginSize / .fracSum) * .par[[ "mgp" ]][ 3L ] 
+        ticksShiftTo   <- ticksShiftFrom + ticksShift
+        
     }else if( type == "tickLabels" ){
-        ticksShiftTo <- getTpPar( "ticksShift" ) 
+        ticksLabelsShift <- getTpPar( "ticksLabelsShift" ) 
         
-        if( is.na( ticksShiftTo ) ){
-            ticksShiftFrom <- (marginSize / .fracSum) * par( "mgp" )[ 3L ] 
-            ticksShiftTo   <- (marginSize / .fracSum) * par( "mgp" )[ 2L ] 
+        if( is.na( ticksLabelsShift ) ){
+            ticksLabelsShift <- abs( diff( .par[[ "mgp" ]][ 3:2 ] ) )
         }   
+        
+        ticksShiftFrom <- (marginSize / .fracSum) * .par[[ "mgp" ]][ 3L ] 
+        ticksShiftTo   <- ticksShiftFrom + (marginSize / .fracSum) * ticksLabelsShift 
+        
     }else{
         ticksShiftFrom <- NA_real_
         ticksShiftTo   <- NA_real_
@@ -1986,6 +1993,24 @@ ternaryPlot.ternarySystem <- function(
 
 # .ternaryAxisArrows ============================================
 
+calculateArrowLength <- function( pin = NULL ){
+    if( is.null( pin ) ){
+        pin <- par( "pin" )
+    }   
+    
+    #   Default arrow length in inches
+    arrowLengthDefault <- 0.25 
+    
+    #   Default maximum plot dimension in inches
+    maxPlotDim <- 7.545416
+    
+    #   Actual maximum plot dimension in inches
+    pin <- max( pin ) 
+    
+    #   Desired arrow length
+    return( arrowLengthDefault * (pin / maxPlotDim) )
+}   
+
 #' INTERNAL: Draw axis' arrows and arrows' label marks on a 
 #'  triangle plot
 #'
@@ -2041,27 +2066,34 @@ ternaryPlot.ternarySystem <- function(
     }   
     
     
-    pr <- tpPar( par = c( "arrowsBreak", "arrowsShift", "axis.line.lwd", "arrowsHeight" ) ) 
+    pr <- tpPar( par = c( "arrowsBreak", "axis.line.lwd", 
+        "arrowsLength" ) ) # "arrowsShift", "arrowsHeight", 
     .par <- par()
     
     arrowsBreak   <- pr$"arrowsBreak" 
-    arrowsShift   <- pr$"arrowsShift" 
+    # arrowsShift   <- pr$"arrowsShift" 
+    arrowsLength  <- pr$"arrowsLength" 
     fg            <- .par[[ "fg" ]] # par( "fg" )
     axis.line.lwd <- pr$"axis.line.lwd"
     col.lab       <- .par[[ "col.lab" ]] # par( "col.lab" )
     .fracSum      <- fracSum( s = s )
     
-    if( any( is.na( arrowsShift ) ) ){
-        #   Note: also set in .ternaryAxisArrowsBase
-        arrowsHeight <- pr$"arrowsHeight"
-        mgp          <- .par[[ "mgp" ]]
-        
-        arrowsShift <- (.nbMargin2diffXY() / .fracSum) * 
-            c( mgp[ 1L ] - arrowsHeight, mgp[ 1L ] ) 
-        
-        # print( arrowsShift ) 
-    }   
     
+    # if( any( is.na( arrowsShift ) ) ){
+        # #   Note: also set in .ternaryAxisArrowsBase
+        # arrowsHeight <- pr$"arrowsHeight"
+        # mgp          <- .par[[ "mgp" ]]
+        
+        # arrowsShift <- (.nbMargin2diffXY() / .fracSum) * 
+            # c( mgp[ 1L ] - arrowsHeight, mgp[ 1L ] ) 
+        
+        # # print( arrowsShift ) 
+    # }   
+    
+    
+    if( is.na( arrowsLength ) ){
+        arrowsLength <- calculateArrowLength( pin = .par[[ "pin" ]] )
+    }   
     
     
     #   Chose the right adjustment
@@ -2101,7 +2133,7 @@ ternaryPlot.ternarySystem <- function(
                         s      = s, 
                         col    = fg, 
                         lwd    = axis.line.lwd, 
-                        length = diff( arrowsShift ), 
+                        length = arrowsLength, # diff( arrowsShift ), 
                         ... ) 
                 }   
             }   
@@ -2114,7 +2146,7 @@ ternaryPlot.ternarySystem <- function(
                     s      = s, 
                     col    = fg, 
                     lwd    = axis.line.lwd, 
-                    length = diff( arrowsShift ), 
+                    length = arrowsLength, # diff( arrowsShift ), 
                     ... ) 
             }   
             
