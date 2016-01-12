@@ -1075,13 +1075,15 @@ print.ternarySystem <- function(
 #'
 #'
 #'@param x 
-#'  A \code{\link[ternaryplot]{ternaryPolygons}} object, as 
+#'  A \code{ternaryPolygons}-object, as 
 #'  created with \code{\link[ternaryplot]{createTernaryGrid}}.
+#'  or \code{\link[ternaryplot]{ternaryClasses}}.
 #'
 #'@param \dots
 #'  Not used
 #'
-#'@param value 
+#'
+#'@return 
 #'  A \code{ternarySystem}-object.
 #'
 #' 

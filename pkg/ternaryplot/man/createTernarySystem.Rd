@@ -2,7 +2,6 @@
 % Please edit documentation in R/aa02-ternaryplot-classes.R
 \name{createTernarySystem}
 \alias{createTernarySystem}
-\alias{ternarySystem}
 \title{Creates a ternarySystem object: ternary plot system definition.}
 \usage{
 createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,

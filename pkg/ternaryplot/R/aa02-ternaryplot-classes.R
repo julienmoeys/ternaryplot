@@ -461,8 +461,6 @@ ternaryCheck.ternarySystem <- function(
 #'
 #'@rdname createTernaryGeometry
 #'
-#'@aliases ternaryGeometry
-#'
 #'@export
 #'
 createTernaryGeometry <- function(
@@ -525,8 +523,6 @@ createTernaryGeometry <- function(
 #'
 #'
 #'@rdname createTernaryVariables
-#'
-#'@aliases ternaryVariables
 #'
 #'@export 
 #'
@@ -618,8 +614,6 @@ createTernaryVariables <- function(
 #'
 #'
 #'@rdname createTernarySystem
-#'
-#'@aliases ternarySystem
 #'
 #'@export
 #'

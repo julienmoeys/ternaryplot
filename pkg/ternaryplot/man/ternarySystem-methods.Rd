@@ -10,12 +10,14 @@ ternarySystem(x, ...)
 \method{ternarySystem}{ternaryPolygons}(x, ...)
 }
 \arguments{
-\item{x}{A \code{\link[ternaryplot]{ternaryPolygons}} object, as
- created with \code{\link[ternaryplot]{createTernaryGrid}}.}
+\item{x}{A \code{ternaryPolygons}-object, as
+ created with \code{\link[ternaryplot]{createTernaryGrid}}.
+ or \code{\link[ternaryplot]{ternaryClasses}}.}
 
 \item{\dots}{Not used}
-
-\item{value}{A \code{ternarySystem}-object.}
+}
+\value{
+A \code{ternarySystem}-object.
 }
 \description{
 Fetch the ternary system definition from another object

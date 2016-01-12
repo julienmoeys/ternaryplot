@@ -20,7 +20,7 @@ ternaryPlot(s, ...)
 \item{s}{Either a character string naming the ternary classification
  system to be used (if pre-defined),
  or a \code{\link[ternaryplot]{ternarySystem}}-object,
- or a \code{\link[ternaryplot]{ternaryPolygons}}-object
+ or a \code{ternaryPolygons}-object
  (such as created with \code{\link[ternaryplot]{createTernaryGrid}}).}
 
 \item{x}{A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}}
@@ -40,10 +40,10 @@ ternaryPlot(s, ...)
  is not plotted again (windows, grid, axis, ...), and only
  overlay data is shown (such as point data if \code{x} is
  not null, or polygons overlay if \code{s} is a
- \code{\link[ternaryplot]{ternaryPolygons}}).}
+ \code{ternaryPolygons}-object).}
 
 \item{polygonExtra}{If \code{s} is a
- \code{\link[ternaryplot]{ternaryPolygons}}-object,
+ \code{ternaryPolygons}-object,
  list of additional arguments passed to
  \code{\link[graphics]{polygon}}.}
 
