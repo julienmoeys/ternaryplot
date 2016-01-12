@@ -461,6 +461,8 @@ ternaryCheck.ternarySystem <- function(
 #'
 #'@rdname createTernaryGeometry
 #'
+#'@aliases ternaryGeometry
+#'
 #'@export
 #'
 createTernaryGeometry <- function(
@@ -524,12 +526,14 @@ createTernaryGeometry <- function(
 #'
 #'@rdname createTernaryVariables
 #'
+#'@aliases ternaryVariables
+#'
 #'@export 
 #'
 createTernaryVariables <- function(
- blrNames   = paste0( "F", 1:3 ), 
- blrLabels  = sprintf( "Fraction %s [%s]", 1:3, "%" ), 
- ...
+    blrNames   = paste0( "F", 1:3 ), 
+    blrLabels  = sprintf( "Fraction %s [%s]", 1:3, "%" ), 
+    ...
 ){ 
     tv <- list( 
         "blrNames"  = blrNames, 
@@ -620,14 +624,14 @@ createTernaryVariables <- function(
 #'@export
 #'
 createTernarySystem <- function(
- ternaryGeometry = NULL, 
- ternaryVariables = NULL, 
- main = character(0), 
- vertices = NULL, 
- classes = NULL, 
- scale = NULL, 
- over = NULL, 
- ...
+    ternaryGeometry = NULL, 
+    ternaryVariables = NULL, 
+    main = character(0), 
+    vertices = NULL, 
+    classes = NULL, 
+    scale = NULL, 
+    over = NULL, 
+    ...
 ){  
     tsy <- list() 
     

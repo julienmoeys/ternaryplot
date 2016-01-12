@@ -29,6 +29,7 @@
 \value{
 Invisibly returns a list of \code{data.frame}
  with the start and end points of the grid segments
+ for each of the 3 axis.
 }
 \description{
 INTERNAL: Draw axis' tick marks on a triangle plot

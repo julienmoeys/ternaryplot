@@ -7,7 +7,8 @@
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
   classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
   arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
-  grid.line.col, axis.line.lwd, plot.bg)
+  grid.line.col, axis.line.lwd, plot.bg, class.line.col, class.bg,
+  class.line.lwd)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -121,6 +122,19 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 \item{plot.bg}{Single character value representing a color. Fill-color of the
  plot region (frame). Set to \code{NA} or \code{"transparent"}
  to suppress color.}
+
+\item{class.line.col}{Single character strings representing a colour (see for
+ example \code{\link[grDevices]{colours}}). Colour of the
+ lines of ternary class polygons (when displayed on
+ a ternary plot)}
+
+\item{class.bg}{Single character strings representing a colour (see for
+ example \code{\link[grDevices]{colours}}). Colour of the
+ background (filling) of ternary class polygons (when
+ displayed on a ternary plot)}
+
+\item{class.line.lwd}{Single numerical value. Line width of ternary class
+ polygons (when displayed on a ternary plot)}
 }
 \value{
 Returns a partial or complete list of (actual) parameter values, as a

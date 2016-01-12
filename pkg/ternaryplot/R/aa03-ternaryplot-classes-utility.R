@@ -1,6 +1,6 @@
 
 # +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
+# | Package:    ternaryplot                                     |
 # | Language:   R + roxygen2 inline documentation               |
 # | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
 # | License:    AGPL3, Affero General Public License version 3  |
@@ -1064,4 +1064,35 @@ print.ternarySystem <- function(
     return( invisible( x ) ) 
 }   
 
+
+
+
+# ternarySystem ============================================
+
+#'Fetch the ternary system definition from another object
+#'
+#'Fetch the ternary system definition from another object
+#'
+#'
+#'@param x 
+#'  A \code{\link[ternaryplot]{ternaryPolygons}} object, as 
+#'  created with \code{\link[ternaryplot]{createTernaryGrid}}.
+#'
+#'@param \dots
+#'  Not used
+#'
+#'@param value 
+#'  A \code{ternarySystem}-object.
+#'
+#' 
+#'@rdname ternarySystem-methods
+#'
+#'@export 
+#'
+ternarySystem <- function( 
+    x, 
+    ... 
+){  
+    UseMethod( "ternarySystem" ) 
+}   
 

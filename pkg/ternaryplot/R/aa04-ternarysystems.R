@@ -1,6 +1,6 @@
 
 # +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
+# | Package:    ternaryplot                                     |
 # | Language:   R + roxygen2 inline documentation               |
 # | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
 # | License:    AGPL3, Affero General Public License version 3  |
@@ -39,7 +39,7 @@ ternarySystemEnv[[ "dummy" ]] <- createTernarySystem(
             "Class 2" ),  
         "verticesId" = I( list( # The length of each item can vary
             "C1" = c( 1, 2, 3 ), 
-            "C2" = c( 3, 2, 4 ) 
+            "C2" = c( 1, 3, 4 ) 
         ) ),
         stringsAsFactors = FALSE 
     ),  
@@ -86,7 +86,7 @@ ternarySystemEnv[[ "hypres" ]] <- createTernarySystem(
         "blrLabels" = expression( 
             'Sand 50-2000' ~ mu * 'm [%]', 
             'Clay 0-2' ~ mu * 'm [%]', 
-            'CSilt 2-50' ~ mu * 'm [%]'
+            'Silt 2-50' ~ mu * 'm [%]'
         )   
     ),  
     

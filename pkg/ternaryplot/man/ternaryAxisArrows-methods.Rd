@@ -18,6 +18,7 @@
 \value{
 Invisibly returns a list of \code{data.frame}
  with the start and end points of the arrows segments
+ for each of the 3 axis.
 }
 \description{
 INTERNAL: Draw axis' arrows and arrows' label marks on a

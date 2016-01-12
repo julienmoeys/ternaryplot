@@ -130,6 +130,12 @@ tpParList  <- new.env()
 
 .tpParList[[ "grid.line.col" ]] <- "lightgray" 
 
+# Classes
+# -------
+
+.tpParList[[ "class.line.col" ]] <- "darkgray"
+.tpParList[[ "class.bg" ]]       <- NA 
+.tpParList[[ "class.line.lwd" ]] <- 1 
 
 
 
@@ -299,6 +305,22 @@ tpParList  <- new.env()
 #'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
 #'  to suppress color.
 #'
+#'@param class.line.col 
+#'  Single character strings representing a colour (see for 
+#'  example \code{\link[grDevices]{colours}}). Colour of the 
+#'  lines of ternary class polygons (when displayed on 
+#'  a ternary plot)
+#'
+#'@param class.bg
+#'  Single character strings representing a colour (see for 
+#'  example \code{\link[grDevices]{colours}}). Colour of the 
+#'  background (filling) of ternary class polygons (when 
+#'  displayed on a ternary plot)
+#'
+#'@param class.line.lwd
+#'  Single numerical value. Line width of ternary class 
+#'  polygons (when displayed on a ternary plot)
+#'
 #'
 #'@return 
 #'  Returns a partial or complete list of (actual) parameter values, as a
@@ -331,7 +353,10 @@ tpPar <- function(
     arrowsLength, 
     grid.line.col, 
     axis.line.lwd, 
-    plot.bg
+    plot.bg, 
+    class.line.col, 
+    class.bg, 
+    class.line.lwd 
 ){  
     parList <- names( formals(tpPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset" )) ] 

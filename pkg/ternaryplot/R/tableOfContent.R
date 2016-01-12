@@ -84,6 +84,11 @@
 #       ternary2xy.character
 #       ternary2xy.ternaryData
 #       ternary2xy.ternarySystem
+#       .ternary2xy
+#       .ternary2xy.geo_TTT
+#       .ternary2xy.geo_FFF
+#       .ternary2xy.geo_FTX
+#       .ternary2xy.geo_TXF
 #       
 #   aa07-plotUtilities.R
 #   
@@ -120,9 +125,19 @@
 #       ternaryArrows
 #       ternaryArrows.ternarySystem
 #       .ternaryGridBase 
-#       .ternaryGridBase.ternarySystem (*)
+#       .ternaryGridBase.ternarySystem 
+#       ._ternaryGridBase 
+#       ._ternaryGridBase.geo_FFF
+#       ._ternaryGridBase.geo_FFF
+#       ._ternaryGridBase.geo_FTX
+#       ._ternaryGridBase.geo_TXF
 #       .ternaryTicks
-#       .ternaryTicks.ternarySystem (*)
+#       .ternaryTicks.ternarySystem 
+#       ._ternaryTicks
+#       ._ternaryTicks.geo_FFF
+#       ._ternaryTicks.geo_FFF
+#       ._ternaryTicks.geo_FTX
+#       ._ternaryTicks.geo_TXF
 #       ternaryGrid
 #       ternaryGrid.ternarySystem
 #       ternaryPlot
@@ -134,8 +149,18 @@
 #       .ternaryClockSwitch
 #       .ternaryAxisArrowsBase
 #       .ternaryAxisArrowsBase.ternarySystem (*)
+#       ._ternaryAxisArrowsBase
+#       ._ternaryAxisArrowsBase.geo_FFF
+#       ._ternaryAxisArrowsBase.geo_FFF
+#       ._ternaryAxisArrowsBase.geo_FTX
+#       ._ternaryAxisArrowsBase.geo_TXF
 #       .ternaryAxisArrows
-#       .ternaryAxisArrows.ternarySystem (*)
+#       .ternaryAxisArrows.ternarySystem 
+#       ._ternaryAxisArrows
+#       ._ternaryAxisArrows.geo_FFF
+#       ._ternaryAxisArrows.geo_FFF
+#       ._ternaryAxisArrows.geo_FTX
+#       ._ternaryAxisArrows.geo_TXF
 #       ternaryAxis
 #       ternaryAxis.character
 #       ternaryAxis.ternarySystem

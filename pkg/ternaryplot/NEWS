@@ -1,6 +1,24 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.3.3
+    
+    2016/01/12  The package encoding (in DESCRIPTION) has been 
+        set to UTF-8.
+        
+        Now several (more) internal functions uses geometry 
+        specific methods (easier to maintain and improve)
+        See (in the code) ._ternaryGridBase, ._ternaryTicks, 
+        ._ternaryAxisArrowsBase and ._ternaryAxisArrows
+        
+        ternaryClassification() created. Extract the 
+        class-polygons from a ternarySystem-object (if it 
+        has classes).
+        
+        ternaryPlot() can now plot (overlay) grids generated 
+        by createTernaryGrid() and ternary classification 
+        fetched with ternaryClassification()
+        
 CHANGES IN VERSION 0.3.2
     
     2016/01/07  ternary2xy() now call internal function 

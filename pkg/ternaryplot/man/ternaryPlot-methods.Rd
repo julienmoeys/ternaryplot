@@ -3,6 +3,7 @@
 \name{ternaryPlot}
 \alias{ternaryPlot}
 \alias{ternaryPlot.character}
+\alias{ternaryPlot.ternaryPolygons}
 \alias{ternaryPlot.ternarySystem}
 \title{Generic ternary-data plotting}
 \usage{
@@ -11,11 +12,16 @@ ternaryPlot(s, ...)
 \method{ternaryPlot}{character}(s, ...)
 
 \method{ternaryPlot}{ternarySystem}(s, x = NULL, scale = FALSE, ...)
+
+\method{ternaryPlot}{ternaryPolygons}(s, scale = FALSE, add = FALSE,
+  polygonExtra = NULL, ...)
 }
 \arguments{
 \item{s}{Either a character string naming the ternary classification
- system to be used (if pre-defined) or a
- \code{\link[ternaryplot]{ternarySystem}} object.}
+ system to be used (if pre-defined),
+ or a \code{\link[ternaryplot]{ternarySystem}}-object,
+ or a \code{\link[ternaryplot]{ternaryPolygons}}-object
+ (such as created with \code{\link[ternaryplot]{createTernaryGrid}}).}
 
 \item{x}{A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}}
  containing point ternary data (x-y-x) to be ploted on the graph.
@@ -28,6 +34,18 @@ ternaryPlot(s, ...)
  performed, and the full extent triangle plot is drawn. If a
  \code{data.frame}, contains the min and max limits of each
  of the 3 variables (columns = variables, rows = min and max).}
+
+\item{add}{Single logical value. If \code{TRUE} (an existing ternary
+ plot has already been plotted), the base ternary plot
+ is not plotted again (windows, grid, axis, ...), and only
+ overlay data is shown (such as point data if \code{x} is
+ not null, or polygons overlay if \code{s} is a
+ \code{\link[ternaryplot]{ternaryPolygons}}).}
+
+\item{polygonExtra}{If \code{s} is a
+ \code{\link[ternaryplot]{ternaryPolygons}}-object,
+ list of additional arguments passed to
+ \code{\link[graphics]{polygon}}.}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }

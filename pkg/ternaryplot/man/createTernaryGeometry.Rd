@@ -2,6 +2,7 @@
 % Please edit documentation in R/aa02-ternaryplot-classes.R
 \name{createTernaryGeometry}
 \alias{createTernaryGeometry}
+\alias{ternaryGeometry}
 \title{Creates a ternaryGeometry object: ternary plot geometry definition.}
 \usage{
 createTernaryGeometry(tlrAngles = c(60, 60, 60), blrClock = rep(TRUE, 3),

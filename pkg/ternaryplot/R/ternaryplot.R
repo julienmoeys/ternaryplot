@@ -754,7 +754,6 @@ ternaryArrows.ternarySystem <- function(
     
     UseMethod( ".ternaryGridBase" ) 
 }   
- 
 
 
 #'@rdname ternaryGridBase-methods
@@ -860,14 +859,82 @@ ternaryArrows.ternarySystem <- function(
     colnames( rTicks ) <- .blrNames 
     
     # Format as a list
-    gridFrom <- gridTo <- list( 
+    gridFromTo <- list( 
         "B" = bTicks, 
         "L" = lTicks, 
         "R" = rTicks  
     )   
-    names( gridFrom ) <- .blrNames
-    names( gridTo )   <- .blrNames
-    # rm( bTicks, lTicks, rTicks )
+    names( gridFromTo ) <- .blrNames
+    
+    rm( bTicks, lTicks, rTicks )
+    
+    
+    #   Call geometry specific methods
+    out <- ._ternaryGridBase(
+        s               = s, 
+        type            = type, 
+        ticksShiftFrom  = ticksShiftFrom, 
+        ticksShiftTo    = ticksShiftTo, 
+        gridFromTo      = gridFromTo, 
+        ... 
+    )   
+    
+    return( out ) 
+}   
+
+
+## # INTERNAL. Geometry specific methods for .ternaryGridBase()
+## #
+## # INTERNAL. Geometry specific methods for .ternaryGridBase()
+## #
+## #
+## #@param s 
+## #  See .ternaryGridBase()
+## #
+## #@param type
+## #  See .ternaryGridBase()
+## #
+## #@param \dots
+## #  See .ternaryGridBase()
+## #
+## # 
+## #@rdname _ternaryGridBase-methods
+## #
+## #@export 
+## #
+## #@keywords internal
+## #
+._ternaryGridBase <- function( 
+ s, 
+ type, 
+ ticksShiftFrom, 
+ ticksShiftTo, 
+ gridFromTo, 
+ ... 
+){  
+    UseMethod( "._ternaryGridBase" ) 
+}   
+
+
+## #@rdname _ternaryGridBase-methods-methods
+## #
+## #@method ._ternaryGridBase geo_TTT
+## #
+## #@export
+## #
+._ternaryGridBase.geo_TTT <- function( 
+ s, 
+ type, 
+ ticksShiftFrom, 
+ ticksShiftTo, 
+ gridFromTo, 
+ ... 
+){  
+    tScale       <- s[[ 'scale' ]] 
+    .fracSum     <- fracSum( s = s ) 
+    
+    gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
+    
     
     ## Calculate the grid-lines coordinates for each axis
     for( ax in 1:3 ){ 
@@ -883,225 +950,44 @@ ternaryArrows.ternarySystem <- function(
             axNext <- 1 
         }   
         
-        if( !is.na( .blrClock[ ax ] ) ){ 
+        if( type == "grid" ){ # !ticks
+            # Start coordinates on next axis is 0 or min
+            gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
             
-            # Axis is clockwise
-            if( .blrClock[ ax ] ){ 
-                nextClock <- ifelse( 
-                    is.na( .blrClock[ axNext ] ), 
-                    FALSE, 
-                    .blrClock[ axNext ] 
-                )   
-                
-                prevClock <- ifelse( 
-                    is.na( .blrClock[ axPrev ] ), 
-                    FALSE, 
-                    .blrClock[ axPrev ] 
-                )   
-                
-                # Next axis is not clockwise or is NA
-                if( !nextClock ){ 
-                    if( type == "grid" ){ # !ticks 
-                        # Start coordinates on previous axis is 0 or min
-                        gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
-                        
-                        # Start coordinates on next axis
-                        gridFrom[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axPrev ]
-                        
-                        # End coordinates on next axis
-                        gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
-                    
-                        # End coordinate on previous axis
-                        gridTo[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axNext ] 
-                    }else{ 
-                        # Start coordinates on previous axis is 0 or min
-                        gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftFrom * .fracSum 
-                        
-                        # Start coordinates on next axis
-                        gridFrom[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axPrev ]
-                        
-                        # End coordinate on previous axis
-                        gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftTo * .fracSum 
-                        
-                        # End coordinate on next axis
-                        gridTo[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axPrev ] 
-                    }   
-                
-                # Next axis is clockwise too
-                }else{ 
-                    if( type == "grid" ){ # !ticks
-                        # Start coordinates on next axis is 0 or min
-                        gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
-                        
-                        # Start coordinates on previous axis
-                        gridFrom[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axNext ]
-                        
-                        # End coordinates on previous axis
-                        gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
-                    
-                        # End coordinate on next axis
-                        gridTo[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axPrev ]
-                    }else{ 
-                        # Start coordinates on next axis is 0 or min
-                        gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftFrom * .fracSum  
-                        
-                        # Start coordinates on previous axis
-                        gridFrom[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axNext ]
-                        
-                        # End coordinates on previous axis
-                        gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftTo * .fracSum  
-                    
-                        # End coordinate on next axis
-                        gridTo[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axNext ]
-                    }   
-                }   
-                
-            # Axis is counter-clockwise
-            }else{ 
-                nextClock <- ifelse( 
-                    is.na( .blrClock[ axNext ] ), 
-                    TRUE, 
-                    .blrClock[ axNext ] 
-                )   
-                
-                prevClock <- ifelse( 
-                    is.na( .blrClock[ axPrev ] ), 
-                    TRUE, 
-                    .blrClock[ axPrev ] 
-                )   
-                
-                # Next axis is clockwise
-                if( nextClock ){ 
-                    if( type == "grid" ){ # !ticks
-                        # Start coordinates on next axis is 0 or min
-                        gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
-                        
-                        # Start coordinates on previous axis
-                        gridFrom[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axNext ]
-                        
-                        # End coordinates on previous axis
-                        gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
-                        
-                        # End coordinate on next axis
-                        gridTo[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axPrev ]
-                    }else{ 
-                        # Start coordinates on next axis is 0 or min
-                        gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftFrom * .fracSum  
-                        
-                        # Start coordinates on previous axis
-                        gridFrom[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axNext ]
-                        
-                        # End coordinates on previous axis
-                        gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftTo * .fracSum  
-                        
-                        # End coordinate on next axis
-                        gridTo[[ ax ]][, axPrev ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axNext ]
-                    }   
-                
-                # Next axis is counter-clockwise too (or NA?)
-                }else{ 
-                    if( type == "grid" ){ # !ticks
-                        # Start coordinates on previous axis is 0 or min
-                        gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
-                        
-                        # Start coordinates on next axis
-                        gridFrom[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axPrev ]
-                        
-                        # End coordinates on next axis
-                        gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
-                        
-                        # End coordinate on previous axis
-                        gridTo[[ ax ]][, axPrev] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axNext ]
-                    }else{ 
-                        # Start coordinates on previous axis is 0 or min
-                        gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftFrom * .fracSum 
-                        
-                        # Start coordinates on next axis
-                        gridFrom[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridFrom[[ ax ]][, ax ] - 
-                            gridFrom[[ ax ]][, axPrev ]
-                        
-                        # End coordinates on next axis
-                        gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftTo * .fracSum 
-                        
-                        # End coordinate on previous axis
-                        gridTo[[ ax ]][, axNext ] <- 
-                            .fracSum - 
-                            gridTo[[ ax ]][, ax ] - 
-                            gridTo[[ ax ]][, axPrev ] 
-                    }   
-                }   
-            }  
+            # Start coordinates on previous axis
+            gridFrom[[ ax ]][, axPrev ] <- 
+                .fracSum - 
+                gridFrom[[ ax ]][, ax ] - 
+                gridFrom[[ ax ]][, axNext ]
+            
+            # End coordinates on previous axis
+            gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
         
-        }else{  ## axis orientation is NA
-            if( type == "grid" ){ # !ticks
-                gridFrom[[ ax ]] <- .ternaryClockSwitch( 
-                    s   = s, #B     L     R
-                    ttt = list( "B" = NA,                       "L" = NA,                                   "R" = NA ), 
-                    txf = list( "B" = bTicks[ .blrNames[ 1 ] ], "L" = .fracSum - bTicks[ .blrNames[ 1 ] ],  "R" = 0 ), 
-                    ftx = list( "B" = bTicks[ .blrNames[ 1 ] ], "L" = 0,                                    "R" = .fracSum - bTicks[ .blrNames[ 1 ] ] ), 
-                    fff = list( "B" = NA,                       "L" = NA,                                   "R" = NA )   
-                )   
-                gridFrom[[ ax ]] <- as.data.frame( gridFrom[[ ax ]] ) 
-                
-                gridTo[[ ax ]] <- .ternaryClockSwitch( 
-                    s   = s, #B     L     R
-                    ttt = list( "B" = NA, "L" = NA,                                  "R" = NA ), 
-                    txf = list( "B" = 0,  "L" = .fracSum - bTicks[ .blrNames[ 1 ] ], "R" = bTicks[ .blrNames[ 1 ] ] ), 
-                    ftx = list( "B" = 0,  "L" = bTicks[ .blrNames[ 1 ] ],            "R" = .fracSum - bTicks[ .blrNames[ 1 ] ] ), 
-                    fff = list( "B" = NA, "L" = NA,                                  "R" = NA )   
-                )   
-                gridTo[[ ax ]] <- as.data.frame( gridTo[[ ax ]] ) 
-                
-                colnames( gridFrom[[ ax ]] ) <- .blrNames 
-                colnames( gridTo[[ ax ]] )   <- .blrNames 
-            }else{ 
-                gridFrom[[ ax ]] <- data.frame() 
-                gridTo[[ ax ]]   <- data.frame() 
-            }   
+            # End coordinate on next axis
+            gridTo[[ ax ]][, axNext ] <- 
+                .fracSum - 
+                gridTo[[ ax ]][, ax ] - 
+                gridTo[[ ax ]][, axPrev ]
+        }else{ 
+            # Ticks or ticks labels
+            
+            # Start coordinates on next axis is 0 or min
+            gridFrom[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftFrom * .fracSum  
+            
+            # Start coordinates on previous axis
+            gridFrom[[ ax ]][, axPrev ] <- 
+                .fracSum - 
+                gridFrom[[ ax ]][, ax ] - 
+                gridFrom[[ ax ]][, axNext ]
+            
+            # End coordinates on previous axis
+            gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - ticksShiftTo * .fracSum  
+        
+            # End coordinate on next axis
+            gridTo[[ ax ]][, axPrev ] <- 
+                .fracSum - 
+                gridTo[[ ax ]][, ax ] - 
+                gridTo[[ ax ]][, axNext ]
         }   
     }   
     
@@ -1113,6 +999,391 @@ ternaryArrows.ternarySystem <- function(
     
     return( out ) 
 }   
+
+
+## #@rdname _ternaryGridBase-methods-methods
+## #
+## #@method ._ternaryGridBase geo_FFF
+## #
+## #@export
+## #
+._ternaryGridBase.geo_FFF <- function( 
+ s, 
+ type, 
+ ticksShiftFrom, 
+ ticksShiftTo, 
+ gridFromTo, 
+ ... 
+){  
+    tScale       <- s[[ 'scale' ]] 
+    .fracSum     <- fracSum( s = s ) 
+    
+    gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
+    
+    
+    ## Calculate the grid-lines coordinates for each axis
+    for( ax in 1:3 ){ 
+        # Index of previous and next axis 
+        if( ax == 1 ){ 
+            axPrev <- 3 
+            axNext <- 2 
+            
+        }else if( ax == 2 ){ 
+            axPrev <- 1 
+            axNext <- 3 
+            
+        }else if( ax == 3 ){ 
+            axPrev <- 2 
+            axNext <- 1 
+            
+        }   
+        
+        if( type == "grid" ){ # !ticks
+            # Start coordinates on previous axis is 0 or min
+            gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] 
+            
+            # Start coordinates on next axis
+            gridFrom[[ ax ]][, axNext ] <- 
+                .fracSum - 
+                gridFrom[[ ax ]][, ax ] - 
+                gridFrom[[ ax ]][, axPrev ]
+            
+            # End coordinates on next axis
+            gridTo[[ ax ]][, axNext ] <- tScale[ "min", axNext ] 
+            
+            # End coordinate on previous axis
+            gridTo[[ ax ]][, axPrev] <- 
+                .fracSum - 
+                gridTo[[ ax ]][, ax ] - 
+                gridTo[[ ax ]][, axNext ]
+        }else{ 
+            #   Ticks or ticks labels
+            
+            # Start coordinates on previous axis is 0 or min
+            gridFrom[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftFrom * .fracSum 
+            
+            # Start coordinates on next axis
+            gridFrom[[ ax ]][, axNext ] <- 
+                .fracSum - 
+                gridFrom[[ ax ]][, ax ] - 
+                gridFrom[[ ax ]][, axPrev ]
+            
+            # End coordinates on next axis
+            gridTo[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - ticksShiftTo * .fracSum 
+            
+            # End coordinate on previous axis
+            gridTo[[ ax ]][, axNext ] <- 
+                .fracSum - 
+                gridTo[[ ax ]][, ax ] - 
+                gridTo[[ ax ]][, axPrev ] 
+        }   
+    }   
+    
+    # Format the output
+    out <- list( 
+        "from" = gridFrom, 
+        "to"   = gridTo 
+    )   
+    
+    return( out ) 
+}   
+
+
+## #@rdname _ternaryGridBase-methods-methods
+## #
+## #@method ._ternaryGridBase geo_FTX
+## #
+## #@export
+## #
+._ternaryGridBase.geo_FTX <- function( 
+ s, 
+ type, 
+ ticksShiftFrom, 
+ ticksShiftTo, 
+ gridFromTo, 
+ ... 
+){  
+    tScale       <- s[[ 'scale' ]] 
+    .fracSum     <- fracSum( s = s ) 
+    
+    gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
+    
+    # Calculate the grid-lines coordinates for each axis
+    # ======================================================
+    
+    # Axis 1: bottom (counter-clockwise)
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks
+        # Start coordinates on next axis is 0 or min
+        gridFrom[[ 1L ]][, 2L ] <- tScale[ "min", 2L ] 
+        
+        # Start coordinates on previous axis
+        gridFrom[[ 1L ]][, 3L ] <- 
+            .fracSum - 
+            gridFrom[[ 1L ]][, 1L ] - 
+            gridFrom[[ 1L ]][, 2L ]
+        
+        # End coordinates on previous axis
+        gridTo[[ 1L ]][, 3L ] <- tScale[ "min", 3L ] 
+        
+        # End coordinate on next axis
+        gridTo[[ 1L ]][, 2L ] <- 
+            .fracSum - 
+            gridTo[[ 1L ]][, 1L ] - 
+            gridTo[[ 1L ]][, 3L ]
+    }else{ 
+        #   Ticks or tick labels
+        
+        # Start coordinates on next axis is 0 or min
+        gridFrom[[ 1L ]][, 2L ] <- tScale[ "min", 2L ] - ticksShiftFrom * .fracSum  
+        
+        # Start coordinates on previous axis
+        gridFrom[[ 1L ]][, 3L ] <- 
+            .fracSum - 
+            gridFrom[[ 1L ]][, 1L ] - 
+            gridFrom[[ 1L ]][, 2L ]
+        
+        # End coordinates on previous axis
+        gridTo[[ 1L ]][, 2L ] <- tScale[ "min", 2L ] - ticksShiftTo * .fracSum  
+        
+        # End coordinate on next axis
+        gridTo[[ 1L ]][, 3L ] <- 
+            .fracSum - 
+            gridTo[[ 1L ]][, 1L ] - 
+            gridTo[[ 1L ]][, 2L ]
+    }   
+    
+    # Axis 2: left (clockwise)
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks 
+        # Start coordinates on previous axis is 0 or min
+        gridFrom[[ 2L ]][, 1L ] <- tScale[ "min", 1L ] 
+        
+        # Start coordinates on next axis
+        gridFrom[[ 2L ]][, 3L ] <- 
+            .fracSum - 
+            gridFrom[[ 2L ]][, 2L ] - 
+            gridFrom[[ 2L ]][, 1L ]
+        
+        # End coordinates on next axis
+        gridTo[[ 2L ]][, 3L ] <- tScale[ "min", 3L ] 
+    
+        # End coordinate on previous axis
+        gridTo[[ 2L ]][, 1L ] <- 
+            .fracSum - 
+            gridTo[[ 2L ]][, 2L ] - 
+            gridTo[[ 2L ]][, 3L ] 
+    }else{ 
+        # Start coordinates on previous axis is 0 or min
+        gridFrom[[ 2L ]][, 1L ] <- tScale[ "min", 1L ] - ticksShiftFrom * .fracSum 
+        
+        # Start coordinates on next axis
+        gridFrom[[ 2L ]][, 3L ] <- 
+            .fracSum - 
+            gridFrom[[ 2L ]][, 2L ] - 
+            gridFrom[[ 2L ]][, 1L ]
+        
+        # End coordinate on previous axis
+        gridTo[[ 2L ]][, 1L ] <- tScale[ "min", 1L ] - ticksShiftTo * .fracSum 
+        
+        # End coordinate on next axis
+        gridTo[[ 2L ]][, 3L ] <- 
+            .fracSum - 
+            gridTo[[ 2L ]][, 2L ] - 
+            gridTo[[ 2L ]][, 1L ] 
+    }   
+    
+    # Axis 3: NA 
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks
+        gridFrom[[ 3L ]][, 1L ] <- gridFrom[[ 1L ]][, 1L ]              # bottom
+        gridFrom[[ 3L ]][, 2L ] <- 0                                    # left
+        gridFrom[[ 3L ]][, 3L ] <- .fracSum - gridFrom[[ 1L ]][, 1L ]   # right
+        
+        # data.frame( 
+            # "B" = bTicks[ .blrNames[ 1 ] ], 
+            # "L" = 0,
+            # "R" = .fracSum - bTicks[ .blrNames[ 1 ] ] 
+        # )   
+        # colnames( gridFrom[[ 3L ]] ) <- .blrNames 
+        
+        gridTo[[ 3L ]][, 1L ] <- 0                                  # bottom
+        gridTo[[ 3L ]][, 2L ] <- gridFrom[[ 1L ]][, 1L ]            # left
+        gridTo[[ 3L ]][, 3L ] <- .fracSum - gridFrom[[ 1L ]][, 1L ] # right
+        
+        # data.frame( 
+            # "B" = 0,  
+            # "L" = bTicks[ .blrNames[ 1 ] ],
+            # "R" = .fracSum - bTicks[ .blrNames[ 1 ] ] 
+        # )   
+        # colnames( gridTo[[ 3L ]] )   <- .blrNames 
+        
+    }else{ 
+        #   Ticks and ticks labels
+        
+        gridFrom[[ 3L ]] <- data.frame() 
+        gridTo[[ 3L ]]   <- data.frame() 
+    }   
+    
+    # Format the output
+    out <- list( 
+        "from" = gridFrom, 
+        "to"   = gridTo 
+    )   
+    
+    return( out ) 
+}   
+
+
+## #@rdname _ternaryGridBase-methods-methods
+## #
+## #@method ._ternaryGridBase geo_TXF
+## #
+## #@export
+## #
+._ternaryGridBase.geo_TXF <- function( 
+ s, 
+ type, 
+ ticksShiftFrom, 
+ ticksShiftTo, 
+ gridFromTo, 
+ ... 
+){  
+    tScale       <- s[[ 'scale' ]] 
+    .fracSum     <- fracSum( s = s ) 
+    
+    gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
+    
+    # Calculate the grid-lines coordinates for each axis
+    # ======================================================
+    
+    # Axis 1: bottom (clockwise)
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks 
+        # Start coordinates on previous axis is 0 or min
+        gridFrom[[ 1L ]][, 3L ] <- tScale[ "min", 3L ] 
+        
+        # Start coordinates on next axis
+        gridFrom[[ 1L ]][, 2L ] <- 
+            .fracSum - 
+            gridFrom[[ 1L ]][, 1L ] - 
+            gridFrom[[ 1L ]][, 3L ]
+        
+        # End coordinates on next axis
+        gridTo[[ 1L ]][, 2L ] <- tScale[ "min", 2L ] 
+    
+        # End coordinate on previous axis
+        gridTo[[ 1L ]][, 3L ] <- 
+            .fracSum - 
+            gridTo[[ 1L ]][, 1L ] - 
+            gridTo[[ 1L ]][, 2L ] 
+    }else{ 
+        # Start coordinates on previous axis is 0 or min
+        gridFrom[[ 1L ]][, 3L ] <- tScale[ "min", 3L ] - ticksShiftFrom * .fracSum 
+        
+        # Start coordinates on next axis
+        gridFrom[[ 1L ]][, 2L ] <- 
+            .fracSum - 
+            gridFrom[[ 1L ]][, 1L ] - 
+            gridFrom[[ 1L ]][, 3L ]
+        
+        # End coordinate on previous axis
+        gridTo[[ 1L ]][, 3L ] <- tScale[ "min", 3L ] - ticksShiftTo * .fracSum 
+        
+        # End coordinate on next axis
+        gridTo[[ 1L ]][, 2L ] <- 
+            .fracSum - 
+            gridTo[[ 1L ]][, 1L ] - 
+            gridTo[[ 1L ]][, 3L ] 
+    }   
+    
+    # Axis 2: left (NA)
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks
+        gridFrom[[ 2L ]][, 1L ] <- gridFrom[[ 1L ]][, 1L ] 
+        gridFrom[[ 2L ]][, 2L ] <- .fracSum - gridFrom[[ 1L ]][, 1L ] 
+        gridFrom[[ 2L ]][, 3L ] <- 0 
+        
+        # data.frame( 
+            # "B" = bTicks[ .blrNames[ 1 ] ], 
+            # "L" = .fracSum - bTicks[ .blrNames[ 1 ] ],  
+            # "R" = 0 
+        # )   
+        # colnames( gridFrom[[ 2L ]] ) <- .blrNames 
+        
+        gridTo[[ 2L ]][, 1L ] <- 0 
+        gridTo[[ 2L ]][, 2L ] <- .fracSum - gridFrom[[ 1L ]][, 1L ]
+        gridTo[[ 2L ]][, 3L ] <- gridFrom[[ 1L ]][, 1L ]
+        
+        # data.frame( 
+            # "B" = 0,  
+            # "L" = .fracSum - bTicks[ .blrNames[ 1 ] ], 
+            # "R" = bTicks[ .blrNames[ 1 ] ] 
+        # )   
+        # colnames( gridTo[[ 2L ]] )   <- .blrNames 
+        
+    }else{ 
+        gridFrom[[ 2L ]] <- data.frame() 
+        gridTo[[ 2L ]]   <- data.frame() 
+    }   
+    
+    # Axis 3: right (counter-clockwise) 
+    # ------------------------------------------------------
+    
+    if( type == "grid" ){ # !ticks
+        # Start coordinates on next axis is 0 or min
+        gridFrom[[ 3L ]][, 1L ] <- tScale[ "min", 1L ] 
+        
+        # Start coordinates on previous axis
+        gridFrom[[ 3L ]][, 2L ] <- 
+            .fracSum - 
+            gridFrom[[ 3L ]][, 3L ] - 
+            gridFrom[[ 3L ]][, 1L ]
+        
+        # End coordinates on previous axis
+        gridTo[[ 3L ]][, 2L ] <- tScale[ "min", 2L ] 
+        
+        # End coordinate on next axis
+        gridTo[[ 3L ]][, 1L ] <- 
+            .fracSum - 
+            gridTo[[ 3L ]][, 3L ] - 
+            gridTo[[ 3L ]][, 2L ]
+    }else{ 
+        # Start coordinates on next axis is 0 or min
+        gridFrom[[ 3L ]][, 1L ] <- tScale[ "min", 1L ] - ticksShiftFrom * .fracSum  
+        
+        # Start coordinates on previous axis
+        gridFrom[[ 3L ]][, 2L ] <- 
+            .fracSum - 
+            gridFrom[[ 3L ]][, 3L ] - 
+            gridFrom[[ 3L ]][, 1L ]
+        
+        # End coordinates on previous axis
+        gridTo[[ 3L ]][, 1L ] <- tScale[ "min", 1L ] - ticksShiftTo * .fracSum  
+        
+        # End coordinate on next axis
+        gridTo[[ 3L ]][, 2L ] <- 
+            .fracSum - 
+            gridTo[[ 3L ]][, 3L ] - 
+            gridTo[[ 3L ]][, 1L ]
+    }   
+    
+    
+    # Format the output
+    out <- list( 
+        "from" = gridFrom, 
+        "to"   = gridTo 
+    )   
+    
+    return( out ) 
+    
+}   
+
 
 
 
@@ -1152,7 +1423,7 @@ ternaryArrows.ternarySystem <- function(
 #'@return
 #'  Invisibly returns a list of \code{data.frame} 
 #'  with the start and end points of the grid segments 
-#   for each of the 3 axis.
+#'  for each of the 3 axis.
 #'
 #' 
 #'@rdname ternaryTicks-methods
@@ -1171,7 +1442,6 @@ ternaryArrows.ternarySystem <- function(
     
     UseMethod( ".ternaryTicks" ) 
 }   
-
 
 
 #'@rdname ternaryTicks-methods
@@ -1216,38 +1486,8 @@ ternaryArrows.ternarySystem <- function(
     axis.line.lwd <- getTpPar( "axis.line.lwd" )
     
     
-    #   Chose the right adjustment
-    adj1 <- .ternaryClockSwitch( 
-        s   = s, 
-        ttt = c(  -.2,  1.2,  -.2 ), 
-        txf = c(   .5,  1.2,  -.2 ), 
-        ftx = c(   .5,  1.2,  -.2 ), 
-        fff = c(  1.2,  1.2,  -.2 ) 
-    )   
-    
-    adj2 <- .ternaryClockSwitch( 
-        s   = s, 
-        ttt = c(   .5,  .5,  .5 ), 
-        txf = c(  1.2,  .5,  .5 ), 
-        ftx = c(  1.2,  .5,  .5 ), 
-        fff = c(   .5,  .5,  .5 ) 
-    )   
-    
-    .tlrAngle       <- tlrAngles( s = s ) 
-    blrLabelAngles  <- .ternaryClockSwitch( 
-        s   = s, 
-        ttt = c(  -.tlrAngle[3],  0,            +.tlrAngle[2] ), 
-        txf = c(   0,             NA,           0             ), # instead of +90 NA, 0
-        ftx = c(   0,             0,            NA            ), # instead of -90  0, NA 
-        fff = c(  +.tlrAngle[2], -.tlrAngle[3], 0             ) 
-    )   
-    
-    # angle   <- c( 
-        # #     #                     # TTT       # TXF   # FTX   # FFF   
-        # "B" = TT.switch( blr.clock, -tlr.an[3], +90,    -90,    +tlr.an[2]  ), 
-        # "L" = TT.switch( blr.clock, +00,        NA,     +00,    -tlr.an[3]  ), 
-        # "R" = TT.switch( blr.clock, +tlr.an[2], +00,     NA,    +00         )  
-    # )   #
+    #   Geometry specific adjustments
+    adj <- ._ternaryTicks( s = s )
     
     
     for( ax in side ){ # 
@@ -1287,13 +1527,11 @@ ternaryArrows.ternarySystem <- function(
                     labels = as.character( grTl[[ "to" ]][[ ax ]][, ax ] ), 
                     s      = s, 
                     # pos  = 2, 
-                    adj    = c( adj1[ ax ], adj2[ ax ] ), 
-                    srt    = blrLabelAngles[ ax ], 
+                    adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
+                    srt    = adj[[ "blrLabelAngles" ]][ ax ], 
                     col    = col.lab, 
                     # offset = -5, 
                     ... ) 
-                
-                # TO DO: ADD A TEXT LABEL 
                 
                 # Set test again
                 tpPar( par = oldPar ) 
@@ -1320,6 +1558,127 @@ ternaryArrows.ternarySystem <- function(
     
     return( invisible( out ) ) 
 }   
+
+
+## #INTERNAL: Geometry specific methods for .ternaryTicks()
+## #
+## #INTERNAL: Geometry specific methods for .ternaryTicks()
+## #
+## #
+## #@param s 
+## #  See .ternaryTicks()
+## #
+## #@param side
+## #  See .ternaryTicks()
+## #
+## #@param .plot 
+## #  See .ternaryTicks()
+## #
+## #@param \dots
+## #  See .ternaryTicks()
+## #
+## # 
+## #@return
+## #  See .ternaryTicks()
+## #
+## # 
+## #@rdname _ternaryTicks-methods
+## #
+## #@export 
+## #
+## #@keywords internal
+## #
+._ternaryTicks <- function( 
+ s, 
+ ... 
+){  
+    UseMethod( "._ternaryTicks" ) 
+}   
+
+
+## #@rdname _ternaryTicks-methods
+## #
+## #@method ._ternaryTicks geo_TTT
+## #
+## #@export
+## #
+._ternaryTicks.geo_TTT <- function( 
+ s
+){  
+    .tlrAngle       <- tlrAngles( s = s ) 
+    
+    out <- list(
+        "adj1"           = c( -0.2, +1.2, -0.2 ), 
+        "adj2"           = c( +0.5, +0.5, +0.5 ), 
+        "blrLabelAngles" = c( -.tlrAngle[3], 0, +.tlrAngle[2] ) 
+    )   
+    
+    return( invisible( out ) ) 
+}   
+
+
+## #@rdname _ternaryTicks-methods
+## #
+## #@method ._ternaryTicks geo_FFF
+## #
+## #@export
+## #
+._ternaryTicks.geo_FFF <- function( 
+ s
+){  
+    .tlrAngle       <- tlrAngles( s = s ) 
+    
+    out <- list(
+        "adj1"           = c( +1.2, +1.2, -0.2 ), 
+        "adj2"           = c( +0.5, +0.5, +0.5 ), 
+        "blrLabelAngles" = c(  +.tlrAngle[2], -.tlrAngle[3], 0 ) 
+    )   
+    
+    return( out ) 
+}   
+
+
+## #@rdname _ternaryTicks-methods
+## #
+## #@method ._ternaryTicks geo_FTX
+## #
+## #@export
+## #
+._ternaryTicks.geo_FTX <- function( 
+ s
+){  
+    .tlrAngle       <- tlrAngles( s = s ) 
+    
+    out <- list(
+        "adj1"           = c( +0.5, +1.2, -0.2 ), 
+        "adj2"           = c( +1.2, +0.5, +0.5 ), 
+        "blrLabelAngles" = c( 0, 0, NA ) 
+    )   
+    
+    return( out ) 
+}   
+
+
+## #@rdname _ternaryTicks-methods
+## #
+## #@method ._ternaryTicks geo_TXF
+## #
+## #@export
+## #
+._ternaryTicks.geo_TXF <- function( 
+ s
+){  
+    .tlrAngle       <- tlrAngles( s = s ) 
+    
+    out <- list(
+        "adj1"           = c( +0.5, +1.2, -0.2 ), 
+        "adj2"           = c( +1.2, +0.5,  +0.5 ), 
+        "blrLabelAngles" = c( 0, NA, 0 ) 
+    )   
+    
+    return( out ) 
+}   
+
 
 
 
@@ -1453,8 +1812,10 @@ ternaryGrid.ternarySystem <- function(
 #'
 #'@param s 
 #'  Either a character string naming the ternary classification 
-#'  system to be used (if pre-defined) or a  
-#'  \code{\link[ternaryplot]{ternarySystem}} object.
+#'  system to be used (if pre-defined), 
+#'  or a \code{\link[ternaryplot]{ternarySystem}}-object, 
+#'  or a \code{\link[ternaryplot]{ternaryPolygons}}-object 
+#'  (such as created with \code{\link[ternaryplot]{createTernaryGrid}}).
 #'
 #'@param x 
 #'  A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
@@ -1469,6 +1830,20 @@ ternaryGrid.ternarySystem <- function(
 #'  performed, and the full extent triangle plot is drawn. If a 
 #'  \code{data.frame}, contains the min and max limits of each 
 #'  of the 3 variables (columns = variables, rows = min and max).
+#'
+#'@param add 
+#'  Single logical value. If \code{TRUE} (an existing ternary 
+#'  plot has already been plotted), the base ternary plot 
+#'  is not plotted again (windows, grid, axis, ...), and only 
+#'  overlay data is shown (such as point data if \code{x} is 
+#'  not null, or polygons overlay if \code{s} is a 
+#'  \code{\link[ternaryplot]{ternaryPolygons}}).
+#'
+#'@param polygonExtra  
+#'  If \code{s} is a 
+#'  \code{\link[ternaryplot]{ternaryPolygons}}-object, 
+#'  list of additional arguments passed to 
+#'  \code{\link[graphics]{polygon}}.
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods.
@@ -1533,11 +1908,24 @@ ternaryPlot.ternarySystem <- function(
     # Plot something:
     ternaryWindow( s = s ) 
     ternaryBox( s = s, col = getTpPar( "plot.bg" ) ) 
-    ternaryAxis( s = s ) 
-    # .ternaryTicks( s = s ) 
     ternaryGrid( s = s ) 
-    ternaryBox( s = s ) 
-    # .ternaryAxisArrows( s = s ) 
+    
+    
+    #   Extract any ternary classification:
+    if( nrow( s[[ "classes" ]] ) > 0 ){
+        tc <- ternaryClasses( s = s ) 
+        
+        class.line.col <- getTpPar( "class.line.col" ) 
+        class.bg       <- getTpPar( "class.bg" ) 
+        class.line.lwd <- getTpPar( "class.line.lwd" ) 
+        
+        ternaryPlot( s = tc, scale = scale, add = TRUE, 
+            polygonExtra = list( 
+                "border" = class.line.col, 
+                "col"    = class.bg, 
+                "lwd"    = class.line.lwd ) ) 
+    }   
+    
     
     
     if( is.null( x ) ){ x <- data.frame() } 
@@ -1546,8 +1934,75 @@ ternaryPlot.ternarySystem <- function(
     }   
     
     
+    #   Add the axis and the box overlay
+    ternaryAxis( s = s ) 
+    ternaryBox( s = s ) 
+    
     return( invisible( s ) ) 
 }   
+
+
+
+#'@rdname ternaryPlot-methods
+#'
+#'@method ternaryPlot ternaryPolygons
+#'
+#'@export
+#'
+ternaryPlot.ternaryPolygons <- function( 
+ s, 
+ scale = FALSE, 
+ add = FALSE, 
+ polygonExtra = NULL, 
+ ... 
+){  
+    terSys  <- ternarySystem( x = s )  
+    
+    if( !add ){
+        ternaryPlot( s = terSys, scale = scale, ... )
+    }   
+    
+    x  <- s[[ "grid" ]] 
+    
+    if( nrow( x ) > 0 ){
+        x  <- x[ order( x[, "id"] ), ] 
+        id <- x[, "id" ] 
+        x <- subset( x, select = eval( quote( -id ) ) )
+        
+        .blrNames <- blrNames( terSys ) 
+        
+        #   Transform from Top-Left-Right to X-Y
+        xy <- ternary2xy( s = terSys, x = x[, .blrNames ] ) 
+        
+        xy  <- split( x = xy, f = as.factor( id ) ) 
+        nxy <- names( xy ) 
+        
+        if( !is.null( polygonExtra ) ){
+            if( !is.list( polygonExtra ) ){
+                stop( "'polygonExtra' must be a list (with names)" )
+            }   
+        }   
+        
+        silent <- lapply( 
+            X   = 1:length( xy ), 
+            FUN = function(X){ 
+                argz <- list(
+                    x = xy[[ X ]][, "x" ], 
+                    y = xy[[ X ]][, "y" ]  
+                )   
+                
+                argz <- c( argz, polygonExtra ) 
+                
+                do.call( what = "polygon", args = argz ) 
+            }   
+        )   
+    }else{
+        warning( "No polygon to be plotted (empty 'ternaryPolygons')" )
+    }   
+    
+    return( invisible( s ) ) 
+}   
+
 
 
 
@@ -1669,68 +2124,70 @@ ternaryPlot.ternarySystem <- function(
 
 
 
+
 # .ternaryClockSwitch ============================================ 
 
-#'INTERNAL. Fetch a pre-defined ternary classification system
-#'
-#'INTERNAL. Fetch a pre-defined ternary classification system
-#'
-#'
-#'@param s 
-#'  Single character string. Name of the ternary classification to 
-#'  be fetched.
-#'
-#'@param ttt 
-#'  Value returned if s clock is TTT
-#'
-#'@param txf 
-#'  Value returned if s clock is TXF
-#'
-#'@param ftx 
-#'  Value returned if s clock is FTX
-#'
-#'@param fff 
-#'  Value returned if s clock is FFF
-#'
-#'
-#'@return 
-#'  A \code{\link[ternaryplot]{ternarySystem}} object.
-#'
-#'
-#'@rdname ternaryClockSwitch 
-#'
-#'@export 
-#'
-#'@keywords internal
-#'
-.ternaryClockSwitch <- function( 
- s, 
- ttt, 
- txf, 
- ftx, 
- fff 
-){  
-    if( is.character( s ) ){ 
-        s <- getTernarySystem( s )
-    }   
-    
-    .blrClock <- blrClock( s )
-    
-    if( identical( .blrClock, c( TRUE,  TRUE,  TRUE ) ) ){ 
-        out <- ttt 
-    }else if( identical( .blrClock, c( TRUE,  NA,    FALSE ) ) ){ 
-        out <- txf 
-    }else if( identical( .blrClock, c( FALSE, TRUE,  NA ) ) ){ 
-        out <- ftx 
-    }else if( identical( .blrClock, c( FALSE, FALSE, FALSE ) ) ){ 
-        out <- fff 
-    }else{ 
-        stop( "unknown value for blrClock( s ): %s", 
-            paste( .blrClock, collapse = ", " )  ) 
-    }   
-    
-    return( out ) 
-}   
+    # ## #INTERNAL. Fetch a pre-defined ternary classification system
+    # ## #
+    # ## #INTERNAL. Fetch a pre-defined ternary classification system
+    # ## #
+    # ## #
+    # ## #@param s 
+    # ## #  Single character string. Name of the ternary classification to 
+    # ## #  be fetched.
+    # ## #
+    # ## #@param ttt 
+    # ## #  Value returned if s clock is TTT
+    # ## #
+    # ## #@param txf 
+    # ## #  Value returned if s clock is TXF
+    # ## #
+    # ## #@param ftx 
+    # ## #  Value returned if s clock is FTX
+    # ## #
+    # ## #@param fff 
+    # ## #  Value returned if s clock is FFF
+    # ## #
+    # ## #
+    # ## #@return 
+    # ## #  A \code{\link[ternaryplot]{ternarySystem}} object.
+    # ## #
+    # ## #
+    # ## #@rdname ternaryClockSwitch 
+    # ## #
+    # ## #@export 
+    # ## #
+    # ## #@keywords internal
+    # ## #
+    # .ternaryClockSwitch <- function( 
+     # s, 
+     # ttt, 
+     # txf, 
+     # ftx, 
+     # fff 
+    # ){  
+        # if( is.character( s ) ){ 
+            # s <- getTernarySystem( s )
+        # }   
+        
+        # .blrClock <- blrClock( s )
+        
+        # if( identical( .blrClock, c( TRUE,  TRUE,  TRUE ) ) ){ 
+            # out <- ttt 
+        # }else if( identical( .blrClock, c( TRUE,  NA,    FALSE ) ) ){ 
+            # out <- txf 
+        # }else if( identical( .blrClock, c( FALSE, TRUE,  NA ) ) ){ 
+            # out <- ftx 
+        # }else if( identical( .blrClock, c( FALSE, FALSE, FALSE ) ) ){ 
+            # out <- fff 
+        # }else{ 
+            # stop( "unknown value for blrClock( s ): %s", 
+                # paste( .blrClock, collapse = ", " )  ) 
+        # }   
+        
+        # return( out ) 
+    # }   
+
 
 
 
@@ -1759,7 +2216,6 @@ ternaryPlot.ternarySystem <- function(
 .ternaryAxisArrowsBase <- function( s, ... ){  
     UseMethod( ".ternaryAxisArrowsBase" ) 
 }   
-
 
 
 #'@rdname ternaryAxisArrowsBase-methods
@@ -1857,6 +2313,62 @@ ternaryPlot.ternarySystem <- function(
     # rm( bArrows, lArrows, rArrows )
     
     ## Calculate the grid-lines coordinates for each axis
+    ## Using a geometry specific method
+    arroQuad <- ._ternaryAxisArrowsBase(
+        s           = s, 
+        .fracSum    = .fracSum, 
+        arroQuad    = arroQuad, 
+        tScale      = tScale, 
+        arrowsShift = arrowsShift 
+    )   
+    
+    return( arroQuad ) 
+}   
+
+
+## #INTERNAL. Geometry specific methods for .ternaryAxisArrowsBase() 
+## #
+## #INTERNAL. Geometry specific methods for .ternaryAxisArrowsBase() 
+## #
+## #
+## #@param s 
+## #  See .ternaryAxisArrowsBase() 
+## #
+## #@param \dots
+## #  See .ternaryAxisArrowsBase() 
+## #
+## # 
+## #@rdname _ternaryAxisArrowsBase-methods
+## #
+## #@export 
+## #
+## #@keywords internal
+## #
+._ternaryAxisArrowsBase <- function(
+    s, 
+    .fracSum, 
+    arroQuad, 
+    tScale, 
+    arrowsShift 
+){  
+    UseMethod( "._ternaryAxisArrowsBase" ) 
+}   
+
+
+## #@rdname _ternaryAxisArrowsBase-methods
+## #
+## #@method ._ternaryAxisArrowsBase geo_TTT
+## #
+## #@export
+## #
+._ternaryAxisArrowsBase.geo_TTT <- function( 
+    s, 
+    .fracSum, 
+    arroQuad, 
+    tScale, 
+    arrowsShift 
+){  
+    ## Calculate the grid-lines coordinates for each axis
     for( ax in 1:3 ){ 
         # Index of previous and next axis 
         if( ax == 1 ){ 
@@ -1870,121 +2382,195 @@ ternaryPlot.ternarySystem <- function(
             axNext <- 1 
         }   
         
-        if( !is.na( .blrClock[ ax ] ) ){ 
-            
-            # Axis is clockwise
-            if( .blrClock[ ax ] ){ 
-                nextClock <- ifelse( 
-                    is.na( .blrClock[ axNext ] ), 
-                    FALSE, 
-                    .blrClock[ axNext ] 
-                )   
-                
-                prevClock <- ifelse( 
-                    is.na( .blrClock[ axPrev ] ), 
-                    FALSE, 
-                    .blrClock[ axPrev ] 
-                )   
-                
-                # Next axis is not clockwise or is NA
-                if( !nextClock ){ 
-                    # Start coordinates on previous axis is 0 or min
-                    arroQuad[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - 
-                        arrowsShift[ c( 2, 2, 1, 2 ) ] * .fracSum 
-                    
-                    # Start coordinates on next axis
-                    arroQuad[[ ax ]][, axNext ] <- 
-                        .fracSum - 
-                        arroQuad[[ ax ]][, ax ] - 
-                        arroQuad[[ ax ]][, axPrev ]
-                
-                # Next axis is clockwise too
-                }else{ 
-                    # Start coordinates on next axis is 0 or min
-                    arroQuad[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - 
-                        arrowsShift[ c( 2, 2, 1, 2 ) ] * .fracSum 
-                    
-                    # Start coordinates on previous axis
-                    arroQuad[[ ax ]][, axPrev ] <- 
-                        .fracSum - 
-                        arroQuad[[ ax ]][, ax ] - 
-                        arroQuad[[ ax ]][, axNext ]
-                }   
-                
-            # Axis is counter-clockwise
-            }else{ 
-                nextClock <- ifelse( 
-                    is.na( .blrClock[ axNext ] ), 
-                    TRUE, 
-                    .blrClock[ axNext ] 
-                )   
-                
-                prevClock <- ifelse( 
-                    is.na( .blrClock[ axPrev ] ), 
-                    TRUE, 
-                    .blrClock[ axPrev ] 
-                )   
-                
-                # Next axis is clockwise
-                if( nextClock ){ 
-                    # Start coordinates on next axis is 0 or min
-                    arroQuad[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - 
-                        arrowsShift[ c( 2, 2, 1, 2 )] * .fracSum 
-                    
-                    # Start coordinates on previous axis
-                    arroQuad[[ ax ]][, axPrev ] <- 
-                        .fracSum - 
-                        arroQuad[[ ax ]][, ax ] - 
-                        arroQuad[[ ax ]][, axNext ]
-                
-                # Next axis is counter-clockwise too (or NA?)
-                }else{ 
-                    # Start coordinates on previous axis is 0 or min
-                    arroQuad[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - 
-                        arrowsShift[ c( 2, 2, 1, 2 )] * .fracSum 
-                    
-                    # Start coordinates on next axis
-                    arroQuad[[ ax ]][, axNext ] <- 
-                        .fracSum - 
-                        arroQuad[[ ax ]][, ax ] - 
-                        arroQuad[[ ax ]][, axPrev ]
-                }   
-            }   
-            
-        }else{  ## axis orientation is NA
-            
-            # arroQuad[[ ax ]] <- data.frame() 
-            arroQuad[[ ax ]] <- .ternaryClockSwitch( 
-                s   = s, #B     L     R
-                ttt = list( 
-                    "B" = rep( NA, 4 ), 
-                    "L" = rep( NA, 4 ),
-                    "R" = rep( NA, 4 ) ), 
-                txf = list( 
-                    "B" = c( NA, .fracSum/2 + arrowsShift[ 2 ]/2, .fracSum/2 + arrowsShift[ 1 ]/2, .fracSum/2 + arrowsShift[ 2 ]/2 ), 
-                    "L" = c( NA, -arrowsShift[ 2 ],               -arrowsShift[ 1 ],               -arrowsShift[ 2 ] ), 
-                    "R" = c( NA, .fracSum/2 + arrowsShift[ 2 ]/2, .fracSum/2 + arrowsShift[ 1 ]/2, .fracSum/2 + arrowsShift[ 2 ]/2 ) ), 
-                ftx = list( 
-                    "B" = c( NA, .fracSum/2 + arrowsShift[ 2 ]/2, .fracSum/2 + arrowsShift[ 1 ]/2, .fracSum/2 + arrowsShift[ 2 ]/2 ), 
-                    "L" = c( NA, .fracSum/2 + arrowsShift[ 2 ]/2, .fracSum/2 + arrowsShift[ 1 ]/2, .fracSum/2 + arrowsShift[ 2 ]/2 ), 
-                    "R" = c( NA, -arrowsShift[ 2 ],               -arrowsShift[ 1 ],               -arrowsShift[ 2 ] ) ), 
-                fff = list( 
-                    "B" = rep( NA, 4 ), 
-                    "L" = rep( NA, 4 ),
-                    "R" = rep( NA, 4 ) )   
-            )   
-            
-            arroQuad[[ ax ]] <- as.data.frame( arroQuad[[ ax ]] ) 
-            
-            colnames( arroQuad[[ ax ]] ) <- .blrNames
-        }   
+        # Start coordinates on next axis is 0 or min
+        arroQuad[[ ax ]][, axNext ] <- tScale[ "min", axNext ] - 
+            arrowsShift[ c( 2, 2, 1, 2 ) ] * .fracSum 
+        
+        # Start coordinates on previous axis
+        arroQuad[[ ax ]][, axPrev ] <- 
+            .fracSum - 
+            arroQuad[[ ax ]][, ax ] - 
+            arroQuad[[ ax ]][, axNext ]
     }   
     
-    # Format the output
-    # out <- list( 
-        # "from" = arroQuad, 
-        # "to"   = arroTo 
-    # )   
+    return( arroQuad ) 
+}   
+
+
+## #@rdname _ternaryAxisArrowsBase-methods
+## #
+## #@method ._ternaryAxisArrowsBase geo_FFF
+## #
+## #@export
+## #
+._ternaryAxisArrowsBase.geo_FFF <- function( 
+    s, 
+    .fracSum, 
+    arroQuad, 
+    tScale, 
+    arrowsShift 
+){  
+    ## Calculate the grid-lines coordinates for each axis
+    for( ax in 1:3 ){ 
+        # Index of previous and next axis 
+        if( ax == 1 ){ 
+            axPrev <- 3 
+            axNext <- 2 
+        }else if( ax == 2 ){ 
+            axPrev <- 1 
+            axNext <- 3 
+        }else if( ax == 3 ){ 
+            axPrev <- 2 
+            axNext <- 1 
+        }   
+        
+        # Start coordinates on previous axis is 0 or min
+        arroQuad[[ ax ]][, axPrev ] <- tScale[ "min", axPrev ] - 
+            arrowsShift[ c( 2, 2, 1, 2 )] * .fracSum 
+        
+        # Start coordinates on next axis
+        arroQuad[[ ax ]][, axNext ] <- 
+            .fracSum - 
+            arroQuad[[ ax ]][, ax ] - 
+            arroQuad[[ ax ]][, axPrev ]
+    }   
+    
+    return( arroQuad ) 
+}   
+
+
+## #@rdname _ternaryAxisArrowsBase-methods
+## #
+## #@method ._ternaryAxisArrowsBase geo_FTX
+## #
+## #@export
+## #
+._ternaryAxisArrowsBase.geo_FTX <- function( 
+    s, 
+    .fracSum, 
+    arroQuad, 
+    tScale, 
+    arrowsShift 
+){  
+    # Calculations axis by axis
+    # ======================================================
+    
+    # Axis 1: bottom (counter-clockwise)
+    # ------------------------------------------------------
+    
+    # Start coordinates on next axis is 0 or min
+    arroQuad[[ 1L ]][, 2L ] <- tScale[ "min", 2L ] - 
+        arrowsShift[ c( 2, 2, 1, 2 )] * .fracSum 
+    
+    # Start coordinates on previous axis
+    arroQuad[[ 1L ]][, 3L ] <- 
+        .fracSum - 
+        arroQuad[[ 1L ]][, 1L ] - 
+        arroQuad[[ 1L ]][, 2L ]
+    
+    
+    # Axis 2: left (clockwise)
+    # ------------------------------------------------------
+    
+    # Start coordinates on previous axis is 0 or min
+    arroQuad[[ 2L ]][, 1L ] <- tScale[ "min", 1L ] - 
+        arrowsShift[ c( 2, 2, 1, 2 ) ] * .fracSum 
+    
+    # Start coordinates on next axis
+    arroQuad[[ 2L ]][, 3L ] <- 
+        .fracSum - 
+        arroQuad[[ 2L ]][, 2L ] - 
+        arroQuad[[ 2L ]][, 1L ]
+    
+    
+    # Axis 3: right (NA)
+    # ------------------------------------------------------
+    
+    arroQuad[[ 3L ]][, 1L ] <- c( 
+        NA, 
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5),  # /2
+        .fracSum/2 + arrowsShift[ 1 ] * (.fracSum/2.0),  # /2
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5) ) # /2
+        
+    arroQuad[[ 3L ]][, 2L ] <- c( 
+        NA, 
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5),  # /2
+        .fracSum/2 + arrowsShift[ 1 ] * (.fracSum/2.0),    # /2
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5) ) # /2
+    
+    arroQuad[[ 3L ]][, 3L ] <- c( 
+        NA, 
+        -arrowsShift[ 2 ] * ((.fracSum/1.5)*2), 
+        -arrowsShift[ 1 ] * .fracSum,
+        -arrowsShift[ 2 ] * ((.fracSum/1.5)*2) ) 
+    
+    return( arroQuad ) 
+}   
+
+
+## #@rdname _ternaryAxisArrowsBase-methods
+## #
+## #@method ._ternaryAxisArrowsBase geo_TXF
+## #
+## #@export
+## #
+._ternaryAxisArrowsBase.geo_TXF <- function( 
+    s, 
+    .fracSum, 
+    arroQuad, 
+    tScale, 
+    arrowsShift 
+){  
+    # Calculations axis by axis
+    # ======================================================
+    
+    # Axis 1: bottom (clockwise)
+    # ------------------------------------------------------
+
+    # Start coordinates on previous axis is 0 or min
+    arroQuad[[ 1L ]][, 3L ] <- tScale[ "min", 3L ] - 
+        arrowsShift[ c( 2, 2, 1, 2 ) ] * .fracSum 
+    
+    # Start coordinates on next axis
+    arroQuad[[ 1L ]][, 2L ] <- 
+        .fracSum - 
+        arroQuad[[ 1L ]][, 1L ] - 
+        arroQuad[[ 1L ]][, 3L ]  
+    
+    # Axis 2: left (NA)
+    # ------------------------------------------------------
+    
+    arroQuad[[ 2L ]][, 1L ] <- c( 
+        NA, 
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5),  # /2
+        .fracSum/2 + arrowsShift[ 1 ] * (.fracSum/2.0),  # /2
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5) ) # /2
+        
+    arroQuad[[ 2L ]][, 2L ] <- c( 
+        NA, 
+        -arrowsShift[ 2 ] * ((.fracSum/1.5)*2), 
+        -arrowsShift[ 1 ] * .fracSum,
+        -arrowsShift[ 2 ] * ((.fracSum/1.5)*2) )
+    
+    arroQuad[[ 2L ]][, 3L ] <- c( 
+        NA, 
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5),  # /2
+        .fracSum/2 + arrowsShift[ 1 ] * (.fracSum/2.0),  # /2
+        .fracSum/2 + arrowsShift[ 2 ] * (.fracSum/1.5) ) # /2
+    
+    # Axis 3: right (counter-clockwise)
+    # ------------------------------------------------------
+    
+    # Start coordinates on next axis is 0 or min
+    arroQuad[[ 3L ]][, 1L ] <- tScale[ "min", 1L ] - 
+        arrowsShift[ c( 2, 2, 1, 2 )] * .fracSum 
+    
+    # Start coordinates on previous axis
+    arroQuad[[ 3L ]][, 2L ] <- 
+        .fracSum - 
+        arroQuad[[ 3L ]][, 3L ] - 
+        arroQuad[[ 3L ]][, 1L ]
+    
     
     return( arroQuad ) 
 }   
@@ -2028,7 +2614,7 @@ calculateArrowLength <- function( pin = NULL ){
 #'@return
 #'  Invisibly returns a list of \code{data.frame} 
 #'  with the start and end points of the arrows segments 
-#   for each of the 3 axis.
+#'  for each of the 3 axis.
 #'
 #' 
 #'@rdname ternaryAxisArrows-methods
@@ -2040,7 +2626,6 @@ calculateArrowLength <- function( pin = NULL ){
 .ternaryAxisArrows <- function( s, ... ){  
     UseMethod( ".ternaryAxisArrows" ) 
 }   
-
 
 
 #'@rdname ternaryAxisArrows-methods
@@ -2097,13 +2682,15 @@ calculateArrowLength <- function( pin = NULL ){
     
     
     #   Chose the right adjustment
-    adj1 <- .ternaryClockSwitch( 
-        s   = s, 
-        ttt = c(  1,  0,     0    ), 
-        txf = c(  1,  1.15,  0    ), 
-        ftx = c(  0,  0,    -0.15 ), 
-        fff = c(  0,  1,     1    ) 
-    )   
+    # adj1 <- .ternaryClockSwitch( 
+        # s   = s, 
+        # ttt = c(  1,  0,     0    ), 
+        # txf = c(  1,  1.15,  0    ), 
+        # ftx = c(  0,  0,    -0.15 ), 
+        # fff = c(  0,  1,     1    ) 
+    # )   
+    
+    adj1 <- ._ternaryAxisArrows( s = s ) 
     
     for( ax in 1:length( gr ) ){ 
         # Draw the tick-marks start and segments
@@ -2139,7 +2726,7 @@ calculateArrowLength <- function( pin = NULL ){
             }   
             
             # Draw the arrows' 2nd segments
-            if( arrowsBreak ){ 
+            if( arrowsBreak | any( is.na( gr[[ ax ]][ 1, ] ) ) ){ 
                 ternaryArrows( 
                     from   = gr[[ ax ]][ 2, ], 
                     to     = gr[[ ax ]][ 3, ], 
@@ -2176,6 +2763,83 @@ calculateArrowLength <- function( pin = NULL ){
     
     return( invisible( gr ) ) 
 }   
+
+
+## # INTERNAL: Geometry specific parameters for .ternaryAxisArrows() 
+## #
+## # INTERNAL: Geometry specific parameters for .ternaryAxisArrows() 
+## #
+## #
+## #@param s 
+## #  See .ternaryAxisArrows() 
+## #
+## # 
+## #@return
+## #  See .ternaryAxisArrows() 
+## #
+## # 
+## #@rdname _ternaryAxisArrows-methods
+## #
+## #@export 
+## #
+## #@keywords internal
+## #
+._ternaryAxisArrows <- function( s ){  
+    UseMethod( "._ternaryAxisArrows" ) 
+}   
+
+
+## #@rdname _ternaryAxisArrows-methods
+## #
+## #@method ._ternaryAxisArrows geo_TTT
+## #
+## #@export
+## #
+._ternaryAxisArrows.geo_TTT <- function( 
+ s  
+){  
+    return( c( 1, 0, 0 ) )
+}   
+
+
+## #@rdname _ternaryAxisArrows-methods
+## #
+## #@method ._ternaryAxisArrows geo_FFF
+## #
+## #@export
+## #
+._ternaryAxisArrows.geo_FFF <- function( 
+ s  
+){  
+    return( c( 0, 1, 1 ) )
+}   
+
+
+## #@rdname _ternaryAxisArrows-methods
+## #
+## #@method ._ternaryAxisArrows geo_FFF
+## #
+## #@export
+## #
+._ternaryAxisArrows.geo_FTX <- function( 
+ s  
+){  
+    return( c( 0, 0, -0.15 ) )
+}   
+
+
+## #@rdname _ternaryAxisArrows-methods
+## #
+## #@method ._ternaryAxisArrows geo_FFF
+## #
+## #@export
+## #
+._ternaryAxisArrows.geo_TXF <- function( 
+ s  
+){  
+    return( c( 1, 1.15, 0 ) )
+}   
+
 
 
 

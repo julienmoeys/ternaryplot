@@ -15,12 +15,23 @@
 #'Create a regular ternary grid. Base frame for binning ternary data.
 #'
 #'
+#'@seealso \code{\link[ternaryplot]{ternary2SpatialPolygonsDataFrame}} 
+#'  (to convert the grid into a 
+#'  \code{\link[sp]{SpatialPolygonsDataFrame}}), and 
+#'  \code{\link[ternaryplot]{ternaryPlot}} to plot the 
+#'  output. 
+#'
+#'
 #'@param s 
-#'  Either a single character string, or a \code{ternarySystem} 
-#'  object, as obtained from \code{\link[ternaryplot]{getTernarySystem}}
+#'  A \code{\link[ternaryplot]{ternarySystem}}-object (such 
+#'  as created with \code{\link[ternaryplot]{createTernarySystem}} 
+#'  or fetched with \code{\link[ternaryplot]{getTernarySystem}}), 
+#'  or a single character string naming a 
+#'  \code{\link[ternaryplot]{ternarySystem}}.
 #'
 #'@param n
-#'  Single integer value. Number of intervals
+#'  Single integer value. Number of grid cells (not grid 
+#'  nodes)
 #'
 #'@param \dots 
 #'  Additional parameters passed to specific methods.
@@ -28,6 +39,9 @@
 #'
 #'@return 
 #'  A ternary grid (of polygons), with class \code{ternaryPolygons}.
+#'
+#'
+#'@example inst/examples/createTernaryGrid-example.R
 #'
 #'
 #'@rdname createTernaryGrid-methods
@@ -79,7 +93,7 @@ createTernaryGrid.ternarySystem <- function(
  n = 10,    # number of intervals
  ... 
 ){  
-    x <- y <- seq( from = 0, to = 1, length.out = n ) 
+    x <- y <- seq( from = 0, to = 1, length.out = n + 1L ) 
     
     empty <- data.frame( "id" = character(0), "x" = numeric(0), 
         "y" = numeric(0), "z" = numeric(0), stringsAsFactors = FALSE )
@@ -133,7 +147,13 @@ createTernaryGrid.ternarySystem <- function(
     
     grd <- do.call( "what" = "rbind", args = grd )
     
-    colnames( grd ) <- c( "id", blrNames( s ) ) 
+    .blrNames <- blrNames( s = s )
+    .fracSum <- fracSum( s = s ) 
+    
+    colnames( grd ) <- c( "id", .blrNames ) 
+    
+    #   Convert to the right frac sum (1 [-] or 100 [%])
+    grd[, .blrNames ] <- grd[, .blrNames ] * .fracSum
     
     grd <- list( 
         "grid"          = grd, 
@@ -167,6 +187,8 @@ createTernaryGrid.ternarySystem <- function(
 #'
 #'@rdname ternary2SpatialPolygonsDataFrame-methods
 #'
+#'@example inst/examples/ternary2SpatialPolygonsDataFrame-example.R
+#'
 #'@export 
 #'
 ternary2SpatialPolygonsDataFrame <- function(
@@ -195,42 +217,49 @@ ternary2SpatialPolygonsDataFrame.ternaryPolygons <- function(
  x, 
  ... 
 ){  
-    s  <- x[[ "ternarySystem" ]] 
+    s  <- ternarySystem( x = x )  
     x  <- x[[ "grid" ]] 
-    x  <- x[ order( x[, "id"] ), ] 
-    id <- x[, "id" ] 
-    x <- subset( x, select = eval( quote( -id ) ) )
     
-    .blrNames <- blrNames( s ) 
-    
-    #   Transform from Top-Left-Right to X-Y
-    xy <- ternary2xy( s = s, x = x[, .blrNames ] ) 
-    
-    xy  <- split( x = xy, f = as.factor( id ) ) 
-    nxy <- names( xy ) 
-    
-    # browser()
-    
-    pxy <- lapply( 
-        X   = 1:length( xy ), 
-        FUN = function(X){ 
-            sp::Polygons( srl = list( sp::Polygon( coords = xy[[ X ]] ) ), 
-                ID = nxy[ X ] )
-        }   
-    )   
-    # pxy <- do.call( "what" = "rbind", "args" = pxy )
-    
-    
-    #   Aggregate x
-    #   TO DO: replace this by centroid calculation + xy2ternary() 
-    
-    x <- aggregate( x, by = list( "ID" = id ), FUN = mean ) 
-    rownames( x ) <- x[, "ID" ] 
-    x <- subset( x, select = eval( quote( -ID ) ) )
-    
-    # pxy <- Polygons( srl = pxy, ID = nxy ) 
-    pxy <- sp::SpatialPolygons( Srl = pxy )
-    pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = x, match.ID = FALSE )
+    if( nrow( x ) > 0 ){
+        x  <- x[ order( x[, "id"] ), ] 
+        id <- x[, "id" ] 
+        x <- subset( x, select = eval( quote( -id ) ) )
+        
+        .blrNames <- blrNames( s ) 
+        
+        #   Transform from Top-Left-Right to X-Y
+        xy <- ternary2xy( s = s, x = x[, .blrNames ] ) 
+        
+        xy  <- split( x = xy, f = as.factor( id ) ) 
+        nxy <- names( xy ) 
+        
+        # browser()
+        
+        pxy <- lapply( 
+            X   = 1:length( xy ), 
+            FUN = function(X){ 
+                sp::Polygons( srl = list( sp::Polygon( coords = xy[[ X ]] ) ), 
+                    ID = nxy[ X ] )
+            }   
+        )   
+        # pxy <- do.call( "what" = "rbind", "args" = pxy )
+        
+        
+        #   Aggregate x
+        #   TO DO: replace this by centroid calculation + xy2ternary() 
+        
+        x <- aggregate( x, by = list( "ID" = id ), FUN = mean ) 
+        rownames( x ) <- x[, "ID" ] 
+        x <- subset( x, select = eval( quote( -ID ) ) )
+        
+        # pxy <- Polygons( srl = pxy, ID = nxy ) 
+        pxy <- sp::SpatialPolygons( Srl = pxy )
+        pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = x, match.ID = FALSE )
+    }else{
+        warning( "No polygon to be converted (empty 'ternaryPolygons')" )
+        
+        pxy <- NULL 
+    }   
     
     return( pxy ) 
 }   
@@ -240,4 +269,24 @@ ternary2SpatialPolygonsDataFrame.ternaryPolygons <- function(
     # tgSp <- ternary2SpatialPolygonsDataFrame( tg )
     
     # plot( tgSp ) 
+
+
+
+# ternarySystem ============================================
+
+# See aa03-ternaryplot-classes-utility.R for the generic 
+#   definition
+
+#'@rdname ternarySystem-methods
+#'
+#'@method ternarySystem ternaryPolygons
+#'
+#'@export
+#'
+ternarySystem.ternaryPolygons <- function( 
+    x, 
+    ... 
+){  
+    return( x[[ 'ternarySystem' ]] ) 
+}   
 
