@@ -1,3 +1,4 @@
 /pkg/*.gz
 /pkg/*.zip
 /pkg/ternaryplot.Rcheck
+/pkg/ternaryplot/ternaryplot-Ex.R
