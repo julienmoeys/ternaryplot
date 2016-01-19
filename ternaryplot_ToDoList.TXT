@@ -4,10 +4,10 @@ TEST ternaryPoints()
     
 CREATE ternary2SpatialPointsDataFrame and 
     ternary2SpatialPointsDataFrame.data.frame 
-    for using inside ternaryPoints() to convert 
-    ternary points to sp SpatialPointsDataFrame 
     
-REMOVE .plot argument?
+REMOVE .plot argument from all higher level plot functions?
+REMOVE xy to sp conversion from all higher level plot 
+    functions?
     
 CREATE ternaryClassify() 
     classify ternary data
@@ -23,7 +23,7 @@ CREATE ternaryNormalise ternarySystem
 
 CREATE ternaryLines ternarySystem 
 
-CREATE ternaryStyle( "publication" )
+CREATE ternaryPlotStyle( "publication" )
     Switch between themes
 
 CREATE ternaryAggregate >> ternary version of sp::aggregate
