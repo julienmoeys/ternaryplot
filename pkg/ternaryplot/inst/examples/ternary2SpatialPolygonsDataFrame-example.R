@@ -1,1 +1,1 @@
-#   See ?createTernaryGrid for an example
+#   See ?createTernaryGrid or ?ternaryClasses for examples

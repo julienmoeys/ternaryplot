@@ -10,9 +10,9 @@ tc   <- ternaryClasses( s )
 
 #   Plot the ternary system and the grid
 ternaryPlot( s = s )
-ternaryPlot( s = tc, add = FALSE, 
-    polygonExtra = list( border = "red", lty = 2 ) ) 
+ternaryPolygons( s = tc, border = "darkred", lty = 3 ) 
 
 # #   Alternatively:
 tcSp <- ternary2SpatialPolygonsDataFrame( tc ) 
+# ternaryPlot( s = s ) 
 # sp::plot( tcSp, add = TRUE, border = "darkred", lty = 3 ) 

@@ -46,12 +46,12 @@ tg   <- createTernaryGrid( s )
 
 #   Plot the ternary system and the grid
 ternaryPlot( s = s )
-ternaryPolygons( s = tg, border = "darkred", lty = 2 ) 
+ternaryPolygons( s = tg, border = "darkred", lty = 3 ) 
 
 
 # #   Alternatively:
+tgSp <- ternary2SpatialPolygonsDataFrame( tg ) 
 # ternaryPlot( s = s )
-# tgSp <- ternary2SpatialPolygonsDataFrame( tg ) 
 # sp::plot( tgSp, add = TRUE, border = "darkred", lty = 3 ) 
 }
 \seealso{

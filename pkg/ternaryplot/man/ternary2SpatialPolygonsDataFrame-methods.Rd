@@ -21,6 +21,6 @@ A \code{\link[sp]{SpatialPolygonsDataFrame}}
 Converts ternary*-class objects to \code{\link[sp]{SpatialPolygonsDataFrame}}
 }
 \examples{
-#   See ?createTernaryGrid for an example
+#   See ?createTernaryGrid or ?ternaryClasses for examples
 }
 
