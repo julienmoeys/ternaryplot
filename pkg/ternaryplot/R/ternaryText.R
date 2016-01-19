@@ -175,7 +175,7 @@ ternaryText.ternaryPolygons <- function(
             centroids <- sp::coordinates( sSp ) 
             
             if( .plot ){ 
-                text( x = centroids[,"x"], y = centroids[,"y"], 
+                text( x = centroids[, 1L ], y = centroids[, 2L ], 
                     labels = labels, adj = adj, pos = pos, 
                     offset = offset, vfont = vfont, cex = cex, 
                     col = col, font = font, ... ) 
