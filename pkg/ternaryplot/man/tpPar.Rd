@@ -7,8 +7,8 @@
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
   classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
   arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
-  grid.line.col, axis.line.lwd, plot.bg, class.line.col, class.bg,
-  class.line.lwd)
+  grid.line.col, axis.line.lwd, plot.bg, class.label.col, class.line.col,
+  class.bg, class.line.lwd)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -123,17 +123,22 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  plot region (frame). Set to \code{NA} or \code{"transparent"}
  to suppress color.}
 
-\item{class.line.col}{Single character strings representing a colour (see for
- example \code{\link[grDevices]{colours}}). Colour of the
+\item{class.label.col}{Vector of character strings representing colours (see for
+ example \code{\link[grDevices]{colours}}). Colours of the
+ labels of ternary class polygons (when displayed on
+ a ternary plot)}
+
+\item{class.line.col}{Vector of character strings representing colours (see for
+ example \code{\link[grDevices]{colours}}). Colours of the
  lines of ternary class polygons (when displayed on
  a ternary plot)}
 
-\item{class.bg}{Single character strings representing a colour (see for
- example \code{\link[grDevices]{colours}}). Colour of the
+\item{class.bg}{Vector of character strings representing colours (see for
+ example \code{\link[grDevices]{colours}}). Colours of the
  background (filling) of ternary class polygons (when
  displayed on a ternary plot)}
 
-\item{class.line.lwd}{Single numerical value. Line width of ternary class
+\item{class.line.lwd}{Vector of numerical values. Line width of ternary class
  polygons (when displayed on a ternary plot)}
 }
 \value{

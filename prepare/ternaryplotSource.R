@@ -1,20 +1,32 @@
 
-    if( Sys.info()[["sysname"]] == "Linux" ){
-        setwd( "/home/jules/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot" ) 
-    }else{
-        setwd( "C:/Users/julienm/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg/ternaryplot" ) 
-    }   
-    
-    source( "R/aa00-ternaryplot-package.R" ) 
-    source( "R/aa01-ternaryplot-options.R" ) 
-    source( "R/aa02-ternaryplot-classes.R" ) 
-    source( "R/aa03-ternaryplot-classes-utility.R" ) 
-    source( "R/aa04-ternarysystems.R" ) 
-    source( "R/aa05-ternarydata.R" ) 
-    source( "R/aa06-ternary2xy.R" ) 
-    source( "R/aa07-plotUtilities.R" ) 
-    source( "R/ternarygrid.R" ) 
-    source( "R/ternaryplot.R" ) 
+if( Sys.info()[["sysname"]] == "Linux" ){
+    setwd( "/home/jules/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot" ) 
+}else{
+    setwd( sprintf( 
+        "C:/Users/%s/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg/ternaryplot", 
+        Sys.info()[[ "user" ]] ) ) 
+}   
+
+#   Files to be sourced first (order matters)
+sourceFiles <- c(
+    "R/aa00-ternaryplot-package.R", 
+    "R/aa01-ternaryplot-options.R", 
+    "R/aa02-ternaryplot-classes.R", 
+    "R/aa03-ternaryplot-classes-utility.R", 
+    "R/aa04-ternarysystems.R", 
+    "R/aa05-ternarydata.R", 
+    "R/aa06-ternary2xy.R", 
+    "R/aa07-plotUtilities.R" 
+)   
+
+#   Other files
+sourceFiles2 <- list.files( path = "R", pattern = ".R" ) 
+sourceFiles2 <- file.path( "R", sourceFiles2 ) 
+sourceFiles2 <- sourceFiles2[ !(sourceFiles2 %in% sourceFiles) ]
+
+for( f in c( sourceFiles, sourceFiles2 ) ){
+    source( file = f )
+}   
 
 # library( "ternaryplot" )
 library( "sp" )

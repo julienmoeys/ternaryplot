@@ -99,7 +99,7 @@
 #'
 #'@export
 #'
-ternaryPolygons.ternaryPolygons <- function( 
+ternaryPolygons <- function( 
  s, 
  ... 
 ){  

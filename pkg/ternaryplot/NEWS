@@ -1,6 +1,14 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.4.0
+    
+    2016/01/19  Function ternaryPolygons() created, to add 
+        polygons (grids or ternary classes) over an existing 
+        ternary plot.
+        
+        Re-organised the source code.
+        
 CHANGES IN VERSION 0.3.3
     
     2016/01/12  The package encoding (in DESCRIPTION) has been 
