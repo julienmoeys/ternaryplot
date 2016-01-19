@@ -1098,3 +1098,21 @@ ternarySystem <- function(
     UseMethod( "ternarySystem" ) 
 }   
 
+
+
+# ternarySystem ============================================
+
+#'@rdname ternarySystem-methods
+#'
+#'@method ternarySystem ternaryPolygons
+#'
+#'@export
+#'
+ternarySystem.ternaryPolygons <- function( 
+    x, 
+    ... 
+){  
+    return( x[[ 'ternarySystem' ]] ) 
+}   
+
+

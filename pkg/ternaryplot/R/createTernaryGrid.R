@@ -166,22 +166,3 @@ createTernaryGrid.ternarySystem <- function(
 }   
 
 
-
-# ternarySystem ============================================
-
-# See aa03-ternaryplot-classes-utility.R for the generic 
-#   definition
-
-#'@rdname ternarySystem-methods
-#'
-#'@method ternarySystem ternaryPolygons
-#'
-#'@export
-#'
-ternarySystem.ternaryPolygons <- function( 
-    x, 
-    ... 
-){  
-    return( x[[ 'ternarySystem' ]] ) 
-}   
-
