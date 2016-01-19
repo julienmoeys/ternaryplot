@@ -127,6 +127,7 @@ ternaryText.ternarySystem <- function(
 #'
 #'@export
 #'
+#'@importFrom sp coordinates 
 ternaryText.ternaryPolygons <- function( 
     s, 
     x, 
@@ -171,7 +172,7 @@ ternaryText.ternaryPolygons <- function(
             
             #   Convert to x-y points, that is the polygons 
             #   centroid
-            centroids <- coordinates( sSp ) 
+            centroids <- sp::coordinates( sSp ) 
             
             if( .plot ){ 
                 text( x = centroids[,"x"], y = centroids[,"y"], 
