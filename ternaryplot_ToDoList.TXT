@@ -1,19 +1,12 @@
-
-CREATE ternaryPolygons() 
-    plotting ternary grids and ternary classifications.
-    
-    Same arguments as graphics::polygon(). Make it possible 
-    to have distinct lwd, border colour and filling for 
-    each polygon.
     
 TEST ternaryPoints()
-    with dummy ternary data
-    
-MOVE all functions from ternaryplot.R to separate files.
+    With dummy ternary data
 
 CREATE ternaryClassify() 
     classify ternary data
 
+CREATE showTernaryVertices()
+    
 CREATE as.data.frame ternarySystem 
     what = "vertices" or "classes"
 
