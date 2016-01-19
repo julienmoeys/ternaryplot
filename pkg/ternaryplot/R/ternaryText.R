@@ -156,8 +156,12 @@ ternaryText.ternaryPolygons <- function(
         }   
         
         
-        if( (length( labels ) == 1) & (length( nxy ) > 1) ){
-            labels <- rep( labels, times = length( nxy ) )
+        #   Number of unique classes
+        nbCl <- length( unique( s[[ "grid" ]][, "id" ] ) )
+        
+        
+        if( (length( labels ) == 1) & (length( nbCl ) > 1) ){
+            labels <- rep( labels, times = length( nbCl ) )
         }   
         
         

@@ -52,6 +52,15 @@ ternaryPlot(s)
 par( op )
 
 
+
+
+# Ternary plot with ternary classification
+# ========================================
+
+ternaryPlot( "hypres" ) 
+
+
+
 # Custom colors, margins and arrow breaks
 # =======================================
 
