@@ -95,8 +95,8 @@
 #       .nbMargin2diffXY
 #       
 #   otherTernaryPlots.R
-#   Contains some tests of other ternary plot
-#   systems.
+#       Contains some tests of other ternary plot
+#       systems.
 #   
 #   ternarygrid.R
 #   
