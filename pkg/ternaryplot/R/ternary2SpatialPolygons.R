@@ -62,25 +62,38 @@ ternary2SpatialPolygonsDataFrame.ternaryPolygons <- function(
     x  <- x[[ "grid" ]] 
     
     if( nrow( x ) > 0 ){
-        x  <- x[ order( x[, "id"] ), ] 
+        # x  <- x[ order( x[, "id"] ), ] 
+        
         id <- x[, "id" ] 
-        x <- subset( x, select = eval( quote( -id ) ) )
+        x  <- x[, colnames( x ) != "id" ] 
+        # x <- subset( x, select = eval( quote( -id ) ) )
         
         .blrNames <- blrNames( s ) 
         
         #   Transform from Top-Left-Right to X-Y
         xy <- ternary2xy( s = s, x = x[, .blrNames ] ) 
         
-        xy  <- split( x = xy, f = as.factor( id ) ) 
+        #   Factor version of IDs
+        idf <- factor( x = id, levels = unique( id ), 
+            labels = as.character( unique( id ) ) ) 
+        
+        xy  <- split( x = xy, f = idf ) 
         nxy <- names( xy ) 
+        rm( idf )
         
         # browser()
         
         pxy <- lapply( 
             X   = 1:length( xy ), 
-            FUN = function(X){ 
-                sp::Polygons( srl = list( sp::Polygon( coords = xy[[ X ]] ) ), 
-                    ID = nxy[ X ] )
+            FUN = function(i){
+                #   Check if the polygon is closed or not, 
+                #   and if not, close it
+                if( !all( xy[[ i ]][ 1L, ] == xy[[ i ]][ nrow( xy[[ i ]] ), ] ) ){
+                    xy[[ i ]] <- rbind( xy[[ i ]], xy[[ i ]][ 1L, ] )
+                }   
+                
+                return( sp::Polygons( srl = list( sp::Polygon( coords = xy[[ i ]] ) ), 
+                    ID = nxy[ i ] ) )
             }   
         )   
         # pxy <- do.call( "what" = "rbind", "args" = pxy )
