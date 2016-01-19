@@ -31,6 +31,9 @@ for( f in c( sourceFiles, sourceFiles2 ) ){
 # library( "ternaryplot" )
 library( "sp" )
 
+# tpPar( "class.bg" = "pink" )
+# ternaryPlot( "hypres" )
+
 p <- list(
     list(
         "blrClock"  = rep( T, 3 ), 
