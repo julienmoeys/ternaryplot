@@ -164,8 +164,13 @@ ternaryPolygons.ternaryPolygons <- function(
         #   Transform from Top-Left-Right to X-Y
         xy <- ternary2xy( s = terSys, x = x[, .blrNames ] ) 
         
-        xy  <- split( x = xy, f = as.factor( id ) ) 
+        #   Factor version of IDs
+        idf <- factor( x = id, levels = unique( id ), 
+            labels = as.character( unique( id ) ) ) 
+        
+        xy  <- split( x = xy, f = idf ) 
         nxy <- names( xy ) 
+        rm( idf )
         
         # #   Re-order the labels
         # if( !is.null( labels ) ){
@@ -275,7 +280,7 @@ ternaryPolygons.ternarySystem <- function(
     s, 
     border  = NULL, 
     col     = NULL, 
-    bg      = NA, 
+    bg      = NULL, 
     lwd     = NULL, 
     ... 
 ){  
