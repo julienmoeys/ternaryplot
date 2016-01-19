@@ -113,11 +113,13 @@ ternaryClasses.ternarySystem <- function(
     
     grd <- list( 
         "grid"          = grd, 
-        "ternarySystem" = s 
+        "ternarySystem" = s, 
+        "labels"        = unique( grd[, "id" ] ) 
     )   
     
     class( grd ) <- "ternaryPolygons" 
     
     return( grd )
 }   
+
 
