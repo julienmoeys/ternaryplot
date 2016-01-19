@@ -1,1 +1,1 @@
-0411afe Bug fix in ternaryText.ternaryPolygon
+81b9e8a Fix a bug in ternaryText (sp::coordinates does not always return xy column names)

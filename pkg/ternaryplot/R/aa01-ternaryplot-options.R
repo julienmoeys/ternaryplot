@@ -133,10 +133,10 @@ tpParList  <- new.env()
 # Classes
 # -------
 
-.tpParList[[ "class.label.col" ]] <- "darkgray"
-.tpParList[[ "class.line.col" ]]  <- "darkgray"
-.tpParList[[ "class.bg" ]]        <- NA 
-.tpParList[[ "class.line.lwd" ]]  <- 1 
+.tpParList[[ "class.label.col" ]]  <- "darkgray"
+.tpParList[[ "class.border.col" ]] <- "darkgray"
+.tpParList[[ "class.bg" ]]         <- NA 
+.tpParList[[ "class.border.lwd" ]] <- 1 
 
 
 
@@ -312,7 +312,7 @@ tpParList  <- new.env()
 #'  labels of ternary class polygons (when displayed on 
 #'  a ternary plot)
 #'
-#'@param class.line.col 
+#'@param class.border.col 
 #'  Vector of character strings representing colours (see for 
 #'  example \code{\link[grDevices]{colours}}). Colours of the 
 #'  lines of ternary class polygons (when displayed on 
@@ -324,7 +324,7 @@ tpParList  <- new.env()
 #'  background (filling) of ternary class polygons (when 
 #'  displayed on a ternary plot)
 #'
-#'@param class.line.lwd
+#'@param class.border.lwd
 #'  Vector of numerical values. Line width of ternary class 
 #'  polygons (when displayed on a ternary plot)
 #'
@@ -362,9 +362,9 @@ tpPar <- function(
     axis.line.lwd, 
     plot.bg, 
     class.label.col, 
-    class.line.col, 
+    class.border.col, 
     class.bg, 
-    class.line.lwd 
+    class.border.lwd 
 ){  
     parList <- names( formals(tpPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset" )) ] 

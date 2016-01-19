@@ -149,7 +149,13 @@ ternaryPolygons.ternaryPolygons <- function(
     }   
     
     if( nrow( x ) > 0 ){
-        x  <- x[ order( x[, "id"] ), ] 
+        # #   Correspondence between labels and polygons IDs
+        # if( !is.null( labels ) ){
+            # names( labels ) <- as.character( unique( x[, "id"] ) ) 
+        # }
+        
+        # x  <- x[ order( x[, "id"] ), ] 
+        
         id <- x[, "id" ] 
         x  <- x[, colnames( x ) != "id" ] 
         
@@ -160,6 +166,11 @@ ternaryPolygons.ternaryPolygons <- function(
         
         xy  <- split( x = xy, f = as.factor( id ) ) 
         nxy <- names( xy ) 
+        
+        # #   Re-order the labels
+        # if( !is.null( labels ) ){
+            # labels <- as.character( labels[ nxy  ] )
+        # }
         
         # if( !is.null( polygonExtra ) ){
             # if( !is.list( polygonExtra ) ){
@@ -187,9 +198,9 @@ ternaryPolygons.ternaryPolygons <- function(
             }   
         }   
         
-        if( !is.null( col ) ){
-            if( (length( col ) == 1) & (length( nxy ) > 1) ){
-                col <- rep( col, times = length( nxy ) )
+        if( !is.null( bg ) ){
+            if( (length( bg ) == 1) & (length( nxy ) > 1) ){
+                bg <- rep( bg, times = length( nxy ) )
             }   
         }   
         
@@ -216,7 +227,7 @@ ternaryPolygons.ternaryPolygons <- function(
                     density = density[ i ], 
                     angle   = angle[ i ], 
                     border  = border[ i ], 
-                    col     = col[ i ], 
+                    col     = bg[ i ], 
                     lty     = lty[ i ], 
                     lwd     = lwd[ i ], 
                     ...
@@ -272,7 +283,7 @@ ternaryPolygons.ternarySystem <- function(
         tc <- ternaryClasses( s = s ) 
         
         if( is.null( border ) ){
-            border <- getTpPar( "class.line.col" ) 
+            border <- getTpPar( "class.border.col" ) 
         }   
         
         if( is.null( col ) ){
@@ -284,7 +295,7 @@ ternaryPolygons.ternarySystem <- function(
         }   
         
         if( is.null( lwd ) ){
-            lwd <- getTpPar( "class.line.lwd" ) 
+            lwd <- getTpPar( "class.border.lwd" ) 
         }   
         
         out <- ternaryPolygons( s = tc, bg = bg, col = col, 
