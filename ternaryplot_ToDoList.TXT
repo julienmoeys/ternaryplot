@@ -1,11 +1,18 @@
     
 TEST ternaryPoints()
     With dummy ternary data
-
+    
+CREATE ternary2SpatialPointsDataFrame and 
+    ternary2SpatialPointsDataFrame.data.frame 
+    for using inside ternaryPoints() to convert 
+    ternary points to sp SpatialPointsDataFrame 
+    
+REMOVE .plot argument?
+    
 CREATE ternaryClassify() 
     classify ternary data
-
-CREATE showTernaryVertices()
+    
+CREATE ternaryPlotVertices()
     
 CREATE as.data.frame ternarySystem 
     what = "vertices" or "classes"
