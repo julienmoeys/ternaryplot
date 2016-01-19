@@ -157,7 +157,8 @@ createTernaryGrid.ternarySystem <- function(
     
     grd <- list( 
         "grid"          = grd, 
-        "ternarySystem" = s 
+        "ternarySystem" = s, 
+        "labels"        = NULL 
     )   
     
     class( grd ) <- "ternaryPolygons" 

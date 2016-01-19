@@ -150,69 +150,6 @@ ternaryPlot.ternarySystem <- function(
 
 
 
-#'@rdname ternaryPlot-methods
-#'
-#'@method ternaryPlot ternaryPolygons
-#'
-#'@export
-#'
-ternaryPlot.ternaryPolygons <- function( 
- s, 
- scale = FALSE, 
- add = FALSE, 
- polygonExtra = NULL, 
- ... 
-){  
-    terSys  <- ternarySystem( x = s )  
-    
-    if( !add ){
-        ternaryPlot( s = terSys, scale = scale, ... )
-    }   
-    
-    x  <- s[[ "grid" ]] 
-    
-    if( nrow( x ) > 0 ){
-        x  <- x[ order( x[, "id"] ), ] 
-        id <- x[, "id" ] 
-        x <- subset( x, select = eval( quote( -id ) ) )
-        
-        .blrNames <- blrNames( terSys ) 
-        
-        #   Transform from Top-Left-Right to X-Y
-        xy <- ternary2xy( s = terSys, x = x[, .blrNames ] ) 
-        
-        xy  <- split( x = xy, f = as.factor( id ) ) 
-        nxy <- names( xy ) 
-        
-        if( !is.null( polygonExtra ) ){
-            if( !is.list( polygonExtra ) ){
-                stop( "'polygonExtra' must be a list (with names)" )
-            }   
-        }   
-        
-        silent <- lapply( 
-            X   = 1:length( xy ), 
-            FUN = function(X){ 
-                argz <- list(
-                    x = xy[[ X ]][, "x" ], 
-                    y = xy[[ X ]][, "y" ]  
-                )   
-                
-                argz <- c( argz, polygonExtra ) 
-                
-                do.call( what = "polygon", args = argz ) 
-            }   
-        )   
-    }else{
-        warning( "No polygon to be plotted (empty 'ternaryPolygons')" )
-    }   
-    
-    return( invisible( s ) ) 
-}   
-
-
-
-
 # .ternaryLims ===================================================
 
 #'INTERNAL: Find optimal axis limits for a ternary plot.
