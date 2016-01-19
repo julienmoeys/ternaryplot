@@ -18,7 +18,7 @@
 #'
 #'
 #'@seealso
-#'  \code{\link[graphics]{points}}.
+#'  \code{\link[graphics]{text}}.
 #'
 #'
 #'@param s  
@@ -34,6 +34,27 @@
 #'@param labels  
 #'  A vector of character strings, or expressions to be added 
 #'  on the triangle plot. See \code{\link[graphics]{text}}.
+#'
+#'@param adj  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param pos  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param offset  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param vfont  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param cex  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param col  
+#'  See \code{\link[graphics]{text}}.
+#'
+#'@param font  
+#'  See \code{\link[graphics]{text}}.
 #'
 #'@param .plot 
 #'  Single logical value. Set to \code{FALSE} if you don't want 
@@ -71,22 +92,97 @@ ternaryText <- function( s, ... ){
 #'@export
 #'
 ternaryText.ternarySystem <- function( 
- s, 
- x, 
- labels, 
- .plot = TRUE, 
- ... 
+    s, 
+    x, 
+    labels, 
+    adj     = NULL,
+    pos     = NULL, 
+    offset  = 0.5, 
+    vfont   = NULL,
+    cex     = 1, 
+    col     = NULL, 
+    font    = NULL, 
+    .plot   = TRUE, 
+    ... 
 ){  
     xy <- ternary2xy( x = x, s = s ) 
     
     if( .plot ){ 
-        text( x = xy[,"x"], y = xy[,"y"], labels = labels, ... ) 
+        text( x = xy[,"x"], y = xy[,"y"], labels = labels, 
+            adj = adj, pos = pos, offset = offset, vfont = vfont, 
+            cex = cex, col = col, font = font, ... ) 
     }   
     
     out <- xy[, c( "x", "y" ) ]
     if( getTpPar( "sp" ) ){ out <- SpatialPoints( coords = out ) }
     
     return( invisible( out ) ) 
+}   
+
+
+
+#'@rdname ternaryText-methods
+#'
+#'@method ternaryText ternaryPolygons
+#'
+#'@export
+#'
+ternaryText.ternaryPolygons <- function( 
+    s, 
+    x, 
+    labels, 
+    adj     = NULL,
+    pos     = NULL, 
+    offset  = 0.5, 
+    vfont   = NULL,
+    cex     = 1, 
+    col     = NULL, 
+    font    = NULL, 
+    .plot   = TRUE, 
+    ... 
+){  
+    if( !missing( "x" ) ){
+        warning( "'x' is not NULL. Ignored by ternaryText.ternaryPolygons()." )
+    }   
+    
+    terSys  <- ternarySystem( x = s ) 
+    
+    # x  <- s[[ "grid" ]] 
+    
+    #   Draw the labels
+    if( !is.null( labels ) ){
+        if( "labels" %in% names( s ) ){
+            labels <- s[[ "labels" ]] 
+        }   
+        
+        
+        if( (length( labels ) == 1) & (length( nxy ) > 1) ){
+            labels <- rep( labels, times = length( nxy ) )
+        }   
+        
+        
+        if( !all( is.na( labels ) ) ){
+            #   Convert the polygons to SpatialPolygonsDataFrame
+            sSp <- ternary2SpatialPolygonsDataFrame( x = s ) 
+            
+            #   Convert to x-y points, that is the polygons 
+            #   centroid
+            centroids <- coordinates( sSp ) 
+            
+            if( .plot ){ 
+                text( x = centroids[,"x"], y = centroids[,"y"], 
+                    labels = labels, adj = adj, pos = pos, 
+                    offset = offset, vfont = vfont, cex = cex, 
+                    col = col, font = font, ... ) 
+            }   
+        }else{
+            centroids <- NULL 
+        }   
+    }else{
+        centroids <- NULL 
+    }   
+    
+    return( invisible( centroids ) ) 
 }   
 
 

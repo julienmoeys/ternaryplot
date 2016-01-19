@@ -38,22 +38,9 @@
 #'  \code{data.frame}, contains the min and max limits of each 
 #'  of the 3 variables (columns = variables, rows = min and max).
 #'
-#'@param add 
-#'  Single logical value. If \code{TRUE} (an existing ternary 
-#'  plot has already been plotted), the base ternary plot 
-#'  is not plotted again (windows, grid, axis, ...), and only 
-#'  overlay data is shown (such as point data if \code{x} is 
-#'  not null, or polygons overlay if \code{s} is a 
-#'  \code{ternaryPolygons}-object).
-#'
-#'@param polygonExtra  
-#'  If \code{s} is a 
-#'  \code{ternaryPolygons}-object, 
-#'  list of additional arguments passed to 
-#'  \code{\link[graphics]{polygon}}.
-#'
 #'@param \dots
-#'  Additional parameters passed to specific methods.
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryPoints}}
 #'
 #'
 #'@example inst/examples/ternaryPlot-example.R
@@ -103,41 +90,27 @@ ternaryPlot.character <- function(
 #'@export
 #'
 ternaryPlot.ternarySystem <- function( 
- s, 
- x = NULL, 
- scale = FALSE, 
- ... 
-){   
-    testRange <- getTpPar( par = "testRange" ) 
-    testSum   <- getTpPar( par = "testSum" ) 
-    
-    
+    s, 
+    x = NULL, 
+    scale = FALSE, 
+    ... 
+){  
     # Plot something:
     ternaryWindow( s = s ) 
     ternaryBox( s = s, col = getTpPar( "plot.bg" ) ) 
     ternaryGrid( s = s ) 
     
     
-    #   Extract any ternary classification:
+    #   Plot any ternary classification:
     if( nrow( s[[ "classes" ]] ) > 0 ){
-        tc <- ternaryClasses( s = s ) 
-        
-        class.line.col <- getTpPar( "class.line.col" ) 
-        class.bg       <- getTpPar( "class.bg" ) 
-        class.line.lwd <- getTpPar( "class.line.lwd" ) 
-        
-        ternaryPlot( s = tc, scale = scale, add = TRUE, 
-            polygonExtra = list( 
-                "border" = class.line.col, 
-                "col"    = class.bg, 
-                "lwd"    = class.line.lwd ) ) 
+        ternaryPolygons( s = s ) 
     }   
     
-    
-    
+    #   Plot any ternary points in x
     if( is.null( x ) ){ x <- data.frame() } 
+    
     if( nrow( x ) >= 1 ){ 
-        message( "Method (data.frame,ternarySystem) not implemented yet" ) 
+        ternaryPoints( s = s, x = x, ... )
     }   
     
     

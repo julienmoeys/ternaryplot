@@ -133,9 +133,10 @@ tpParList  <- new.env()
 # Classes
 # -------
 
-.tpParList[[ "class.line.col" ]] <- "darkgray"
-.tpParList[[ "class.bg" ]]       <- NA 
-.tpParList[[ "class.line.lwd" ]] <- 1 
+.tpParList[[ "class.label.col" ]] <- "darkgray"
+.tpParList[[ "class.line.col" ]]  <- "darkgray"
+.tpParList[[ "class.bg" ]]        <- NA 
+.tpParList[[ "class.line.lwd" ]]  <- 1 
 
 
 
@@ -305,20 +306,26 @@ tpParList  <- new.env()
 #'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
 #'  to suppress color.
 #'
+#'@param class.label.col 
+#'  Vector of character strings representing colours (see for 
+#'  example \code{\link[grDevices]{colours}}). Colours of the 
+#'  labels of ternary class polygons (when displayed on 
+#'  a ternary plot)
+#'
 #'@param class.line.col 
-#'  Single character strings representing a colour (see for 
-#'  example \code{\link[grDevices]{colours}}). Colour of the 
+#'  Vector of character strings representing colours (see for 
+#'  example \code{\link[grDevices]{colours}}). Colours of the 
 #'  lines of ternary class polygons (when displayed on 
 #'  a ternary plot)
 #'
 #'@param class.bg
-#'  Single character strings representing a colour (see for 
-#'  example \code{\link[grDevices]{colours}}). Colour of the 
+#'  Vector of character strings representing colours (see for 
+#'  example \code{\link[grDevices]{colours}}). Colours of the 
 #'  background (filling) of ternary class polygons (when 
 #'  displayed on a ternary plot)
 #'
 #'@param class.line.lwd
-#'  Single numerical value. Line width of ternary class 
+#'  Vector of numerical values. Line width of ternary class 
 #'  polygons (when displayed on a ternary plot)
 #'
 #'
@@ -354,6 +361,7 @@ tpPar <- function(
     grid.line.col, 
     axis.line.lwd, 
     plot.bg, 
+    class.label.col, 
     class.line.col, 
     class.bg, 
     class.line.lwd 
