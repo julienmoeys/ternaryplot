@@ -5,7 +5,8 @@ CHANGES IN VERSION 0.4.0
     
     2016/01/19  Function ternaryPolygons() created, to add 
         polygons (grids or ternary classes) over an existing 
-        ternary plot.
+        ternary plot. Integrated into ternaryPlot().
+        ternaryText() now takes more arguments.
         
         Re-organised the source code.
         

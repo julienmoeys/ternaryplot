@@ -1,1 +1,1 @@
-81b9e8a Fix a bug in ternaryText (sp::coordinates does not always return xy column names)
+6533afb Fix wrong order in class labels (in ternaryPolygons)
