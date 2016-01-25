@@ -106,11 +106,17 @@ ternaryPlot.ternarySystem <- function(
         ternaryPolygons( s = s ) 
     }   
     
+    
     #   Plot any ternary points in x
     if( is.null( x ) ){ x <- data.frame() } 
     
     if( nrow( x ) >= 1 ){ 
         ternaryPoints( s = s, x = x, ... )
+        
+        #   If the triangle is undetermined, attribute to 
+        #   the bottom-left-right variables the names of the 
+        #   first 3 variables in x
+        s <- .fixTernarySystem( s = s, x = x ) 
     }   
     
     

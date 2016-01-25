@@ -16,13 +16,17 @@ ternarySystemEnv  <- new.env()
 
 
 # Default, empty, ternary classification:
-ternarySystemEnv[[ "default" ]] <- createTernarySystem() 
+ternarySystemEnv[[ "default" ]] <- createTernarySystem()     
 
 
 
 # Dummy ternary classification:
 ternarySystemEnv[[ "dummy" ]] <- createTernarySystem( 
-    "ternaryGeometry"   = createTernaryGeometry(),  
+    "ternaryGeometry"   = createTernaryGeometry(), 
+    "ternaryVariables"  = createTernaryVariables(
+        "blrNames"  = c( "F1", "F2", "F3" ), 
+        "blrLabels" = c( "Fraction 1 [%]", "Fraction 2 [%]", "Fraction 3 [%]" ), 
+    ),  
     "main"              = "Ternary plot (dummy)", 
     "vertices"          = data.frame( 
         "id"    = c(  1,   2,   3,   4), 

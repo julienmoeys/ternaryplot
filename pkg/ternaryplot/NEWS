@@ -1,6 +1,14 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.5.0
+    
+    2016/01/25  Non pre-defined ternary plots are now supported: 
+        i.e. plotting empty ternary plots without any 
+        pre-defined variable / axis names or plotting 
+        ternary data on a ternary plot with "any" variable 
+        name (first 3 columns in input data are used).
+    
 CHANGES IN VERSION 0.4.0
     
     2016/01/19  Function ternaryPolygons() created, to add 

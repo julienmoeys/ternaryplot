@@ -210,7 +210,6 @@ ternary2xy.ternarySystem <- function(
 }   
 
 
-
 ## #@rdname ternary2xy-internal-methods
 ## #
 ## #@method .ternary2xy geo_TTT
@@ -222,13 +221,18 @@ ternary2xy.ternarySystem <- function(
  x, 
  ... 
 ){  
+    #   If the triangle is undetermined, attribute to 
+    #   the bottom-left-right variables the names of the 
+    #   first 3 variables in x
+    s <- .fixTernarySystem( s = s, x = x ) 
+    
     # Set some variables
     .blrClock  <- blrClock( s ) 
     .tlrAngles <- tlrAngles( s ) 
     .fracSum   <- fracSum( s ) 
     # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
     
-    blrNames0   <- blrNames( s = s )  
+    blrNames0 <- blrNames( s = s ) 
     
     
     # Angle transformation: degree to radian
@@ -264,6 +268,11 @@ ternary2xy.ternarySystem <- function(
  x, 
  ... 
 ){  
+    #   If the triangle is undetermined, attribute to 
+    #   the bottom-left-right variables the names of the 
+    #   first 3 variables in x
+    s <- .fixTernarySystem( s = s, x = x ) 
+    
     #   Set some variables
     .blrClock  <- blrClock( s ) 
     .tlrAngles <- tlrAngles( s ) 
@@ -304,6 +313,11 @@ ternary2xy.ternarySystem <- function(
  x, 
  ... 
 ){  
+    #   If the triangle is undetermined, attribute to 
+    #   the bottom-left-right variables the names of the 
+    #   first 3 variables in x
+    s <- .fixTernarySystem( s = s, x = x ) 
+    
     # Set some variables
     .blrClock  <- blrClock( s ) 
     .tlrAngles <- tlrAngles( s ) 
@@ -344,6 +358,11 @@ ternary2xy.ternarySystem <- function(
  x, 
  ... 
 ){  
+    #   If the triangle is undetermined, attribute to 
+    #   the bottom-left-right variables the names of the 
+    #   first 3 variables in x
+    s <- .fixTernarySystem( s = s, x = x ) 
+    
     # Set some variables
     .blrClock  <- blrClock( s ) 
     .tlrAngles <- tlrAngles( s ) 

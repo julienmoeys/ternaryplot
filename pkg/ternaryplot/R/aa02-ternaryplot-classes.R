@@ -527,10 +527,10 @@ createTernaryGeometry <- function(
 #'@export 
 #'
 createTernaryVariables <- function(
-    blrNames   = paste0( "F", 1:3 ), 
-    blrLabels  = sprintf( "Fraction %s [%s]", 1:3, "%" ), 
+    blrNames   = c( "_bottom_", "_left_", "_right_" ), 
+    blrLabels  = rep( NA_character_, 3 ), 
     ...
-){ 
+){  
     tv <- list( 
         "blrNames"  = blrNames, 
         "blrLabels" = blrLabels 
@@ -691,5 +691,54 @@ createTernarySystem <- function(
     
     
     return( tsy ) 
+}   
+
+
+
+# .fixTernarySystem ========================================
+
+## # Adjust the ternaryVariables to the case where variables are undefined
+## # 
+## # Adjust the ternaryVariables to the case where variables 
+## # are undefined. If the triangle is undetermined, attribute 
+## # to the bottom-left-right variables the names of the 
+## # first 3 variables in x.
+## #
+## #
+## #@param s
+## #  See ternary2xy
+## #
+## #@param x
+## #  See ternary2xy
+## #
+## #
+## #@return 
+## # An updated version of 's', adapted to 'x'.
+## #
+.fixTernarySystem <- function(
+ s, 
+ x  
+){  
+    blrNames0 <- blrNames( s = s )
+    
+    #   Check if the triangle is undefined
+    if( all( blrNames0 == c( "_bottom_", "_left_", "_right_" ) ) ){
+        #   Check if x has at least 3 columns:
+        if( ncol( x ) < 3L ){
+            stop( sprintf(
+                "'s' is an undefined triangle (blrNames(s) is '_bottom_', '_left_', '_right_'), but 'x' has less than 3 columns (%s).", 
+                ncol( x ) 
+            ) ) 
+        }else{
+            blrNames( s = s )  <- colnames( x )[ 1L:3L ] 
+            
+            #   Set the labels if they are NA
+            if( all( is.na( blrLabels( s = s ) ) ) ){
+                blrLabels( s = s ) <- colnames( x )[ 1L:3L ] 
+            }   
+        }   
+    }   
+    
+    return( s ) 
 }   
 

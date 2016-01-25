@@ -4,8 +4,8 @@
 \alias{createTernaryVariables}
 \title{Creates a ternaryVariables object: ternary plot variables definitions.}
 \usage{
-createTernaryVariables(blrNames = paste0("F", 1:3),
-  blrLabels = sprintf("Fraction \%s [\%s]", 1:3, "\%"), ...)
+createTernaryVariables(blrNames = c("_bottom_", "_left_", "_right_"),
+  blrLabels = rep(NA_character_, 3), ...)
 }
 \arguments{
 \item{blrNames}{Vector of characters. Bottom, left and right variable names

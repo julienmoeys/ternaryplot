@@ -128,6 +128,12 @@ ternaryData.ternarySystem <- function(
     }   
     
     
+    #   If the triangle is undetermined, attribute to 
+    #   the bottom-left-right variables the names of the 
+    #   first 3 variables in x
+    s <- .fixTernarySystem( s = s, x = x ) 
+    
+    
     cn <- colnames( x ) 
     
     if( is.null( .blrNames ) ){ 
@@ -148,7 +154,7 @@ ternaryData.ternarySystem <- function(
             is.character( .blrNames ) 
         
         if( !testBlrNames ){ 
-            stop( "If Not NULL '.blrNames' must be a vector of 3 character strings" )
+            stop( "If not NULL '.blrNames' must be a vector of 3 character strings" )
         };  rm( testBlrNames )
         
         

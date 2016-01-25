@@ -64,10 +64,10 @@ tpParList  <- new.env()
 .tpParList[[ "fracSumTol" ]]    <- 1/1000 
 
 .tpParList[[ "vertices" ]]      <- data.frame( 
-    "id"    = integer(0), 
-    "bo"    = numeric(0), 
-    "le"    = numeric(0), 
-    "ri"    = numeric(0)  
+    "id"       = integer(0), 
+    "_bottom_" = numeric(0), 
+    "_left_"   = numeric(0), 
+    "_right_"  = numeric(0)  
 )   
 
 .tpParList[[ "classes" ]]       <- data.frame( 
@@ -78,10 +78,10 @@ tpParList  <- new.env()
 )   
 
 .tpParList[[ "scale" ]]         <- data.frame( 
-    "bo" = c( 000, 100 ),  
-    "le" = c( 000, 100 ),  
-    "ri" = c( 000, 100 ), 
-    row.names = c( "min", "max" ) 
+    "_bottom_" = c( 000, 100 ),  
+    "_left_"   = c( 000, 100 ),  
+    "_right_"  = c( 000, 100 ), 
+    row.names  = c( "min", "max" ) 
 )   
 
 .tpParList[[ "okClock" ]]       <- list( 
