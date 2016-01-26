@@ -8,7 +8,7 @@
 
 
 
-# ternary2SpatialPolygonsDataFrame ==============================
+# ternary2SpatialPolygons ==============================
 
 #'Converts ternary*-class objects to SpatialPolygonsDataFrame
 #'
@@ -26,35 +26,35 @@
 #'  A \code{\link[sp]{SpatialPolygonsDataFrame}}
 #'
 #'
-#'@rdname ternary2SpatialPolygonsDataFrame-methods
+#'@rdname ternary2SpatialPolygons-methods
 #'
-#'@example inst/examples/ternary2SpatialPolygonsDataFrame-example.R
+#'@example inst/examples/ternary2SpatialPolygons-example.R
 #'
 #'@export 
 #'
-ternary2SpatialPolygonsDataFrame <- function(
+ternary2SpatialPolygons <- function(
  x, 
  ... 
 ){  
-    UseMethod( "ternary2SpatialPolygonsDataFrame" ) 
+    UseMethod( "ternary2SpatialPolygons" ) 
 }   
 
 
 
-#'@rdname ternary2SpatialPolygonsDataFrame-methods
+#'@rdname ternary2SpatialPolygons-methods
 #'
-#'@method ternary2SpatialPolygonsDataFrame ternaryPolygons
+#'@method ternary2SpatialPolygons ternaryPolygons
 #'
 #'@export
 #'
 #'
-#'@usage \method{ternary2SpatialPolygonsDataFrame}{ternaryPolygons}( x, ... ) 
+#'@usage \method{ternary2SpatialPolygons}{ternaryPolygons}( x, ... ) 
 #'
 #'@importFrom sp Polygons 
 #'@importFrom sp Polygon 
 #'@importFrom sp SpatialPolygons 
 #'@importFrom sp SpatialPolygonsDataFrame 
-ternary2SpatialPolygonsDataFrame.ternaryPolygons <- function(
+ternary2SpatialPolygons.ternaryPolygons <- function(
  x, 
  ... 
 ){  
@@ -120,7 +120,7 @@ ternary2SpatialPolygonsDataFrame.ternaryPolygons <- function(
 
     # tg <- createTernaryGrid("default")
     # library( "sp" ) 
-    # tgSp <- ternary2SpatialPolygonsDataFrame( tg )
+    # tgSp <- ternary2SpatialPolygons( tg )
     
     # plot( tgSp ) 
 

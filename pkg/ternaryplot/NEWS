@@ -1,6 +1,13 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.5.1
+    
+    2016/01/26  ternary2SpatialPolygonsDataFrame() renamed 
+        to ternary2SpatialPolygons(). Internally, 
+        also output a ternary2SpatialPolygons instead of 
+        a SpatialPolygonsDataFrame.
+    
 CHANGES IN VERSION 0.5.0
     
     2016/01/25  Non pre-defined ternary plots are now supported: 

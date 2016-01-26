@@ -91,7 +91,7 @@ spPts <- sp::SpatialPoints(coords = xyDat[ ,c( "x", "y" ) ] )
 #   Convert ternary classes to sp SpatialPolygonsDataFrame 
 #s    <- getTernarySystem( s = "hypres" ) 
 cls   <- ternaryClasses( s = "hypres" ) # s = s 
-spCls <- ternary2SpatialPolygonsDataFrame( x = cls )
+spCls <- ternary2SpatialPolygons( x = cls )
 
 #   Classify the ternary data
 

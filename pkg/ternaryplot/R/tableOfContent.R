@@ -104,8 +104,8 @@
 #       createTernaryGrid.character
 #       createTernaryGrid.ternarySystem
 #       
-#       ternary2SpatialPolygonsDataFrame
-#       ternary2SpatialPolygonsDataFrame.ternaryPolygons
+#       ternary2SpatialPolygons
+#       ternary2SpatialPolygons.ternaryPolygons
 #       
 #   ternaryplot.R
 #   

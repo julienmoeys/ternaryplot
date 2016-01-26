@@ -1,7 +1,6 @@
-    
-TEST ternaryPoints()
-    With dummy ternary data
-    
+
+FIX Font in ternary plot axis labels
+
 CREATE ternary2SpatialPointsDataFrame and 
     ternary2SpatialPointsDataFrame.data.frame 
     

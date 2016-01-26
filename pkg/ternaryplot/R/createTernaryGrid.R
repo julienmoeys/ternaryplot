@@ -15,7 +15,7 @@
 #'Create a regular ternary grid. Base frame for binning ternary data.
 #'
 #'
-#'@seealso \code{\link[ternaryplot]{ternary2SpatialPolygonsDataFrame}} 
+#'@seealso \code{\link[ternaryplot]{ternary2SpatialPolygons}} 
 #'  (to convert the grid into a 
 #'  \code{\link[sp]{SpatialPolygonsDataFrame}}), and 
 #'  \code{\link[ternaryplot]{ternaryPlot}} to plot the 

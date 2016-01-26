@@ -17,6 +17,6 @@ ternaryPolygons( s = tg, border = "darkred", lty = 3 )
 
 
 # #   Alternatively:
-tgSp <- ternary2SpatialPolygonsDataFrame( tg ) 
+tgSp <- ternary2SpatialPolygons( tg ) 
 # ternaryPlot( s = s )
 # sp::plot( tgSp, add = TRUE, border = "darkred", lty = 3 ) 

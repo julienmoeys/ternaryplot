@@ -46,12 +46,12 @@ ternaryPlot( s = s )
 ternaryPolygons( s = tc, border = "darkred", lty = 3 ) 
 
 # #   Alternatively:
-tcSp <- ternary2SpatialPolygonsDataFrame( tc ) 
+tcSp <- ternary2SpatialPolygons( tc ) 
 # ternaryPlot( s = s ) 
 # sp::plot( tcSp, add = TRUE, border = "darkred", lty = 3 ) 
 }
 \seealso{
-\code{\link[ternaryplot]{ternary2SpatialPolygonsDataFrame}}
+\code{\link[ternaryplot]{ternary2SpatialPolygons}}
  (to convert the grid into a
  \code{\link[sp]{SpatialPolygonsDataFrame}}), and
  \code{\link[ternaryplot]{ternaryPlot}} to plot the
