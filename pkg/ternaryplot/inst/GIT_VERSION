@@ -1,1 +1,1 @@
-a2cc4da Fix a bug in `blrNames<-.ternarySystem` (vertices were not renamed properly)
+457cafd Improved doc
