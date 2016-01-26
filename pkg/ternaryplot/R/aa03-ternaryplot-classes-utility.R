@@ -1112,7 +1112,7 @@ ternarySystem.ternaryPolygons <- function(
     x, 
     ... 
 ){  
-    return( x[[ 'ternarySystem' ]] ) 
+    return( attr( x = x, which = 'ternarySystem' ) ) 
 }   
 
 

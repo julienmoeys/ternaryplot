@@ -140,7 +140,7 @@ ternaryPolygons.ternaryPolygons <- function(
     
     terSys  <- ternarySystem( x = s ) 
     
-    x  <- s[[ "grid" ]] 
+    # x  <- s[[ "grid" ]] 
     
     if( is.null( labels ) ){
         if( "labels" %in% names( s ) ){
@@ -148,21 +148,23 @@ ternaryPolygons.ternaryPolygons <- function(
         }   
     }   
     
-    if( nrow( x ) > 0 ){
+    if( nrow( s ) > 0 ){
         # #   Correspondence between labels and polygons IDs
         # if( !is.null( labels ) ){
-            # names( labels ) <- as.character( unique( x[, "id"] ) ) 
+            # names( labels ) <- as.character( unique( s[, "id"] ) ) 
         # }
         
-        # x  <- x[ order( x[, "id"] ), ] 
+        # s  <- s[ order( s[, "id"] ), ] 
         
-        id <- x[, "id" ] 
-        x  <- x[, colnames( x ) != "id" ] 
+        idCol <- attr( x = s, which = "idCol" ) 
+        
+        id <- s[, idCol ] 
+        s  <- s[, colnames( s ) != idCol ] 
         
         .blrNames <- blrNames( terSys ) 
         
         #   Transform from Top-Left-Right to X-Y
-        xy <- ternary2xy( s = terSys, x = x[, .blrNames ] ) 
+        xy <- ternary2xy( s = terSys, x = s[, .blrNames ] ) 
         
         #   Factor version of IDs
         idf <- factor( x = id, levels = unique( id ), 

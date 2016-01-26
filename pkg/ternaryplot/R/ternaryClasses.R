@@ -106,18 +106,23 @@ ternaryClasses.ternarySystem <- function(
         grd <- do.call( what = "rbind", args = grd ) 
         
         #   Rename column "abbrev" to "id" (polygon id)
-        colnames( grd )[ colnames( grd ) == "abbrev" ] <- "id" 
+        # colnames( grd )[ colnames( grd ) == "abbrev" ] <- "id" 
     }else{
         grd <- s[[ "vertices" ]][ logical(0), ] # Make sure no row is selected
     }   
     
-    grd <- list( 
-        "grid"          = grd, 
-        "ternarySystem" = s, 
-        "labels"        = unique( grd[, "id" ] ) 
-    )   
+    #   Add attributes to ternaryPolygons
+    attr( x = grd, which = "ternarySystem" ) <- s 
+    attr( x = grd, which = "labels" )        <- NULL 
+    attr( x = grd, which = "idCol" )         <- "abbrev" 
     
-    class( grd ) <- "ternaryPolygons" 
+    # grd <- list( 
+        # "grid"          = grd, 
+        # "ternarySystem" = s, 
+        # "labels"        = unique( grd[, "id" ] ) 
+    # )   
+    
+    class( grd ) <- c( "ternaryPolygons", "data.frame" ) 
     
     return( grd )
 }   

@@ -155,13 +155,18 @@ createTernaryGrid.ternarySystem <- function(
     #   Convert to the right frac sum (1 [-] or 100 [%])
     grd[, .blrNames ] <- grd[, .blrNames ] * .fracSum
     
-    grd <- list( 
-        "grid"          = grd, 
-        "ternarySystem" = s, 
-        "labels"        = NULL 
-    )   
+    #   Add attributes to ternaryPolygons
+    attr( x = grd, which = "ternarySystem" ) <- s 
+    attr( x = grd, which = "labels" )        <- NULL 
+    attr( x = grd, which = "idCol" )         <- "id" 
     
-    class( grd ) <- "ternaryPolygons" 
+    # grd <- list( 
+        # "grid"          = grd, 
+        # "ternarySystem" = s, 
+        # "labels"        = NULL 
+    # )   
+    
+    class( grd ) <- c( "ternaryPolygons", "data.frame" )
     
     return( grd )
 }   

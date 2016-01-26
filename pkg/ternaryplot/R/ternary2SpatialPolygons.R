@@ -59,13 +59,15 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
  ... 
 ){  
     s  <- ternarySystem( x = x )  
-    x  <- x[[ "grid" ]] 
+    # x  <- x[[ "grid" ]] 
     
     if( nrow( x ) > 0 ){
         # x  <- x[ order( x[, "id"] ), ] 
         
-        id <- x[, "id" ] 
-        x  <- x[, colnames( x ) != "id" ] 
+        idCol <- attr( x = x, which = "idCol" )
+        
+        id <- x[, idCol ] 
+        x  <- x[, colnames( x ) != idCol ] 
         # x <- subset( x, select = eval( quote( -id ) ) )
         
         .blrNames <- blrNames( s ) 
@@ -108,7 +110,7 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
         
         # pxy <- Polygons( srl = pxy, ID = nxy ) 
         pxy <- sp::SpatialPolygons( Srl = pxy )
-        pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = x, match.ID = FALSE )
+        # pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = x, match.ID = FALSE )
     }else{
         warning( "No polygon to be converted (empty 'ternaryPolygons')" )
         

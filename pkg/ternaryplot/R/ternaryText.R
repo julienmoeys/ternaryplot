@@ -153,12 +153,13 @@ ternaryText.ternaryPolygons <- function(
     #   Draw the labels
     if( !is.null( labels ) ){
         if( "labels" %in% names( s ) ){
-            labels <- s[[ "labels" ]] 
+            labels <- attr( x = s, which = "labels" ) # s[[ "labels" ]] 
         }   
         
+        idCol <- attr( x = s, which = "idCol" ) 
         
         #   Number of unique classes
-        nbCl <- length( unique( s[[ "grid" ]][, "id" ] ) )
+        nbCl <- length( unique( s[, idCol ] ) ) # s[[ "grid" ]][, idCol ]
         
         
         if( (length( labels ) == 1) & (length( nbCl ) > 1) ){

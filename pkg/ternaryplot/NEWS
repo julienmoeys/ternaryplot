@@ -7,7 +7,14 @@ CHANGES IN VERSION 0.5.1
         to ternary2SpatialPolygons(). Internally, 
         also output a ternary2SpatialPolygons instead of 
         a SpatialPolygonsDataFrame.
-    
+        
+        Now ternaryPolygons-class objects are also data.frame, 
+        and not a list containing a data.frame. Additional 
+        information are now passed as attributes (see ?attr), 
+        and a new attribute has been included, 'idCol', which 
+        contain the column that should be considered as 
+        identifier.
+        
 CHANGES IN VERSION 0.5.0
     
     2016/01/25  Non pre-defined ternary plots are now supported: 
