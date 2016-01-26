@@ -289,20 +289,26 @@ ternaryPolygons.ternarySystem <- function(
     if( nrow( s[[ "classes" ]] ) > 0 ){
         tc <- ternaryClasses( s = s ) 
         
+        .tpPar <- tpPar() 
+        
         if( is.null( border ) ){
-            border <- getTpPar( "class.border.col" ) 
+            border <- .tpPar[[ "class.border.col" ]] 
         }   
         
         if( is.null( col ) ){
-            col <- getTpPar( "class.label.col" ) 
+            col <- .tpPar[[ "class.label.col" ]] 
         }   
         
         if( is.null( bg ) ){
-            bg <- getTpPar( "class.bg" ) 
+            bg <- .tpPar[[ "class.bg" ]] 
         }   
         
         if( is.null( lwd ) ){
-            lwd <- getTpPar( "class.border.lwd" ) 
+            lwd <- .tpPar[[ "class.border.lwd" ]] 
+            
+            if( is.null( lwd ) ){
+                lwd <- par( "lwd" ) 
+            }   
         }   
         
         out <- ternaryPolygons( s = tc, bg = bg, col = col, 

@@ -774,12 +774,17 @@ ternaryGrid.ternarySystem <- function(
         if( nrow( gr[[ "from" ]][[ ax ]] ) != 0 ){ 
             # Draw the grid segments
             
+            if( is.null( grid.line.lwd ) ){ 
+                grid.line.lwd <- par( "lwd" ) 
+            }   
+            
             if( .plot ){ 
                 out[[ ax ]] <- ternarySegments( 
                     from  = gr[[ "from" ]][[ ax ]], 
                     to    = gr[[ "to" ]][[ ax ]], 
                     s     = s, 
                     col   = grid.line.col, 
+                    lwd   = grid.line.lwd. 
                     .plot = .plot, 
                     ... ) 
             }   

@@ -104,10 +104,35 @@
     names( out ) <- c( "B", "L", "R" ) 
     
     
-    fg            <- par( "fg" ) 
-    col.lab       <- par( "col.lab" ) 
-    axis.line.lwd <- getTpPar( "axis.line.lwd" )
+    .par   <- par() 
+    .tpPar <- tpPar() 
     
+    fg            <- .par[[ "fg" ]]
+    
+    col.lab       <- .par[[ "col.lab" ]] 
+    font.lab      <- .par[[ "font.lab" ]] 
+    
+    axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]] 
+    axis.line.col <- .tpPar[[ "axis.line.col" ]] 
+    
+    ticks.line.lwd <- .tpPar[[ "ticks.line.lwd" ]] 
+    ticks.line.col <- .tpPar[[ "ticks.line.col" ]] 
+    
+    if( is.null( axis.line.lwd ) ){
+        axis.line.lwd <- .par[[ "lwd" ]] 
+    }   
+    
+    if( is.null( axis.line.col ) ){
+        axis.line.col <- .par[[ "fg" ]] 
+    }   
+    
+    if( is.null( ticks.line.lwd ) ){
+        ticks.line.lwd <- .par[[ "lwd" ]] 
+    }   
+    
+    if( is.null( ticks.line.col ) ){
+        ticks.line.col <- .par[[ "fg" ]] 
+    }   
     
     #   Geometry specific adjustments
     adj <- ._ternaryTicks( s = s )
@@ -130,8 +155,8 @@
                     from  = grTm[[ "from" ]][[ ax ]], 
                     to    = grTm[[ "to" ]][[ ax ]], 
                     s     = s, 
-                    col   = fg, 
-                    lwd   = axis.line.lwd, 
+                    col   = ticks.line.col, 
+                    lwd   = ticks.line.lwd, 
                     .plot = .plot, 
                     ... )  
                 
@@ -140,7 +165,7 @@
                     from  = grTm[[ "from" ]][[ ax ]][ 1L, , drop = FALSE ], 
                     to    = grTm[[ "from" ]][[ ax ]][ nrow( grTm[[ "from" ]][[ ax ]] ), , drop = FALSE ], 
                     s     = s, 
-                    col   = fg, 
+                    col   = axis.line.col, 
                     lwd   = axis.line.lwd, 
                     .plot = .plot, 
                     ... )  
@@ -153,7 +178,7 @@
                     adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
                     srt    = adj[[ "blrLabelAngles" ]][ ax ], 
                     col    = col.lab, 
-                    font   = par( "font.lab" ), 
+                    font   = font.lab, 
                     # offset = -5, 
                     ... ) 
                 

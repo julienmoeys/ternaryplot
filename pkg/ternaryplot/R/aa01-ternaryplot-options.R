@@ -124,6 +124,10 @@ tpParList  <- new.env()
 .tpParList[[ "arrowsLength" ]]  <- NA_real_ 
 
 .tpParList[[ "axis.line.lwd" ]] <- NULL 
+.tpParList[[ "axis.line.col" ]] <- NULL 
+
+.tpParList[[ "tick.line.lwd" ]] <- NULL 
+.tpParList[[ "tick.line.col" ]] <- NULL 
 
 # Grid
 # ----
@@ -137,7 +141,7 @@ tpParList  <- new.env()
 .tpParList[[ "class.label.col" ]]  <- "darkgray"
 .tpParList[[ "class.border.col" ]] <- "darkgray"
 .tpParList[[ "class.bg" ]]         <- NA 
-.tpParList[[ "class.border.lwd" ]] <- 1 
+.tpParList[[ "class.border.lwd" ]] <- NULL 
 
 
 
@@ -304,10 +308,22 @@ tpParList  <- new.env()
 #'
 #'@param axis.line.lwd
 #'  Single numerical value. Line thickness for the axis-lines 
-#'  (including ticks and arrows)
+#'  (including arrow lines)
+#'
+#'@param axis.line.col
+#'  Single character string representing a colour. Colour 
+#'  of the axis lines (including arrow lines)
+#'
+#'@param ticks.line.lwd
+#'  Single numerical value. Line thickness for the axis ticks 
+#'  lines.
+#'
+#'@param ticks.line.col
+#'  Single character string representing a colour. Colour 
+#'  of the axis tick lines.
 #'
 #'@param plot.bg
-#'  Single character value representing a color. Fill-color of the 
+#'  Single character value representing a colour. Fill-colour of the 
 #'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
 #'  to suppress color.
 #'
@@ -366,6 +382,9 @@ tpPar <- function(
     grid.line.col, 
     grid.line.lwd, 
     axis.line.lwd, 
+    axis.line.col, 
+    ticks.line.lwd, 
+    ticks.line.col, 
     plot.bg, 
     class.label.col, 
     class.border.col, 

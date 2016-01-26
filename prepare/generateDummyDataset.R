@@ -46,7 +46,9 @@ terDat[, "GROUP" ] <- sample( x = 1:nbCat, size = n,
 library( "ternaryplot" ) 
 
 #   Set general graphical parameters (enlarged plot)
-par( mar = c(3,2,0,2)+.1, family = "serif", font = 2 ) # mar = c(bottom, left, top, right) 
+par( mar = c(3,2,0,2)+.1, family = "serif", font = 2, 
+    font.axis = 2, font.lab = 2 ) 
+    # mar = c(bottom, left, top, right) 
 
 #   Set specific graphical parameters
 tpPar( grid.line.col = "white", arrowsBreak = FALSE, 

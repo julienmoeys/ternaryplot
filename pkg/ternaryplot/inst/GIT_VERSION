@@ -1,1 +1,1 @@
-ee9e3c8 ternaryPolygons objects are now also data.frame with attributes (not a list)
+7ae6744 Attempt to fix font in axis labels (did not followed par() parameters)
