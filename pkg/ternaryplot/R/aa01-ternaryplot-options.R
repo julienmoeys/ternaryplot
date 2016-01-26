@@ -129,6 +129,7 @@ tpParList  <- new.env()
 # ----
 
 .tpParList[[ "grid.line.col" ]] <- "lightgray" 
+.tpParList[[ "grid.line.lwd" ]] <- NULL 
 
 # Classes
 # -------
@@ -281,6 +282,10 @@ tpParList  <- new.env()
 #'  Single character value representing a color. Color of the 
 #'  grid-lines added to a ternary plot.
 #'
+#'@param grid.line.lwd
+#'  Single numerical value. Thickness of the grid-lines 
+#'  added to a ternary plot.
+#'
 #'@param arrowsCoords 
 #'  Parameters used internally to define axis-arrows location
 #'
@@ -359,6 +364,7 @@ tpPar <- function(
     arrowsBreak, 
     arrowsLength, 
     grid.line.col, 
+    grid.line.lwd, 
     axis.line.lwd, 
     plot.bg, 
     class.label.col, 
