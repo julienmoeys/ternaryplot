@@ -97,7 +97,17 @@ ternaryPlot.ternarySystem <- function(
 ){  
     # Plot something:
     ternaryWindow( s = s ) 
-    ternaryBox( s = s, col = getTpPar( "plot.bg" ) ) 
+    
+    
+    #   Draw a box without borders around the plot
+    oldTpPar <- tpPar()             # Backup parameters
+    tpPar( "axis.line.col" = NA )   # No axis line
+    ternaryBox( s = s, bg = getTpPar( "plot.bg" ) ) 
+    #   Restore parameters
+    tpPar( "axis.line.col" = oldTpPar[[ "axis.line.col" ]] ) 
+    
+    
+    #   Add the grid
     ternaryGrid( s = s ) 
     
     

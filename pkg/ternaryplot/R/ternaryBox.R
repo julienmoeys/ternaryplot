@@ -24,6 +24,11 @@
 #'@param s 
 #'  A \code{\link[ternaryplot]{ternarySystem}} object.
 #'
+#'@param bg 
+#'  Single character string, representing a colour. Colour 
+#'  of the box filling (background). Default is \code{NA}, 
+#'  no fill-colour. 
+#'
 #'@param .plot 
 #'  Single logical value. Set to \code{FALSE} if you don't want 
 #'  to plot the graphical element and simply returns them as 
@@ -84,11 +89,23 @@ ternaryBox <- function( s, ... ){
 #' 
 ternaryBox.ternarySystem <- function( 
  s, 
+ bg = NA, 
  .plot = TRUE, 
  ... 
 ){  
-    axis.line.lwd <- getTpPar( "axis.line.lwd" )
-    fg            <- par( "fg" )
+    .tpPar <- tpPar()
+    .par   <- par() 
+    
+    axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]] 
+    axis.line.col <- .tpPar[[ "axis.line.col" ]] 
+    
+    if( is.null( axis.line.lwd ) ){
+        axis.line.lwd <- .par[[ "lwd" ]] 
+    }   
+    
+    if( is.null( axis.line.col ) ){
+        axis.line.col <- .par[[ "fg" ]] 
+    }   
     
     scale <- s[[ 'scale' ]]
     
@@ -108,11 +125,13 @@ ternaryBox.ternarySystem <- function(
     
     if( .plot ){ 
         polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
-            lwd = axis.line.lwd, border = fg, ... )
+            lwd = axis.line.lwd, col = bg, 
+            border = axis.line.col, ... )
     }   
     
     out <- tpBox[, c( "x", "y" ) ] 
-    if( getTpPar( "sp" ) ){ out <- .xy2SpatialPolygons( xy = out ) }
+    
+    if( .tpPar[[ "sp" ]] ){ out <- .xy2SpatialPolygons( xy = out ) }
     
     return( invisible( out ) ) 
 }   
