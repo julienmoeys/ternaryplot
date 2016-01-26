@@ -1,1 +1,1 @@
-02366c7 ternary2SpatialPolygonsDataFrame() renamed to ternary2SpatialPolygons()
+ee9e3c8 ternaryPolygons objects are now also data.frame with attributes (not a list)

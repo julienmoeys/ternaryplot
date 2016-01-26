@@ -867,6 +867,7 @@ calculateArrowLength <- function( pin = NULL ){
                 adj    = c( adj1[ ax ], .5 ), 
                 srt    = blrLabelAngles[ ax ], 
                 col    = col.lab, 
+                font   = par( "font.axis" ), 
                 ... ) 
             
             # Set test again

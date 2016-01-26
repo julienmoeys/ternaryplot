@@ -87,11 +87,18 @@ ternarySystemEnv[[ "hypres" ]] <- createTernarySystem(
     
     "ternaryVariables" = createTernaryVariables( 
         "blrNames"  = c( "SAND", "CLAY", "SILT" ), 
-        "blrLabels" = expression( 
-            'Sand 50-2000' ~ mu * 'm [%]', 
-            'Clay 0-2' ~ mu * 'm [%]', 
-            'Silt 2-50' ~ mu * 'm [%]'
+        "blrLabels" = c(
+            "Sand 0.05 - 2 mm [%]", 
+            "Clay 0 - 0.002 mm [%]", 
+            "Silt 0.002 - 0.05 mm [%]" 
         )   
+        
+        # # Expressions do not follow par( 'font' )
+        # expression( 
+            # 'Sand 50-2000' ~ mu * 'm [%]', 
+            # 'Clay 0-2' ~ mu * 'm [%]', 
+            # 'Silt 2-50' ~ mu * 'm [%]'
+        # )   
     ),  
     
     "ternaryGeometry" = createTernaryGeometry( 
