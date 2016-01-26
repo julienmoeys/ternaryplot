@@ -7,9 +7,13 @@ library( "ternaryplot" )
 
 #   Save and then set graphical parameters
 op <- par( no.readonly = TRUE ) 
-par( mfrow = c(2,2), cex = .5 )
+par( mfrow = c(2,2) )
 
-# par( mar = c(3,2,0,2)+.1 ) # for larger triangles
+
+# Define the plot style (optional)
+# --------------------------------
+
+ternaryStyle( margin = TRUE ) 
 
 
 # Default ternary plot
