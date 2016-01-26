@@ -790,15 +790,15 @@ calculateArrowLength <- function( pin = NULL ){
     }   
     
     
-    pr <- tpPar( par = c( "arrowsBreak", "axis.line.lwd", 
-        "arrowsLength" ) ) # "arrowsShift", "arrowsHeight", 
+    pr   <- tpPar() # "arrowsShift", "arrowsHeight", 
     .par <- par()
     
-    arrowsBreak   <- pr$"arrowsBreak" 
+    arrowsBreak   <- pr[[ "arrowsBreak" ]] 
     # arrowsShift   <- pr$"arrowsShift" 
-    arrowsLength  <- pr$"arrowsLength" 
-    fg            <- .par[[ "fg" ]] # par( "fg" )
-    axis.line.lwd <- pr$"axis.line.lwd"
+    arrowsLength  <- pr[[ "arrowsLength" ]]
+    # fg          <- .par[[ "fg" ]] # par( "fg" )
+    axis.line.col <- pr[[ "axis.line.col" ]] 
+    axis.line.lwd <- pr[[ "axis.line.lwd" ]]
     col.lab       <- .par[[ "col.lab" ]] # par( "col.lab" )
     .fracSum      <- fracSum( s = s )
     
@@ -849,7 +849,7 @@ calculateArrowLength <- function( pin = NULL ){
                         from = gr[[ ax ]][ 1, ], 
                         to   = gr[[ ax ]][ 2, ], 
                         s    = s, 
-                        col  = fg, 
+                        col  = axis.line.col, 
                         lwd  = axis.line.lwd, 
                         ... ) 
                 }else{ 
@@ -857,7 +857,7 @@ calculateArrowLength <- function( pin = NULL ){
                         from   = gr[[ ax ]][ 1, ], 
                         to     = gr[[ ax ]][ 2, ], 
                         s      = s, 
-                        col    = fg, 
+                        col    = axis.line.col, 
                         lwd    = axis.line.lwd, 
                         length = arrowsLength, # diff( arrowsShift ), 
                         ... ) 
@@ -870,7 +870,7 @@ calculateArrowLength <- function( pin = NULL ){
                     from   = gr[[ ax ]][ 2, ], 
                     to     = gr[[ ax ]][ 3, ], 
                     s      = s, 
-                    col    = fg, 
+                    col    = axis.line.col, 
                     lwd    = axis.line.lwd, 
                     length = arrowsLength, # diff( arrowsShift ), 
                     ... ) 
@@ -1066,9 +1066,13 @@ ternaryAxis.ternarySystem <- function(
  ... 
 ){  
     .ternaryTicks( s = s ) 
+    
     # ternaryGrid( s = s ) 
     # ternaryBox( s = s ) 
-    .ternaryAxisArrows( s = s ) 
+    
+    if( getTpPar( "arrows" ) ){
+        .ternaryAxisArrows( s = s ) 
+    }   
 }   
 
 

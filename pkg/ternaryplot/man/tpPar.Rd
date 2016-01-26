@@ -6,10 +6,10 @@
 \usage{
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
   classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
-  arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
-  grid.line.col, grid.line.lwd, axis.line.lwd, axis.line.col, ticks.line.lwd,
-  ticks.line.col, plot.bg, class.label.col, class.border.col, class.bg,
-  class.border.lwd)
+  ticks.line.lwd, ticks.line.col, arrows, arrowsShift, arrowsHeight,
+  arrowsCoords, arrowsBreak, arrowsLength, grid.line.col, grid.line.lwd,
+  axis.line.lwd, axis.line.col, plot.bg, class.label.col, class.border.col,
+  class.bg, class.border.lwd)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -89,6 +89,15 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  in inches, estimated using the internal function
  \code{.nbMargin2diffXY()}.}
 
+\item{ticks.line.lwd}{Single numerical value. Line thickness for the axis ticks
+ lines.}
+
+\item{ticks.line.col}{Single character string representing a colour. Colour
+ of the axis tick lines.}
+
+\item{arrows}{Single numerical value. If \code{TRUE}, arrows are
+ drawn along the axis.}
+
 \item{arrowsShift}{Vector of two numeric values. Axis' arrows' shift from their
  axis, expressed so that \code{arrowsShift * fracSum} is the
  start and end point. If \code{NA}, the arrow shift from
@@ -125,12 +134,6 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 
 \item{axis.line.col}{Single character string representing a colour. Colour
  of the axis lines (including arrow lines)}
-
-\item{ticks.line.lwd}{Single numerical value. Line thickness for the axis ticks
- lines.}
-
-\item{ticks.line.col}{Single character string representing a colour. Colour
- of the axis tick lines.}
 
 \item{plot.bg}{Single character value representing a colour. Fill-colour of the
  plot region (frame). Set to \code{NA} or \code{"transparent"}

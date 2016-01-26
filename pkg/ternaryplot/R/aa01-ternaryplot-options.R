@@ -108,26 +108,27 @@ tpParList  <- new.env()
 # Axis
 # ----
 
-.tpParList[[ "ticksAt" ]]       <- seq( from = 0, to = 1, by = .1 ) 
+### Axis ticks
 
-.tpParList[[ "ticksShift" ]]    <- NA_real_ # 0.040 
-
+.tpParList[[ "ticksAt" ]]          <- seq( from = 0, to = 1, by = .1 ) 
+.tpParList[[ "ticksShift" ]]       <- NA_real_ # 0.040 
 .tpParList[[ "ticksLabelsShift" ]] <- NA_real_ 
+.tpParList[[ "ticks.line.lwd" ]]   <- NULL 
+.tpParList[[ "ticks.line.col" ]]   <- NULL 
 
+### Axis arrows
+
+.tpParList[[ "arrows" ]]        <- TRUE 
 .tpParList[[ "arrowsShift" ]]   <- rep( NA_real_, 2 ) # c( 0.075, 0.125 )
 .tpParList[[ "arrowsHeight" ]]  <- 0.75
-
 .tpParList[[ "arrowsCoords" ]]  <- c( .15, .45, .45, .55 ) 
-
 .tpParList[[ "arrowsBreak" ]]   <- TRUE 
-
 .tpParList[[ "arrowsLength" ]]  <- NA_real_ 
+
+### Axis line
 
 .tpParList[[ "axis.line.lwd" ]] <- NULL 
 .tpParList[[ "axis.line.col" ]] <- NULL 
-
-.tpParList[[ "ticks.line.lwd" ]] <- NULL 
-.tpParList[[ "ticks.line.col" ]] <- NULL 
 
 # Grid
 # ----
@@ -223,6 +224,18 @@ tpParList  <- new.env()
 #'  in inches, estimated using the internal function 
 #'  \code{.nbMargin2diffXY()}.
 #'
+#'@param ticks.line.lwd
+#'  Single numerical value. Line thickness for the axis ticks 
+#'  lines.
+#'
+#'@param ticks.line.col
+#'  Single character string representing a colour. Colour 
+#'  of the axis tick lines.
+#'
+#'@param arrows
+#'  Single numerical value. If \code{TRUE}, arrows are 
+#'  drawn along the axis.
+#'
 #'@param arrowsShift
 #'  Vector of two numeric values. Axis' arrows' shift from their 
 #'  axis, expressed so that \code{arrowsShift * fracSum} is the 
@@ -314,14 +327,6 @@ tpParList  <- new.env()
 #'  Single character string representing a colour. Colour 
 #'  of the axis lines (including arrow lines)
 #'
-#'@param ticks.line.lwd
-#'  Single numerical value. Line thickness for the axis ticks 
-#'  lines.
-#'
-#'@param ticks.line.col
-#'  Single character string representing a colour. Colour 
-#'  of the axis tick lines.
-#'
 #'@param plot.bg
 #'  Single character value representing a colour. Fill-colour of the 
 #'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
@@ -374,6 +379,9 @@ tpPar <- function(
     ticksAt, 
     ticksShift, 
     ticksLabelsShift, 
+    ticks.line.lwd, 
+    ticks.line.col, 
+    arrows, 
     arrowsShift, 
     arrowsHeight, 
     arrowsCoords, 
@@ -383,8 +391,6 @@ tpPar <- function(
     grid.line.lwd, 
     axis.line.lwd, 
     axis.line.col, 
-    ticks.line.lwd, 
-    ticks.line.col, 
     plot.bg, 
     class.label.col, 
     class.border.col, 

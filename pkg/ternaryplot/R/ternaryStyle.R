@@ -80,7 +80,7 @@ ternaryStyle.character <- function(
         #   Set specific graphical parameters
         tpPar( 
             grid.line.col    = "white", 
-            arrowsBreak      = FALSE, 
+            # arrowsBreak      = FALSE, 
             plot.bg          = gray( .95 ), 
             axis.line.lwd    = 2, 
             class.border.lwd = 2, 
@@ -93,7 +93,8 @@ ternaryStyle.character <- function(
             family    = "sans", 
             font      = 2, 
             font.axis = 2, 
-            font.lab  = 2 ) 
+            font.lab  = 2, 
+            col.lab   = "darkgray" ) 
         
         #   Set the margins
         if( margin ){
@@ -104,12 +105,14 @@ ternaryStyle.character <- function(
         #   Set specific graphical parameters
         tpPar( 
             grid.line.col    = "white", 
-            arrowsBreak      = FALSE, 
+            arrows           = FALSE, 
+            # arrowsBreak      = FALSE, 
             plot.bg          = gray( .95 ), 
             axis.line.lwd    = 2, 
             axis.line.col    = NA, 
             class.border.lwd = 2, 
             ticks.line.lwd   = 2, 
+            ticks.line.col   = "darkgray", 
             grid.line.lwd    = 2 )
         
     }else{

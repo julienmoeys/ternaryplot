@@ -5,7 +5,10 @@ CHANGES IN VERSION 0.6.0
     
     2016/01/26  Created the function ternaryStyle() with 
         predefined graphics style.
-    
+        
+        tpPar() now gains an argument "arrows" to plot 
+        axis arrows or not.
+        
 CHANGES IN VERSION 0.5.1
     
     2016/01/26  ternary2SpatialPolygonsDataFrame() renamed 
