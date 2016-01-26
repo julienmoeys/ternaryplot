@@ -6,7 +6,7 @@ library( "ternaryplot" )
 # -------------------------------
 
 #   Save and then set graphical parameters
-op <- par( no.readonly = TRUE ) 
+op <- par() 
 par( mfrow = c(2,2) )
 
 
@@ -25,21 +25,21 @@ s <- ternaryPlot()
 # Change axis orientation (clockwise vs counter-clockwise)
 # ========================================================
 
-# Set new orientation
+#   Set new orientation
 blrClock( s ) <- rep( FALSE, 3 ) 
 
-# Plot
+#   Plot
 ternaryPlot(s) 
 
 
 # Change axis orientation and frame angles
 # ========================================
 
-# Set new orientation and angles
+#   Set new orientation and angles
 blrClock( s )  <- c( FALSE, TRUE, NA ) 
 tlrAngles( s ) <- c( 45, 90, 45 ) 
 
-# Plot
+#   Plot
 ternaryPlot(s) 
 
 
@@ -52,9 +52,8 @@ tlrAngles( s ) <- c(45,45,90)
 ternaryPlot(s) 
 
 
-# reset par
-par( op )
-
+#   reset par
+par( "mfrow" = op[[ "mfrow" ]] )
 
 
 
@@ -65,20 +64,6 @@ ternaryPlot( "hypres" )
 
 
 
-# Custom colors, margins and arrow breaks
-# =======================================
-
-#   Set general graphical parameters (enlarged plot)
-par( fg = "darkred", col.lab = "darkblue", mar = c(3,2,0,2)+.1 ) 
-    # mar = c(bottom, left, top, right) 
-
-#   Set specific graphical parameters
-tpPar( grid.line.col = "white", arrowsBreak = FALSE, 
-    plot.bg = gray( .95 ) )
-
-ternaryPlot()
-
-
-# reset par
+#   reset par (completely)
 par( op )
 tpPar( reset = TRUE )

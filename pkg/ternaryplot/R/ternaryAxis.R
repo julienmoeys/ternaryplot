@@ -790,22 +790,29 @@ calculateArrowLength <- function( pin = NULL ){
     }   
     
     
-    pr   <- tpPar() # "arrowsShift", "arrowsHeight", 
-    .par <- par()
+    .tpPar <- tpPar() # "arrowsShift", "arrowsHeight", 
+    .par   <- par()
     
-    arrowsBreak   <- pr[[ "arrowsBreak" ]] 
-    # arrowsShift   <- pr$"arrowsShift" 
-    arrowsLength  <- pr[[ "arrowsLength" ]]
+    arrowsBreak   <- .tpPar[[ "arrowsBreak" ]] 
+    # arrowsShift   <- .tpPar$"arrowsShift" 
+    arrowsLength  <- .tpPar[[ "arrowsLength" ]]
     # fg          <- .par[[ "fg" ]] # par( "fg" )
-    axis.line.col <- pr[[ "axis.line.col" ]] 
-    axis.line.lwd <- pr[[ "axis.line.lwd" ]]
+    axis.line.col <- .tpPar[[ "axis.line.col" ]] 
+    axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]]
     col.lab       <- .par[[ "col.lab" ]] # par( "col.lab" )
     .fracSum      <- fracSum( s = s )
     
+    if( is.null( axis.line.col ) ){
+        axis.line.col <- .par[[ "fg" ]] 
+    }   
+    
+    if( is.null( axis.line.lwd ) ){
+        axis.line.lwd <- .par[[ "lwd" ]] 
+    }   
     
     # if( any( is.na( arrowsShift ) ) ){
         # #   Note: also set in .ternaryAxisArrowsBase
-        # arrowsHeight <- pr$"arrowsHeight"
+        # arrowsHeight <- .tpPar$"arrowsHeight"
         # mgp          <- .par[[ "mgp" ]]
         
         # arrowsShift <- (.nbMargin2diffXY() / .fracSum) * 
@@ -813,7 +820,6 @@ calculateArrowLength <- function( pin = NULL ){
         
         # # print( arrowsShift ) 
     # }   
-    
     
     if( is.na( arrowsLength ) ){
         arrowsLength <- calculateArrowLength( pin = .par[[ "pin" ]] )
@@ -835,7 +841,7 @@ calculateArrowLength <- function( pin = NULL ){
         # Draw the tick-marks start and segments
         if( nrow( gr[[ ax ]] ) != 0 ){ 
             # Prevent tests
-            oldPar <- tpPar( par = "testRange" ) 
+            # oldPar <- tpPar( par = "testRange" ) 
             tpPar  <- tpPar( testRange = FALSE ) 
             
             # ternaryPoints( 
@@ -897,7 +903,7 @@ calculateArrowLength <- function( pin = NULL ){
                 ... ) 
             
             # Set test again
-            tpPar( par = oldPar )
+            tpPar( par = .tpPar )
         }   
     }   
     
