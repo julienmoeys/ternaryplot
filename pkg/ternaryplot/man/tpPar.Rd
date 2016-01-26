@@ -7,8 +7,9 @@
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
   classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
   arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
-  grid.line.col, axis.line.lwd, plot.bg, class.label.col, class.border.col,
-  class.bg, class.border.lwd)
+  grid.line.col, grid.line.lwd, axis.line.lwd, axis.line.col, ticks.line.lwd,
+  ticks.line.col, plot.bg, class.label.col, class.border.col, class.bg,
+  class.border.lwd)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -116,10 +117,22 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 \item{grid.line.col}{Single character value representing a color. Color of the
  grid-lines added to a ternary plot.}
 
-\item{axis.line.lwd}{Single numerical value. Line thickness for the axis-lines
- (including ticks and arrows)}
+\item{grid.line.lwd}{Single numerical value. Thickness of the grid-lines
+ added to a ternary plot.}
 
-\item{plot.bg}{Single character value representing a color. Fill-color of the
+\item{axis.line.lwd}{Single numerical value. Line thickness for the axis-lines
+ (including arrow lines)}
+
+\item{axis.line.col}{Single character string representing a colour. Colour
+ of the axis lines (including arrow lines)}
+
+\item{ticks.line.lwd}{Single numerical value. Line thickness for the axis ticks
+ lines.}
+
+\item{ticks.line.col}{Single character string representing a colour. Colour
+ of the axis tick lines.}
+
+\item{plot.bg}{Single character value representing a colour. Fill-colour of the
  plot region (frame). Set to \code{NA} or \code{"transparent"}
  to suppress color.}
 
