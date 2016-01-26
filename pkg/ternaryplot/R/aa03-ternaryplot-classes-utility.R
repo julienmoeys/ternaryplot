@@ -96,17 +96,24 @@ blrNames.ternaryVariables <- function( s, ... ){
  ..., 
  value 
 ){  
+    #   Fetch the old names
+    oldNames <- s[[ 'ternaryVariables']][[ 'blrNames' ]] 
+    
     s[[ 'ternaryVariables']][[ 'blrNames' ]] <- value 
     
-    # Change the column names in vertices
+    # Change the column names in vertices and the scale
     vertices <- s[[ 'vertices' ]] 
-    colnames( vertices ) <- c( colnames( vertices )[1], value )  
-    s[[ 'vertices' ]] <- vertices 
+    scale    <- s[[ 'scale' ]] 
     
-    # Change the column names in scale
-    scale <- s[[ 'scale' ]] 
-    colnames( scale ) <- value 
-    s[[ 'scale' ]] <- scale 
+    for( o in 1:length( oldNames ) ){
+        colnames( vertices )[ colnames( vertices ) == oldNames[ o ] ] <- 
+            value[ o ] 
+        colnames( scale )[ colnames( scale ) == oldNames[ o ] ] <- 
+            value[ o ] 
+    }   
+    
+    s[[ 'vertices' ]] <- vertices 
+    s[[ 'scale' ]]    <- scale 
     
     ternaryCheck( s, ... )
     
