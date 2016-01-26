@@ -1,6 +1,6 @@
 
 # +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
+# | Package:    ternaryplot                                     |
 # | Language:   R + roxygen2 inline documentation               |
 # | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
 # | License:    AGPL3, Affero General Public License version 3  |
@@ -182,7 +182,7 @@ tpParList  <- new.env()
 #'  \item If \code{par} is a list following the format \code{tag = value}, where
 #'  \code{tag} is the name of the parameter to be changed, and \code{value} is
 #'  its new value.  Such a list is returned by \code{tpPar()}. Notice that
-#'  parameters can also be set indivudually, using the options listed below. }
+#'  parameters can also be set individually, using the options listed below. }
 #'
 #'@param reset 
 #'  Single logical. If TRUE, all the parameters will be set to their
@@ -436,7 +436,11 @@ tpPar <- function(
         
         # Set the values
         for( i in parNames ){ 
-            tpParValues[[ i ]] <- par[[ i ]] 
+            if( is.null( par[[ i ]] ) ){
+                tpParValues[ i ] <- list( NULL ) 
+            }else{
+                tpParValues[[ i ]] <- par[[ i ]] 
+            }   
         }   
     }   
     
@@ -449,7 +453,14 @@ tpPar <- function(
         )   
         
         if( eval( testExpr ) ){ 
-            tpParValues[[ parLabel ]] <- get( x = parLabel )  
+            tmpVal <- get( x = parLabel ) 
+            
+            if( is.null( tmpVal ) ){
+                tpParValues[ parLabel ] <- list( NULL ) 
+                
+            }else{
+                tpParValues[[ parLabel ]] <- tmpVal 
+            };  rm( tmpVal )
         }   
     }   
     
