@@ -31,6 +31,8 @@
 #'  bottom-left-right axis.
 #'
 #' 
+#'@example inst/examples/blrNames-example.R
+#' 
 #'@rdname blrNames-methods
 #'
 #'@export 
@@ -168,6 +170,8 @@ blrNames.ternaryVariables <- function( s, ... ){
 #'  bottom-left-right axis.
 #'
 #' 
+#'@example inst/examples/blrLabels-example.R
+#'
 #'@rdname blrLabels-methods
 #'
 #'@export 
@@ -289,6 +293,8 @@ blrLabels.ternaryVariables <- function( s, ... ){
 #'  a ternarySystem object.
 #'
 #' 
+#'@example inst/examples/blrClock-example.R
+#'
 #'@rdname blrClock-methods
 #'
 #'@export 
@@ -568,6 +574,8 @@ fracSum.ternaryGeometry <- function(
 #'  and right angles of the ternary system object.
 #'
 #' 
+#'@example inst/examples/tlrAngles-example.R
+#'
 #'@rdname tlrAngles-methods
 #'
 #'@export 

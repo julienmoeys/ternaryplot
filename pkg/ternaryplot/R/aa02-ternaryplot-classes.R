@@ -506,14 +506,25 @@ createTernaryGeometry <- function(
 #'
 #'
 #'@param blrNames
-#'  Vector of characters. Bottom, left and right variable names 
-#'  as they will be found in \code{data.frame} containing ternary 
-#'  data.
+#'  Vector of characters. Bottom, left and right variable 
+#'  names as they will be found in a \code{data.frame} 
+#'  containing ternary data. If \code{blrNames} is set 
+#'  to \code{c( "_bottom_","_left_","_right_" )}, 
+#'  \code{ternarySystem}s based on the set of 
+#'  \code{ternaryVariables} will be "undefined", meaning 
+#'  that any variable name goes (in the case of ternary 
+#'  data points, it means that the 1st three columns 
+#'  will be used independently of how they are called).
 #'
 #'@param blrLabels
 #'  Vector of characters or vector of expressions. Bottom, left 
 #'  and right variable labels as they will be displayed on ternary 
-#'  plots.
+#'  plots. If \code{blrNames} is set 
+#'  to \code{c( "_bottom_","_left_","_right_" )}, and 
+#'  \code{blrLabels} to \code{rep( NA_character_, 3 )}, 
+#'  \code{\link[ternaryplot]{ternaryPlot}} and 
+#'  \code[ternaryplot]{\link{ternaryPoints}} use the column 
+#'  names of the dataset that is provided (when provided).
 #'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}
