@@ -19,7 +19,7 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  \item If \code{par} is a list following the format \code{tag = value}, where
  \code{tag} is the name of the parameter to be changed, and \code{value} is
  its new value.  Such a list is returned by \code{tpPar()}. Notice that
- parameters can also be set indivudually, using the options listed below. }}
+ parameters can also be set individually, using the options listed below. }}
 
 \item{reset}{Single logical. If TRUE, all the parameters will be set to their
  default value. Values are reset before any change to the parameter values, as

@@ -28,6 +28,8 @@ for( f in c( sourceFiles, sourceFiles2 ) ){
     source( file = f )
 }   
 
+getTpPar("axis.line.col")
+
 # library( "ternaryplot" )
 library( "sp" )
 

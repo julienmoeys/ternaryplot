@@ -1,5 +1,5 @@
 Package: ternaryplot
-Version: 0.5.1
+Version: 0.6.0
 Date: 2016-01-26
 Title: Infrastructure for ternary plots and ternary classifications (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>

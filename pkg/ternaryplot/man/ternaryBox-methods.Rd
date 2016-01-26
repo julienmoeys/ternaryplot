@@ -7,10 +7,14 @@
 \usage{
 ternaryBox(s, ...)
 
-\method{ternaryBox}{ternarySystem}(s, .plot = TRUE, ...)
+\method{ternaryBox}{ternarySystem}(s, bg = NA, .plot = TRUE, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object.}
+
+\item{bg}{Single character string, representing a colour. Colour
+ of the box filling (background). Default is \code{NA},
+ no fill-colour.}
 
 \item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
  to plot the graphical element and simply returns them as

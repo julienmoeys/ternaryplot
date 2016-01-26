@@ -53,7 +53,8 @@ par( mar = c(3,2,0,2)+.1, family = "serif", font = 2,
 #   Set specific graphical parameters
 tpPar( grid.line.col = "white", arrowsBreak = FALSE, 
     plot.bg = gray( .95 ), axis.line.lwd = 2, 
-    class.border.lwd = 2 )
+    class.border.lwd = 2, ticks.line.lwd = 2, 
+    grid.line.lwd = 2 )
 
 ternaryPlot( s = "default", x = terDat[, 1:3 ], 
     pch = terDat[, "GROUP" ], lwd = 2 )

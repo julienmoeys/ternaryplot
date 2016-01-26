@@ -15,7 +15,7 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.5.1", 
+    pkgVersion  = "0.6.0", 
     pkgDepends  = NULL, # "MASS"
     pkgSuggests = NULL, 
     pkgImports  = "sp", 
