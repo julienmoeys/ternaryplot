@@ -749,6 +749,7 @@ ternaryGrid.ternarySystem <- function(
     gr <- .ternaryGridBase( s = s, type = "grid" ) 
     
     grid.line.col <- getTpPar( "grid.line.col" )
+    grid.line.lwd <- getTpPar( "grid.line.lwd" )
     
     n <- length( gr[[ "from" ]] ) 
     
