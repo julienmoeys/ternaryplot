@@ -16,7 +16,7 @@
 #'
 #'
 #'@seealso \code{\link[ternaryplot]{ternaryPlot}}, that can 
-#'  be called \italic{after} \code{ternaryStyle} has been 
+#'  be called \emph{after} \code{ternaryStyle} has been 
 #'  called (and which uses these graphical parameters). 
 #'
 #'
