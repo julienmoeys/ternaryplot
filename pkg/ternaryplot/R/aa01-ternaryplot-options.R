@@ -126,8 +126,8 @@ tpParList  <- new.env()
 .tpParList[[ "axis.line.lwd" ]] <- NULL 
 .tpParList[[ "axis.line.col" ]] <- NULL 
 
-.tpParList[[ "tick.line.lwd" ]] <- NULL 
-.tpParList[[ "tick.line.col" ]] <- NULL 
+.tpParList[[ "ticks.line.lwd" ]] <- NULL 
+.tpParList[[ "ticks.line.col" ]] <- NULL 
 
 # Grid
 # ----

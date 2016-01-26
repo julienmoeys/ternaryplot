@@ -784,7 +784,7 @@ ternaryGrid.ternarySystem <- function(
                     to    = gr[[ "to" ]][[ ax ]], 
                     s     = s, 
                     col   = grid.line.col, 
-                    lwd   = grid.line.lwd. 
+                    lwd   = grid.line.lwd, 
                     .plot = .plot, 
                     ... ) 
             }   
