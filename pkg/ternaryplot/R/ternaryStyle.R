@@ -69,7 +69,8 @@ ternaryStyle.character <- function(
             family    = "serif", 
             font      = 2, 
             font.axis = 2, 
-            font.lab  = 2 ) 
+            font.lab  = 2,
+            lwd       = 2 ) 
         
         #   Set the margins
         if( margin ){
@@ -94,7 +95,8 @@ ternaryStyle.character <- function(
             font      = 2, 
             font.axis = 2, 
             font.lab  = 2, 
-            col.lab   = "darkgray" ) 
+            col.lab   = "darkgray", 
+            lwd       = 2 ) 
         
         #   Set the margins
         if( margin ){

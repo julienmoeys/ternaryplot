@@ -18,25 +18,28 @@ nbCat <- 3
 .sd   <- 25 # Mean texture standard deviation
 
 #   Generate athe ternary dataset
-terDat <- data.frame(
+textureDataset <- data.frame(
     "CLAY"  = rnorm( n = n, mean = .mean, sd = .sd ), 
     "SILT"  = rnorm( n = n, mean = .mean, sd = .sd ), 
     "SAND"  = rnorm( n = n, mean = .mean, sd = .sd )  
 )   
 
 #   Remove negative values
-terDat <- terDat[ 
-    !apply( terDat, 1, function(x){any(x<0)} ), ] 
+textureDataset <- textureDataset[ 
+    !apply( textureDataset, 1, function(x){any(x<0)} ), ] 
 
 #   Re-adjust n
-n <- nrow( terDat )
+n <- nrow( textureDataset )
 
 #   Normalise to 100%
-terDat <- (terDat / rowSums( terDat )) * 100 
+textureDataset <- (textureDataset / rowSums( textureDataset )) * 100 
 
 #   Add a dummy category
-terDat[, "GROUP" ] <- sample( x = 1:nbCat, size = n, 
+textureDataset[, "GROUP" ] <- sample( x = 1:nbCat, size = n, 
     replace = TRUE )
+
+#   Export in the data directory
+save( textureDataset, file = "pkg/ternaryplot/data/textureDataset.rdata" ) 
 
 
 
@@ -56,8 +59,8 @@ tpPar( grid.line.col = "white", arrowsBreak = FALSE,
     class.border.lwd = 2, ticks.line.lwd = 2, 
     grid.line.lwd = 2 )
 
-ternaryPlot( s = "default", x = terDat[, 1:3 ], 
-    pch = terDat[, "GROUP" ], lwd = 2 )
+ternaryPlot( s = "default", x = textureDataset[, 1:3 ], 
+    pch = textureDataset[, "GROUP" ], lwd = 2 )
 
 
 
@@ -74,7 +77,7 @@ tpPar( grid.line.col = "white", arrowsBreak = FALSE,
     plot.bg = gray( .95 ), axis.line.lwd = 2, 
     class.border.lwd = 2 )
 
-ternaryPlot( s = "hypres", x = terDat, pch = terDat[, "GROUP" ], 
+ternaryPlot( s = "hypres", x = textureDataset, pch = textureDataset[, "GROUP" ], 
     lwd = 2 )
 
 
@@ -85,10 +88,10 @@ ternaryPlot( s = "hypres", x = terDat, pch = terDat[, "GROUP" ],
 #   Add the vertices (for control)
 vert <- getTernarySystem( s = "hypres" )[[ "vertices" ]]
 vert[, "GROUP" ] <- 4L 
-terDat <- rbind( terDat, vert[, colnames( terDat ) ] )
+textureDataset <- rbind( textureDataset, vert[, colnames( textureDataset ) ] )
 
 #   Convert ternary points to sp SpatialPoints
-xyDat <- ternary2xy( s = "hypres", x = terDat )
+xyDat <- ternary2xy( s = "hypres", x = textureDataset )
 spPts <- sp::SpatialPoints(coords = xyDat[ ,c( "x", "y" ) ] ) 
 
 #   Convert ternary classes to sp SpatialPolygonsDataFrame 
@@ -112,5 +115,5 @@ table( ptsClass )
 
 #   Plot the data with class specific colours
 #   (for verification of the classification)
-ternaryPlot( s = "hypres", x = terDat, pch = terDat[, "GROUP" ], 
+ternaryPlot( s = "hypres", x = textureDataset, pch = textureDataset[, "GROUP" ], 
     lwd = 2, col = as.integer( as.factor( ptsClass ) ) )
