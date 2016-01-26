@@ -153,6 +153,7 @@
                     adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
                     srt    = adj[[ "blrLabelAngles" ]][ ax ], 
                     col    = col.lab, 
+                    font   = par( "font.lab" ), 
                     # offset = -5, 
                     ... ) 
                 
