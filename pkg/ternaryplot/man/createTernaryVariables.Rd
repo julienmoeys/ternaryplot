@@ -9,7 +9,7 @@ createTernaryVariables(blrNames = c("_bottom_", "_left_", "_right_"),
 }
 \arguments{
 \item{blrNames}{Vector of characters. Bottom, left and right variable
- names as they will be found in a \code{data.frame}
+ names as they will be found in a \code{\link{data.frame}}
  containing ternary data. If \code{blrNames} is set
  to \code{c( "_bottom_","_left_","_right_" )},
  \code{ternarySystem}s based on the set of
@@ -24,7 +24,7 @@ createTernaryVariables(blrNames = c("_bottom_", "_left_", "_right_"),
  to \code{c( "_bottom_","_left_","_right_" )}, and
  \code{blrLabels} to \code{rep( NA_character_, 3 )},
  \code{\link[ternaryplot]{ternaryPlot}} and
- \code[ternaryplot]{\link{ternaryPoints}} use the column
+ \code{\link[ternaryplot]{ternaryPoints}} use the column
  names of the dataset that is provided (when provided).}
 
 \item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}}
