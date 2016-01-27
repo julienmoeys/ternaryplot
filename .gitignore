@@ -4,3 +4,4 @@
 /pkg/ternaryplot/ternaryplot-Ex.R
 /pkg/ternaryplot/R/*.R~
 /*.TXT~
+/prepare/*.R~
