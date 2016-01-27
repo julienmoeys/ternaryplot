@@ -12,6 +12,6 @@ pts1 <- ternary2SpatialPoints( s )
 pts2 <- ternary2SpatialPoints( s, what = "centroids" )
 
 #   Add to the existing ternary plot
-sp::plot( pts1, add = T, col = "darkred", pch = 1 ) 
-sp::plot( pts2, add = T, col = "darkblue", pch = 3 ) 
+sp::plot( pts1, add = TRUE, col = "darkred", pch = 1 ) 
+sp::plot( pts2, add = TRUE, col = "darkblue", pch = 3 ) 
 
