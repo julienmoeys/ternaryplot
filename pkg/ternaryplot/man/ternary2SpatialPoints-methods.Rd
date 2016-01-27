@@ -11,9 +11,9 @@ ternary2SpatialPoints(x, ...)
 
 \method{ternary2SpatialPoints}{data.frame}( x, s, ... )
 
-\method{ternary2SpatialPoints}{ternarySystem}( x, s, ... )
+\method{ternary2SpatialPoints}{ternarySystem}( x, what = "vertices", ... )
 
-\method{ternary2SpatialPoints}{character}( x, ... )
+\method{ternary2SpatialPoints}{character}( x, what = "vertices", ... )
 }
 \arguments{
 \item{x}{Either \code{\link{data.frame}} containing the ternary data to be converted
@@ -59,8 +59,8 @@ pts1 <- ternary2SpatialPoints( s )
 pts2 <- ternary2SpatialPoints( s, what = "centroids" )
 
 #   Add to the existing ternary plot
-plot( pts1, add = T, col = "darkred", pch = 1 ) 
-plot( pts2, add = T, col = "darkblue", pch = 3 ) 
+sp::plot( pts1, add = T, col = "darkred", pch = 1 ) 
+sp::plot( pts2, add = T, col = "darkblue", pch = 3 ) 
 
 }
 

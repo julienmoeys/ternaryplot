@@ -93,7 +93,7 @@ ternary2SpatialPoints.data.frame <- function(
 #'@export
 #'
 #'
-#'@usage \method{ternary2SpatialPoints}{ternarySystem}( x, s, ... ) 
+#'@usage \method{ternary2SpatialPoints}{ternarySystem}( x, what = "vertices", ... ) 
 #'
 #'@importFrom sp SpatialPoints 
 #'@importFrom sp coordinates 
@@ -142,7 +142,7 @@ ternary2SpatialPoints.ternarySystem <- function(
 #'@export
 #'
 #'
-#'@usage \method{ternary2SpatialPoints}{character}( x, ... ) 
+#'@usage \method{ternary2SpatialPoints}{character}( x, what = "vertices", ... ) 
 #'
 ternary2SpatialPoints.character <- function(
  x, 
