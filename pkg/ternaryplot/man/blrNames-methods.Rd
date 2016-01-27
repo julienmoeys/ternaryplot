@@ -37,4 +37,7 @@ blrNames( s, ... ) <- value
 Set or get the bottom-left-right axis names of a
  \code{ternarySystem} object.
 }
+\examples{
+#   See ?ternaryPlot for an example
+}
 

@@ -1084,9 +1084,9 @@ print.ternarySystem <- function(
 
 # ternarySystem ============================================
 
-#'Fetch the ternary system definition from another object
+#'Fetch or set the ternary system definition from another object
 #'
-#'Fetch the ternary system definition from another object
+#'Fetch or set the ternary system definition from another object
 #'
 #'
 #'@param x 
@@ -1094,12 +1094,22 @@ print.ternarySystem <- function(
 #'  created with \code{\link[ternaryplot]{createTernaryGrid}}.
 #'  or \code{\link[ternaryplot]{ternaryClasses}}.
 #'
+#'@param value 
+#'  A \code{ternarySystem}-object, as 
+#'  obtained with \code{\link[ternaryplot]{getTernarySystem}} 
+#'  or output by \code{\link[ternaryplot]{ternaryPlot}}. 
+#'  The \code{ternarySystem} in \code{x} will be replaced by 
+#'  the one in \code{value}.
+#'
 #'@param \dots
 #'  Not used
 #'
 #'
 #'@return 
-#'  A \code{ternarySystem}-object.
+#'  The \code{ternarySystem} extracted from \code{x} or, 
+#'  when using the \code{<-} method, a 
+#'  \code{ternaryPolygons}-object with an updated 
+#'  \code{ternarySystem}.
 #'
 #' 
 #'@rdname ternarySystem-methods
@@ -1114,9 +1124,6 @@ ternarySystem <- function(
 }   
 
 
-
-# ternarySystem ============================================
-
 #'@rdname ternarySystem-methods
 #'
 #'@method ternarySystem ternaryPolygons
@@ -1128,6 +1135,62 @@ ternarySystem.ternaryPolygons <- function(
     ... 
 ){  
     return( attr( x = x, which = 'ternarySystem' ) ) 
+}   
+
+
+
+
+# ternarySystem<- ==========================================
+
+#'@rdname ternarySystem-methods
+#'
+#'@usage ternarySystem( x, ... ) <- value
+#'
+#'@export
+#'
+`ternarySystem<-` <- function( 
+ x, 
+ ..., 
+ value 
+){  
+    UseMethod( "ternarySystem<-" ) 
+}   
+
+
+#'@rdname ternarySystem-methods
+#'
+#'@method ternarySystem<- ternaryPolygons
+#'
+#'@export
+#'
+#'
+#'@usage \method{ternarySystem}{ternaryPolygons}( x, ... ) <- value
+#'
+`ternarySystem<-.ternaryPolygons` <- function( 
+ x, 
+ ..., 
+ value 
+){  
+    if( !("ternarySystem" %in% class( value )) ){
+        stop( "'value' is not a 'ternarySystem'-object" )
+    }   
+    
+    #   Fetch the old ternarySystem
+    oldS <- ternarySystem( x = x, ... )
+    
+    #   Fetch the old and the new variable names
+    oldNames <- blrNames( s = oldS )
+    newNames <- blrNames( s = value ) 
+    
+    #   Rename the vertices column names in x
+    for( o in 1:length( oldNames ) ){
+        colnames( x )[ colnames( x ) == oldNames[ o ] ] <- 
+            newNames[ o ]
+    }   
+    
+    attr( x = x, which = "ternarySystem" ) <- value
+    
+    return( x )  
 }   
 
 

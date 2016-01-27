@@ -40,4 +40,7 @@ ternaryGeometry( s, ... ) <- value
 Set or get the top, left and right angles of a
  \code{ternarySystem} object.
 }
+\examples{
+#   See ?ternaryPlot for an example
+}
 

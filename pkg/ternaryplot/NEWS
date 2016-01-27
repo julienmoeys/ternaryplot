@@ -1,6 +1,18 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.2
+    
+    2016/01/27  ternarySystem() now has a `<-` method 
+        and can change the ternarySystem of 
+        ternaryPolygons-object.
+    
+CHANGES IN VERSION 0.6.1
+
+    2016/01/26  Extended ternary2SpatialPolygons() to ternarySystems 
+    
+        Created the function ternary2SpatialPoints()
+        
 CHANGES IN VERSION 0.6.0
     
     2016/01/26  Created the function ternaryStyle() with 

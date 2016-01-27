@@ -57,8 +57,7 @@ data( "textureDataset", package = "ternaryplot" )
 ternaryPlot( 
     s   = "default", 
     x   = textureDataset[, c( "SAND", "CLAY", "SILT" ) ], 
-    pch = textureDataset[, "GROUP" ], # point symbol
-    lwd = 2 )                         # point outline width
+    pch = textureDataset[, "GROUP" ] ) 
 
 
 
@@ -69,8 +68,7 @@ ternaryPlot(
 ternaryPlot( 
     s   = "hypres", 
     x   = textureDataset, 
-    pch = textureDataset[, "GROUP" ], 
-    lwd = 2 ) 
+    pch = textureDataset[, "GROUP" ] ) 
 
 #   Notice that in the example above "hypres" classification 
 #   *requires* columns named CLAY, SILT and SAND and 
@@ -104,8 +102,7 @@ blrLabels( hypres ) <- c( "sand [\%]", "clay [\%]", "silt [\%]" )
 ternaryPlot( 
     s   = hypres, 
     x   = textureDataset2, 
-    pch = textureDataset2[, "group" ], 
-    lwd = 2 )
+    pch = textureDataset2[, "group" ] )
 
 
 

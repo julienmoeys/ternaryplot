@@ -10,20 +10,25 @@
 
 # ternary2SpatialPolygons ==============================
 
-#'Converts ternary*-class objects to SpatialPolygonsDataFrame
+#'Converts ternary*-class objects to SpatialPolygons
 #'
-#'Converts ternary*-class objects to \code{\link[sp]{SpatialPolygonsDataFrame}}
+#'Converts ternary*-class objects to \code{\link[sp]{SpatialPolygons}}
 #'
 #'
 #'@param x 
-#'  A ternary*-class object.
+#'  Either a \code{ternaryPolygons} object (such as created by 
+#'  \code{\link[ternaryplot]{ternaryClasses}} or 
+#'  \code{\link[ternaryplot]{createTernaryGrid}}), or a \code{ternarySystem} 
+#'  (such as obtained with \code{\link[ternaryplot]{getTernarySystem}}), or 
+#'  a single character string naming a \code{ternarySystem} that can be 
+#'  fetched using \code{\link[ternaryplot]{getTernarySystem}}.
 #'
 #'@param \dots 
 #'  Additional parameters passed to specific methods.
 #'
 #'
 #'@return 
-#'  A \code{\link[sp]{SpatialPolygonsDataFrame}}
+#'  A \code{\link[sp]{SpatialPolygons}}
 #'
 #'
 #'@rdname ternary2SpatialPolygons-methods
@@ -40,7 +45,6 @@ ternary2SpatialPolygons <- function(
 }   
 
 
-
 #'@rdname ternary2SpatialPolygons-methods
 #'
 #'@method ternary2SpatialPolygons ternaryPolygons
@@ -53,7 +57,6 @@ ternary2SpatialPolygons <- function(
 #'@importFrom sp Polygons 
 #'@importFrom sp Polygon 
 #'@importFrom sp SpatialPolygons 
-#'@importFrom sp SpatialPolygonsDataFrame 
 ternary2SpatialPolygons.ternaryPolygons <- function(
  x, 
  ... 
@@ -120,10 +123,46 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
     return( pxy ) 
 }   
 
-    # tg <- createTernaryGrid("default")
-    # library( "sp" ) 
-    # tgSp <- ternary2SpatialPolygons( tg )
+
+#'@rdname ternary2SpatialPolygons-methods
+#'
+#'@method ternary2SpatialPolygons ternarySystem
+#'
+#'@export
+#'
+#'
+#'@usage \method{ternary2SpatialPolygons}{ternarySystem}( x, ... ) 
+#' 
+ternary2SpatialPolygons.ternarySystem <- function(
+ x, 
+ ... 
+){  
+    x <- ternaryClasses( s = x ) 
     
-    # plot( tgSp ) 
+    if( nrow( x ) > 0 ){
+        return( ternary2SpatialPolygons.ternaryPolygons( x = x, ... ) ) 
+    }else{
+        return( NULL ) 
+    }   
+}   
+
+
+#'@rdname ternary2SpatialPolygons-methods
+#'
+#'@method ternary2SpatialPolygons character
+#'
+#'@export
+#'
+#'
+#'@usage \method{ternary2SpatialPolygons}{character}( x, ... ) 
+#' 
+ternary2SpatialPolygons.character <- function(
+ x, 
+ ... 
+){  
+    s <- getTernarySystem( s = x ) 
+    
+    return( ternary2SpatialPolygons.ternarySystem( x = s ) ) 
+}   
 
 

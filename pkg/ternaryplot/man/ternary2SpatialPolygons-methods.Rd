@@ -2,23 +2,34 @@
 % Please edit documentation in R/ternary2SpatialPolygons.R
 \name{ternary2SpatialPolygons}
 \alias{ternary2SpatialPolygons}
+\alias{ternary2SpatialPolygons.character}
 \alias{ternary2SpatialPolygons.ternaryPolygons}
-\title{Converts ternary*-class objects to SpatialPolygonsDataFrame}
+\alias{ternary2SpatialPolygons.ternarySystem}
+\title{Converts ternary*-class objects to SpatialPolygons}
 \usage{
 ternary2SpatialPolygons(x, ...)
 
 \method{ternary2SpatialPolygons}{ternaryPolygons}( x, ... )
+
+\method{ternary2SpatialPolygons}{ternarySystem}( x, ... )
+
+\method{ternary2SpatialPolygons}{character}( x, ... )
 }
 \arguments{
-\item{x}{A ternary*-class object.}
+\item{x}{Either a \code{ternaryPolygons} object (such as created by
+ \code{\link[ternaryplot]{ternaryClasses}} or
+ \code{\link[ternaryplot]{createTernaryGrid}}), or a \code{ternarySystem}
+ (such as obtained with \code{\link[ternaryplot]{getTernarySystem}}), or
+ a single character string naming a \code{ternarySystem} that can be
+ fetched using \code{\link[ternaryplot]{getTernarySystem}}.}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }
 \value{
-A \code{\link[sp]{SpatialPolygonsDataFrame}}
+A \code{\link[sp]{SpatialPolygons}}
 }
 \description{
-Converts ternary*-class objects to \code{\link[sp]{SpatialPolygonsDataFrame}}
+Converts ternary*-class objects to \code{\link[sp]{SpatialPolygons}}
 }
 \examples{
 #   See ?createTernaryGrid or ?ternaryClasses for examples

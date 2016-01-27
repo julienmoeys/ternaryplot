@@ -1,7 +1,4 @@
 
-CREATE ternary2SpatialPointsDataFrame and 
-    ternary2SpatialPointsDataFrame.data.frame 
-    
 REMOVE .plot argument from all higher level plot functions?
 REMOVE xy to sp conversion from all higher level plot 
     functions?
