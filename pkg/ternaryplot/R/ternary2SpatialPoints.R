@@ -37,7 +37,7 @@
 #'@param what 
 #'  Single character string. When \code{x} is a \code{ternarySystem}, what points 
 #'  should be extracted: the class vertices (\code{what = 'vertices'}, the default) 
-#'  or the class centroids (\code{what = 'vertices'})
+#'  or the class centroids (\code{what = 'centroids'})
 #'
 #'@param \dots 
 #'  Additional parameters passed to specific methods.

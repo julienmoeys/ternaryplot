@@ -26,9 +26,12 @@
 #'
 #'
 #'@param s 
-#'  A \code{\link[ternaryplot]{ternaryPolygons}}-object, 
+#'  Either a \code{\link[ternaryplot]{ternaryPolygons}}-object, 
 #'  such as created by \code{\link[ternaryplot]{createTernaryGrid}} 
-#'  or by \code{\link[ternaryplot]{ternaryClasses}}. 
+#'  or by \code{\link[ternaryplot]{ternaryClasses}}, or 
+#'  a \code{ternarySystem}, such as obtained with 
+#'  \code{\link[ternaryplot]{getTernarySystem}} or output 
+#'  by \code{\link[ternaryplot]{ternaryPlot}}.
 #'
 #'@param x 
 #'  Not used.
@@ -55,7 +58,8 @@
 #'@param labels
 #'  Vector of character strings. Labels to be drawn on top 
 #'  of the polygons. If \code{NULL}, the default label 
-#'  in \code{s[[ 'labels' ]]} are used. If a single character 
+#'  in \code{s[[ 'labels' ]]} are used (When \code{s} is a #
+#'  \code{ternaryPolygons}-object). If a single character 
 #'  string, recycled for each polygon. Set to \code{NA} to 
 #'  prevent any label to be drawn.
 #'
@@ -143,9 +147,13 @@ ternaryPolygons.ternaryPolygons <- function(
     # x  <- s[[ "grid" ]] 
     
     if( is.null( labels ) ){
-        if( "labels" %in% names( s ) ){
-            labels <- s[[ "labels" ]] 
+        polLab <- attr( x = s, which = "labels" )
+        
+        if( !is.null( polLab ) ){
+            labels <- polLab
         }   
+        
+        rm( polLab )
     }   
     
     if( nrow( s ) > 0 ){
@@ -159,7 +167,7 @@ ternaryPolygons.ternaryPolygons <- function(
         idCol <- attr( x = s, which = "idCol" ) 
         
         id <- s[, idCol ] 
-        s  <- s[, colnames( s ) != idCol ] 
+        # s  <- s[, colnames( s ) != idCol ] 
         
         .blrNames <- blrNames( terSys ) 
         
@@ -246,7 +254,7 @@ ternaryPolygons.ternaryPolygons <- function(
         if( !is.null( labels ) ){
             if( !all( is.na( labels ) ) ){
                 ternaryText.ternaryPolygons( 
-                    s   = s, 
+                    s       = s, 
                     # x, 
                     labels  = labels, 
                     adj     = adj,
@@ -256,7 +264,6 @@ ternaryPolygons.ternaryPolygons <- function(
                     cex     = cex, 
                     col     = col, 
                     font    = font, 
-                    .plot   = TRUE 
                 )   
             }   
         }   
@@ -311,8 +318,9 @@ ternaryPolygons.ternarySystem <- function(
             }   
         }   
         
-        out <- ternaryPolygons( s = tc, bg = bg, col = col, 
-            border = border, lwd = lwd, ... ) 
+        out <- ternaryPolygons.ternaryPolygons( s = tc, 
+            bg = bg, col = col, border = border, lwd = lwd, 
+            ... ) 
     }else{
         out <- NULL 
     }   

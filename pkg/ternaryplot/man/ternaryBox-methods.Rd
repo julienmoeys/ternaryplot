@@ -7,7 +7,7 @@
 \usage{
 ternaryBox(s, ...)
 
-\method{ternaryBox}{ternarySystem}(s, bg = NA, .plot = TRUE, ...)
+\method{ternaryBox}{ternarySystem}(s, bg = NA, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object.}
@@ -16,19 +16,13 @@ ternaryBox(s, ...)
  of the box filling (background). Default is \code{NA},
  no fill-colour.}
 
-\item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
- to plot the graphical element and simply returns them as
- x-y coordinates (or \code{Spatial*} objects if \code{sp} is
- set to \code{TRUE} in \code{\link{tpPar}}).}
-
 \item{\dots}{Additional parameters passed to \code{\link[graphics]{polygon}}.
  You can for instance set \code{border} for the color of the
  box outline, \code{col}, for the fill-color of the box,
  \code{lwd} (outline thickness) or \code{lty} (line-type).}
 }
 \value{
-Invisibly returns the graphical element as x-y coordinates or
- a \code{Spatial*} objects (see \code{.plot}).
+Invisibly returns the graphical element as x-y coordinates.
 }
 \description{
 Draw a Box around a ternary plot

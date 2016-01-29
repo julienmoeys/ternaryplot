@@ -17,9 +17,12 @@ ternaryPolygons(s, ...)
   bg = NULL, lwd = NULL, ...)
 }
 \arguments{
-\item{s}{A \code{\link[ternaryplot]{ternaryPolygons}}-object,
+\item{s}{Either a \code{\link[ternaryplot]{ternaryPolygons}}-object,
  such as created by \code{\link[ternaryplot]{createTernaryGrid}}
- or by \code{\link[ternaryplot]{ternaryClasses}}.}
+ or by \code{\link[ternaryplot]{ternaryClasses}}, or
+ a \code{ternarySystem}, such as obtained with
+ \code{\link[ternaryplot]{getTernarySystem}} or output
+ by \code{\link[ternaryplot]{ternaryPlot}}.}
 
 \item{x}{Not used.}
 
@@ -38,7 +41,8 @@ ternaryPolygons(s, ...)
 
 \item{labels}{Vector of character strings. Labels to be drawn on top
  of the polygons. If \code{NULL}, the default label
- in \code{s[[ 'labels' ]]} are used. If a single character
+ in \code{s[[ 'labels' ]]} are used (When \code{s} is a #
+ \code{ternaryPolygons}-object). If a single character
  string, recycled for each polygon. Set to \code{NA} to
  prevent any label to be drawn.}
 

@@ -10,11 +10,10 @@ ternaryText(s, ...)
 
 \method{ternaryText}{ternarySystem}(s, x, labels, adj = NULL, pos = NULL,
   offset = 0.5, vfont = NULL, cex = 1, col = NULL, font = NULL,
-  .plot = TRUE, ...)
+  what = "centroids", ...)
 
 \method{ternaryText}{ternaryPolygons}(s, x, labels, adj = NULL, pos = NULL,
-  offset = 0.5, vfont = NULL, cex = 1, col = NULL, font = NULL,
-  .plot = TRUE, ...)
+  offset = 0.5, vfont = NULL, cex = 1, col = NULL, font = NULL, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object, or a
@@ -42,16 +41,17 @@ ternaryText(s, ...)
 
 \item{font}{See \code{\link[graphics]{text}}.}
 
-\item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
- to plot the graphical element and simply returns them as
- x-y coordinates (or \code{Spatial*} objects if \code{sp} is
- set to \code{TRUE} in \code{\link{tpPar}}).}
+\item{what}{Single character string. When \code{x} is a missing
+ and \code{s} is a \code{ternarySystem}, what points
+ should be extracted: the class vertices
+ (\code{what = 'vertices'}, the default)
+ or the class centroids
+ (\code{what = 'centroids'})}
 
 \item{\dots}{Additional parameters passed to \code{\link[graphics]{text}}.}
 }
 \value{
-Invisibly returns the graphical element as x-y coordinates or
- a \code{Spatial*} objects (see \code{.plot}).
+Invisibly returns the graphical element as x-y coordinates.
 }
 \description{
 Add Text to a ternary plot

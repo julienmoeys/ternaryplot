@@ -113,7 +113,7 @@ ternaryClasses.ternarySystem <- function(
     
     #   Add attributes to ternaryPolygons
     attr( x = grd, which = "ternarySystem" ) <- s 
-    attr( x = grd, which = "labels" )        <- NULL 
+    attr( x = grd, which = "labels" )        <- s[[ "classes" ]][, "abbrev" ]  
     attr( x = grd, which = "idCol" )         <- "abbrev" 
     
     # grd <- list( 

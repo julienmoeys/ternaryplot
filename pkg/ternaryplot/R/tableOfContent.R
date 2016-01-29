@@ -72,17 +72,13 @@
 #        
 #   aa05-ternarydata.R 
 #       
-#       .setTernarySystem
-#       ternaryData
-#       ternaryData.character
-#       ternaryData.ternarySystem
+#       ternaryCheck.ternarySystem
 #       
 #   aa06-ternary2xy.R
 #       
 #       deg2rad
 #       ternary2xy (*)
 #       ternary2xy.character
-#       ternary2xy.ternaryData
 #       ternary2xy.ternarySystem
 #       .ternary2xy
 #       .ternary2xy.geo_TTT

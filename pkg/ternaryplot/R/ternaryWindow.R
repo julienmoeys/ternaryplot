@@ -109,7 +109,7 @@ ternaryWindow.ternarySystem <- function(
     
     if( is.data.frame( scale ) ){ 
         # Test that the scale is correct
-        scale <- ternaryData( s = s, x = scale,  ) 
+        ternaryCheck( s = s, x = scale,  ) 
         
     }else if( is.logical( scale ) ){ 
         if( scale ){ 
@@ -155,10 +155,10 @@ ternaryWindow.ternarySystem <- function(
     tpBox <- ternary2xy( x = tpBox, s = s90 ) 
     
     # Draw the plot
-    par( 
+    oldPar <- par( 
         # mar = c(5.1, 4.1, 4.1, 4.1), # Margins c(bottom, left, top, right)
-        pty = "s",                   # Plot region is 'square' (equal ratio)
-        xpd = TRUE                   # Plotting can also occur out of the plot
+        pty = "s",                     # Plot region is 'square' (equal ratio)
+        xpd = TRUE                     # Plotting can also occur out of the plot
     )    
     
     plot( 
@@ -177,6 +177,8 @@ ternaryWindow.ternarySystem <- function(
     # polygon( x = tpBox[, "x" ], y = tpBox[, "y" ] ) 
     
     s[[ 'scale' ]] <- scale 
+    
+    par( "xpd" = oldPar ) 
     
     return( invisible( s ) ) 
 }   

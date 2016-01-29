@@ -7,7 +7,7 @@
 \usage{
 ternaryArrows(s, from, to, ...)
 
-\method{ternaryArrows}{ternarySystem}(s, from, to, .plot = TRUE, ...)
+\method{ternaryArrows}{ternarySystem}(s, from, to, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object, or a
@@ -28,16 +28,10 @@ ternaryArrows(s, from, to, ...)
  to \code{blrNames(s)} (variable names for the bottom,
  left and right axis).}
 
-\item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
- to plot the graphical element and simply returns them as
- x-y coordinates (or \code{Spatial*} objects if \code{sp} is
- set to \code{TRUE} in \code{\link{tpPar}}).}
-
 \item{\dots}{Additional parameters passed to \code{\link[graphics]{arrows}}.}
 }
 \value{
-Invisibly returns the graphical element as x-y coordinates or
- a \code{Spatial*} objects (see \code{.plot}).
+Invisibly returns the graphical element as x-y coordinates.
 }
 \description{
 Add Arrows to a ternary plot

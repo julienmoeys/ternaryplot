@@ -2,15 +2,6 @@
 INVERSE arguments s and x in ternary2SpatialPolygons and 
     ternary2SpatialPoints, so they match other functions.
     
-REMOVE ternaryData class objects and related methods:
-    do not bring anything and increase the number of 
-    methods needed.
-    
-REMOVE .plot argument from all higher level plot functions?
-
-REMOVE xy to sp conversion from all higher level plot 
-    functions?
-    
 CREATE ternaryClassify() to classify ternary data
     
 CREATE ternaryClassNames() and ternaryClassNames()<-

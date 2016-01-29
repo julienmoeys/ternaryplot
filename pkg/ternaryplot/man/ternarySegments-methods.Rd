@@ -8,7 +8,7 @@
 \usage{
 ternarySegments(s, from, to, ...)
 
-\method{ternarySegments}{ternarySystem}(s, from, to, .plot = TRUE, ...)
+\method{ternarySegments}{ternarySystem}(s, from, to, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object, or a
@@ -23,17 +23,11 @@ ternarySegments(s, from, to, ...)
  \code{\link[base]{matrix}} containing the ternary
  coordinates of points *to* which to draw.}
 
-\item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
- to plot the graphical element and simply returns them as
- x-y coordinates (or \code{Spatial*} objects if \code{sp} is
- set to \code{TRUE} in \code{\link{tpPar}}).}
-
 \item{\dots}{Additional parameters passed to
  \code{\link[graphics]{segments}}.}
 }
 \value{
-Invisibly returns the graphical element as x-y coordinates or
- a \code{Spatial*} objects (see \code{.plot}).
+Invisibly returns the graphical element as x-y coordinates.
 }
 \description{
 Draw a sequence of ternary segments on a triangle plot

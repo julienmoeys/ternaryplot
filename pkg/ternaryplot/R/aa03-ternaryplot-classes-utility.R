@@ -764,6 +764,18 @@ ternaryGeometry.ternarySystem <- function(
 ){  
     s[[ 'ternaryGeometry' ]] <- value 
     
+    #   Also set the class (esp the 2nd class)
+    #   Set the class
+    class( s[[ 'ternaryGeometry' ]] ) <- 
+        .generateTernaryGeometry2ndClass( 
+            blrClock = blrClock( s ), 
+            class1   = "ternaryGeometry" ) 
+    
+    class( s ) <- 
+        .generateTernaryGeometry2ndClass( 
+            blrClock = blrClock( s ), 
+            class1   = "ternarySystem" ) 
+    
     ternaryCheck( s[[ 'ternaryGeometry' ]], ... )     
     
     return( s ) 

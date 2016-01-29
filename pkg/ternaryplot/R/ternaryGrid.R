@@ -700,12 +700,6 @@
 #'  that this differ from \code{\link[graphics]{axis}} where 3=above and 
 #'  4=right). Default is to draw axis on the 3 sides.
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
-#'
 #'@param \dots
 #'  Additional parameters passed to 
 #'  \code{\link[ternaryplot]{ternarySegments}}, except \code{col} 
@@ -742,7 +736,6 @@ ternaryGrid <- function( s, ... ){
 ternaryGrid.ternarySystem <- function( 
  s, 
  side = 1:3, 
- .plot = TRUE, 
  ... 
 ){  
     # Calculates the tick-marks and grid-segments position
@@ -778,28 +771,25 @@ ternaryGrid.ternarySystem <- function(
                 grid.line.lwd <- par( "lwd" ) 
             }   
             
-            if( .plot ){ 
-                out[[ ax ]] <- ternarySegments( 
-                    from  = gr[[ "from" ]][[ ax ]], 
-                    to    = gr[[ "to" ]][[ ax ]], 
-                    s     = s, 
-                    col   = grid.line.col, 
-                    lwd   = grid.line.lwd, 
-                    .plot = .plot, 
-                    ... ) 
-            }   
+            out[[ ax ]] <- ternarySegments( 
+                from  = gr[[ "from" ]][[ ax ]], 
+                to    = gr[[ "to" ]][[ ax ]], 
+                s     = s, 
+                col   = grid.line.col, 
+                lwd   = grid.line.lwd, 
+                ... ) 
         }   
     }   
     
     
-    if( getTpPar( "sp" ) ){ 
-        isNull <- unlist( lapply( X = out, FUN = is.null ) )
+    # if( getTpPar( "sp" ) ){ 
+        # isNull <- unlist( lapply( X = out, FUN = is.null ) )
         
-        out <- do.call( what = "rbind.SpatialLines", 
-            args = c( out[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
+        # out <- do.call( what = "rbind.SpatialLines", 
+            # args = c( out[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
         
-        # spChFIDs( out ) <- c( "B", "L", "R" )[ !isNull ]
-    }   
+        # # spChFIDs( out ) <- c( "B", "L", "R" )[ !isNull ]
+    # }   
     
     return( invisible( out ) ) 
 }   

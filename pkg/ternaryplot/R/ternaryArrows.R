@@ -42,19 +42,12 @@
 #'  to \code{blrNames(s)} (variable names for the bottom, 
 #'  left and right axis).
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
-#'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[graphics]{arrows}}.
 #'
 #'
 #'@return
-#'  Invisibly returns the graphical element as x-y coordinates or 
-#'  a \code{Spatial*} objects (see \code{.plot}).
+#'  Invisibly returns the graphical element as x-y coordinates.
 #' 
 #' 
 #'@rdname ternaryArrows-methods
@@ -86,7 +79,6 @@ ternaryArrows.ternarySystem <- function(
  s, 
  from, 
  to, 
- .plot = TRUE, 
  ... 
 ){  
     # Check to and from
@@ -112,21 +104,19 @@ ternaryArrows.ternarySystem <- function(
     toXY   <- ternary2xy( x = to, s = s ) 
     
     # Draw the arrows
-    if( .plot ){ 
-        arrows(
-            x0  = fromXY[, "x" ], 
-            y0  = fromXY[, "y" ], 
-            x1  = toXY[, "x" ], 
-            y1  = toXY[, "y" ], 
-            ...
-        )   
-    }   
+    arrows(
+        x0  = fromXY[, "x" ], 
+        y0  = fromXY[, "y" ], 
+        x1  = toXY[, "x" ], 
+        y1  = toXY[, "y" ], 
+        ...
+    )   
     
     out <- list( "from" = fromXY, "to" = toXY ) 
     
-    if( getTpPar( "sp" ) ){ 
-        out <- .xySegments2SpatialLines( fromXY = fromXY, toXY = toXY ) 
-    }   
+    # if( getTpPar( "sp" ) ){ 
+        # out <- .xySegments2SpatialLines( fromXY = fromXY, toXY = toXY ) 
+    # }   
     
     return( invisible( out ) ) 
 }   

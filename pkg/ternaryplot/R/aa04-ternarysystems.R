@@ -117,26 +117,95 @@ ternarySystemEnv[[ "hypres" ]] <- createTernarySystem(
     ),  
     
     "classes" = data.frame( 
-        "abbrev" = c( "VF", "F", "M", "MF", "C" ), 
+        "abbrev" = c( "C", "M", "MF", "F", "VF" ), 
         "name" = c( 
-            "Very fine", 
-            "Fine", 
+            "Coarse", 
             "Medium", 
             "Medium fine", 
-            "Coarse" ), 
+            "Fine", 
+            "Very fine" ), 
         "verticesId" = I( list( 
-            c(02,01,03), 
-            c(04,02,03,06), 
-            c(07,04,05,11,10,08), 
-            c(11,05,06,12), 
-            c(09,07,08,10) 
+            "C"  = c(09,07,08,10), 
+            "M"  = c(07,04,05,11,10,08), 
+            "MF" = c(11,05,06,12), 
+            "F"  = c(04,02,03,06), 
+            "VF" = c(02,01,03) 
         ) ), 
         stringsAsFactors = FALSE 
     ),  
     
     "scale" = NULL, 
-    "over"              = NULL 
+    "over"  = NULL 
 )   
+
+
+
+# Dummy ternary classification (2):
+ternarySystemEnv[[ "dummy2" ]] <- createTernarySystem( 
+    "ternaryGeometry"   = createTernaryGeometry(
+        tlrAngles = c( 45, 90, 45 ), 
+        blrClock  = c( FALSE, TRUE, NA )
+    ),  
+    "ternaryVariables"  = createTernaryVariables(
+        "blrNames"  = c( "F1", "F2", "F3" ), 
+        "blrLabels" = c( "Fraction 1 [%]", "Fraction 2 [%]", "Fraction 3 [%]" ), 
+    ),  
+    "main"              = "Ternary plot (dummy)", 
+    "vertices"          = data.frame( 
+        "id"    = c(  1,   2,   3,   4), 
+        "F1"    = c(000, 000, 050, 100), 
+        "F2"    = c(100, 000, 050, 000), 
+        "F3"    = c(000, 100, 000, 000)  
+    ),  
+    "classes"           = data.frame( 
+        "abbrev" = c( 
+            "D1", 
+            "D2" ), 
+        "name" = c( 
+            "Class 1", 
+            "Class 2" ),  
+        "verticesId" = I( list( # The length of each item can vary
+            "D1" = c( 1, 2, 3 ), 
+            "D2" = c( 2, 4, 3 ) 
+        ) ),
+        stringsAsFactors = FALSE 
+    ),  
+    "scale"             = NULL, 
+    "over"              = NULL 
+)     
+
+
+
+# Dummy ternary classification (3):
+ternarySystemEnv[[ "dummy3" ]] <- createTernarySystem( 
+    "ternaryGeometry"   = createTernaryGeometry(),  
+    "ternaryVariables"  = createTernaryVariables(
+        "blrNames"  = c( "F1", "F2", "F3" ), 
+        "blrLabels" = c( "Fraction 1 [%]", "Fraction 2 [%]", "Fraction 3 [%]" ), 
+    ),  
+    "main"              = "Ternary plot (dummy)", 
+    "vertices"          = data.frame( 
+        "id"    = c(  1,   2,   3,   4), 
+        "F1"    = c(000, 000, 050, 100), 
+        "F2"    = c(100, 000, 050, 000), 
+        "F3"    = c(000, 100, 000, 000)  
+    ),  
+    "classes"           = data.frame( 
+        "abbrev" = c( 
+            "D1", 
+            "D2" ), 
+        "name" = c( 
+            "Class 1", 
+            "Class 2" ),  
+        "verticesId" = I( list( # The length of each item can vary
+            "D1" = c( 1, 2, 3 ), 
+            "D2" = c( 2, 4, 3 ) 
+        ) ),
+        stringsAsFactors = FALSE 
+    ),  
+    "scale"             = NULL, 
+    "over"              = NULL 
+)     
 
 
 

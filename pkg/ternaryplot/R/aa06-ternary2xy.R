@@ -35,15 +35,11 @@ deg2rad <- function(
 #'
 #'@param s
 #'  A \code{\link[ternaryplot]{ternarySystem}} object or a 
-#'  character string naming an pre-defined \code{ternarySystem}, 
-#'  or a \code{\link[ternaryplot]{ternaryData}} object. For the 
-#'  latter, if \code{x} is missing, \code{s} will also be used 
-#'  for \code{x}
+#'  character string naming an pre-defined \code{ternarySystem}.
 #'
 #'@param x
 #'  A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
-#'  with ternary point-data. Can be missing if \code{s} is a 
-#'  \code{\link[ternaryplot]{ternaryData}} object.
+#'  with ternary point-data.
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods.
@@ -92,24 +88,24 @@ ternary2xy.character <- function(
 
 
 
-#'@rdname ternary2xy-methods
-#'
-#'@method ternary2xy ternaryData
-#'
-#'@export
-#'
-ternary2xy.ternaryData <- function(
- s, 
- ... 
-){  
-    if( missing(x) ){ 
-        x <- s 
-    }   
-    
-    s <- attr( x = s, which = "ternarySystem" ) 
-    
-    ternary2xy( s = s, x = x, ... )
-}   
+    ## #@rdname ternary2xy-methods
+    ## #
+    ## #@method ternary2xy ternaryData
+    ## #
+    ## #@export
+    ## #
+    # ternary2xy.ternaryData <- function(
+     # s, 
+     # ... 
+    # ){  
+        # if( missing(x) ){ 
+            # x <- s 
+        # }   
+        
+        # s <- attr( x = s, which = "ternarySystem" ) 
+        
+        # ternary2xy( s = s, x = x, ... )
+    # }   
 
 
 #'@rdname ternary2xy-methods
@@ -124,10 +120,7 @@ ternary2xy.ternarySystem <- function(
  ... 
 ){  
     # Test if the ternary data are conform 
-    if( !"ternaryData" %in% class( x ) ){ 
-        x <- ternaryData( s = s, x = x ) 
-    }   
-    
+    ternaryCheck( s = s, x = x )     
     
     # #   In principle not necessary, but may catch a few 
     # #   problems
@@ -135,7 +128,6 @@ ternary2xy.ternarySystem <- function(
         # blrClock = blrClock( s ), 
         # class1   = "ternarySystem" 
     # )   
-    
     
     return( .ternary2xy( s = s, x = x, ... ) ) 
 }   

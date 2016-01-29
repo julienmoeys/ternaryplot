@@ -26,7 +26,13 @@ createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,
  values will be used \code{getTpPar("vertices")}, and the
  columns names changed to those of \code{ternaryVariables}.}
 
-\item{classes}{See \code{\link[ternaryplot]{tpPar}}.}
+\item{classes}{See \code{\link[ternaryplot]{tpPar}}. Please keep in mind
+ that the order of the class matters regarding the
+ classification of point ternary data, in the case of
+ "tights" (points that are in between two or more classes):
+ the function \code{ternaryClassify} uses internally the
+ function \code{\link[sp]{over}}, for which the last polygon
+ in which a point falls is returned.}
 
 \item{scale}{See \code{\link[ternaryplot]{tpPar}}. If non-null,
  \code{\link[base]{data.frame}} with 3 columns, corresponding

@@ -3,7 +3,6 @@
 \name{ternary2xy}
 \alias{ternary2xy}
 \alias{ternary2xy.character}
-\alias{ternary2xy.ternaryData}
 \alias{ternary2xy.ternarySystem}
 \title{Converts ternary point-data into x-y coordinates}
 \usage{
@@ -11,20 +10,14 @@ ternary2xy(s, ...)
 
 \method{ternary2xy}{character}(s, ...)
 
-\method{ternary2xy}{ternaryData}(s, ...)
-
 \method{ternary2xy}{ternarySystem}(s, x, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object or a
- character string naming an pre-defined \code{ternarySystem},
- or a \code{\link[ternaryplot]{ternaryData}} object. For the
- latter, if \code{x} is missing, \code{s} will also be used
- for \code{x}}
+ character string naming an pre-defined \code{ternarySystem}.}
 
 \item{x}{A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}}
- with ternary point-data. Can be missing if \code{s} is a
- \code{\link[ternaryplot]{ternaryData}} object.}
+ with ternary point-data.}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }

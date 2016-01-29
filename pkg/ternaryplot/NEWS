@@ -1,6 +1,44 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.3
+    
+    2016/01/28  The argument .plot (whether the plot element 
+        should be plotted or just calculated and exported) 
+        was taken away from:
+        * ternaryArrows() 
+        * .ternaryTicks() 
+        * ternaryBox() 
+        * ternaryGrid() 
+        * ternaryPoints() 
+        * ternarySegments() 
+        * ternaryText() 
+        
+        The package options "sp" (higher level plot export 
+        sp version of the plot elements) was taken away from:
+        * ternaryArrows() 
+        * .ternaryTicks() 
+        * ternaryBox() 
+        * ternaryGrid() 
+        * ternaryPoints() 
+        * ternarySegments() 
+        * ternaryText() 
+        * and of course tpPar()
+        
+        The function ternaryData() was removed, and 
+        ternaryData.ternarySystem() was renamed into 
+        ternaryCheck.data.frame() (now a method for 
+        ternaryCheck()).
+        
+        Bug fix: ternaryClasses() was not setting the 
+        attribute "labels" properly (and the class labels
+        was thus not displayed in ternaryPlot())
+        
+        Bug fix: ternaryGeometry.ternarySystem() was not 
+        setting the 2nd class properly, which resulted 
+        in wrong plots after changing the ternaryGeometry 
+        of a ternarySystem
+        
 CHANGES IN VERSION 0.6.2
     
     2016/01/27  ternarySystem() now has a `<-` method 

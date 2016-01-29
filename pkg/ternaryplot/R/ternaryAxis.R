@@ -31,12 +31,6 @@
 #'  that this differ from \code{\link[graphics]{axis}} where 3=above and 
 #'  4=right). Default is to draw axis on the 3 sides.
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
-#'
 #'@param \dots
 #'  Additional parameters passed to 
 #'  \code{\link[ternaryplot]{ternarySegments}}, except \code{col} 
@@ -77,7 +71,6 @@
 .ternaryTicks.ternarySystem <- function( 
  s, 
  side = 1:3, 
- .plot = TRUE, 
  ... 
 ){  
     # Calculates the tick-marks position
@@ -146,64 +139,60 @@
                 # s   = s )  
             
             # Prevent tests
-            if( .plot ){ 
-                oldPar <- tpPar( par = "testRange" )        
-                tpPar  <- tpPar( testRange = FALSE ) 
-                
-                # Draw the ticks segments
-                out[[ ax ]] <- ternarySegments( 
-                    from  = grTm[[ "from" ]][[ ax ]], 
-                    to    = grTm[[ "to" ]][[ ax ]], 
-                    s     = s, 
-                    col   = ticks.line.col, 
-                    lwd   = ticks.line.lwd, 
-                    .plot = .plot, 
-                    ... )  
-                
-                # Draw the axis line
-                outLine[[ ax ]] <- ternarySegments( 
-                    from  = grTm[[ "from" ]][[ ax ]][ 1L, , drop = FALSE ], 
-                    to    = grTm[[ "from" ]][[ ax ]][ nrow( grTm[[ "from" ]][[ ax ]] ), , drop = FALSE ], 
-                    s     = s, 
-                    col   = axis.line.col, 
-                    lwd   = axis.line.lwd, 
-                    .plot = .plot, 
-                    ... )  
-                
-                ternaryText( 
-                    x      = grTl[[ "to" ]][[ ax ]], 
-                    labels = as.character( grTl[[ "to" ]][[ ax ]][, ax ] ), 
-                    s      = s, 
-                    # pos  = 2, 
-                    adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
-                    srt    = adj[[ "blrLabelAngles" ]][ ax ], 
-                    col    = col.lab, 
-                    font   = font.lab, 
-                    # offset = -5, 
-                    ... ) 
-                
-                # Set test again
-                tpPar( par = oldPar ) 
-            }   
+            oldPar <- tpPar( par = "testRange" )        
+            tpPar  <- tpPar( testRange = FALSE ) 
+            
+            # Draw the ticks segments
+            out[[ ax ]] <- ternarySegments( 
+                from  = grTm[[ "from" ]][[ ax ]], 
+                to    = grTm[[ "to" ]][[ ax ]], 
+                s     = s, 
+                col   = ticks.line.col, 
+                lwd   = ticks.line.lwd, 
+                ... )  
+            
+            # Draw the axis line
+            outLine[[ ax ]] <- ternarySegments( 
+                from  = grTm[[ "from" ]][[ ax ]][ 1L, , drop = FALSE ], 
+                to    = grTm[[ "from" ]][[ ax ]][ nrow( grTm[[ "from" ]][[ ax ]] ), , drop = FALSE ], 
+                s     = s, 
+                col   = axis.line.col, 
+                lwd   = axis.line.lwd, 
+                ... )  
+            
+            ternaryText( 
+                x      = grTl[[ "to" ]][[ ax ]], 
+                labels = as.character( grTl[[ "to" ]][[ ax ]][, ax ] ), 
+                s      = s, 
+                # pos  = 2, 
+                adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
+                srt    = adj[[ "blrLabelAngles" ]][ ax ], 
+                col    = col.lab, 
+                font   = font.lab, 
+                # offset = -5, 
+                ... ) 
+            
+            # Set test again
+            tpPar( "testRange" = oldPar[[ "testRange" ]] ) 
         }   
     }   
     
     
-    if( getTpPar( "sp" ) ){ 
-        isNull <- unlist( lapply( X = out, FUN = is.null ) )
+    # if( getTpPar( "sp" ) ){ 
+        # isNull <- unlist( lapply( X = out, FUN = is.null ) )
         
-        out <- do.call( what = "rbind.SpatialLines", 
-            args = c( out[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
+        # out <- do.call( what = "rbind.SpatialLines", 
+            # args = c( out[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
         
-        isNull <- unlist( lapply( X = outLine, FUN = is.null ) )
+        # isNull <- unlist( lapply( X = outLine, FUN = is.null ) )
         
-        outLine <- do.call( what = "rbind.SpatialLines", 
-            args = c( outLine[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
+        # outLine <- do.call( what = "rbind.SpatialLines", 
+            # args = c( outLine[ !isNull ], list( "makeUniqueIDs" = TRUE ) ) ) 
         
-        out <- sp::rbind.SpatialLines( out, outLine, makeUniqueIDs = TRUE )
+        # out <- sp::rbind.SpatialLines( out, outLine, makeUniqueIDs = TRUE )
         
-        # spChFIDs( out ) <- c( "B", "L", "R" )[ !isNull ]
-    }   
+        # # spChFIDs( out ) <- c( "B", "L", "R" )[ !isNull ]
+    # }   
     
     return( invisible( out ) ) 
 }   
@@ -218,9 +207,6 @@
 ## #  See .ternaryTicks()
 ## #
 ## #@param side
-## #  See .ternaryTicks()
-## #
-## #@param .plot 
 ## #  See .ternaryTicks()
 ## #
 ## #@param \dots
@@ -1071,6 +1057,8 @@ ternaryAxis.ternarySystem <- function(
  # axisTitle = TRUE, 
  ... 
 ){  
+    oldPar <- par( "xpd" = TRUE ) # Plotting can also occur out of the plot
+    
     .ternaryTicks( s = s ) 
     
     # ternaryGrid( s = s ) 
@@ -1079,6 +1067,8 @@ ternaryAxis.ternarySystem <- function(
     if( getTpPar( "arrows" ) ){
         .ternaryAxisArrows( s = s ) 
     }   
+    
+    par( "xpd" = oldPar[[ "xpd" ]] ) 
 }   
 
 

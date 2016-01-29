@@ -28,19 +28,12 @@
 #'  A \code{\link[base]{data.frame}} or a 
 #'  \code{\link[base]{matrix}} containing ternary data-points.
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
-#'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[graphics]{points}}.
 #'
 #'
 #'@return
-#'  Invisibly returns the graphical element as x-y coordinates or 
-#'  a \code{Spatial*} objects (see \code{.plot}).
+#'  Invisibly returns the graphical element as x-y coordinates.
 #'  
 #'
 #'@rdname ternaryPoints-methods
@@ -70,17 +63,15 @@ ternaryPoints <- function(
 ternaryPoints.ternarySystem <- function( 
  s, 
  x, 
- .plot = TRUE, 
  ... 
 ){ 
     xy <- ternary2xy( s = s, x = x ) 
     
-    if( .plot ){
-        points( x = xy[, "x" ], y = xy[, "y" ], ... ) 
-    }   
+    points( x = xy[, "x" ], y = xy[, "y" ], ... ) 
     
     out <- xy[, c( "x", "y" ) ]
-    if( getTpPar( "sp" ) ){ out <- sp::SpatialPoints( coords = out ) }
+    
+    # if( getTpPar( "sp" ) ){ out <- sp::SpatialPoints( coords = out ) }
     
     return( invisible( out ) ) 
 }   

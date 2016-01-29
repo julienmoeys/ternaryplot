@@ -99,12 +99,26 @@ ternaryPlot.ternarySystem <- function(
     ternaryWindow( s = s ) 
     
     
+    oldTpPar <- tpPar() # Backup parameters
+    
+    
     #   Draw a box without borders around the plot
-    oldTpPar <- tpPar()             # Backup parameters
     tpPar( "axis.line.col" = NA )   # No axis line
     ternaryBox( s = s, bg = getTpPar( "plot.bg" ) ) 
     #   Restore parameters
     tpPar( "axis.line.col" = oldTpPar[[ "axis.line.col" ]] ) 
+    
+    
+    #   Draw the ternary classes *background*, when relevant
+    if( nrow( s[[ "classes" ]] ) > 0 ){
+        if( !all( is.na( oldTpPar[[ "class.bg" ]] ) ) ){
+            ternaryPolygons( 
+                s      = s, 
+                bg     = oldTpPar[[ "class.bg" ]], 
+                border = NA, 
+                labels = NA ) 
+        }   
+    }   
     
     
     #   Add the grid
@@ -113,7 +127,7 @@ ternaryPlot.ternarySystem <- function(
     
     #   Plot any ternary classification:
     if( nrow( s[[ "classes" ]] ) > 0 ){
-        ternaryPolygons( s = s ) 
+        ternaryPolygons( s = s, bg = NA ) # The background was already plotted
     }   
     
     
@@ -126,7 +140,7 @@ ternaryPlot.ternarySystem <- function(
         #   If the triangle is undetermined, attribute to 
         #   the bottom-left-right variables the names of the 
         #   first 3 variables in x
-        s <- .fixTernarySystem( s = s, x = x ) 
+        # s <- .fixTernarySystem( s = s, x = x ) 
     }   
     
     

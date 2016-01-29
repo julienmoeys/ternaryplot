@@ -20,7 +20,25 @@
 #'
 #'
 #'@param x 
-#'  A ternary*-class object.
+#'  A ternary*-class object, or a \code{\link{data.frame}} 
+#'  containing ternary data.
+#'
+#'@param s 
+#'  If \code{x} is a \code{\link{data.frame}}, a 
+#'  \code{ternarySystem}-object, such as obtained with 
+#'  \code{\link[ternaryplot]{getTernarySystem}} or output 
+#'  by \code{\link[ternaryplot]{ternaryPlot}}, that defines 
+#'  how the ternary data in \code{x} should be (variable 
+#'  names and sum of 3 ternary fractions). Not needed if 
+#'  \code{x} is not a \code{\link{data.frame}}.
+#'
+#'@param testRange 
+#'  Single logical. Test if the range of fraction is between 0 and 
+#'  the expected sum of fractions (1 or 100). 
+#'
+#'@param testSum 
+#'  Single logical. Test if the sum of the 3 fractions is equal to 
+#'  the expected sum of fractions (1 or 100).
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods.
@@ -601,7 +619,13 @@ createTernaryVariables <- function(
 #'  columns names changed to those of \code{ternaryVariables}.
 #'
 #'@param classes
-#'  See \code{\link[ternaryplot]{tpPar}}.
+#'  See \code{\link[ternaryplot]{tpPar}}. Please keep in mind 
+#'  that the order of the class matters regarding the 
+#'  classification of point ternary data, in the case of 
+#'  "tights" (points that are in between two or more classes): 
+#'  the function \code{ternaryClassify} uses internally the 
+#'  function \code{\link[sp]{over}}, for which the last polygon 
+#'  in which a point falls is returned.
 #'
 #'@param scale
 #'  See \code{\link[ternaryplot]{tpPar}}. If non-null, 
@@ -634,6 +658,7 @@ createTernarySystem <- function(
     main = character(0), 
     vertices = NULL, 
     classes = NULL, 
+    # labels = NULL, 
     scale = NULL, 
     over = NULL, 
     ...
@@ -674,8 +699,17 @@ createTernarySystem <- function(
     }else{ 
         tsy[[ "classes" ]] <- classes 
         
-        cn2 <- colnames( getTpPar( "classes" ) ) 
+        # cn2 <- colnames( getTpPar( "classes" ) ) 
     }   
+    
+    # if( is.null( labels ) ){ 
+        # if( !is.null( classes ) ){
+            # if( "abbrev" %in% colnames( classes ) ){
+                # labels <- 
+            # }   
+        # }   
+    # }else{ 
+    # }   
     
     if( is.null( scale ) ){ 
         tsy[[ "scale" ]] <- getTpPar( "scale" ) 

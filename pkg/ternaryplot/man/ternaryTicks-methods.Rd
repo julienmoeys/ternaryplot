@@ -7,7 +7,7 @@
 \usage{
 .ternaryTicks(s, ...)
 
-\method{.ternaryTicks}{ternarySystem}(s, side = 1:3, .plot = TRUE, ...)
+\method{.ternaryTicks}{ternarySystem}(s, side = 1:3, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object.}
@@ -16,11 +16,6 @@
  be drawn on.  The axis is placed as follows: 1=below, 2=left, 3=right (note
  that this differ from \code{\link[graphics]{axis}} where 3=above and
  4=right). Default is to draw axis on the 3 sides.}
-
-\item{.plot}{Single logical value. Set to \code{FALSE} if you don't want
- to plot the graphical element and simply returns them as
- x-y coordinates (or \code{Spatial*} objects if \code{sp} is
- set to \code{TRUE} in \code{\link{tpPar}}).}
 
 \item{\dots}{Additional parameters passed to
  \code{\link[ternaryplot]{ternarySegments}}, except \code{col}

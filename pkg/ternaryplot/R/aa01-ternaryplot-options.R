@@ -93,7 +93,7 @@ tpParList  <- new.env()
    #"XFT"   = c( NA,    FALSE,  TRUE    )  # Un-tested
 )   
 
-.tpParList[[ "sp" ]]            <- TRUE 
+# .tpParList[[ "sp" ]]            <- TRUE 
 
 .tpParList[[ "onFailure" ]]     <- stop 
 
@@ -133,14 +133,14 @@ tpParList  <- new.env()
 # Grid
 # ----
 
-.tpParList[[ "grid.line.col" ]] <- "lightgray" 
+.tpParList[[ "grid.line.col" ]] <- "lightgray"
 .tpParList[[ "grid.line.lwd" ]] <- NULL 
 
 # Classes
 # -------
 
-.tpParList[[ "class.label.col" ]]  <- "darkgray"
-.tpParList[[ "class.border.col" ]] <- "darkgray"
+.tpParList[[ "class.label.col" ]]  <- gray( 0.2 ) 
+.tpParList[[ "class.border.col" ]] <- gray( 0.2 ) 
 .tpParList[[ "class.bg" ]]         <- NA 
 .tpParList[[ "class.border.lwd" ]] <- NULL 
 
@@ -280,14 +280,6 @@ tpParList  <- new.env()
 #'  A list of vectors of 3 logical values, with the valid 
 #'  \code{blrClock} geometries.
 #'
-#'@param sp 
-#'  Single logical value. If \code{TRUE}, the low-level graphic 
-#'  functions output a \code{Spatial*} object of the graphical 
-#'  element that can be reused in later calculations with 
-#'  \code{\link[sp]{sp}}. If \code{FALSE}, simply returns a 
-#'  \code{\link[base]{data.frame}} with the x-y coordinates of the 
-#'  graphical element.
-#'
 #'@param onFailure
 #'  R \code{\link{function}}. Function that should be used by 
 #'  \code{\link[ternaryplot]{ternaryCheck}} (and related methods)
@@ -373,7 +365,6 @@ tpPar <- function(
     classes, 
     scale, 
     okClock, 
-    sp, 
     onFailure, 
     
     ticksAt, 

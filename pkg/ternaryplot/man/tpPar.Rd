@@ -5,7 +5,7 @@
 \title{Get or set default parameters for the package.}
 \usage{
 tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
-  classes, scale, okClock, sp, onFailure, ticksAt, ticksShift, ticksLabelsShift,
+  classes, scale, okClock, onFailure, ticksAt, ticksShift, ticksLabelsShift,
   ticks.line.lwd, ticks.line.col, arrows, arrowsShift, arrowsHeight,
   arrowsCoords, arrowsBreak, arrowsLength, grid.line.col, grid.line.lwd,
   axis.line.lwd, axis.line.col, plot.bg, class.label.col, class.border.col,
@@ -62,13 +62,6 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 
 \item{okClock}{A list of vectors of 3 logical values, with the valid
  \code{blrClock} geometries.}
-
-\item{sp}{Single logical value. If \code{TRUE}, the low-level graphic
- functions output a \code{Spatial*} object of the graphical
- element that can be reused in later calculations with
- \code{\link[sp]{sp}}. If \code{FALSE}, simply returns a
- \code{\link[base]{data.frame}} with the x-y coordinates of the
- graphical element.}
 
 \item{onFailure}{R \code{\link{function}}. Function that should be used by
  \code{\link[ternaryplot]{ternaryCheck}} (and related methods)}

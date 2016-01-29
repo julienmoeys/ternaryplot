@@ -36,6 +36,47 @@ for( f in c( sourceFiles, sourceFiles2 ) ){
 library( "sp" )
 
 
+
+par( mfrow = c( 2, 2 ) ) 
+s1 <- ternaryPlot( "dummy" ) 
+ternaryText( s1, col = "blue", what = "vertices" ) 
+
+s2 <- ternaryPlot( "dummy2" ) 
+ternaryText( s2, col = "red", what = "vertices" ) 
+
+
+ternaryGeometry( s2 ) <- ternaryGeometry( s1 ) 
+ternaryPlot( "dummy" ) 
+ternaryPolygons( s2, border = "red", col = "red" ) 
+pol <- ternaryClasses( s2 ) 
+ternarySystem( pol ) <- s1 
+ternaryPolygons( pol, border = "green", col = "green" ) 
+ternaryText( s2, col = "red", what = "vertices" ) 
+
+s3 <- ternaryPlot( "dummy3" ) 
+ternaryText( s3, col = "red", what = "vertices" ) 
+
+
+
+dev.off() 
+ternaryPlot( "hypres" )
+
+
+
+ternaryStyle( margin = TRUE )
+ternaryPlot( "hypres" )
+
+
+cols <- hcl( 
+    h = 30, 
+    c = seq( from = 40, to = 80, length.out = 5 ), 
+    l = seq( from = 80, to = 40, length.out = 5 ) ) 
+ternaryStyle( margin = TRUE )
+tpPar( "class.bg" = cols ) 
+tpPar( "grid.line.col" = gray( 0.8, alpha = 0.75 )  ) 
+ternaryPlot( "hypres" )
+
+
 # tpPar( "class.bg" = "pink" )
 # ternaryPlot( "hypres" )
 

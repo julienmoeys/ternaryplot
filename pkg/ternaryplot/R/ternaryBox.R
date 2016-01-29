@@ -29,12 +29,6 @@
 #'  of the box filling (background). Default is \code{NA}, 
 #'  no fill-colour. 
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
-#'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[graphics]{polygon}}.
 #'  You can for instance set \code{border} for the color of the 
@@ -43,8 +37,7 @@
 #'
 #'
 #'@return
-#'  Invisibly returns the graphical element as x-y coordinates or 
-#'  a \code{Spatial*} objects (see \code{.plot}).
+#'  Invisibly returns the graphical element as x-y coordinates.
 #'
 #'
 #'@rdname ternaryBox-methods
@@ -90,7 +83,6 @@ ternaryBox <- function( s, ... ){
 ternaryBox.ternarySystem <- function( 
  s, 
  bg = NA, 
- .plot = TRUE, 
  ... 
 ){  
     .tpPar <- tpPar()
@@ -123,15 +115,13 @@ ternaryBox.ternarySystem <- function(
     # Convert the scale to x-y values
     tpBox <- ternary2xy( s = s, x = tpBox ) 
     
-    if( .plot ){ 
-        polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
-            lwd = axis.line.lwd, col = bg, 
-            border = axis.line.col, ... )
-    }   
+    polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
+        lwd = axis.line.lwd, col = bg, 
+        border = axis.line.col, ... )
     
     out <- tpBox[, c( "x", "y" ) ] 
     
-    if( .tpPar[[ "sp" ]] ){ out <- .xy2SpatialPolygons( xy = out ) }
+    # if( .tpPar[[ "sp" ]] ){ out <- .xy2SpatialPolygons( xy = out ) }
     
     return( invisible( out ) ) 
 }   

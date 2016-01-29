@@ -56,19 +56,20 @@
 #'@param font  
 #'  See \code{\link[graphics]{text}}.
 #'
-#'@param .plot 
-#'  Single logical value. Set to \code{FALSE} if you don't want 
-#'  to plot the graphical element and simply returns them as 
-#'  x-y coordinates (or \code{Spatial*} objects if \code{sp} is 
-#'  set to \code{TRUE} in \code{\link{tpPar}}).
+#'@param what 
+#'  Single character string. When \code{x} is a missing 
+#'  and \code{s} is a \code{ternarySystem}, what points 
+#'  should be extracted: the class vertices 
+#'  (\code{what = 'vertices'}, the default) 
+#'  or the class centroids 
+#'  (\code{what = 'centroids'})
 #'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[graphics]{text}}.
 #'
 #'
 #'@return
-#'  Invisibly returns the graphical element as x-y coordinates or 
-#'  a \code{Spatial*} objects (see \code{.plot}).
+#'  Invisibly returns the graphical element as x-y coordinates.
 #' 
 #'
 #'@rdname ternaryText-methods
@@ -102,19 +103,60 @@ ternaryText.ternarySystem <- function(
     cex     = 1, 
     col     = NULL, 
     font    = NULL, 
-    .plot   = TRUE, 
+    what    = "centroids", 
     ... 
 ){  
-    xy <- ternary2xy( x = x, s = s ) 
+    if( missing( "x" ) ){
+        if( what == "vertices" ){
+            pts <- s[[ "vertices" ]]
+            
+            if( !is.null( pts ) ){
+                xy <- ternary2xy( s = s, x = pts ) 
+                
+                # xy <- xy[, c( "x", "y" ) ] 
+                
+                # xy <- sp::SpatialPoints( coords = xy ) 
+                
+                if( missing( "labels" ) ){
+                    labels <- pts[, "id" ] 
+                }   
+                
+            }else{
+                xy <- NULL 
+            }   
+            
+        }else if( what == "centroids" ){
+            pol <- ternary2SpatialPolygons( x = s ) 
+            
+            if( !is.null( pol ) ){
+                xy <- sp::coordinates( pol ) 
+                
+                colnames( xy ) <- c( "x", "y" )
+                
+                if( missing( "labels" ) ){
+                    labels <- s[[ "classes" ]][, "abbrev" ] 
+                }   
+                
+                # xy <- sp::SpatialPoints( coords = xy ) 
+            }else{
+                xy <- NULL 
+            }   
+        }else{
+            stop( sprintf( "Unknown / unsupported value for argument 'what' (%s)", what ) )
+        }   
+    }else{
+        xy <- ternary2xy( x = x, s = s ) 
+    }   
     
-    if( .plot ){ 
+    if( !is.null( xy ) ){
         text( x = xy[,"x"], y = xy[,"y"], labels = labels, 
             adj = adj, pos = pos, offset = offset, vfont = vfont, 
             cex = cex, col = col, font = font, ... ) 
+        
+        out <- xy[, c( "x", "y" ) ]
     }   
     
-    out <- xy[, c( "x", "y" ) ]
-    if( getTpPar( "sp" ) ){ out <- SpatialPoints( coords = out ) }
+    # if( getTpPar( "sp" ) ){ out <- SpatialPoints( coords = out ) }
     
     return( invisible( out ) ) 
 }   
@@ -139,23 +181,28 @@ ternaryText.ternaryPolygons <- function(
     cex     = 1, 
     col     = NULL, 
     font    = NULL, 
-    .plot   = TRUE, 
     ... 
 ){  
     if( !missing( "x" ) ){
         warning( "'x' is not NULL. Ignored by ternaryText.ternaryPolygons()." )
     }   
     
-    terSys  <- ternarySystem( x = s ) 
+    # terSys  <- ternarySystem( x = s ) 
     
     # x  <- s[[ "grid" ]] 
     
+    if( is.null( labels ) ){
+        polLab <- attr( x = s, which = "labels" )
+        
+        if( !is.null( polLab ) ){
+            labels <- polLab
+        };  
+        
+        rm( polLab )
+    }   
+    
     #   Draw the labels
     if( !is.null( labels ) ){
-        if( "labels" %in% names( s ) ){
-            labels <- attr( x = s, which = "labels" ) # s[[ "labels" ]] 
-        }   
-        
         idCol <- attr( x = s, which = "idCol" ) 
         
         #   Number of unique classes
@@ -169,18 +216,16 @@ ternaryText.ternaryPolygons <- function(
         
         if( !all( is.na( labels ) ) ){
             #   Convert the polygons to SpatialPolygonsDataFrame
-            sSp <- ternary2SpatialPolygons( x = s ) 
+            sSp <- ternary2SpatialPolygons.ternaryPolygons( x = s ) 
             
             #   Convert to x-y points, that is the polygons 
             #   centroid
             centroids <- sp::coordinates( sSp ) 
             
-            if( .plot ){ 
-                text( x = centroids[, 1L ], y = centroids[, 2L ], 
-                    labels = labels, adj = adj, pos = pos, 
-                    offset = offset, vfont = vfont, cex = cex, 
-                    col = col, font = font, ... ) 
-            }   
+            text( x = centroids[, 1L ], y = centroids[, 2L ], 
+                labels = labels, adj = adj, pos = pos, 
+                offset = offset, vfont = vfont, cex = cex, 
+                col = col, font = font, ... ) 
         }else{
             centroids <- NULL 
         }   
