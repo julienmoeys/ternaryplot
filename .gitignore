@@ -5,3 +5,4 @@
 /pkg/ternaryplot/R/*.R~
 /*.TXT~
 /prepare/*.R~
+/pkg/*.pdf
