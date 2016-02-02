@@ -23,10 +23,12 @@ blrLabels( s, ... ) <- value
 \method{blrLabels}{ternaryVariables}(s, ...) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with
- \code{\link[ternaryplot]{createTernarySystem}}, or a
- \code{ternaryVariables} object, as created with
- \code{\link[ternaryplot]{createTernaryVariables}}.}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}
+     object, or
+   \item A \code{\link[ternaryplot]{ternaryVariables-class}}
+     object.
+ }}
 
 \item{value}{A vector of 3 character strings. Names of the
  bottom-left-right axis.}

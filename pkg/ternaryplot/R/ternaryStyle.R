@@ -75,7 +75,7 @@ ternaryStyle.character <- function(
         #   Set the margins
         if( margin ){
             # mar = c(bottom, left, top, right) 
-            par( mar = c(3,2,0,2)+.1 ) 
+            par( mar = c(3,3,0,3)+.1 ) 
         }   
         
         #   Set specific graphical parameters
@@ -101,7 +101,7 @@ ternaryStyle.character <- function(
         #   Set the margins
         if( margin ){
             # mar = c(bottom, left, top, right) 
-            par( mar = c(3,2,0,2)+.1 ) 
+            par( mar = c(3,3,0,3)+.1 ) 
         }   
         
         #   Set specific graphical parameters

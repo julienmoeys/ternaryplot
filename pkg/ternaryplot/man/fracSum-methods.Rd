@@ -16,17 +16,19 @@ fracSum(s, ...)
 
 \method{fracSum}{ternaryGeometry}(s, ...)
 
-fracSum( s, ... ) <- value
+fracSum(s, ... ) <- value
 
 \method{fracSum}{ternarySystem}(s, ...) <- value
 
 \method{fracSum}{ternaryGeometry}(s, ...) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with
- \code{\link[ternaryplot]{createTernarySystem}}, or a
- \code{ternaryGeometry} object, as created with
- \code{\link[ternaryplot]{createTernaryGeometry}}.}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}
+     object, or
+   \item A \code{\link[ternaryplot]{ternaryGeometry-class}}
+     object.
+ }}
 
 \item{value}{Single numerical value. Sum of the three fractions of the
  ternarySystem.}

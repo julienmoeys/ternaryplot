@@ -202,8 +202,7 @@ tpParList  <- new.env()
 #'  Single numeric. Tolerance on the sum of the 3 ternary fractions. Overall 
 #'  tolerance is \code{fracSum * fracSumTol}, where \code{fracSum} is the 
 #'  expected sum of the 3 ternary fractions. See 
-#'  \code{\link[ternaryplot]{createTernaryGeometry}} or 
-#'  \code{\link[ternaryplot]{createTernarySystem}}.
+#'  \code{\link[ternaryplot]{ternaryGeometry-class}}.
 #'
 #'@param ticksAt 
 #'  Vector of numeric. Pre-defined position of the tick-marks for the 3 axis.

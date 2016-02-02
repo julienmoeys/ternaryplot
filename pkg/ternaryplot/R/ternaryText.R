@@ -126,7 +126,7 @@ ternaryText.ternarySystem <- function(
             }   
             
         }else if( what == "centroids" ){
-            pol <- ternary2SpatialPolygons( x = s ) 
+            pol <- ternary2SpatialPolygons( s = s ) 
             
             if( !is.null( pol ) ){
                 xy <- sp::coordinates( pol ) 
@@ -216,7 +216,7 @@ ternaryText.ternaryPolygons <- function(
         
         if( !all( is.na( labels ) ) ){
             #   Convert the polygons to SpatialPolygonsDataFrame
-            sSp <- ternary2SpatialPolygons.ternaryPolygons( x = s ) 
+            sSp <- ternary2SpatialPolygons.ternaryPolygons( s = s ) 
             
             #   Convert to x-y points, that is the polygons 
             #   centroid

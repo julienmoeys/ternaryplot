@@ -3,7 +3,7 @@ library( "ternaryplot" )
 library( "rgeos" ) 
 
 s   <- getTernarySystem( "hypres" ) 
-pol <- ternary2SpatialPolygons( s )
+pol <- ternary2SpatialPolygons( s = s )
 
 sp::proj4string( obj = pol ) <- "+proj=utm" 
 
@@ -18,7 +18,7 @@ textureDataset2 <- rbind(
         "GROUP" = 4L ) 
 )   
 
-pts <- ternary2SpatialPoints( x = textureDataset2, s = s ) 
+pts <- ternary2SpatialPoints( s = s, x = textureDataset2 ) 
 
 sp::proj4string( obj = pts ) <- "+proj=utm" 
 

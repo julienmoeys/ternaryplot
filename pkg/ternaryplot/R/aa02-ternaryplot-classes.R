@@ -398,26 +398,108 @@ ternaryCheck.ternarySystem <- function(
 
 
 
+
+# ternaryGeometry-class ====================================
+
+#'Class to hold geometrical settings of a ternary plot (graphics)
+#'
+#'Class (\code{S3}) to hold geometrical settings of a ternary 
+#'  plot (graphics). A \code{ternaryGeometry}-class object is 
+#'  a tagged \code{\link[base]{list}} of several 
+#'  objects/items (see below) that describes the geometry 
+#'  of a ternary plot (ternary diagram, ternary triangle). 
+#'  It describes the triangle's angles and the direction of 
+#'  its axis (see below). A 'tagged' list means a list of 
+#'  the form \code{list( "tag1" = value1, "tag2" = value2, 
+#'  ... )}.
+#'
+#'
+#'@details 
+#'  The \code{S3} \code{\link[base]{class}} system is an 
+#'  \emph{in}formal and lightweight class system.
+#'
+#'
+#'@section List objects/items:
+#'\itemize{
+#'  \item \bold{\code{tlrAngles}}: Vector of 3 numerical 
+#'    values. The angles of the \bold{t}op, \bold{l}eft, and 
+#'    \bold{r}ight vertices of the triangle. In degrees. 
+#'    The sum of the 3 angles should thus always be 180.
+#'  \item \bold{\code{blrClock}}: Vector of 3 logical/boolean 
+#'    values (one \code{\link[base]{NA}}-value is allowed). 
+#'    The direction of the \bold{b}ottom, \bold{l}eft, and 
+#'    \bold{r}ight axis. \code{TRUE} when an axis is clockwise 
+#'    (i.e. the values on the axis increase clockwise), 
+#'    \code{FALSE} when it is counter-clockwise (i.e. the 
+#'    values on the axis increase counter-clockwise) and 
+#'    \code{\link[base]{NA}} when the values increase when 
+#'    moving away from the axis (inside the triangle; in with 
+#'    lines parallel to the axis being isolines, for that 
+#'    axis). Possible combinations are \code{c(TRUE,TRUE,TRUE)}, 
+#'    \code{c(FALSE,FALSE,FALSE)}, \code{c(FALSE,TRUE,NA)} 
+#'    and \code{c(TRUE,NA,FALSE)}.
+#'  \item \bold{\code{fracSum}}: Single numerical value. 
+#'    Sum of the 3 fractions. Possible values are \code{1} 
+#'    (when values/units are fractions) or \code{100} (when 
+#'    values/units are percentages).
+#'} 
+#'
+#'
+#'@seealso
+#'\itemize{
+#'  \item \code{\link[ternaryplot]{ternarySystem-class}} 
+#'   (full ternary data and plot definition), that builds 
+#'    on \code{ternaryGeometry-class}, 
+#'    \code{\link[ternaryplot]{ternaryVariables-class}} and 
+#'    other settings.
+#'  \item \code{\link[ternaryplot]{createTernaryGeometry}} 
+#'    for setting up a \code{ternaryGeometry-class} object.
+#'  \item \code{\link[ternaryplot]{tlrAngles}} for fetching 
+#'    or setting the geometry's angle, 
+#'    \code{\link[ternaryplot]{blrClock}} for fetching 
+#'    or setting the geometry axis' directions and 
+#'    \code{\link[ternaryplot]{fracSum}} for fetching 
+#'    or setting the geometry's sum of fractions.
+#'  \item \code{\link[ternaryplot]{ternaryGeometry}} 
+#'    for fetching or changing the geometry of a 
+#'    \code{ternarySystem-class} object.
+#'  \item \code{\link[ternaryplot]{ternaryCheck}}  
+#'    for checking the validity of a \code{ternaryGeometry-class} 
+#'    object.
+#'} 
+#'
+#'
+#'@name ternaryGeometry-class
+#'
+#'@rdname ternaryGeometry-class
+#'
+NULL 
+
+
+
+
 # createTernaryGeometry ============================================
 
 ## # Function that generates the 2ndary class of ternaryGeometry 
 ## # object after the blrClock-argument.
 .generateTernaryGeometry2ndClass <- function( 
- blrClock, 
- class1 = "ternaryGeometry"
+    s, 
+    class1 = "ternaryGeometry"
 ){  
-    if( !("logical" %in% class( blrClock )) ){
-        sprintf(
-            "'blrClock' is not a logical (but: %s).", 
-            paste( class( blrClock ), collapse = "; " )
-        )   
-    }      
+    .blrClock <- blrClock( s ) 
     
-    if( !any( is.na( blrClock ) ) ){
-        if( all( blrClock ) ){
+    # if( !("logical" %in% class( blrClock )) ){
+        # sprintf(
+            # "'blrClock' is not a logical (but: %s).", 
+            # paste( class( blrClock ), collapse = "; " )
+        # )   
+    # }   
+    
+    if( !any( is.na( .blrClock ) ) ){
+        if( all( .blrClock ) ){
             class2 <- "geo_TTT"
             
-        }else if( all( !blrClock ) ){
+        }else if( all( !.blrClock ) ){
             class2 <- "geo_FFF"
             
         }else{
@@ -425,10 +507,10 @@ ternaryCheck.ternarySystem <- function(
             
         }   
     }else{
-        if( identical( blrClock, c( FALSE, TRUE, NA ) ) ){ 
+        if( identical( .blrClock, c( FALSE, TRUE, NA ) ) ){ 
             class2 <- "geo_FTX"
             
-        }else if( identical( blrClock, c( TRUE, NA, FALSE ) ) ){
+        }else if( identical( .blrClock, c( TRUE, NA, FALSE ) ) ){
             class2 <- "geo_TXF"
             
         }else{
@@ -437,41 +519,37 @@ ternaryCheck.ternarySystem <- function(
         }   
     }   
     
-    return( c( class1, class2 ) )
+    class( s ) <- c( class1, class2 )
+    
+    return( s )
 }   
 
-#'Creates a ternaryGeometry object: ternary plot geometry definition.
+
+#'Creates a ternaryGeometry-class object (settings of a ternary plot's geometry).
 #'
-#'Creates a ternaryGeometry object: ternary plot geometry definition.
-#'
-#'  In this package, ternary plots geometries are defined by the 
-#'  3 triangle's angles (top, left, right), and by the sum of the 
-#'  3 fractions it represents (1 if a fraction, and 100 if a 
-#'  percentage). 
+#'Creates a \code{\link[ternaryplot]{ternaryGeometry-class}} 
+#'  object (settings of a ternary plot's geometry).
 #'
 #'
 #'@param tlrAngles
-#'  Vector of numeric. Top, left and right angle (in degrees) 
-#'  of the ternary diagram. Must sum to 180 degrees.
+#'  See \code{\link[ternaryplot]{ternaryGeometry-class}}.
 #'
 #'@param blrClock
-#'  Vector of logical value. Bottom, left and right axis directions. 
-#'  Set to \code{TRUE} if the axis is clockwise, and to 
-#'  \code{FALSE} if the axis is counter-clockwise.
+#'  See \code{\link[ternaryplot]{ternaryGeometry-class}}.
 #'
 #'@param fracSum
-#'  Single numeric value. Sum of the three fractions. Must be 1 (if 
-#'  a fraction) or 100 (if a percentage).
+#'  See \code{\link[ternaryplot]{ternaryGeometry-class}}.
 #'
 #'@param \dots
-#'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryCheck}}
 #'
 #'
 #'@return
-#'  Return a list of \code{ternaryGeometry}-class (S3). A 2nd class is added 
-#'  that depends on \code{blrClock}, and is formed after the pattern 
-#'  \code{"geo_[blrClockCode]"}, where \code{[blrClockCode]} can be 
-#'  \code{"TTT"}, \code{"FFF"}, \code{"FTX"} or \code{"TXF"}.
+#'  A a \code{\link[ternaryplot]{ternaryGeometry-class}}.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{ternaryGeometry-class}}.
 #'
 #'
 #'@example inst/examples/createTernaryGeometry-example.R
@@ -496,8 +574,10 @@ createTernaryGeometry <- function(
     
     
     #   Set the class
-    class( tg ) <- .generateTernaryGeometry2ndClass( 
-        blrClock = blrClock ) 
+    # class( tg ) <- .generateTernaryGeometry2ndClass( 
+        # blrClock = blrClock ) 
+    
+    class( tg ) <- "ternaryGeometry"
     
     
     #   Check:
@@ -510,46 +590,106 @@ createTernaryGeometry <- function(
 
 
 
+
+# ternaryVariables-class ===================================
+
+#'Class to hold the variables' names and labels of ternary plots and ternary data.
+#'
+#'Class (\code{S3}) to hold the variables' names and labels 
+#'  of ternary plots (graphics) and ternary data. A 
+#'  \code{ternaryVariables}-class object is 
+#'  a tagged \code{\link[base]{list}} of several 
+#'  objects/items (see below). By variables' names is meant 
+#'  the name of the variables in a ternary data (column names), 
+#'  and by variables' labels is meant the axis labels on a 
+#'  ternary plot. A 'tagged' list means a list of 
+#'  the form \code{list( "tag1" = value1, "tag2" = value2, 
+#'  ... )}.
+#'
+#'
+#'@details 
+#'  The \code{S3} \code{\link[base]{class}} system is an 
+#'  \emph{in}formal and lightweight class system.
+#'
+#'
+#'@section List objects/items:
+#'\itemize{
+#'  \item \bold{\code{blrNames}}: Vector of 3 character strings. 
+#'    column names of the variables to be displayed on the 
+#'    \bold{b}ottom, \bold{l}eft, and \bold{r}ight axis of a 
+#'    ternary plot. If \code{blrNames} is set to 
+#'    \code{c( "_bottom_","_left_","_right_" )}, 
+#'    \code{ternarySystem}s based on the set of 
+#'    \code{ternaryVariables} will be \emph{undefined}, meaning 
+#'    that any variable name goes. In the case of ternary 
+#'    data points, it means that the first three columns 
+#'    will be used independently of how they are called.
+#'  \item \bold{\code{blrLabels}}: Vector of 3 character 
+#'    strings or vector of 3 expressions.\bold{b}ottom, 
+#'    \bold{l}eft, and \bold{r}ight axis' labels of a ternary 
+#'    plots. If \code{blrNames} is set 
+#'    to \code{c( "_bottom_","_left_","_right_" )}, and 
+#'    \code{blrLabels} to \code{rep( NA_character_, 3 )}, 
+#'    \code{\link[ternaryplot]{ternaryPlot}} and 
+#'    \code{\link[ternaryplot]{ternaryPoints}} use the column 
+#'    names of the dataset that is provided (if provided).
+#'} 
+#'
+#'
+#'@seealso
+#'\itemize{
+#'  \item \code{\link[ternaryplot]{ternarySystem-class}} 
+#'   (full ternary system definition), that builds on 
+#'    \code{\link[ternaryplot]{ternaryGeometry-class}}, 
+#'    \code{ternaryVariables-class} and other settings.
+#'  \item \code{\link[ternaryplot]{createTernaryVariables}} 
+#'    for setting up a \code{ternaryVariables-class} object.
+#'  \item \code{\link[ternaryplot]{blrNames}} for fetching 
+#'    or setting the variables names and 
+#'    \code{\link[ternaryplot]{blrLabels}} for fetching 
+#'    or setting the axis labels.
+#'  \item \code{\link[ternaryplot]{ternaryCheck}}  
+#'    for checking the validity of a 
+#'    \code{ternaryVariables-class} object.
+#'} 
+#'
+#'
+#'@name ternaryVariables-class
+#'
+#'@rdname ternaryVariables-class
+#'
+NULL 
+
+
+
+
 # createTernaryVariables ===========================================
 
-#'Creates a ternaryVariables object: ternary plot variables definitions.
+#'Creates a ternaryVariables-class object (names and labels of ternary data and ternary plot)
 #'
-#'Creates a ternaryVariables object: ternary plot variables definitions.
-#'
-#'  In this package, ternary plots variables are defined by the 3 
-#'  variables name (bottom, left, right), as they will be found in 
-#'  \code{\link[base]{data.frame}} containing ternary datasets, 
-#'  and by the label of these variables on the axis of a ternary 
-#'  plot.
+#'Creates a ternaryVariables-class object (names and labels 
+#'  of ternary data and ternary plot)
 #'
 #'
 #'@param blrNames
-#'  Vector of characters. Bottom, left and right variable 
-#'  names as they will be found in a \code{\link{data.frame}} 
-#'  containing ternary data. If \code{blrNames} is set 
-#'  to \code{c( "_bottom_","_left_","_right_" )}, 
-#'  \code{ternarySystem}s based on the set of 
-#'  \code{ternaryVariables} will be "undefined", meaning 
-#'  that any variable name goes (in the case of ternary 
-#'  data points, it means that the 1st three columns 
-#'  will be used independently of how they are called).
+#'  See \code{\link[ternaryplot]{ternaryVariables-class}}.
 #'
 #'@param blrLabels
-#'  Vector of characters or vector of expressions. Bottom, left 
-#'  and right variable labels as they will be displayed on ternary 
-#'  plots. If \code{blrNames} is set 
-#'  to \code{c( "_bottom_","_left_","_right_" )}, and 
-#'  \code{blrLabels} to \code{rep( NA_character_, 3 )}, 
-#'  \code{\link[ternaryplot]{ternaryPlot}} and 
-#'  \code{\link[ternaryplot]{ternaryPoints}} use the column 
-#'  names of the dataset that is provided (when provided).
+#'  See \code{\link[ternaryplot]{ternaryVariables-class}}.
 #'
 #'@param \dots
-#'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryCheck}}
+#'
+#'
+#'@return
+#'  A \code{\link[ternaryplot]{ternaryVariables-class}}.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{ternaryVariables-class}}.
 #'
 #'
 #'@example inst/examples/createTernaryVariables-example.R
-#'
 #'
 #'@rdname createTernaryVariables
 #'
@@ -578,75 +718,153 @@ createTernaryVariables <- function(
 
 
 
+
+# ternarySystem-class ======================================
+
+#'Class to hold the definition of a ternarySystem (the full definition of ternary plot and optionally classification).
+#'
+#'Class (\code{S3}) to hold the definition of a ternarySystem 
+#'  (the full definition of ternary plot and optionally 
+#'  classification). A \code{ternarySystem-class} object is 
+#'  a tagged \code{\link[base]{list}} of several 
+#'  objects/items (see below). A 'tagged' list means a list of 
+#'  the form \code{list( "tag1" = value1, "tag2" = value2, 
+#'  ... )}.
+#'
+#'
+#'@details 
+#'  The \code{S3} \code{\link[base]{class}} system is an 
+#'  \emph{in}formal and lightweight class system.
+#'
+#'
+#'@section List objects/items:
+#'\itemize{
+#'  \item \bold{\code{ternaryGeometry}}: See 
+#'    \code{\link[ternaryplot]{ternaryGeometry-class}}.
+#'  \item \bold{\code{ternaryVariables}}: See 
+#'    \code{\link[ternaryplot]{ternaryVariables-class}}.
+#'  \item \bold{\code{main}}: Single character string. 
+#'    Title of the triangle plot.
+#'  \item \bold{\code{vertices}}: See 
+#'    \code{\link[ternaryplot]{tpPar}}. If non-null, 
+#'    \code{\link[base]{data.frame}} with 4 columns: \code{id}, 
+#'    and 3 other columns corresponding to \code{blrNames} 
+#'    in \code{ternaryVariables}. If \code{NULL}, default 
+#'    values will be used \code{getTpPar("vertices")}, and 
+#'    the columns names changed to those of 
+#'    \code{ternaryVariables}.
+#'  \item \bold{\code{classes}}: See 
+#'    \code{\link[ternaryplot]{tpPar}}. Please keep in mind 
+#'    that the order of the class matters regarding the 
+#'    classification of point ternary data, in the case of 
+#'    "tights" (points that are in between two or more 
+#'    classes): the function \code{ternaryClassify} uses 
+#'    internally the function \code{\link[sp]{over}}, for 
+#'    which the last polygon in which a point falls is 
+#'    returned.
+#'  \item \bold{\code{scale}}: NOT USED (YET). See 
+#'    \code{\link[ternaryplot]{tpPar}}. If non-null, 
+#'    \code{\link[base]{data.frame}} with 3 columns, 
+#'    corresponding to \code{blrNames} in 
+#'    \code{ternaryVariables}. If \code{NULL}, default values 
+#'    will be used \code{getTpPar("scale")}, and the 
+#'    columns names changed to those of \code{ternaryVariables}.
+#'  \item \bold{\code{over}}: Either \code{NULL} or a 
+#'    \code{\link{function}} with 3 arguments, \code{s}, 
+#'    code{x} and \code{scale}. If a \code{\link{function}}, 
+#'    should be used to add arbitrary graphical overlay on 
+#'    top of ternary plots. Experimental.
+#'} 
+#'
+#'
+#'@seealso
+#'\itemize{
+#'  \item \code{\link[ternaryplot]{getTernarySystem}} to fetch 
+#'    an existing (pre defined) ternary system, or 
+#'    \code{\link[ternaryplot]{createTernarySystem}} to create 
+#'    one. Notice that \code{\link[ternaryplot]{ternaryPlot}} 
+#'    also output a \code{ternarySystem-class} object.
+#'  \item \code{\link[ternaryplot]{ternaryPlot}} for plotting 
+#'    a ternary system (with its ternary classification, when 
+#'    relevant, and optionally with ternary data points), 
+#'    \code{\link[ternaryplot]{ternaryClasses}} for extracting 
+#'    the classes of a \code{ternarySystem-class} (as 
+#'    \code{ternaryPolygons}) and \code{ternaryClassify} 
+#'    for classifying ternary data.
+#'  \item \code{\link[ternaryplot]{ternaryGeometry-class}} and 
+#'    \code{\link[ternaryplot]{ternaryVariables-class}}, 
+#'    two essentials building blocks of ternary systems.
+#'  \item \code{\link[ternaryplot]{blrNames}} for fetching 
+#'    or setting the variables names and 
+#'    \code{\link[ternaryplot]{blrLabels}} for fetching 
+#'    or setting the axis labels.
+#'  \item \code{\link[ternaryplot]{tlrAngles}} for fetching 
+#'    or setting the geometry's angle, 
+#'    \code{\link[ternaryplot]{blrClock}} for fetching 
+#'    or setting the geometry axis' directions and 
+#'    \code{\link[ternaryplot]{fracSum}} for fetching 
+#'    or setting the geometry's sum of fractions.
+#'  \item \code{\link[ternaryplot]{ternaryCheck}}  
+#'    for checking the validity of a 
+#'    \code{ternarySystem-class} object.
+#'} 
+#'
+#'
+#'@name ternarySystem-class
+#'
+#'@rdname ternarySystem-class
+#'
+NULL 
+
+
+
+
 # createTernarySystem ===========================================
 
-#'Creates a ternarySystem object: ternary plot system definition.
+#'Creates a ternarySystem-class object (the full definition of ternary plot and optionally classification).
 #'
-#'Creates a ternarySystem object: ternary plot system 
-#'  definition.
-#'  
-#'  Ternary systems are a combination of (a) a ternary 
-#'  geometry (as defined by 
-#'  \code{\link[ternaryplot]{createTernaryGeometry}}), (b) a set of 
-#'  ternary variables (as defined by 
-#'  \code{\link[ternaryplot]{createTernaryVariables}} and an optional 
-#'  classification system, that is polygons drawn on top of ternary 
-#'  plots, that define different zones in the fractions.
-#'
-#'  The classification is defined by a collection of polygons (in 
-#'  \code{classes}) with different \code{vertices}.
+#'Creates a ternarySystem-class object (the full definition 
+#'  of ternary plot and optionally classification).
 #'
 #'
 #'@param ternaryGeometry
-#'  A ternary geometry (as defined by 
-#'  \code{\link[ternaryplot]{createTernaryGeometry}}). If \code{NULL}, 
-#'  use the default output of \code{\link[ternaryplot]{createTernaryGeometry}}.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}, 
+#'  \code{\link[ternaryplot]{ternaryGeometry-class}}, and 
+#'  \code{\link[ternaryplot]{createTernaryGeometry}}.
 #'
 #'@param ternaryVariables
-#'  A set of ternary variables (as defined by 
-#'  \code{\link[ternaryplot]{createTernaryVariables}}. If \code{NULL}, 
-#'  use the default output of \code{\link[ternaryplot]{createTernaryVariables}}.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}, 
+#'  \code{\link[ternaryplot]{ternaryVariables-class}}, and 
+#'  \code{\link[ternaryplot]{createTernaryVariables}}.
 #'
 #'@param main 
-#'  Single character string. Title of the triangle plot.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param vertices
-#'  See \code{\link[ternaryplot]{tpPar}}. If non-null, 
-#'  \code{\link[base]{data.frame}} with 4 columns: \code{id}, and 
-#'  3 other columns corresponding to \code{blrNames} in 
-#'  \code{ternaryVariables}. If \code{NULL}, default 
-#'  values will be used \code{getTpPar("vertices")}, and the 
-#'  columns names changed to those of \code{ternaryVariables}.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param classes
-#'  See \code{\link[ternaryplot]{tpPar}}. Please keep in mind 
-#'  that the order of the class matters regarding the 
-#'  classification of point ternary data, in the case of 
-#'  "tights" (points that are in between two or more classes): 
-#'  the function \code{ternaryClassify} uses internally the 
-#'  function \code{\link[sp]{over}}, for which the last polygon 
-#'  in which a point falls is returned.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param scale
-#'  See \code{\link[ternaryplot]{tpPar}}. If non-null, 
-#'  \code{\link[base]{data.frame}} with 3 columns, corresponding 
-#'  to \code{blrNames} in \code{ternaryVariables}. If \code{NULL}, 
-#'  default values will be used \code{getTpPar("scale")}, and the 
-#'  columns names changed to those of \code{ternaryVariables}.
-#'  NOT USED YET.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param over
-#'  Either \code{NULL} or a \code{\link{function}} with 3 
-#'  arguments, \code{s}, code{x} and \code{scale}. If a 
-#'  \code{\link{function}}, should be used to add arbitrary 
-#'  graphical overlay on top of ternary plots. Experimental.
+#'  See \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param \dots
-#'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryCheck}}
+#'
+#'
+#'@return 
+#'  A \code{\link[ternaryplot]{ternarySystem-class}}.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'
 #'@example inst/examples/createTernarySystem-example.R
-#'
 #'
 #'@rdname createTernarySystem
 #'
@@ -727,8 +945,8 @@ createTernarySystem <- function(
     #   Set the class
     class( tsy ) <- "ternarySystem"
     
-    class( tsy ) <- .generateTernaryGeometry2ndClass( 
-        blrClock = blrClock( tsy ), class1 = "ternarySystem" ) 
+    # class( tsy ) <- .generateTernaryGeometry2ndClass( 
+        # blrClock = blrClock( tsy ), class1 = "ternarySystem" ) 
     
     
     #   Check:

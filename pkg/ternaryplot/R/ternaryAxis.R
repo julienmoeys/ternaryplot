@@ -128,7 +128,12 @@
     }   
     
     #   Geometry specific adjustments
-    adj <- ._ternaryTicks( s = s )
+    s <- .generateTernaryGeometry2ndClass( 
+        s      = s, 
+        class1 = "ternarySystem" 
+    )   
+    
+    adj <- ._ternaryTicks( s = s ) 
     
     
     for( ax in side ){ # 
@@ -439,6 +444,11 @@
     
     ## Calculate the grid-lines coordinates for each axis
     ## Using a geometry specific method
+    s <- .generateTernaryGeometry2ndClass( 
+        s      = s, 
+        class1 = "ternarySystem" 
+    )   
+    
     arroQuad <- ._ternaryAxisArrowsBase(
         s           = s, 
         .fracSum    = .fracSum, 
@@ -821,7 +831,13 @@ calculateArrowLength <- function( pin = NULL ){
         # fff = c(  0,  1,     1    ) 
     # )   
     
+    s <- .generateTernaryGeometry2ndClass( 
+        s      = s, 
+        class1 = "ternarySystem" 
+    )   
+    
     adj1 <- ._ternaryAxisArrows( s = s ) 
+    
     
     for( ax in 1:length( gr ) ){ 
         # Draw the tick-marks start and segments

@@ -1,10 +1,10 @@
 
-# +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
-# | Language:   R + roxygen2 inline documentation               |
-# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
-# | License:    AGPL3, Affero General Public License version 3  |
-# +-------------------------------------------------------------+
+# +--------------------------------------------------------+
+# | Package:    ternaryplot                                |
+# | Language:   R + roxygen2 inline documentation          |
+# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>        |
+# | License:    AGPL3, Affero General Public License v 3   |
+# +--------------------------------------------------------+
 
 
 

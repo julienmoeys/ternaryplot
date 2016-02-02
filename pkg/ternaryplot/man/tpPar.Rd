@@ -34,8 +34,7 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
 \item{fracSumTol}{Single numeric. Tolerance on the sum of the 3 ternary fractions. Overall
  tolerance is \code{fracSum * fracSumTol}, where \code{fracSum} is the
  expected sum of the 3 ternary fractions. See
- \code{\link[ternaryplot]{createTernaryGeometry}} or
- \code{\link[ternaryplot]{createTernarySystem}}.}
+ \code{\link[ternaryplot]{ternaryGeometry-class}}.}
 
 \item{vertices}{Vertices of a ternary classification (default): a
  \code{\link[base]{data.frame}} with 4 columns \code{id},

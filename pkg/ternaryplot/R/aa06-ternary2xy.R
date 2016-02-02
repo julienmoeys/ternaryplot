@@ -129,6 +129,11 @@ ternary2xy.ternarySystem <- function(
         # class1   = "ternarySystem" 
     # )   
     
+    s <- .generateTernaryGeometry2ndClass( 
+        s      = s, 
+        class1 = "ternarySystem" 
+    )   
+    
     return( .ternary2xy( s = s, x = x, ... ) ) 
 }   
 

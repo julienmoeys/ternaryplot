@@ -1,14 +1,14 @@
 
-# +-------------------------------------------------------------+
-# | Package:    ternaryplot                                     |
-# | Language:   R + roxygen2 inline documentation               |
-# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
-# | License:    AGPL3, Affero General Public License version 3  |
-# +-------------------------------------------------------------+
+# +--------------------------------------------------------+
+# | Package:    ternaryplot                                |
+# | Language:   R + roxygen2 inline documentation          |
+# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>        |
+# | License:    AGPL3, Affero General Public License v 3   |
+# +--------------------------------------------------------+
 
 
 
-# blrNames ====================================================== 
+# blrNames =================================================
 
 #'Set or get the bottom-left-right axis names of a ternarySystem 
 #'  object 
@@ -18,13 +18,16 @@
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a 
-#'  \code{ternaryVariables} object, as created with 
-#'  \code{\link[ternaryplot]{createTernaryVariables}}.
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      object, or 
+#'    \item A \code{\link[ternaryplot]{ternaryVariables-class}} 
+#'      object.
+#'  }  
 #'
 #'@param \dots
-#'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryCheck}}.
 #'
 #'@param value 
 #'  A vector of 3 character strings. Names of the 
@@ -71,7 +74,7 @@ blrNames.ternaryVariables <- function( s, ... ){
 
 #'@rdname blrNames-methods
 #'
-#'@usage blrNames( s, ... ) <- value
+#'@usage blrNames(s, ... ) <- value
 #'
 #'@export
 #'
@@ -157,10 +160,12 @@ blrNames.ternaryVariables <- function( s, ... ){
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a 
-#'  \code{ternaryVariables} object, as created with 
-#'  \code{\link[ternaryplot]{createTernaryVariables}}.
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      object, or 
+#'    \item A \code{\link[ternaryplot]{ternaryVariables-class}} 
+#'      object.
+#'  }  
 #'
 #'@param \dots
 #'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.
@@ -270,7 +275,7 @@ blrLabels.ternaryVariables <- function( s, ... ){
 
 
 
-# blrClock ====================================================== 
+# blrClock =================================================
 
 #'Set or get the bottom-left-right orientation of a ternarySystem 
 #'  object
@@ -280,13 +285,16 @@ blrLabels.ternaryVariables <- function( s, ... ){
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a 
-#'  \code{ternaryGeometry} object, as created with 
-#'  \code{\link[ternaryplot]{createTernaryGeometry}}.
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      object, or 
+#'    \item A \code{\link[ternaryplot]{ternaryGeometry-class}} 
+#'      object.
+#'  }  
 #'
 #'@param \dots
-#'  Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.
+#'  Additional parameters passed to 
+#'  \code{\link[ternaryplot]{ternaryCheck}}.
 #'
 #'@param value 
 #'  A vector of 3 logical values. Bottom-left-right orientation of 
@@ -373,15 +381,15 @@ blrClock.ternaryGeometry <- function(
     s[[ 'ternaryGeometry' ]][[ 'blrClock' ]] <- value 
     
     
-    #   Set the class (in case it has changed)
-    class( s[[ 'ternaryGeometry' ]] ) <- 
-        .generateTernaryGeometry2ndClass( blrClock = value ) 
+    # #   Set the class (in case it has changed)
+    # class( s[[ 'ternaryGeometry' ]] ) <- 
+        # .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
-    #   Set the class (in case it has changed)
-    class( s ) <- .generateTernaryGeometry2ndClass( 
-        blrClock = value, 
-        class1   = "ternarySystem" ) 
+    # #   Set the class (in case it has changed)
+    # class( s ) <- .generateTernaryGeometry2ndClass( 
+        # blrClock = value, 
+        # class1   = "ternarySystem" ) 
     
     
     #   Check the validity
@@ -410,8 +418,8 @@ blrClock.ternaryGeometry <- function(
     s[[ 'blrClock' ]] <- value 
     
     
-    #   Set the class (in case it has changed)
-    class( s ) <- .generateTernaryGeometry2ndClass( blrClock = value ) 
+    # #   Set the class (in case it has changed)
+    # class( s ) <- .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
     ternaryCheck( s, ... ) 
@@ -431,10 +439,12 @@ blrClock.ternaryGeometry <- function(
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a 
-#'  \code{ternaryGeometry} object, as created with 
-#'  \code{\link[ternaryplot]{createTernaryGeometry}}.
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      object, or 
+#'    \item A \code{\link[ternaryplot]{ternaryGeometry-class}} 
+#'      object.
+#'  }  
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods.
@@ -491,7 +501,7 @@ fracSum.ternaryGeometry <- function(
 
 #'@rdname fracSum-methods
 #'
-#'@usage fracSum( s, ... ) <- value
+#'@usage fracSum(s, ... ) <- value
 #'
 #'@export
 #'
@@ -764,17 +774,17 @@ ternaryGeometry.ternarySystem <- function(
 ){  
     s[[ 'ternaryGeometry' ]] <- value 
     
-    #   Also set the class (esp the 2nd class)
-    #   Set the class
-    class( s[[ 'ternaryGeometry' ]] ) <- 
-        .generateTernaryGeometry2ndClass( 
-            blrClock = blrClock( s ), 
-            class1   = "ternaryGeometry" ) 
+    # #   Also set the class (esp the 2nd class)
+    # #   Set the class
+    # class( s[[ 'ternaryGeometry' ]] ) <- 
+        # .generateTernaryGeometry2ndClass( 
+            # blrClock = blrClock( s ), 
+            # class1   = "ternaryGeometry" ) 
     
-    class( s ) <- 
-        .generateTernaryGeometry2ndClass( 
-            blrClock = blrClock( s ), 
-            class1   = "ternarySystem" ) 
+    # class( s ) <- 
+        # .generateTernaryGeometry2ndClass( 
+            # blrClock = blrClock( s ), 
+            # class1   = "ternarySystem" ) 
     
     ternaryCheck( s[[ 'ternaryGeometry' ]], ... )     
     

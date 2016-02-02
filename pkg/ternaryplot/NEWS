@@ -1,6 +1,35 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.4
+    
+    2016/02/02  Created ternaryNormalise() to normalise 
+        ternary data.
+        
+        ternaryGeometry-class is now documented.
+        
+        ternaryVariables-class is now documented.
+        
+        ternarySystem-class is now documented.
+        
+        ternaryPolygons-class is now documented.
+        
+        The 2nd class of ternaryGeometry and ternarySystem 
+        is now dropped ("geo_TTT", "geo_FFF", ...) and added 
+        internally, when relevant, using the internal function 
+        .generateTernaryGeometry2ndClass(). This avoids 
+        unexpected behaviour when the geometry is changed 
+        but the 2nd class mistakenly remains the same.
+        
+        In ternaryStyle(), the margins have been increased 
+        for the left and right side, as they were too small 
+        for right-angle triangles. 
+        
+        The arguments of package's functions was 
+        homogenised so that argument 's' is now (almost) 
+        always the 1st argument, and 'x' is an optional 
+        extra 2nd argument (when relevant). ON PROGRESS.
+        
 CHANGES IN VERSION 0.6.3
     
     2016/01/28  The argument .plot (whether the plot element 

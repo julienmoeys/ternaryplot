@@ -2,38 +2,27 @@
 % Please edit documentation in R/aa02-ternaryplot-classes.R
 \name{createTernaryGeometry}
 \alias{createTernaryGeometry}
-\title{Creates a ternaryGeometry object: ternary plot geometry definition.}
+\title{Creates a ternaryGeometry-class object (settings of a ternary plot's geometry).}
 \usage{
 createTernaryGeometry(tlrAngles = c(60, 60, 60), blrClock = rep(TRUE, 3),
   fracSum = 100, ...)
 }
 \arguments{
-\item{tlrAngles}{Vector of numeric. Top, left and right angle (in degrees)
- of the ternary diagram. Must sum to 180 degrees.}
+\item{tlrAngles}{See \code{\link[ternaryplot]{ternaryGeometry-class}}.}
 
-\item{blrClock}{Vector of logical value. Bottom, left and right axis directions.
- Set to \code{TRUE} if the axis is clockwise, and to
- \code{FALSE} if the axis is counter-clockwise.}
+\item{blrClock}{See \code{\link[ternaryplot]{ternaryGeometry-class}}.}
 
-\item{fracSum}{Single numeric value. Sum of the three fractions. Must be 1 (if
- a fraction) or 100 (if a percentage).}
+\item{fracSum}{See \code{\link[ternaryplot]{ternaryGeometry-class}}.}
 
-\item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}}
+\item{\dots}{Additional parameters passed to
+ \code{\link[ternaryplot]{ternaryCheck}}}
 }
 \value{
-Return a list of \code{ternaryGeometry}-class (S3). A 2nd class is added
- that depends on \code{blrClock}, and is formed after the pattern
- \code{"geo_[blrClockCode]"}, where \code{[blrClockCode]} can be
- \code{"TTT"}, \code{"FFF"}, \code{"FTX"} or \code{"TXF"}.
+A a \code{\link[ternaryplot]{ternaryGeometry-class}}.
 }
 \description{
-Creates a ternaryGeometry object: ternary plot geometry definition.
-}
-\details{
-In this package, ternary plots geometries are defined by the
- 3 triangle's angles (top, left, right), and by the sum of the
- 3 fractions it represents (1 if a fraction, and 100 if a
- percentage).
+Creates a \code{\link[ternaryplot]{ternaryGeometry-class}}
+ object (settings of a ternary plot's geometry).
 }
 \examples{
 
@@ -51,5 +40,8 @@ tg <- createTernaryGeometry(
     "tlrAngles" = c( 45, 45, 90 ) ) 
 tg 
 
+}
+\seealso{
+\code{\link[ternaryplot]{ternaryGeometry-class}}.
 }
 

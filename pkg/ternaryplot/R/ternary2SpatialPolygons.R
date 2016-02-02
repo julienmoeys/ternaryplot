@@ -15,20 +15,22 @@
 #'Converts ternary*-class objects to \code{\link[sp]{SpatialPolygons}}
 #'
 #'
-#'@param x 
-#'  Either a \code{ternaryPolygons} object (such as created by 
-#'  \code{\link[ternaryplot]{ternaryClasses}} or 
-#'  \code{\link[ternaryplot]{createTernaryGrid}}), or a \code{ternarySystem} 
-#'  (such as obtained with \code{\link[ternaryplot]{getTernarySystem}}), or 
-#'  a single character string naming a \code{ternarySystem} that can be 
-#'  fetched using \code{\link[ternaryplot]{getTernarySystem}}.
+#'@param s 
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternaryPolygons-class}} 
+#'      object, or 
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      object, or 
+#'    \item A single character string naming an existing  
+#'      \code{\link[ternaryplot]{ternaryVariables-class}}.
+#'  }  
 #'
 #'@param \dots 
 #'  Additional parameters passed to specific methods.
 #'
 #'
 #'@return 
-#'  A \code{\link[sp]{SpatialPolygons}}
+#'  A \code{\link[sp]{SpatialPolygons}} object.
 #'
 #'
 #'@rdname ternary2SpatialPolygons-methods
@@ -38,7 +40,7 @@
 #'@export 
 #'
 ternary2SpatialPolygons <- function(
- x, 
+ s, 
  ... 
 ){  
     UseMethod( "ternary2SpatialPolygons" ) 
@@ -51,32 +53,29 @@ ternary2SpatialPolygons <- function(
 #'
 #'@export
 #'
-#'
-#'@usage \method{ternary2SpatialPolygons}{ternaryPolygons}( x, ... ) 
-#'
 #'@importFrom sp Polygons 
 #'@importFrom sp Polygon 
 #'@importFrom sp SpatialPolygons 
 ternary2SpatialPolygons.ternaryPolygons <- function(
- x, 
+ s, 
  ... 
 ){  
-    s  <- ternarySystem( x = x )  
-    # x  <- x[[ "grid" ]] 
+    s0  <- ternarySystem( x = s )  
+    # s  <- s[[ "grid" ]] 
     
-    if( nrow( x ) > 0 ){
-        # x  <- x[ order( x[, "id"] ), ] 
+    if( nrow( s ) > 0 ){
+        # s  <- s[ order( s[, "id"] ), ] 
         
-        idCol <- attr( x = x, which = "idCol" )
+        idCol <- attr( x = s, which = "idCol" )
         
-        id <- x[, idCol ] 
-        x  <- x[, colnames( x ) != idCol ] 
-        # x <- subset( x, select = eval( quote( -id ) ) )
+        id <- s[, idCol ] 
+        s  <- s[, colnames( s ) != idCol ] 
+        # s <- subset( s, select = eval( quote( -id ) ) )
         
-        .blrNames <- blrNames( s ) 
+        .blrNames <- blrNames( s0 ) 
         
         #   Transform from Top-Left-Right to X-Y
-        xy <- ternary2xy( s = s, x = x[, .blrNames ] ) 
+        xy <- ternary2xy( s = s0, x = s[, .blrNames ] ) 
         
         #   Factor version of IDs
         idf <- factor( x = id, levels = unique( id ), 
@@ -107,13 +106,15 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
         #   Aggregate x
         #   TO DO: replace this by centroid calculation + xy2ternary() 
         
-        x <- aggregate( x, by = list( "ID" = id ), FUN = mean ) 
-        rownames( x ) <- x[, "ID" ] 
-        x <- subset( x, select = eval( quote( -ID ) ) )
+        # s <- aggregate( s, by = list( "ID" = id ), FUN = mean ) 
+        # rownames( s ) <- s[, "ID" ] 
+        # s <- subset( s, select = eval( quote( -ID ) ) )
         
         # pxy <- Polygons( srl = pxy, ID = nxy ) 
+        
         pxy <- sp::SpatialPolygons( Srl = pxy )
-        # pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = x, match.ID = FALSE )
+        
+        # pxy <- sp::SpatialPolygonsDataFrame( Sr = pxy, data = s, match.ID = FALSE )
     }else{
         warning( "No polygon to be converted (empty 'ternaryPolygons')" )
         
@@ -130,17 +131,14 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
 #'
 #'@export
 #'
-#'
-#'@usage \method{ternary2SpatialPolygons}{ternarySystem}( x, ... ) 
-#' 
 ternary2SpatialPolygons.ternarySystem <- function(
- x, 
+ s, 
  ... 
 ){  
-    x <- ternaryClasses( s = x ) 
+    s <- ternaryClasses( s = s ) 
     
-    if( nrow( x ) > 0 ){
-        return( ternary2SpatialPolygons.ternaryPolygons( x = x, ... ) ) 
+    if( nrow( s ) > 0 ){
+        return( ternary2SpatialPolygons.ternaryPolygons( s = s, ... ) ) 
     }else{
         return( NULL ) 
     }   
@@ -153,16 +151,13 @@ ternary2SpatialPolygons.ternarySystem <- function(
 #'
 #'@export
 #'
-#'
-#'@usage \method{ternary2SpatialPolygons}{character}( x, ... ) 
-#' 
 ternary2SpatialPolygons.character <- function(
- x, 
+ s, 
  ... 
 ){  
-    s <- getTernarySystem( s = x ) 
+    s <- getTernarySystem( s = s ) 
     
-    return( ternary2SpatialPolygons.ternarySystem( x = s ) ) 
+    return( ternary2SpatialPolygons.ternarySystem( s = s ) ) 
 }   
 
 

@@ -23,15 +23,18 @@ blrClock( s, ... ) <- value
 \method{blrClock}{ternaryGeometry}(s, ...) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with
- \code{\link[ternaryplot]{createTernarySystem}}, or a
- \code{ternaryGeometry} object, as created with
- \code{\link[ternaryplot]{createTernaryGeometry}}.}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}
+     object, or
+   \item A \code{\link[ternaryplot]{ternaryGeometry-class}}
+     object.
+ }}
 
 \item{value}{A vector of 3 logical values. Bottom-left-right orientation of
  a ternarySystem object.}
 
-\item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.}
+\item{\dots}{Additional parameters passed to
+ \code{\link[ternaryplot]{ternaryCheck}}.}
 }
 \description{
 Set or get the bottom-left-right orientation of a

@@ -1,0 +1,10 @@
+
+cd /home/${USER}/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot
+
+# Commit latest changes
+git status
+git add --all
+git commit -m "Some updates"
+git push
+git status
+

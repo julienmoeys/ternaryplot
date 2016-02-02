@@ -2,67 +2,40 @@
 % Please edit documentation in R/aa02-ternaryplot-classes.R
 \name{createTernarySystem}
 \alias{createTernarySystem}
-\title{Creates a ternarySystem object: ternary plot system definition.}
+\title{Creates a ternarySystem-class object (the full definition of ternary plot and optionally classification).}
 \usage{
 createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,
   main = character(0), vertices = NULL, classes = NULL, scale = NULL,
   over = NULL, ...)
 }
 \arguments{
-\item{ternaryGeometry}{A ternary geometry (as defined by
- \code{\link[ternaryplot]{createTernaryGeometry}}). If \code{NULL},
- use the default output of \code{\link[ternaryplot]{createTernaryGeometry}}.}
+\item{ternaryGeometry}{See \code{\link[ternaryplot]{ternarySystem-class}},
+ \code{\link[ternaryplot]{ternaryGeometry-class}}, and
+ \code{\link[ternaryplot]{createTernaryGeometry}}.}
 
-\item{ternaryVariables}{A set of ternary variables (as defined by
- \code{\link[ternaryplot]{createTernaryVariables}}. If \code{NULL},
- use the default output of \code{\link[ternaryplot]{createTernaryVariables}}.}
+\item{ternaryVariables}{See \code{\link[ternaryplot]{ternarySystem-class}},
+ \code{\link[ternaryplot]{ternaryVariables-class}}, and
+ \code{\link[ternaryplot]{createTernaryVariables}}.}
 
-\item{main}{Single character string. Title of the triangle plot.}
+\item{main}{See \code{\link[ternaryplot]{ternarySystem-class}}.}
 
-\item{vertices}{See \code{\link[ternaryplot]{tpPar}}. If non-null,
- \code{\link[base]{data.frame}} with 4 columns: \code{id}, and
- 3 other columns corresponding to \code{blrNames} in
- \code{ternaryVariables}. If \code{NULL}, default
- values will be used \code{getTpPar("vertices")}, and the
- columns names changed to those of \code{ternaryVariables}.}
+\item{vertices}{See \code{\link[ternaryplot]{ternarySystem-class}}.}
 
-\item{classes}{See \code{\link[ternaryplot]{tpPar}}. Please keep in mind
- that the order of the class matters regarding the
- classification of point ternary data, in the case of
- "tights" (points that are in between two or more classes):
- the function \code{ternaryClassify} uses internally the
- function \code{\link[sp]{over}}, for which the last polygon
- in which a point falls is returned.}
+\item{classes}{See \code{\link[ternaryplot]{ternarySystem-class}}.}
 
-\item{scale}{See \code{\link[ternaryplot]{tpPar}}. If non-null,
- \code{\link[base]{data.frame}} with 3 columns, corresponding
- to \code{blrNames} in \code{ternaryVariables}. If \code{NULL},
- default values will be used \code{getTpPar("scale")}, and the
- columns names changed to those of \code{ternaryVariables}.
- NOT USED YET.}
+\item{scale}{See \code{\link[ternaryplot]{ternarySystem-class}}.}
 
-\item{over}{Either \code{NULL} or a \code{\link{function}} with 3
- arguments, \code{s}, code{x} and \code{scale}. If a
- \code{\link{function}}, should be used to add arbitrary
- graphical overlay on top of ternary plots. Experimental.}
+\item{over}{See \code{\link[ternaryplot]{ternarySystem-class}}.}
 
-\item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}}
+\item{\dots}{Additional parameters passed to
+ \code{\link[ternaryplot]{ternaryCheck}}}
+}
+\value{
+A \code{\link[ternaryplot]{ternarySystem-class}}.
 }
 \description{
-Creates a ternarySystem object: ternary plot system
- definition.
-}
-\details{
-Ternary systems are a combination of (a) a ternary
- geometry (as defined by
- \code{\link[ternaryplot]{createTernaryGeometry}}), (b) a set of
- ternary variables (as defined by
- \code{\link[ternaryplot]{createTernaryVariables}} and an optional
- classification system, that is polygons drawn on top of ternary
- plots, that define different zones in the fractions.
-
-The classification is defined by a collection of polygons (in
- \code{classes}) with different \code{vertices}.
+Creates a ternarySystem-class object (the full definition
+ of ternary plot and optionally classification).
 }
 \examples{
 
@@ -87,5 +60,8 @@ tsy2 <- createTernarySystem(
 
 tsy2
 
+}
+\seealso{
+\code{\link[ternaryplot]{ternarySystem-class}}.
 }
 

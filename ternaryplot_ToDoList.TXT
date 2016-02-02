@@ -1,25 +1,20 @@
 
-INVERSE arguments s and x in ternary2SpatialPolygons and 
-    ternary2SpatialPoints, so they match other functions.
-    
 CREATE ternaryClassify() to classify ternary data
-    
+
 CREATE ternaryClassNames() and ternaryClassNames()<-
     methods to retrieve and change the (abbrev) name of 
     ternary classes
-    
-CREATE ternaryPlotVertices()
-    
-CREATE as.data.frame ternarySystem 
+
+CREATE as.data.frame.ternarySystem method
     what = "vertices" or "classes"
 
 CREATE ternaryCounts ternarySystem 
-    
-CREATE ternaryNormalise ternarySystem 
 
 CREATE ternaryLines ternarySystem 
 
 CREATE ternaryAggregate >> ternary version of sp::aggregate
+
+CREATE plot method for ternarySystem and ternaryPolygons
 
 Examples:
     

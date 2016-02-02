@@ -3,37 +3,34 @@
 \name{ternary2SpatialPoints}
 \alias{ternary2SpatialPoints}
 \alias{ternary2SpatialPoints.character}
-\alias{ternary2SpatialPoints.data.frame}
 \alias{ternary2SpatialPoints.ternarySystem}
 \title{Converts ternary*-class objects to SpatialPoints}
 \usage{
-ternary2SpatialPoints(x, ...)
+ternary2SpatialPoints(s, ...)
 
-\method{ternary2SpatialPoints}{data.frame}( x, s, ... )
+\method{ternary2SpatialPoints}{ternarySystem}(s, x = NULL,
+  what = "vertices", ...)
 
-\method{ternary2SpatialPoints}{ternarySystem}( x, what = "vertices", ... )
-
-\method{ternary2SpatialPoints}{character}( x, what = "vertices", ... )
+\method{ternary2SpatialPoints}{character}(s, what = "vertices", ...)
 }
 \arguments{
-\item{x}{Either \code{\link{data.frame}} containing the ternary data to be converted
- to a \code{\link[sp]{SpatialPoints}}-object, or a \code{ternarySystem}, or a
- single character string naming a ternary system to be fetched with
- \code{\link[ternaryplot]{getTernarySystem}} from which the class vertices or
- the class centroids should be extracted (see argument \code{what} below).}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}
+     object, or
+   \item A single character string naming an existing
+     \code{\link[ternaryplot]{ternaryVariables-class}}.
+ }
+ If \code{x} is \code{NULL}, them the vertices or the centroids
+ of the ternary classification in \code{s} will be retrieved
+ (see argument \code{what}).}
 
-\item{s}{Only needed if \code{x} is a \code{\link{data.frame}}.
- Either a \code{ternarySystem} object, such as obtained with
- \code{\link[ternaryplot]{getTernarySystem}} or
- \code{\link[ternaryplot]{createTernarySystem}}, or a character
- string naming a \code{ternarySystem} to be fetched with
- \code{\link[ternaryplot]{getTernarySystem}}. Define the \code{ternarySystem}
- to be used to project the ternary data into an x-y system (as used by
- \code{\link[sp]{sp}}).}
+\item{x}{A \code{\link{data.frame}} containing the ternary data to
+ be converted to a \code{\link[sp]{SpatialPoints}}-object.}
 
-\item{what}{Single character string. When \code{x} is a \code{ternarySystem}, what points
- should be extracted: the class vertices (\code{what = 'vertices'}, the default)
- or the class centroids (\code{what = 'centroids'})}
+\item{what}{Single character string. When \code{x} is missing, what
+ points should be extracted: the class vertices
+ (\code{what = 'vertices'}, the default) or the class
+ centroids (\code{what = 'centroids'})}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }

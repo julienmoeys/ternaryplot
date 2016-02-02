@@ -16,22 +16,25 @@ blrNames(s, ...)
 
 \method{blrNames}{ternaryVariables}(s, ...)
 
-blrNames( s, ... ) <- value
+blrNames(s, ... ) <- value
 
 \method{blrNames}{ternarySystem}(s, ...) <- value
 
 \method{blrNames}{ternaryVariables}(s, ...) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with
- \code{\link[ternaryplot]{createTernarySystem}}, or a
- \code{ternaryVariables} object, as created with
- \code{\link[ternaryplot]{createTernaryVariables}}.}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}
+     object, or
+   \item A \code{\link[ternaryplot]{ternaryVariables-class}}
+     object.
+ }}
 
 \item{value}{A vector of 3 character strings. Names of the
  bottom-left-right axis.}
 
-\item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.}
+\item{\dots}{Additional parameters passed to
+ \code{\link[ternaryplot]{ternaryCheck}}.}
 }
 \description{
 Set or get the bottom-left-right axis names of a

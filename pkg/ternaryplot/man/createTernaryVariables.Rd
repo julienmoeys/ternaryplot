@@ -2,42 +2,25 @@
 % Please edit documentation in R/aa02-ternaryplot-classes.R
 \name{createTernaryVariables}
 \alias{createTernaryVariables}
-\title{Creates a ternaryVariables object: ternary plot variables definitions.}
+\title{Creates a ternaryVariables-class object (names and labels of ternary data and ternary plot)}
 \usage{
 createTernaryVariables(blrNames = c("_bottom_", "_left_", "_right_"),
   blrLabels = rep(NA_character_, 3), ...)
 }
 \arguments{
-\item{blrNames}{Vector of characters. Bottom, left and right variable
- names as they will be found in a \code{\link{data.frame}}
- containing ternary data. If \code{blrNames} is set
- to \code{c( "_bottom_","_left_","_right_" )},
- \code{ternarySystem}s based on the set of
- \code{ternaryVariables} will be "undefined", meaning
- that any variable name goes (in the case of ternary
- data points, it means that the 1st three columns
- will be used independently of how they are called).}
+\item{blrNames}{See \code{\link[ternaryplot]{ternaryVariables-class}}.}
 
-\item{blrLabels}{Vector of characters or vector of expressions. Bottom, left
- and right variable labels as they will be displayed on ternary
- plots. If \code{blrNames} is set
- to \code{c( "_bottom_","_left_","_right_" )}, and
- \code{blrLabels} to \code{rep( NA_character_, 3 )},
- \code{\link[ternaryplot]{ternaryPlot}} and
- \code{\link[ternaryplot]{ternaryPoints}} use the column
- names of the dataset that is provided (when provided).}
+\item{blrLabels}{See \code{\link[ternaryplot]{ternaryVariables-class}}.}
 
-\item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}}
+\item{\dots}{Additional parameters passed to
+ \code{\link[ternaryplot]{ternaryCheck}}}
+}
+\value{
+A \code{\link[ternaryplot]{ternaryVariables-class}}.
 }
 \description{
-Creates a ternaryVariables object: ternary plot variables definitions.
-}
-\details{
-In this package, ternary plots variables are defined by the 3
- variables name (bottom, left, right), as they will be found in
- \code{\link[base]{data.frame}} containing ternary datasets,
- and by the label of these variables on the axis of a ternary
- plot.
+Creates a ternaryVariables-class object (names and labels
+ of ternary data and ternary plot)
 }
 \examples{
 
@@ -54,5 +37,8 @@ tv2 <- createTernaryVariables(
     blrLabels = c( "Clay [\%]", "SILT [\%]", "SAND [\%]" ) ) 
 tv2 
 
+}
+\seealso{
+\code{\link[ternaryplot]{ternaryVariables-class}}.
 }
 

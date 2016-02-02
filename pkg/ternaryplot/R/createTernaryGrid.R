@@ -8,6 +8,7 @@
 
 
 
+
 # createTernaryGrid =============================================
 
 #'Create a regular ternary grid. Base frame for binning ternary data.
@@ -15,34 +16,29 @@
 #'Create a regular ternary grid. Base frame for binning ternary data.
 #'
 #'
-#'@seealso \code{\link[ternaryplot]{ternary2SpatialPolygons}} 
-#'  (to convert the grid into a 
-#'  \code{\link[sp]{SpatialPolygonsDataFrame}}), and 
-#'  \code{\link[ternaryplot]{ternaryPlot}} to plot the 
-#'  output. 
-#'
-#'
 #'@param s 
-#'  A \code{\link[ternaryplot]{ternarySystem}}-object (such 
-#'  as created with \code{\link[ternaryplot]{createTernarySystem}} 
-#'  or fetched with \code{\link[ternaryplot]{getTernarySystem}}), 
-#'  or a single character string naming a 
-#'  \code{\link[ternaryplot]{ternarySystem}}.
-#'
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}} object. 
+#'    \item A character string naming an existing (pre-defined) 
+#'      \code{ternarySystem}.
+#'  }  
+#' 
 #'@param n
-#'  Single integer value. Number of grid cells (not grid 
-#'  nodes)
+#'  Single integer value. Number of subdivisions of each 
+#'  axis (not the total number of cells!).
 #'
 #'@param \dots 
 #'  Additional parameters passed to specific methods.
 #'
 #'
 #'@return 
-#'  A ternary grid (of polygons), with class \code{ternaryPolygons}.
+#'  A \code{\link{ternaryPolygons-class}}.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{ternaryPolygons-class}}. 
 #'
 #'
 #'@example inst/examples/createTernaryGrid-example.R
-#'
 #'
 #'@rdname createTernaryGrid-methods
 #'

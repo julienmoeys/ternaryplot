@@ -13,19 +13,19 @@ createTernaryGrid(s, ...)
 \method{createTernaryGrid}{ternarySystem}(s, n = 10, ...)
 }
 \arguments{
-\item{s}{A \code{\link[ternaryplot]{ternarySystem}}-object (such
- as created with \code{\link[ternaryplot]{createTernarySystem}}
- or fetched with \code{\link[ternaryplot]{getTernarySystem}}),
- or a single character string naming a
- \code{\link[ternaryplot]{ternarySystem}}.}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}} object.
+   \item A character string naming an existing (pre-defined)
+     \code{ternarySystem}.
+ }}
 
-\item{n}{Single integer value. Number of grid cells (not grid
- nodes)}
+\item{n}{Single integer value. Number of subdivisions of each
+ axis (not the total number of cells!).}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }
 \value{
-A ternary grid (of polygons), with class \code{ternaryPolygons}.
+A \code{\link{ternaryPolygons-class}}.
 }
 \description{
 Create a regular ternary grid. Base frame for binning ternary data.
@@ -60,10 +60,6 @@ tgSp <- ternary2SpatialPolygons( tg )
 # sp::plot( tgSp, add = TRUE, border = "darkred", lty = 3 ) 
 }
 \seealso{
-\code{\link[ternaryplot]{ternary2SpatialPolygons}}
- (to convert the grid into a
- \code{\link[sp]{SpatialPolygonsDataFrame}}), and
- \code{\link[ternaryplot]{ternaryPlot}} to plot the
- output.
+\code{\link[ternaryplot]{ternaryPolygons-class}}.
 }
 
