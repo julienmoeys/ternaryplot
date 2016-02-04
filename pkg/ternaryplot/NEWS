@@ -1,6 +1,14 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.5
+    
+    2016/02/03  The arguments of package's functions was 
+        homogenised so that argument 's' is now (almost) 
+        always the 1st argument, and 'x' is an optional 
+        extra 2nd argument (when relevant). CONTINUED 
+        (ternaryCheck(), ternarySystem())
+    
 CHANGES IN VERSION 0.6.4
     
     2016/02/02  Created ternaryNormalise() to normalise 

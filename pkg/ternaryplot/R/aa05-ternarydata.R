@@ -91,30 +91,20 @@
 
 
 
-#'@rdname ternaryCheck-methods
-#'
-#'@method ternaryCheck data.frame
-#'
-#'@export
-#'
-ternaryCheck.data.frame <- function( 
- x, 
+## #@rdname ternaryCheck-methods
+## #
+## #@method ternaryCheck data.frame
+## #
+## #@export
+## #
+.ternaryCheck.data.frame <- function( 
  s, 
- # .blrNames = NULL, 
- # .fracSum  = NULL, 
+ x, 
  testRange, 
  testSum, 
  ... 
 ){  
     .tpPar <- tpPar()
-    
-    if( missing( "testRange" ) ){ 
-        testRange <- .tpPar[[ "testRange" ]]
-    }   
-    
-    if( missing( "testSum" ) ){ 
-        testSum <- .tpPar[[ "testSum" ]] 
-    }   
     
     # geo     <- ternaryGeometry( s )  
     # var   <- ternaryVariables( s ) 
@@ -149,65 +139,7 @@ ternaryCheck.data.frame <- function(
         ) ) 
     };  rm( testCol ) 
     
-    # }else{ 
-        # testBlrNames <- 
-            # (length( .blrNames ) == 3) & 
-            # is.character( .blrNames ) 
-        
-        # if( !testBlrNames ){ 
-            # stop( "If not NULL '.blrNames' must be a vector of 3 character strings" )
-        # };  rm( testBlrNames )
-        
-        
-        # testCol <- .blrNames %in% cn
-        
-        # if( any( !testCol ) ){ 
-            # stop( sprintf( 
-                # "Some column missing in 'x' (%s)", 
-                # paste( .blrNames[ !testCol ], collapse = "; " ) 
-            # ) ) 
-        # };  rm( testCol ) 
-        
-        
-        # # blrNames( s ) <- .blrNames 
-        # s.blrNames <- blrNames( s ) 
-        
-        # for( j in 1:3 ){ 
-            # cn[ cn == .blrNames[ j ] ] <- s.blrNames[ j ]
-        # }   
-        
-        # colnames( x ) <- cn
-        # # blrNames( s ) <- .blrNames 
-        # .blrNames <- s.blrNames 
-        
-        # rm( s.blrNames ) 
-    # }   
-    
-    
-    # if( is.null( .fracSum ) ){ 
-    
     .fracSum <- fracSum( s ) 
-        
-    # }else{ 
-        # testFracSum <- c( 1, 100 ) %in% .fracSum 
-        
-        # if( !any( testFracSum ) ){ 
-            # stop( "'.fracSum' must be equal to 1 or 100" ) 
-            
-        # }   
-        
-        # if( .fracSum != fracSum( s ) ){ 
-            # if( .fracSum == 1 ){ 
-                # x[, .blrNames ] <- x[, .blrNames ] * 100
-            # }else{ 
-                # # .fracSum == 100
-                
-                # x[, .blrNames ] <- x[, .blrNames ] / 100
-            # }   
-            
-            # .fracSum <- fracSum( s ) 
-        # }   
-    # }   
     
     
     # Tolerance:
@@ -239,12 +171,6 @@ ternaryCheck.data.frame <- function(
         # Check the fractions' sum
         testFracSum <- rowSums( x[, .blrNames ] ) 
         
-        # apply( 
-            # X      = x[, .blrNames ], 
-            # MARGIN = 1, 
-            # FUN    = sum 
-        # )   
-        
         # Within accepted bounds?
         testFracSum <- 
             (testFracSum >= (.fracSum - fracSumTol)) & 
@@ -257,11 +183,6 @@ ternaryCheck.data.frame <- function(
             ) ) 
         }   
     }   
-    
-    
-    # class( x ) <- c( "ternaryData", "data.frame" ) 
-    
-    # attr( x, "ternarySystem" ) <- s 
     
     return( x ) 
 }   

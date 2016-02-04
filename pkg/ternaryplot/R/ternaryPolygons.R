@@ -142,7 +142,7 @@ ternaryPolygons.ternaryPolygons <- function(
         warning( "'x' is not NULL. Ignored by ternaryPolygons.ternaryPolygons()." )
     }   
     
-    terSys  <- ternarySystem( x = s ) 
+    terSys  <- ternarySystem( s = s ) 
     
     # x  <- s[[ "grid" ]] 
     

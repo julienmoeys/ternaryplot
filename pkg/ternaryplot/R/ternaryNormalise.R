@@ -84,7 +84,7 @@ ternaryNormalise.ternarySystem <- function(
 ){  
     #   Check the validity of the ternary data, 
     #   but not the sum of the 3 fractions
-    ternaryCheck( x = x, s = s, testSum = FALSE, ... ) 
+    ternaryCheck( s = s, x = x, testSum = FALSE, ... ) 
     
     #   Fetch the bottom left and right variable names
     blrNames0 <- blrNames( s = s ) 
@@ -109,7 +109,7 @@ ternaryNormalise.ternarySystem <- function(
     
     #   Check the validity of the ternary data, 
     #   but not the sum of the 3 fractions
-    ternaryCheck( x = x, s = s, ... ) 
+    ternaryCheck( s = s, x = x, ... ) 
     
     #   Return the normalised data
     return( x ) 

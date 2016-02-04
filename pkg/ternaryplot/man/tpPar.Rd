@@ -4,12 +4,12 @@
 \alias{tpPar}
 \title{Get or set default parameters for the package.}
 \usage{
-tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
-  classes, scale, okClock, onFailure, ticksAt, ticksShift, ticksLabelsShift,
-  ticks.line.lwd, ticks.line.col, arrows, arrowsShift, arrowsHeight,
-  arrowsCoords, arrowsBreak, arrowsLength, grid.line.col, grid.line.lwd,
-  axis.line.lwd, axis.line.col, plot.bg, class.label.col, class.border.col,
-  class.bg, class.border.lwd)
+tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, okClock,
+  onFailure, vertices, classes, scale, plot.bg, ticksAt, ticksShift,
+  ticksLabelsShift, ticks.line.lwd, ticks.line.col, arrows, arrowsShift,
+  arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength, axis.line.lwd,
+  axis.line.col, grid.line.col, grid.line.lwd, class.label.col,
+  class.border.col, class.bg, class.border.lwd)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -36,6 +36,15 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  expected sum of the 3 ternary fractions. See
  \code{\link[ternaryplot]{ternaryGeometry-class}}.}
 
+\item{okClock}{A list of vectors of 3 logical values, with the valid
+ \code{blrClock} geometries.}
+
+\item{onFailure}{R \code{\link{function}}. Function that should be used by
+ \code{\link[ternaryplot]{ternaryCheck}} when a
+ non-conformity is found. Default value is
+ \code{\link[base]{stop}}, but can be changed to
+ \code{\link[base]{warning}} or even}
+
 \item{vertices}{Vertices of a ternary classification (default): a
  \code{\link[base]{data.frame}} with 4 columns \code{id},
  \code{bo}, \code{le} and \code{ri}, as the identifier and
@@ -59,11 +68,9 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  as the min and max of the 3 fractions to be displayed (bottom,
  left, right).}
 
-\item{okClock}{A list of vectors of 3 logical values, with the valid
- \code{blrClock} geometries.}
-
-\item{onFailure}{R \code{\link{function}}. Function that should be used by
- \code{\link[ternaryplot]{ternaryCheck}} (and related methods)}
+\item{plot.bg}{Single character value representing a colour. Fill-colour of the
+ plot region (frame). Set to \code{NA} or \code{"transparent"}
+ to suppress color.}
 
 \item{ticksAt}{Vector of numeric. Pre-defined position of the tick-marks for the 3 axis.
  Between 0 and 'fracSum' (the sum of the 3 fractions).}
@@ -115,21 +122,17 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  the plot dimension (see argument \code{pin} in
  \code{\link[graphics]{par}}).}
 
-\item{grid.line.col}{Single character value representing a color. Color of the
- grid-lines added to a ternary plot.}
-
-\item{grid.line.lwd}{Single numerical value. Thickness of the grid-lines
- added to a ternary plot.}
-
 \item{axis.line.lwd}{Single numerical value. Line thickness for the axis-lines
  (including arrow lines)}
 
 \item{axis.line.col}{Single character string representing a colour. Colour
  of the axis lines (including arrow lines)}
 
-\item{plot.bg}{Single character value representing a colour. Fill-colour of the
- plot region (frame). Set to \code{NA} or \code{"transparent"}
- to suppress color.}
+\item{grid.line.col}{Single character value representing a color. Color of the
+ grid-lines added to a ternary plot.}
+
+\item{grid.line.lwd}{Single numerical value. Thickness of the grid-lines
+ added to a ternary plot.}
 
 \item{class.label.col}{Vector of character strings representing colours (see for
  example \code{\link[grDevices]{colours}}). Colours of the
@@ -150,8 +153,8 @@ tpPar(par = NULL, reset = FALSE, testRange, testSum, fracSumTol, vertices,
  polygons (when displayed on a ternary plot)}
 }
 \value{
-Returns a partial or complete list of (actual) parameter values, as a
- named list.
+Returns a partial or complete list of (actual) parameter
+ values, as a tagged list.
 }
 \description{
 Get or set default parameters for the package. Notice changes

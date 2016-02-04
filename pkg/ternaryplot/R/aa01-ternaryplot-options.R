@@ -174,6 +174,7 @@ tpParList  <- new.env()
 #'  the environment \code{rspPars}. The default value of the parameters are
 #'  stored in the environment \code{rspPars}. Do not use them directly.
 #'
+## # GENERAL PARAMETERS ------------------------------------
 #'
 #'@param par  
 #'  Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -190,6 +191,8 @@ tpParList  <- new.env()
 #'  default value. Values are reset before any change to the parameter values, as
 #'  listed below.
 #'
+## # CHECK PARAMETERS --------------------------------------
+#'
 #'@param testRange 
 #'  Single logical. Test if the range of fraction is between 0 and 
 #'  the expected sum of fractions (1 or 100). 
@@ -203,6 +206,57 @@ tpParList  <- new.env()
 #'  tolerance is \code{fracSum * fracSumTol}, where \code{fracSum} is the 
 #'  expected sum of the 3 ternary fractions. See 
 #'  \code{\link[ternaryplot]{ternaryGeometry-class}}.
+#'
+#'@param okClock
+#'  A list of vectors of 3 logical values, with the valid 
+#'  \code{blrClock} geometries.
+#'
+#'@param onFailure
+#'  R \code{\link{function}}. Function that should be used by 
+#'  \code{\link[ternaryplot]{ternaryCheck}} when a 
+#'  non-conformity is found. Default value is 
+#'  \code{\link[base]{stop}}, but can be changed to 
+#'  \code{\link[base]{warning}} or even 
+#   \code{\link[base]{message}} (at the user's own risk!).
+#'
+## # TEMPLATE CLASS & SCALE DESCRIPTION --------------------
+#'
+#'@param vertices
+#'  Vertices of a ternary classification (default): a 
+#'  \code{\link[base]{data.frame}} with 4 columns \code{id}, 
+#'  \code{bo}, \code{le} and \code{ri}, as the identifier and 
+#'  the the 3 fractions (bottom, left, right) of the vertices. 
+#'  Each row is a vertex.
+#'
+#'@param classes
+#'  Polygons (classes outline) of a ternary classification (default): 
+#'  a \code{\link[base]{data.frame}} with 3 columns \code{abbrev}, 
+#'  \code{name} and \code{verticesId}, as the abbreviation, 
+#'  name and identifier of the vertices of each class. Notice 
+#'  that \code{verticesId} must be a \code{\link[base]{list}} of 
+#'  vectors, each containing the vertices that define the polygon. 
+#'  You can use \code{\link[base]{list}}\code{()} to preserve 
+#'  the list format when defining the \code{\link[base]{data.frame}}.
+#'  For example 
+#'  \code{ data.frame( "abbrev" = "A", "name" = "Aa", "verticesId" = I( list( 1:3 ) ) ) }
+#'
+#'@param scale
+#'  Scale-extent of a ternary classification (default): a 
+#'  \code{\link[base]{data.frame}} with 3 columns \code{bo}, 
+#'  \code{le} and \code{ri}, and 2 rows (\code{min} and \code{max}), 
+#'  as the min and max of the 3 fractions to be displayed (bottom, 
+#'  left, right).
+#'
+## # PLOT BOX (GRAPHICAL PARAMETERS) -----------------------
+#'
+#'@param plot.bg
+#'  Single character value representing a colour. Fill-colour of the 
+#'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
+#'  to suppress color.
+#'
+## # AXIS PARAMETERS (GRAPHICAL PARAMETERS) ----------------
+#'
+## # * AXIS TICKS
 #'
 #'@param ticksAt 
 #'  Vector of numeric. Pre-defined position of the tick-marks for the 3 axis.
@@ -231,6 +285,8 @@ tpParList  <- new.env()
 #'  Single character string representing a colour. Colour 
 #'  of the axis tick lines.
 #'
+## # * AXIS ARROWS
+#'
 #'@param arrows
 #'  Single numerical value. If \code{TRUE}, arrows are 
 #'  drawn along the axis.
@@ -249,51 +305,6 @@ tpParList  <- new.env()
 #'  (same as \code{par("mgp")}). Only used when \code{arrowsShift} 
 #'  (above) is \code{NA}.
 #'
-#'@param vertices
-#'  Vertices of a ternary classification (default): a 
-#'  \code{\link[base]{data.frame}} with 4 columns \code{id}, 
-#'  \code{bo}, \code{le} and \code{ri}, as the identifier and 
-#'  the the 3 fractions (bottom, left, right) of the vertices. 
-#'  Each row is a vertex.
-#'
-#'@param classes
-#'  Polygons (classes outline) of a ternary classification (default): 
-#'  a \code{\link[base]{data.frame}} with 3 columns \code{abbrev}, 
-#'  \code{name} and \code{verticesId}, as the abbreviation, 
-#'  name and identifier of the vertices of each class. Notice 
-#'  that \code{verticesId} must be a \code{\link[base]{list}} of 
-#'  vectors, each containing the vertices that define the polygon. 
-#'  You can use \code{\link[base]{list}}\code{()} to preserve 
-#'  the list format when defining the \code{\link[base]{data.frame}}.
-#'  For example 
-#'  \code{ data.frame( "abbrev" = "A", "name" = "Aa", "verticesId" = I( list( 1:3 ) ) ) }
-#'
-#'@param scale
-#'  Scale-extent of a ternary classification (default): a 
-#'  \code{\link[base]{data.frame}} with 3 columns \code{bo}, 
-#'  \code{le} and \code{ri}, and 2 rows (\code{min} and \code{max}), 
-#'  as the min and max of the 3 fractions to be displayed (bottom, 
-#'  left, right).
-#'
-#'@param okClock
-#'  A list of vectors of 3 logical values, with the valid 
-#'  \code{blrClock} geometries.
-#'
-#'@param onFailure
-#'  R \code{\link{function}}. Function that should be used by 
-#'  \code{\link[ternaryplot]{ternaryCheck}} (and related methods)
-#   when a non-conformity is found. Default value is \code{\link{stop}}, 
-#   but can be changed to \code{\link{warning}} or even 
-#   \code{\link{message}} (at the user's own risk).
-#'
-#'@param grid.line.col
-#'  Single character value representing a color. Color of the 
-#'  grid-lines added to a ternary plot.
-#'
-#'@param grid.line.lwd
-#'  Single numerical value. Thickness of the grid-lines 
-#'  added to a ternary plot.
-#'
 #'@param arrowsCoords 
 #'  Parameters used internally to define axis-arrows location
 #'
@@ -310,6 +321,8 @@ tpParList  <- new.env()
 #'  the plot dimension (see argument \code{pin} in 
 #'  \code{\link[graphics]{par}}).
 #'
+## # * AXIS LINE
+#'
 #'@param axis.line.lwd
 #'  Single numerical value. Line thickness for the axis-lines 
 #'  (including arrow lines)
@@ -318,10 +331,17 @@ tpParList  <- new.env()
 #'  Single character string representing a colour. Colour 
 #'  of the axis lines (including arrow lines)
 #'
-#'@param plot.bg
-#'  Single character value representing a colour. Fill-colour of the 
-#'  plot region (frame). Set to \code{NA} or \code{"transparent"} 
-#'  to suppress color.
+## # GRID (GRAPHICAL PARAMETERS) ---------------------------
+#'
+#'@param grid.line.col
+#'  Single character value representing a color. Color of the 
+#'  grid-lines added to a ternary plot.
+#'
+#'@param grid.line.lwd
+#'  Single numerical value. Thickness of the grid-lines 
+#'  added to a ternary plot.
+#'
+## # CLASSES (GRAPHICAL PARAMETERS) ------------------------
 #'
 #'@param class.label.col 
 #'  Vector of character strings representing colours (see for 
@@ -347,41 +367,51 @@ tpParList  <- new.env()
 #'
 #'
 #'@return 
-#'  Returns a partial or complete list of (actual) parameter values, as a
-#'  named list.
+#'  Returns a partial or complete list of (actual) parameter 
+#'  values, as a tagged list.
+#'
 #'
 #'@seealso \code{\link{getTpPar}}.
 #'
 #'@export 
 #'
 tpPar <- function( 
+    # GENERAL PARAMETERS
     par    = NULL, 
     reset  = FALSE, 
+    # CHECK PARAMETERS
     testRange, 
     testSum, 
     fracSumTol, 
-    vertices, 
-    classes, 
-    scale, 
     okClock, 
     onFailure, 
-    
+    # TEMPLATE CLASS AND SCALE
+    vertices, 
+    classes, 
+    scale,  
+    # BLOT BOX
+    plot.bg, 
+    # AXIS 
+    # * Ticks
     ticksAt, 
     ticksShift, 
     ticksLabelsShift, 
     ticks.line.lwd, 
     ticks.line.col, 
+    # * ARROWS
     arrows, 
     arrowsShift, 
     arrowsHeight, 
     arrowsCoords, 
     arrowsBreak, 
     arrowsLength, 
-    grid.line.col, 
-    grid.line.lwd, 
+    # * AXIS LINES
     axis.line.lwd, 
     axis.line.col, 
-    plot.bg, 
+    # GRID
+    grid.line.col, 
+    grid.line.lwd, 
+    # CLASSES
     class.label.col, 
     class.border.col, 
     class.bg, 

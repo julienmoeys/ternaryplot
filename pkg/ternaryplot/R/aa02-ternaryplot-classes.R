@@ -10,38 +10,56 @@
 
 # ternaryCheck =========================================================
 
-#'Check the validity of ternary*-class objects
+#'Check the validity of ternary*-class objects and ternary data.
 #'
-#'Check the validity of ternary*-class objects
+#'Check the validity of ternary*-class objects and ternary data.
 #'
 #'
 #'@seealso Arguments \code{onFailure} and \code{okClock} in 
 #'  \code{\link[ternaryplot]{getTpPar}} (package options).
 #'
 #'
-#'@param x 
-#'  A ternary*-class object, or a \code{\link{data.frame}} 
-#'  containing ternary data.
-#'
 #'@param s 
-#'  If \code{x} is a \code{\link{data.frame}}, a 
-#'  \code{ternarySystem}-object, such as obtained with 
-#'  \code{\link[ternaryplot]{getTernarySystem}} or output 
-#'  by \code{\link[ternaryplot]{ternaryPlot}}, that defines 
-#'  how the ternary data in \code{x} should be (variable 
-#'  names and sum of 3 ternary fractions). Not needed if 
-#'  \code{x} is not a \code{\link{data.frame}}.
+#'  Either \itemize{
+#'    \item a \code{\link[ternaryplot]{ternarySystem-class}} 
+#'      (needed when \code{x} is not \code{NULL}), or 
+#'    \item a \code{\link[ternaryplot]{ternaryVariables-class}}, or 
+#'    \item a \code{\link[ternaryplot]{ternaryGeometry-class}} 
+#'      object. 
+#'  }  
+#'  Object whose validity is to be evaluated. When \code{x} 
+#'  is not \code{NULL}, it is the validity of the data in 
+#'  \code{x} that is checked, not that of \code{s}.
+#'
+#'@param x 
+#'  If not \code{NULL}, a \code{\link[base]{data.frame}} or 
+#'  a \code{\link[base]{matrix}} containing ternary data to 
+#'  be checked.
 #'
 #'@param testRange 
-#'  Single logical. Test if the range of fraction is between 0 and 
-#'  the expected sum of fractions (1 or 100). 
+#'  Single logical. Test if the range of fraction is between 
+#'  0 and the expected sum of fractions (1 or 100\%). Only 
+#'  when 
 #'
 #'@param testSum 
-#'  Single logical. Test if the sum of the 3 fractions is equal to 
-#'  the expected sum of fractions (1 or 100).
+#'  Single logical. Test if the sum of the 3 fractions is 
+#'  equal to the expected sum of fractions (1 or 100\%).
 #'
 #'@param \dots
-#'  Additional parameters passed to specific methods.
+#'  Not used.
+#'
+#'
+#'@return
+#'  Whether an output is returned depends on the package 
+#'  parameter \code{onFailure} (see 
+#'  \code{\link[ternaryplot]{tpPar}}; the function to be 
+#'  used when a problem is found). If \code{onFailure} is 
+#'  \code{\link[base]{stop}}, then an error is raised and 
+#'  the evaluation stops. If it is a 
+#'  \code{\link[base]{warning}} or a 
+#'  \code{\link[base]{message}} the evaluation continues 
+#'  and \code{TRUE} is returned when no problem was found, 
+#'  and \code{FALSE} when one or several problems were found.
 #'
 #'
 #'@rdname ternaryCheck-methods
@@ -49,7 +67,7 @@
 #'@export 
 #'
 ternaryCheck <- function(
- x, 
+ s, 
  ... 
 ){  
     UseMethod( "ternaryCheck" ) 
@@ -64,17 +82,19 @@ ternaryCheck <- function(
 #'@export
 #'
 ternaryCheck.ternaryGeometry <- function(
- x, 
+ s, 
  # onFailure=stop, 
  ... 
 ){  
     valid <- TRUE 
     
-    onFailure <- getTpPar( "onFailure" ) 
+    .tpPar <- tpPar()
+    
+    onFailure <- .tpPar[[ "onFailure" ]] # getTpPar( "onFailure" ) 
     
     #   Check names:
     nm <- c( "tlrAngles", "blrClock", "fracSum" )
-    testNames <- nm %in% names( x ) 
+    testNames <- nm %in% names( s ) 
     
     if( any( !testNames ) ){ 
         onFailure( sprintf( 
@@ -88,15 +108,15 @@ ternaryCheck.ternaryGeometry <- function(
     
     #   Check tlrAngles
     testTlrAngles <- 
-        ( length( x[[ "tlrAngles" ]] ) == 3 )   & 
-        is.numeric( x[[ "tlrAngles" ]] )        & 
-        ( sum( x[[ "tlrAngles" ]] ) == 180 ) 
+        ( length( s[[ "tlrAngles" ]] ) == 3 )   & 
+        is.numeric( s[[ "tlrAngles" ]] )        & 
+        ( sum( s[[ "tlrAngles" ]] ) == 180 ) 
     
     
     if( !testTlrAngles ){ 
         onFailure( sprintf( 
             "'tlrAngles' must be 3 numerical values summing to 180 degrees (now %s)", 
-            paste( x[[ "tlrAngles" ]], collapse = "; " ) 
+            paste( s[[ "tlrAngles" ]], collapse = "; " ) 
         ) ) 
         
         valid <- FALSE 
@@ -105,25 +125,25 @@ ternaryCheck.ternaryGeometry <- function(
     
     #   Check blrClock:
     testBlrClock <- 
-        ( length( x[[ "blrClock" ]] ) == 3 )    & 
-        is.logical( x[[ "blrClock" ]] ) 
+        ( length( s[[ "blrClock" ]] ) == 3 )    & 
+        is.logical( s[[ "blrClock" ]] ) 
     
     if( !testBlrClock ){ 
         onFailure( sprintf( 
             "'blrClock' must be 3 logical values (now %s)", 
-            paste( x[[ "blrClock" ]], collapse = "; " ) 
+            paste( s[[ "blrClock" ]], collapse = "; " ) 
         ) ) 
         
         valid <- FALSE 
     };  rm( testBlrClock ) 
     
     
-    okClock <- getTpPar( "okClock" ) 
+    okClock <- .tpPar[[ "okClock" ]] # getTpPar( "okClock" ) 
     
     okClock <- unlist( lapply( 
         X        = okClock, 
         FUN      = function( X ){ 
-            identical( x[[ "blrClock" ]], X ) 
+            identical( s[[ "blrClock" ]], X ) 
         }   
     ) )  
     
@@ -137,14 +157,14 @@ ternaryCheck.ternaryGeometry <- function(
     
     #   Check fracSum
     testFracSum <- 
-        ( length( x[[ "fracSum" ]] ) == 1 )     & 
-        is.numeric( x[[ "fracSum" ]] )          & 
-        all( x[[ "fracSum" ]] %in% c( 1, 100 ) )
+        ( length( s[[ "fracSum" ]] ) == 1 )     & 
+        is.numeric( s[[ "fracSum" ]] )          & 
+        all( s[[ "fracSum" ]] %in% c( 1, 100 ) )
     
     if( !testFracSum ){ 
         onFailure( sprintf( 
             "'fracSum' must be 1 numerical values, either 1 or 100 (now %s)", 
-            paste( x[[ "fracSum" ]], collapse = "; " ) 
+            paste( s[[ "fracSum" ]], collapse = "; " ) 
         ) ) 
         
         valid <- FALSE 
@@ -163,7 +183,7 @@ ternaryCheck.ternaryGeometry <- function(
 #'@export
 #'
 ternaryCheck.ternaryVariables <- function(
- x, 
+ s, 
  # onFailure=stop, 
  ... 
 ){  
@@ -173,7 +193,7 @@ ternaryCheck.ternaryVariables <- function(
     
     #   Check names:
     nm <- c( "blrNames", "blrLabels" )
-    testNames <- nm %in% names( x ) 
+    testNames <- nm %in% names( s ) 
     
     if( any( !testNames ) ){ 
         onFailure( sprintf( 
@@ -187,14 +207,14 @@ ternaryCheck.ternaryVariables <- function(
     
     #   Check blrNames
     testBlrNames <- 
-        ( length( x[[ "blrNames" ]] ) == 3 )   & 
-        is.character( x[[ "blrNames" ]] ) 
+        ( length( s[[ "blrNames" ]] ) == 3 )   & 
+        is.character( s[[ "blrNames" ]] ) 
     
     
     if( !testBlrNames ){ 
         onFailure( sprintf( 
             "'blrNames' must be 3 character strings (now %s)", 
-            paste( x[[ "blrNames" ]], collapse = "; " ) 
+            paste( s[[ "blrNames" ]], collapse = "; " ) 
         ) ) 
         
         valid <- FALSE 
@@ -203,14 +223,14 @@ ternaryCheck.ternaryVariables <- function(
     
     #   Check blrLabels
     testBlrLabels <- 
-        ( length( x[[ "blrLabels" ]] ) == 3 )   & 
-        ( class( x[[ "blrLabels" ]] ) %in% c( "character", "expression", "name", "call" ) ) 
+        ( length( s[[ "blrLabels" ]] ) == 3 )   & 
+        ( class( s[[ "blrLabels" ]] ) %in% c( "character", "expression", "name", "call" ) ) 
     
     
     if( !testBlrLabels ){ 
         onFailure( sprintf( 
             "'blrLabels' must be an object of class character, expression, name or call and length 3 (now %s)", 
-            paste( x[[ "blrLabels" ]], collapse = "; " ) 
+            paste( s[[ "blrLabels" ]], collapse = "; " ) 
         ) ) 
         
         valid <- FALSE 
@@ -229,168 +249,190 @@ ternaryCheck.ternaryVariables <- function(
 #'@export
 #'
 ternaryCheck.ternarySystem <- function(
- x, 
- # onFailure=stop, 
+ s, 
+ x = NULL, 
+ testRange, 
+ testSum, 
  ... 
 ){  
-    valid <- TRUE 
+    .tpPar <- tpPar() 
     
-    onFailure <- getTpPar( "onFailure" ) 
-    
-    #   Check names:
-    nm <- c( "ternaryGeometry", "ternaryVariables", "main", 
-        "vertices", "classes", "scale", "over" )
-    testNames <- nm %in% names( x ) 
-    
-    if( any( !testNames ) ){ 
-        onFailure( sprintf( 
-            "Some items (or item-labels) are missing: %s", 
-            paste( nm[ !testNames ], collapse = "; " ) 
-        ) ) 
+    if( is.null( x ) ){
+        valid <- TRUE 
         
-        valid <- FALSE 
-    };  rm( testNames ) 
-    
-    
-    valid <- ternaryCheck( x[[ "ternaryGeometry" ]], onFailure = onFailure, ... )
-    valid <- ternaryCheck( x[[ "ternaryVariables" ]], onFailure = onFailure, ... )
-    
-    
-    #   Check main
-    testMain <- 
-        ( length( x[[ "main" ]] ) %in% c(1,0) )   & 
-        ( class( x[[ "main" ]] ) %in% c( "character", "expression", "name", "call" ) ) 
-    
-    if( !testMain ){ 
-        onFailure( sprintf( 
-            "'main' must be an object of class character, expression, name or call and length 1 (now %s)", 
-            paste( x[[ "main" ]], collapse = "; " ) 
-        ) ) 
+        onFailure <- .tpPar[[ "onFailure" ]] # getTpPar( "onFailure" ) 
         
-        valid <- FALSE 
-    };  rm( testMain ) 
-    
-    
-    #   Check vertices
-    verticesDefault <- getTpPar( "vertices" ) 
-    
-    cn <- c( colnames(verticesDefault)[1], 
-        x[[ "ternaryVariables" ]][[ "blrNames" ]] )
-    
-    testCol <- cn %in% colnames( x[[ "vertices" ]] ) 
-    
-    if( !all( testCol ) ){ 
-        onFailure( sprintf( 
-            "Some columns are missing in 'vertices': %s", 
-            paste( cn[ !testCol ], collapse = "; " )
-        ) ) 
+        #   Check names:
+        nm <- c( "ternaryGeometry", "ternaryVariables", "main", 
+            "vertices", "classes", "scale", "over" )
+        testNames <- nm %in% names( s ) 
         
-        valid <- FALSE 
-    };  rm( testCol ) 
-    
-    
-    #   Test classes:
-    cn2 <- colnames( getTpPar( "classes" ) ) 
-    
-    testCol <- cn2 %in% colnames( x[[ "classes" ]] ) 
-    
-    if( !all( testCol ) ){ 
-        onFailure( sprintf( 
-            "Some columns are missing in 'classes': %s", 
-            paste( cn2[ !testCol ], collapse = "; " )
-        ) ) 
-        
-        valid <- FALSE 
-    };  rm( testCol ) 
-    
-    
-    #   Test class x vertices
-    verticesId <- unlist( x[[ "classes" ]][, "verticesId" ] ) 
-    id         <- x[[ "vertices" ]][, "id" ] 
-    testClaVer <- verticesId %in% id 
-    
-    if( any( !testClaVer ) ){ 
-        onFailure( sprintf( 
-            "Some classes[, 'verticesId' ] are missing in vertices[, 'id']: %s", 
-            paste( verticesId[ !testClaVer ], collapse = "; " )
-        ) ) 
-        
-        valid <- FALSE 
-    };  rm( testClaVer )
-    
-    
-    testClaVer2 <- id %in% verticesId  
-         
-    
-    if( any( !testClaVer2 ) ){ 
-        onFailure( sprintf( 
-            "Some vertices[, 'id'] are missing in classes[, 'verticesId' ]: %s", 
-            paste( id[ !testClaVer2 ], collapse = "; " )
-        ) ) 
-        
-        valid <- FALSE 
-    };  rm( testClaVer2 )
-    
-    
-    #   Test scale:
-    testCol <- cn[ -1 ] %in% colnames( x[[ "scale" ]] ) 
-    
-    if( !all( testCol ) ){ 
-        onFailure( sprintf( 
-            "Some columns are missing in 'scale': %s", 
-            paste( cn[ -1 ][ !testCol ], collapse = "; " )
-        ) ) 
-        
-        valid <- FALSE 
-    };  rm( testCol ) 
-    
-    testRow <- 
-        ( nrow( x[[ "scale" ]] ) == 2L ) & 
-        all( c( "min", "max" ) %in% rownames( x[[ "scale" ]] ) ) 
-    
-    if( !testRow ){ 
-        onFailure( "scale must have two rows, labelled 'min' and 'max'" ) 
-        
-        valid <- FALSE 
-    };  rm( testRow ) 
-    
-    
-    testDiff <- as.numeric( x[[ "scale" ]][ 2, ] - x[[ "scale" ]][ 1, ] ) 
-    testDiff <- all( testDiff == testDiff[1] ) 
-    
-    if( any( !testDiff ) ){  
-        onFailure( "In 'scale', the difference between min and max must be identical" ) 
-        
-        valid <- FALSE 
-    }   
-    
-    
-    #   Test the overlay function
-    if( !is.null( x[[ "over" ]] ) ){
-        if( !("function" %in% class(x[[ "over" ]])) ){
+        if( any( !testNames ) ){ 
             onFailure( sprintf( 
-                "If not 'NULL', item 'over' must be a function (now: %s)", 
-                paste( class(x[[ "over" ]]), collapse = "; " )
+                "Some items (or item-labels) are missing: %s", 
+                paste( nm[ !testNames ], collapse = "; " ) 
             ) ) 
             
             valid <- FALSE 
-        }else{
-            expectArgs <- c( "s", "x", "scale" )
+        };  rm( testNames ) 
+        
+        
+        valid <- ternaryCheck( s = s[[ "ternaryGeometry" ]], 
+            onFailure = onFailure, ... )
+        
+        valid <- ternaryCheck( s = s[[ "ternaryVariables" ]], 
+            onFailure = onFailure, ... )
+        
+        
+        #   Check main
+        testMain <- 
+            ( length( s[[ "main" ]] ) %in% c(1,0) )   & 
+            ( class( s[[ "main" ]] ) %in% c( "character", "expression", "name", "call" ) ) 
+        
+        if( !testMain ){ 
+            onFailure( sprintf( 
+                "'main' must be an object of class character, expression, name or call and length 1 (now %s)", 
+                paste( s[[ "main" ]], collapse = "; " ) 
+            ) ) 
             
-            testExpectArgs <- expectArgs %in% names( formals( x[[ "over" ]] ) ) 
+            valid <- FALSE 
+        };  rm( testMain ) 
+        
+        
+        #   Check vertices
+        verticesDefault <- .tpPar[[ "vertices" ]] # getTpPar( "vertices" ) 
+        
+        cn <- c( colnames(verticesDefault)[1], 
+            s[[ "ternaryVariables" ]][[ "blrNames" ]] )
+        
+        testCol <- cn %in% colnames( s[[ "vertices" ]] ) 
+        
+        if( !all( testCol ) ){ 
+            onFailure( sprintf( 
+                "Some columns are missing in 'vertices': %s", 
+                paste( cn[ !testCol ], collapse = "; " )
+            ) ) 
             
-            if( any( !testExpectArgs ) ){
+            valid <- FALSE 
+        };  rm( testCol ) 
+        
+        
+        #   Test classes:
+        cn2 <- colnames( .tpPar[[ "classes" ]] ) # getTpPar( "classes" )
+        
+        testCol <- cn2 %in% colnames( s[[ "classes" ]] ) 
+        
+        if( !all( testCol ) ){ 
+            onFailure( sprintf( 
+                "Some columns are missing in 'classes': %s", 
+                paste( cn2[ !testCol ], collapse = "; " )
+            ) ) 
+            
+            valid <- FALSE 
+        };  rm( testCol ) 
+        
+        
+        #   Test class s vertices
+        verticesId <- unlist( s[[ "classes" ]][, "verticesId" ] ) 
+        id         <- s[[ "vertices" ]][, "id" ] 
+        testClaVer <- verticesId %in% id 
+        
+        if( any( !testClaVer ) ){ 
+            onFailure( sprintf( 
+                "Some classes[, 'verticesId' ] are missing in vertices[, 'id']: %s", 
+                paste( verticesId[ !testClaVer ], collapse = "; " )
+            ) ) 
+            
+            valid <- FALSE 
+        };  rm( testClaVer )
+        
+        
+        testClaVer2 <- id %in% verticesId  
+             
+        
+        if( any( !testClaVer2 ) ){ 
+            onFailure( sprintf( 
+                "Some vertices[, 'id'] are missing in classes[, 'verticesId' ]: %s", 
+                paste( id[ !testClaVer2 ], collapse = "; " )
+            ) ) 
+            
+            valid <- FALSE 
+        };  rm( testClaVer2 )
+        
+        
+        #   Test scale:
+        testCol <- cn[ -1 ] %in% colnames( s[[ "scale" ]] ) 
+        
+        if( !all( testCol ) ){ 
+            onFailure( sprintf( 
+                "Some columns are missing in 'scale': %s", 
+                paste( cn[ -1 ][ !testCol ], collapse = "; " )
+            ) ) 
+            
+            valid <- FALSE 
+        };  rm( testCol ) 
+        
+        testRow <- 
+            ( nrow( s[[ "scale" ]] ) == 2L ) & 
+            all( c( "min", "max" ) %in% rownames( s[[ "scale" ]] ) ) 
+        
+        if( !testRow ){ 
+            onFailure( "scale must have two rows, labelled 'min' and 'max'" ) 
+            
+            valid <- FALSE 
+        };  rm( testRow ) 
+        
+        
+        testDiff <- as.numeric( s[[ "scale" ]][ 2, ] - s[[ "scale" ]][ 1, ] ) 
+        testDiff <- all( testDiff == testDiff[1] ) 
+        
+        if( any( !testDiff ) ){  
+            onFailure( "In 'scale', the difference between min and max must be identical" ) 
+            
+            valid <- FALSE 
+        }   
+        
+        
+        #   Test the overlay function
+        if( !is.null( s[[ "over" ]] ) ){
+            if( !("function" %in% class(s[[ "over" ]])) ){
                 onFailure( sprintf( 
-                    "Some arguments expected for function defined by item 'over' are missing (%s)", 
-                    paste( expectArgs[ !testExpectArgs ], collapse = "; " )
+                    "If not 'NULL', item 'over' must be a function (now: %s)", 
+                    paste( class(s[[ "over" ]]), collapse = "; " )
                 ) ) 
                 
                 valid <- FALSE 
+            }else{
+                expectArgs <- c( "s", "x", "scale" )
+                
+                testExpectArgs <- expectArgs %in% names( formals( s[[ "over" ]] ) ) 
+                
+                if( any( !testExpectArgs ) ){
+                    onFailure( sprintf( 
+                        "Some arguments expected for function defined by item 'over' are missing (%s)", 
+                        paste( expectArgs[ !testExpectArgs ], collapse = "; " )
+                    ) ) 
+                    
+                    valid <- FALSE 
+                }   
+                
+                rm( expectArgs, testExpectArgs )
             }   
             
-            rm( expectArgs, testExpectArgs )
         }   
-        
+    }else{
+        if( any( c( "data.frame", "matrix" ) %in% class( x ) ) ){
+            if( missing( "testRange" ) ){ 
+                testRange <- .tpPar[[ "testRange" ]]
+            }   
+            
+            if( missing( "testSum" ) ){ 
+                testSum <- .tpPar[[ "testSum" ]] 
+            }   
+            
+            valid <- .ternaryCheck.data.frame( s = s, x = x, 
+                testRange = testRange, testSum = testSum, ... )
+        }   
     }   
     
     return( valid ) 
@@ -581,7 +623,7 @@ createTernaryGeometry <- function(
     
     
     #   Check:
-    ternaryCheck( tg, ... )
+    ternaryCheck( s = tg, ... )
 
     
     
@@ -710,7 +752,7 @@ createTernaryVariables <- function(
     
     
     #   Check:
-    ternaryCheck( tv, ... )
+    ternaryCheck( s = tv, ... )
     
     
     return( tv ) 
@@ -950,7 +992,7 @@ createTernarySystem <- function(
     
     
     #   Check:
-    ternaryCheck( tsy, ... ) 
+    ternaryCheck( s = tsy, ... ) 
     
     
     return( tsy ) 

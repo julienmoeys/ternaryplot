@@ -7,32 +7,28 @@
 \alias{ternarySystem<-.ternaryPolygons}
 \title{Fetch or set the ternary system definition from another object}
 \usage{
-ternarySystem(x, ...)
+ternarySystem(s, ...)
 
-\method{ternarySystem}{ternaryPolygons}(x, ...)
+\method{ternarySystem}{ternaryPolygons}(s, ...)
 
-ternarySystem( x, ... ) <- value
+ternarySystem(s, ...) <- value
 
-\method{ternarySystem}{ternaryPolygons}( x, ... ) <- value
+\method{ternarySystem}{ternaryPolygons}(s, ...) <- value
 }
 \arguments{
-\item{x}{A \code{ternaryPolygons}-object, as
- created with \code{\link[ternaryplot]{createTernaryGrid}}.
- or \code{\link[ternaryplot]{ternaryClasses}}.}
+\item{s}{A \code{\link[ternaryplot]{ternaryPolygons-class}} object.}
 
-\item{value}{A \code{ternarySystem}-object, as
- obtained with \code{\link[ternaryplot]{getTernarySystem}}
- or output by \code{\link[ternaryplot]{ternaryPlot}}.
- The \code{ternarySystem} in \code{x} will be replaced by
- the one in \code{value}.}
+\item{value}{A \code{\link[ternaryplot]{ternarySystem-class}} object.
+ The \code{ternarySystem-class} in \code{s} will be
+ replaced by the one in \code{value}.}
 
 \item{\dots}{Not used}
 }
 \value{
-The \code{ternarySystem} extracted from \code{x} or,
- when using the \code{<-} method, a
- \code{ternaryPolygons}-object with an updated
- \code{ternarySystem}.
+The \code{ternarySystem} extracted from \code{s} or,
+ when using the \code{`<-`} method, a
+ \code{\link[ternaryplot]{ternaryPolygons-class}} object
+ with an updated \code{ternarySystem}.
 }
 \description{
 Fetch or set the ternary system definition from another object
