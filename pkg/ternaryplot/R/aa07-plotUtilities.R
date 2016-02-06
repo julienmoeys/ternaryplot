@@ -31,10 +31,24 @@
 .nbMargin2diffXY <- function( 
  n       = 1L, 
  side    = 1L, # 1=below, 2=left, 3=above and 4=right
- cin     = par( 'cin' ), 
- cex     = par( 'cex' ), 
- lheight = par( 'lheight' ) 
+ cin     = NULL, # par( 'cin' ), 
+ cex     = NULL, # par( 'cex' ), 
+ lheight = NULL  # par( 'lheight' ) 
 ){  
+    .par <- par() 
+    
+    if( is.null( cin ) ){
+        cin <- .par[[ "cin" ]] 
+    }   
+    
+    if( is.null( cex ) ){
+        cex <- .par[[ "cex" ]] 
+    }   
+    
+    if( is.null( lheight ) ){
+        lheight <- .par[[ "lheight" ]] 
+    }   
+    
     if( side %in% c( 2, 4 ) ){
         out <- diff( grconvertX( x = 0:1, 'inches', 'user' ) ) 
         #   Inches to user coordinates

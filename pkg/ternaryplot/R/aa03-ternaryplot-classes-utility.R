@@ -120,7 +120,7 @@ blrNames.ternaryVariables <- function( s, ... ){
     s[[ 'vertices' ]] <- vertices 
     s[[ 'scale' ]]    <- scale 
     
-    ternaryCheck( s = s, ... )
+    ternaryCheck.ternarySystem( s = s, ... )
     
     return( s ) 
 }   
@@ -143,7 +143,7 @@ blrNames.ternaryVariables <- function( s, ... ){
 ){  
     s[[ 'blrNames' ]] <- value 
         
-    ternaryCheck( s = s, ... )
+    ternaryCheck.ternaryVariables( s = s, ... )
     
     return( s ) 
 }   
@@ -245,7 +245,7 @@ blrLabels.ternaryVariables <- function( s, ... ){
 ){  
     s[[ 'ternaryVariables']][[ 'blrLabels' ]] <- value 
     
-    ternaryCheck( s = s, ... )
+    ternaryCheck.ternarySystem( s = s, ... )
     
     return( s ) 
 }   
@@ -268,7 +268,7 @@ blrLabels.ternaryVariables <- function( s, ... ){
 ){  
     s[[ 'blrLabels' ]] <- value 
     
-    ternaryCheck( s = s, ... )
+    ternaryCheck.ternaryVariables( s = s, ... )
     
     return( s ) 
 }   
@@ -393,7 +393,7 @@ blrClock.ternaryGeometry <- function(
     
     
     #   Check the validity
-    ternaryCheck( s = s[[ 'ternaryGeometry' ]], ... ) 
+    ternaryCheck.ternaryGeometry( s = s[[ 'ternaryGeometry' ]], ... ) 
 
     
     return( s ) 
@@ -422,7 +422,7 @@ blrClock.ternaryGeometry <- function(
     # class( s ) <- .generateTernaryGeometry2ndClass( blrClock = value ) 
     
     
-    ternaryCheck( s = s, ... ) 
+    ternaryCheck.ternaryGeometry( s = s, ... ) 
     
     return( s ) 
 }   
@@ -531,7 +531,7 @@ fracSum.ternaryGeometry <- function(
 ){ 
     s[[ 'ternaryGeometry' ]][[ 'fracSum' ]] <- value 
     
-    ternaryCheck( s = s[[ 'ternaryGeometry' ]], ... ) 
+    ternaryCheck.ternaryGeometry( s = s[[ 'ternaryGeometry' ]], ... ) 
     
     return( s ) 
 }   
@@ -554,7 +554,7 @@ fracSum.ternaryGeometry <- function(
 ){ 
     s[[ 'fracSum' ]] <- value 
     
-    ternaryCheck( s = s, ... ) 
+    ternaryCheck.ternaryGeometry( s = s, ... ) 
     
     return( s ) 
 }   
@@ -663,7 +663,7 @@ tlrAngles.ternaryGeometry <- function(
 ){  
     s[[ 'ternaryGeometry' ]][[ 'tlrAngles' ]] <- value 
     
-    ternaryCheck( s = s[[ 'ternaryGeometry' ]], ... )     
+    ternaryCheck.ternaryGeometry( s = s[[ 'ternaryGeometry' ]], ... )     
     
     return( s ) 
 }   
@@ -686,7 +686,7 @@ tlrAngles.ternaryGeometry <- function(
 ){  
     s[[ 'tlrAngles' ]] <- value 
     
-    ternaryCheck( s = s, ... )     
+    ternaryCheck.ternaryGeometry( s = s, ... )     
     
     return( s ) 
 }   
@@ -786,7 +786,7 @@ ternaryGeometry.ternarySystem <- function(
             # blrClock = blrClock( s ), 
             # class1   = "ternarySystem" ) 
     
-    ternaryCheck( s = s[[ 'ternaryGeometry' ]], ... )     
+    ternaryCheck.ternaryGeometry( s = s[[ 'ternaryGeometry' ]], ... )     
     
     return( s ) 
 }   
@@ -950,7 +950,7 @@ ternaryVariables.ternarySystem <- function(
 ){  
     s[[ 'ternaryVariables' ]] <- value 
     
-    ternaryCheck( s = s[[ 'ternaryVariables' ]], ... )     
+    ternaryCheck.ternaryVariables( s = s[[ 'ternaryVariables' ]], ... )     
     
     return( s ) 
 }   
@@ -1189,11 +1189,11 @@ ternarySystem.ternaryPolygons <- function(
     }   
     
     #   Fetch the old ternarySystem
-    oldS <- ternarySystem( s = s, ... )
+    oldS <- ternarySystem.ternaryPolygons( s = s, ... )
     
     #   Fetch the old and the new variable names
-    oldNames <- blrNames( s = oldS )
-    newNames <- blrNames( s = value ) 
+    oldNames <- blrNames.ternarySystem( s = oldS )
+    newNames <- blrNames.ternarySystem( s = value ) 
     
     #   Rename the vertices column names in s
     for( o in 1:length( oldNames ) ){

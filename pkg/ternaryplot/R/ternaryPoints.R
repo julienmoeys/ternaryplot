@@ -65,7 +65,7 @@ ternaryPoints.ternarySystem <- function(
  x, 
  ... 
 ){ 
-    xy <- ternary2xy( s = s, x = x ) 
+    xy <- ternary2xy.ternarySystem( s = s, x = x ) 
     
     points( x = xy[, "x" ], y = xy[, "y" ], ... ) 
     

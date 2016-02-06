@@ -1,5 +1,5 @@
 set pkgname=ternaryplot
-set version=0.6.5
+set version=0.6.6
 
 cd /D "C:\Users\%username%\Dropbox\_WORK\_PROJECTS\r_packages\ternaryplot\pkg" 
 

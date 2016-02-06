@@ -60,16 +60,17 @@
  type = "grid", 
  ... 
 ){  
-    .blrNames    <- blrNames( s = s )  
-    .blrClock    <- blrClock( s )  
+    .blrNames    <- blrNames.ternarySystem( s = s )  
+    .blrClock    <- blrClock.ternarySystem( s )  
     tScale       <- s[[ 'scale' ]] 
-    .fracSum     <- fracSum( s = s ) 
+    .fracSum     <- fracSum.ternarySystem( s = s ) 
     marginSize   <- .nbMargin2diffXY()
     .par         <- par() 
+    .tpPar       <- tpPar() 
     
     if( type == "ticks" ){ 
         # ticksShiftTo <- getTpPar( "ticksShift" ) 
-        ticksShift <- getTpPar( "ticksShift" ) 
+        ticksShift <- .tpPar[[ "ticksShift" ]] # getTpPar( "ticksShift" ) 
         
         if( is.na( ticksShift ) ){
             ticksShift <- (marginSize / .fracSum) * (-1 * .par[[ "tcl" ]])
@@ -79,7 +80,7 @@
         ticksShiftTo   <- ticksShiftFrom + ticksShift
         
     }else if( type == "tickLabels" ){
-        ticksLabelsShift <- getTpPar( "ticksLabelsShift" ) 
+        ticksLabelsShift <- .tpPar[[ "ticksLabelsShift" ]] # getTpPar( "ticksLabelsShift" ) 
         
         if( is.na( ticksLabelsShift ) ){
             ticksLabelsShift <- abs( diff( .par[[ "mgp" ]][ 3:2 ] ) )
@@ -99,7 +100,7 @@
     
     
     # Fetch the ticks location:
-    bTicks <- lTicks <- rTicks <- getTpPar( "ticksAt" ) * .fracSum 
+    bTicks <- lTicks <- rTicks <- .tpPar[[ "ticksAt" ]] * .fracSum # getTpPar( "ticksAt" )
     
     
     # #   For the case where axis orientation is NA
@@ -229,7 +230,7 @@
  ... 
 ){  
     tScale       <- s[[ 'scale' ]] 
-    .fracSum     <- fracSum( s = s ) 
+    .fracSum     <- fracSum.ternarySystem( s = s ) 
     
     gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
     
@@ -314,7 +315,7 @@
  ... 
 ){  
     tScale       <- s[[ 'scale' ]] 
-    .fracSum     <- fracSum( s = s ) 
+    .fracSum     <- fracSum.ternarySystem( s = s ) 
     
     gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
     
@@ -402,7 +403,7 @@
  ... 
 ){  
     tScale       <- s[[ 'scale' ]] 
-    .fracSum     <- fracSum( s = s ) 
+    .fracSum     <- fracSum.ternarySystem( s = s ) 
     
     gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
     
@@ -551,7 +552,7 @@
  ... 
 ){  
     tScale       <- s[[ 'scale' ]] 
-    .fracSum     <- fracSum( s = s ) 
+    .fracSum     <- fracSum.ternarySystem( s = s ) 
     
     gridFrom <- gridTo <- gridFromTo; rm( gridFromTo )
     
@@ -746,8 +747,9 @@ ternaryGrid.ternarySystem <- function(
     # Calculates the tick-marks and grid-segments position
     gr <- .ternaryGridBase( s = s, type = "grid" ) 
     
-    grid.line.col <- getTpPar( "grid.line.col" )
-    grid.line.lwd <- getTpPar( "grid.line.lwd" )
+    .tpPar        <- tpPar() 
+    grid.line.col <- .tpPar[[ "grid.line.col" ]] # getTpPar( "grid.line.col" )
+    grid.line.lwd <- .tpPar[[ "grid.line.lwd" ]] # getTpPar( "grid.line.lwd" )
     
     n <- length( gr[[ "from" ]] ) 
     
@@ -776,10 +778,10 @@ ternaryGrid.ternarySystem <- function(
                 grid.line.lwd <- par( "lwd" ) 
             }   
             
-            out[[ ax ]] <- ternarySegments( 
+            out[[ ax ]] <- ternarySegments.ternarySystem( 
+                s     = s, 
                 from  = gr[[ "from" ]][[ ax ]], 
                 to    = gr[[ "to" ]][[ ax ]], 
-                s     = s, 
                 col   = grid.line.col, 
                 lwd   = grid.line.lwd, 
                 ... ) 

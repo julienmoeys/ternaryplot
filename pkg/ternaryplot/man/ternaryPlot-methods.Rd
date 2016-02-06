@@ -4,25 +4,66 @@
 \alias{ternaryPlot}
 \alias{ternaryPlot.character}
 \alias{ternaryPlot.ternarySystem}
-\title{Generic ternary-data plotting}
+\title{Plot a ternary diagram, ternary data and ternary classifications.}
 \usage{
 ternaryPlot(s, ...)
 
 \method{ternaryPlot}{character}(s, ...)
 
-\method{ternaryPlot}{ternarySystem}(s, x = NULL, scale = FALSE, ...)
+\method{ternaryPlot}{ternarySystem}(s, x = NULL, type = "p", main = NULL,
+  sub = NULL, axes = TRUE, frame.plot = TRUE, scale = FALSE, ...)
 }
 \arguments{
-\item{s}{Either a character string naming the ternary classification
- system to be used (if pre-defined),
- or a \code{\link[ternaryplot]{ternarySystem}}-object,
- or a \code{ternaryPolygons}-object
- (such as created with \code{\link[ternaryplot]{createTernaryGrid}}).}
+\item{s}{Either \itemize{
+   \item A \code{\link[ternaryplot]{ternarySystem-class}}, or
+   \item A single character string, the name of an existing
+     pre-defined \code{\link[ternaryplot]{ternarySystem-class}}.
+ }}
 
-\item{x}{A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}}
- containing point ternary data (x-y-x) to be ploted on the graph.
- It should contain the 3 columns names given in \code{s}. If
- missing, only the ternary classification is drawn.}
+\item{x}{A \code{\link[base]{data.frame}} or a
+ \code{\link[base]{matrix}} containing point ternary data
+ to be plot on the graph. It should contain the 3 columns
+ names given by \code{blrNames(s)}. If missing, only the
+ ternary classification is drawn.}
+
+\item{type}{Single character string. Type of plot desired. The
+ following values are possible: \code{"p"} for points
+ and \code{"n"} for nothing (just a base ternary plot,
+ without data overlay). See also
+ \code{\link[ternaryplot]{ternaryPoints}}.}
+
+\item{main}{Single character string, or \code{\link[base]{expression}}.
+ Main title of the plot. Passed on to
+ \code{\link[graphics]{title}}. If \code{NULL}, the default
+ title defined in \code{s} is used (i.e. \code{main}
+ overrides any title settings in \code{s}). To suppress
+ the title set to \code{NA} or \code{""}.}
+
+\item{sub}{Single character string, or \code{\link[base]{expression}}.
+ Subtitle of the plot. Passed on to
+ \code{\link[graphics]{title}}. Set to \code{NULL},
+ \code{NA} or \code{""} to suppress the subtitle. Notice
+ that when used in conjunction with
+ \code{\link[ternaryplot]{ternaryStyle}}\code{(margin=TRUE)},
+ \code{sub} is drawn below the figure margins (so don't used
+ it in that case).}
+
+\item{axes}{Single logical value. If \code{TRUE}, axis are drawn on
+ the plot. See also \code{\link[ternaryplot]{ternaryAxis}}.
+ By axis is meant the axis lines, the axis tick lines,
+ the axis tick labels, the arrows and the axis titles.
+ See \code{arrows} and \code{arrowsBreak} in
+ \code{\link[ternaryplot]{tpPar}} for suppressing the
+ axis arrows or the axis arrows 'break' (straight arrows),
+ respectively.}
+
+\item{frame.plot}{Single logical value. If \code{TRUE}, a frame is drawn
+ around the plot, as well as a background colour (when
+ relevant). See also 'plot.bg' in
+ \code{\link[ternaryplot]{tpPar}} and
+ \code{\link[ternaryplot]{ternaryBox}}. Notice that
+ \code{\link[graphics]{par}}\code{(bty="n")} overrides
+ \code{frame.plot} (no box is drawn).}
 
 \item{scale}{Either a logical value or a \code{\link[base]{data.frame}} with
  3 columns and 2 rows. If \code{TRUE}, the triangle plot will
@@ -35,7 +76,7 @@ ternaryPlot(s, ...)
  \code{\link[ternaryplot]{ternaryPoints}}}
 }
 \description{
-Generic ternary-data plotting
+Plot a ternary diagram, ternary data and ternary classifications.
 }
 \examples{
 

@@ -148,32 +148,33 @@
             tpPar  <- tpPar( testRange = FALSE ) 
             
             # Draw the ticks segments
-            out[[ ax ]] <- ternarySegments( 
+            out[[ ax ]] <- ternarySegments.ternarySystem( 
+                s     = s, 
                 from  = grTm[[ "from" ]][[ ax ]], 
                 to    = grTm[[ "to" ]][[ ax ]], 
-                s     = s, 
                 col   = ticks.line.col, 
                 lwd   = ticks.line.lwd, 
                 ... )  
             
             # Draw the axis line
-            outLine[[ ax ]] <- ternarySegments( 
+            outLine[[ ax ]] <- ternarySegments.ternarySystem( 
+                s     = s, 
                 from  = grTm[[ "from" ]][[ ax ]][ 1L, , drop = FALSE ], 
                 to    = grTm[[ "from" ]][[ ax ]][ nrow( grTm[[ "from" ]][[ ax ]] ), , drop = FALSE ], 
-                s     = s, 
                 col   = axis.line.col, 
                 lwd   = axis.line.lwd, 
                 ... )  
             
-            ternaryText( 
+            ternaryText.ternarySystem( 
+                s      = s, 
                 x      = grTl[[ "to" ]][[ ax ]], 
                 labels = as.character( grTl[[ "to" ]][[ ax ]][, ax ] ), 
-                s      = s, 
                 # pos  = 2, 
                 adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
                 srt    = adj[[ "blrLabelAngles" ]][ ax ], 
                 col    = col.lab, 
                 font   = font.lab, 
+                cex    = .par[[ "cex.axis" ]], 
                 # offset = -5, 
                 ... ) 
             
@@ -245,7 +246,7 @@
 ._ternaryTicks.geo_TTT <- function( 
  s
 ){  
-    .tlrAngle       <- tlrAngles( s = s ) 
+    .tlrAngle       <- tlrAngles.ternarySystem( s = s ) 
     
     out <- list(
         "adj1"           = c( -0.2, +1.2, -0.2 ), 
@@ -266,7 +267,7 @@
 ._ternaryTicks.geo_FFF <- function( 
  s
 ){  
-    .tlrAngle       <- tlrAngles( s = s ) 
+    .tlrAngle       <- tlrAngles.ternarySystem( s = s ) 
     
     out <- list(
         "adj1"           = c( +1.2, +1.2, -0.2 ), 
@@ -287,7 +288,7 @@
 ._ternaryTicks.geo_FTX <- function( 
  s
 ){  
-    .tlrAngle       <- tlrAngles( s = s ) 
+    .tlrAngle       <- tlrAngles.ternarySystem( s = s ) 
     
     out <- list(
         "adj1"           = c( +0.5, +1.2, -0.2 ), 
@@ -308,7 +309,7 @@
 ._ternaryTicks.geo_TXF <- function( 
  s
 ){  
-    .tlrAngle       <- tlrAngles( s = s ) 
+    .tlrAngle       <- tlrAngles.ternarySystem( s = s ) 
     
     out <- list(
         "adj1"           = c( +0.5, +1.2, -0.2 ), 
@@ -358,16 +359,17 @@
  s, 
  ... 
 ){   
-    .blrNames     <- blrNames( s = s )  
-    .blrClock     <- blrClock( s )  
+    .blrNames     <- blrNames.ternarySystem( s = s )  
+    .blrClock     <- blrClock.ternarySystem( s )  
     tScale        <- s[[ 'scale' ]] 
-    .fracSum      <- fracSum( s = s ) 
-    arrowsShift   <- getTpPar( "arrowsShift" ) 
-    arrowsCoords  <- getTpPar( "arrowsCoords" ) 
+    .fracSum      <- fracSum.ternarySystem( s = s ) 
+    .tpPar        <- tpPar() 
+    arrowsShift   <- .tpPar[[ "arrowsShift" ]] # getTpPar( "arrowsShift" ) 
+    arrowsCoords  <- .tpPar[[ "arrowsCoords" ]] # getTpPar( "arrowsCoords" ) 
     
     if( any( is.na( arrowsShift ) ) ){
         #   Note: also set in .ternaryAxisArrows
-        arrowsHeight <- getTpPar( "arrowsHeight" ) 
+        arrowsHeight <- .tpPar[[ "arrowsHeight" ]] # getTpPar( "arrowsHeight" ) 
         mgp          <- par( "mgp" )
         
         arrowsShift <- (.nbMargin2diffXY() / .fracSum) * 
@@ -777,11 +779,11 @@ calculateArrowLength <- function( pin = NULL ){
     
     gr <- .ternaryAxisArrowsBase( s = s ) 
     
-    .tlrAngle       <- tlrAngles( s = s ) 
+    .tlrAngle       <- tlrAngles.ternarySystem( s = s ) 
     blrLabelAngles  <- c( 0, .tlrAngle[2], .tlrAngle[3] ) 
     
     # Change sign for the case when blrClock(s) is not TRUE NA FALSE
-    if( !is.na( blrClock(s)[2] ) ){ 
+    if( !is.na( blrClock.ternarySystem(s)[2] ) ){ 
         blrLabelAngles[3] <- -blrLabelAngles[3]
     }   
     
@@ -796,7 +798,7 @@ calculateArrowLength <- function( pin = NULL ){
     axis.line.col <- .tpPar[[ "axis.line.col" ]] 
     axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]]
     col.lab       <- .par[[ "col.lab" ]] # par( "col.lab" )
-    .fracSum      <- fracSum( s = s )
+    .fracSum      <- fracSum.ternarySystem( s = s )
     
     if( is.null( axis.line.col ) ){
         axis.line.col <- .par[[ "fg" ]] 
@@ -853,10 +855,10 @@ calculateArrowLength <- function( pin = NULL ){
             
             if( !any( is.na( gr[[ ax ]][ 1, ] ) ) ){ 
                 if( arrowsBreak ){ 
-                    ternarySegments( 
+                    ternarySegments.ternarySystem( 
+                        s    = s, 
                         from = gr[[ ax ]][ 1, ], 
                         to   = gr[[ ax ]][ 2, ], 
-                        s    = s, 
                         col  = axis.line.col, 
                         lwd  = axis.line.lwd, 
                         ... ) 
@@ -893,15 +895,16 @@ calculateArrowLength <- function( pin = NULL ){
                 # col    = "red", 
                 # ... ) 
             
-            ternaryText( 
+            ternaryText.ternarySystem( 
+                s      = s, 
                 x      = gr[[ ax ]][ 4, ], 
                 labels = s[[ 'ternaryVariables' ]][[ 'blrLabels' ]][ ax ], 
-                s      = s, 
                 # pos  = 2, 
                 adj    = c( adj1[ ax ], .5 ), 
                 srt    = blrLabelAngles[ ax ], 
                 col    = col.lab, 
-                font   = par( "font.axis" ), 
+                font   = .par[[ "font.axis" ]], 
+                cex    = .par[[ "cex.lab" ]], 
                 ... ) 
             
             # Set test again

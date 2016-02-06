@@ -143,8 +143,8 @@ createTernaryGrid.ternarySystem <- function(
     
     grd <- do.call( "what" = "rbind", args = grd )
     
-    .blrNames <- blrNames( s = s )
-    .fracSum <- fracSum( s = s ) 
+    .blrNames <- blrNames.ternarySystem( s = s )
+    .fracSum <- fracSum.ternarySystem( s = s ) 
     
     colnames( grd ) <- c( "id", .blrNames ) 
     

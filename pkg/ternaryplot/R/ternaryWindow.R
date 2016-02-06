@@ -97,7 +97,7 @@ ternaryWindow.ternarySystem <- function(
             "R"    = numeric(0)  
         )   
         
-        colnames( x ) <- blrNames( s = s ) 
+        colnames( x ) <- blrNames.ternarySystem( s = s ) 
         
     }else if( is.matrix( x ) ){ 
         x <- as.data.frame( x ) 
@@ -109,7 +109,7 @@ ternaryWindow.ternarySystem <- function(
     
     if( is.data.frame( scale ) ){ 
         # Test that the scale is correct
-        ternaryCheck( s = s, x = scale,  ) 
+        ternaryCheck.ternarySystem( s = s, x = scale,  ) 
         
     }else if( is.logical( scale ) ){ 
         if( scale ){ 
@@ -134,25 +134,31 @@ ternaryWindow.ternarySystem <- function(
         "row.names" = c( "left", "right", "top" ) 
     )   
     
-    colnames( tpBox ) <- blrNames( s = s )   
+    colnames( tpBox ) <- blrNames.ternarySystem( s = s )   
     
     
     # Convert the scale to x-y values
     
     # Create a 90 degree triangle
-    .blrClock <- blrClock( s ) 
+    .blrClock <- blrClock.ternarySystem( s ) 
     
     s90 <- s 
 
     if( is.na( .blrClock[2] ) ){ 
-        tlrAngles( s90 ) <- c( 45, 45, 90 ) 
+        # `tlrAngles<-.ternarySystem`( s = s90, value = c( 45, 45, 90 ) ) 
+        
+        tlrAngles( s = s90 ) <- c( 45, 45, 90 )
     }else if( .blrClock[2] ){ 
-        tlrAngles( s90 ) <- c( 45, 90, 45 ) 
+        # `tlrAngles<-.ternarySystem`( s = s90, value = c( 45, 90, 45 ) ) 
+        
+        tlrAngles( s = s90 ) <- c( 45, 90, 45 )
     }else{ 
-        tlrAngles( s90 ) <- c( 45, 45, 90 ) 
+        # `tlrAngles<-.ternarySystem`( s = s90, value = c( 45, 45, 90 ) )
+        
+        tlrAngles( s = s90 ) <- c( 45, 45, 90 )
     }   
     
-    tpBox <- ternary2xy( x = tpBox, s = s90 ) 
+    tpBox <- ternary2xy.ternarySystem( s = s90, x = tpBox ) 
     
     # Draw the plot
     oldPar <- par( 

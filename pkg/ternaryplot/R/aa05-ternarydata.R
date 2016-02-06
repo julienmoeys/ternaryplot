@@ -128,7 +128,7 @@
     
     # if( is.null( .blrNames ) ){ 
     
-    .blrNames   <- blrNames( s ) 
+    .blrNames   <- blrNames.ternarySystem( s ) 
     
     testCol <- .blrNames %in% cn
     
@@ -139,7 +139,7 @@
         ) ) 
     };  rm( testCol ) 
     
-    .fracSum <- fracSum( s ) 
+    .fracSum <- fracSum.ternarySystem( s ) 
     
     
     # Tolerance:
@@ -161,7 +161,7 @@
         # Check that no fraction is over .fracSum 
         if( any( x[, .blrNames ] > .fracSum ) ){ 
             stop( sprintf( 
-                "Some fractions in 'x' are bigger than the expected sum of fractions (%s)", 
+                "Some value(s) in 'x' are bigger than the expected sum of fractions (%s).\n  Fix your data, use ternaryNormalise().", 
                 .fracSum 
             ) ) 
         }   
@@ -178,7 +178,7 @@
         
         if( any( !testFracSum ) ){ 
             stop( sprintf( 
-                "The fraction sum of some rows in 'x' is bigger than the expected sum of fractions (%s)", 
+                "The sum of fractions of some rows in 'x' differ from the expected sum of fractions (%s).\n  Fix your data, use ternaryNormalise(), or increase 'fracSumTol' (see ?rmPar).", 
                 .fracSum 
             ) ) 
         }   

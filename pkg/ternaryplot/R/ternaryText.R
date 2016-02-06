@@ -111,7 +111,7 @@ ternaryText.ternarySystem <- function(
             pts <- s[[ "vertices" ]]
             
             if( !is.null( pts ) ){
-                xy <- ternary2xy( s = s, x = pts ) 
+                xy <- ternary2xy.ternarySystem( s = s, x = pts ) 
                 
                 # xy <- xy[, c( "x", "y" ) ] 
                 
@@ -145,7 +145,7 @@ ternaryText.ternarySystem <- function(
             stop( sprintf( "Unknown / unsupported value for argument 'what' (%s)", what ) )
         }   
     }else{
-        xy <- ternary2xy( x = x, s = s ) 
+        xy <- ternary2xy.ternarySystem( s = s, x = x ) 
     }   
     
     if( !is.null( xy ) ){

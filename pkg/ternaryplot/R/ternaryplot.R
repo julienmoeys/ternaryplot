@@ -1,10 +1,10 @@
 
-# +-------------------------------------------------------------+
-# | Package:    ternaryplot                                     |
-# | Language:   R + roxygen2 inline documentation               |
-# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
-# | License:    AGPL3, Affero General Public License version 3  |
-# +-------------------------------------------------------------+
+# +--------------------------------------------------------+
+# | Package:    ternaryplot                                |
+# | Language:   R + roxygen2 inline documentation          |
+# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>        |
+# | License:    AGPL3, Affero General Public License v 3   |
+# +--------------------------------------------------------+
 
 # Useful: \code{} \code{\link[]{}} 
 
@@ -12,23 +12,68 @@
 
 # ternaryPlot ===================================================
 
-#'Generic ternary-data plotting
+#'Plot a ternary diagram, ternary data and ternary classifications.
 #'
-#'Generic ternary-data plotting
+#'Plot a ternary diagram, ternary data and ternary classifications.
 #'
 #'
 #'@param s 
-#'  Either a character string naming the ternary classification 
-#'  system to be used (if pre-defined), 
-#'  or a \code{\link[ternaryplot]{ternarySystem}}-object, 
-#'  or a \code{ternaryPolygons}-object 
-#'  (such as created with \code{\link[ternaryplot]{createTernaryGrid}}).
+#'  Either \itemize{
+#'    \item A \code{\link[ternaryplot]{ternarySystem-class}}, or 
+#'    \item A single character string, the name of an existing 
+#'      pre-defined \code{\link[ternaryplot]{ternarySystem-class}}.
+#'  } 
 #'
 #'@param x 
-#'  A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
-#'  containing point ternary data (x-y-x) to be ploted on the graph. 
-#'  It should contain the 3 columns names given in \code{s}. If 
-#'  missing, only the ternary classification is drawn.
+#'  A \code{\link[base]{data.frame}} or a 
+#'  \code{\link[base]{matrix}} containing point ternary data 
+#'  to be plot on the graph. It should contain the 3 columns 
+#'  names given by \code{blrNames(s)}. If missing, only the 
+#'  ternary classification is drawn.
+#'
+#'@param type 
+#'  Single character string. Type of plot desired. The 
+#'  following values are possible: \code{"p"} for points 
+#'  and \code{"n"} for nothing (just a base ternary plot, 
+#'  without data overlay). See also 
+#'  \code{\link[ternaryplot]{ternaryPoints}}.
+#'
+#'@param main 
+#'  Single character string, or \code{\link[base]{expression}}. 
+#'  Main title of the plot. Passed on to 
+#'  \code{\link[graphics]{title}}. If \code{NULL}, the default 
+#'  title defined in \code{s} is used (i.e. \code{main} 
+#'  overrides any title settings in \code{s}). To suppress 
+#'  the title set to \code{NA} or \code{""}.
+#'
+#'@param sub 
+#'  Single character string, or \code{\link[base]{expression}}. 
+#'  Subtitle of the plot. Passed on to 
+#'  \code{\link[graphics]{title}}. Set to \code{NULL}, 
+#'  \code{NA} or \code{""} to suppress the subtitle. Notice 
+#'  that when used in conjunction with 
+#'  \code{\link[ternaryplot]{ternaryStyle}}\code{(margin=TRUE)}, 
+#'  \code{sub} is drawn below the figure margins (so don't used
+#'  it in that case).
+#'
+#'@param axes 
+#'  Single logical value. If \code{TRUE}, axis are drawn on 
+#'  the plot. See also \code{\link[ternaryplot]{ternaryAxis}}.
+#'  By axis is meant the axis lines, the axis tick lines, 
+#'  the axis tick labels, the arrows and the axis titles. 
+#'  See \code{arrows} and \code{arrowsBreak} in 
+#'  \code{\link[ternaryplot]{tpPar}} for suppressing the 
+#'  axis arrows or the axis arrows 'break' (straight arrows), 
+#'  respectively.
+#'
+#'@param frame.plot 
+#'  Single logical value. If \code{TRUE}, a frame is drawn 
+#'  around the plot, as well as a background colour (when 
+#'  relevant). See also 'plot.bg' in 
+#'  \code{\link[ternaryplot]{tpPar}} and 
+#'  \code{\link[ternaryplot]{ternaryBox}}. Notice that 
+#'  \code{\link[graphics]{par}}\code{(bty="n")} overrides 
+#'  \code{frame.plot} (no box is drawn).
 #'
 #'@param scale 
 #'  Either a logical value or a \code{\link[base]{data.frame}} with 
@@ -78,7 +123,7 @@ ternaryPlot.character <- function(
         s <- getTernarySystem( s = s )  
     }   
     
-    ternaryPlot( s = s, ... ) 
+    ternaryPlot.ternarySystem( s = s, ... ) 
 }   
 
 
@@ -92,27 +137,38 @@ ternaryPlot.character <- function(
 ternaryPlot.ternarySystem <- function( 
     s, 
     x = NULL, 
+    type = "p", 
+    main = NULL, 
+    sub = NULL, 
+    axes = TRUE, 
+    frame.plot = TRUE,
     scale = FALSE, 
     ... 
 ){  
     # Plot something:
-    ternaryWindow( s = s ) 
+    ternaryWindow.ternarySystem( s = s ) 
     
     
     oldTpPar <- tpPar() # Backup parameters
+    .par     <- par()
     
     
     #   Draw a box without borders around the plot
-    tpPar( "axis.line.col" = NA )   # No axis line
-    ternaryBox( s = s, bg = getTpPar( "plot.bg" ) ) 
-    #   Restore parameters
-    tpPar( "axis.line.col" = oldTpPar[[ "axis.line.col" ]] ) 
-    
+    if( frame.plot & (.par[[ "bty" ]] != "n") ){
+        tpPar( "axis.line.col" = NA ) # No axis line
+        
+        ternaryBox.ternarySystem( 
+            s  = s, 
+            bg = oldTpPar[[ "plot.bg" ]] ) 
+        
+        #   Restore parameters
+        tpPar( "axis.line.col" = oldTpPar[[ "axis.line.col" ]] ) 
+    }   
     
     #   Draw the ternary classes *background*, when relevant
     if( nrow( s[[ "classes" ]] ) > 0 ){
         if( !all( is.na( oldTpPar[[ "class.bg" ]] ) ) ){
-            ternaryPolygons( 
+            ternaryPolygons.ternarySystem( 
                 s      = s, 
                 bg     = oldTpPar[[ "class.bg" ]], 
                 border = NA, 
@@ -122,20 +178,21 @@ ternaryPlot.ternarySystem <- function(
     
     
     #   Add the grid
-    ternaryGrid( s = s ) 
+    ternaryGrid.ternarySystem( s = s ) 
     
     
     #   Plot any ternary classification:
     if( nrow( s[[ "classes" ]] ) > 0 ){
-        ternaryPolygons( s = s, bg = NA ) # The background was already plotted
+        # The background was already plot
+        ternaryPolygons.ternarySystem( s = s, bg = NA ) 
     }   
     
     
     #   Plot any ternary points in x
     if( is.null( x ) ){ x <- data.frame() } 
     
-    if( nrow( x ) >= 1 ){ 
-        ternaryPoints( s = s, x = x, ... )
+    if( (nrow( x ) > 0) & (type == "p") ){ 
+        ternaryPoints.ternarySystem( s = s, x = x, ... )
         
         #   If the triangle is undetermined, attribute to 
         #   the bottom-left-right variables the names of the 
@@ -145,8 +202,23 @@ ternaryPlot.ternarySystem <- function(
     
     
     #   Add the axis and the box overlay
-    ternaryAxis( s = s ) 
-    ternaryBox( s = s ) 
+    if( axes ){
+        ternaryAxis.ternarySystem( s = s ) 
+    }   
+    
+    if( frame.plot & (.par[[ "bty" ]] != "n") ){
+        ternaryBox.ternarySystem( s = s ) 
+    }   
+    
+    #   Main and sub-titles
+    if( is.null( main ) ){
+        main <- s[[ "main" ]] 
+    }   
+    
+    if( any( c( !is.null( main ), !is.null( main ) ) ) ){
+        title( main = main, sub = sub )
+    }   
+    
     
     return( invisible( s ) ) 
 }   
@@ -232,7 +304,7 @@ ternaryPlot.ternarySystem <- function(
  ... 
 ){  
     # Fetch the variable names
-    .blrNames <- blrNames( s = s )  
+    .blrNames <- blrNames.ternarySystem( s = s )  
     
     # Extract the variables
     x <- x[, .blrNames ] 

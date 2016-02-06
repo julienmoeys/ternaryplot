@@ -113,8 +113,9 @@ for( i in 1:length( p ) ){
 }   
 #   Problem: find "## axis orientation is NA" in ternaryplot.R
 
-par( mfrow = c(1,2), xaxs = "i", yaxs = "i" )
-plot( x = 1, y = 1, asp = TRUE )
+dev.off()
+par( mfrow = c(1,2), xaxs = "i", yaxs = "i", pty = "s" )
+plot( x = 1, y = 1 )
 ternaryPlot( s = getTernarySystem()  )
 box( col = "red", lty = 2 )
 

@@ -169,10 +169,10 @@ ternaryPolygons.ternaryPolygons <- function(
         id <- s[, idCol ] 
         # s  <- s[, colnames( s ) != idCol ] 
         
-        .blrNames <- blrNames( terSys ) 
+        .blrNames <- blrNames.ternarySystem( terSys ) 
         
         #   Transform from Top-Left-Right to X-Y
-        xy <- ternary2xy( s = terSys, x = s[, .blrNames ] ) 
+        xy <- ternary2xy.ternarySystem( s = terSys, x = s[, .blrNames ] ) 
         
         #   Factor version of IDs
         idf <- factor( x = id, levels = unique( id ), 

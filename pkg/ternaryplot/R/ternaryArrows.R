@@ -95,13 +95,13 @@ ternaryArrows.ternarySystem <- function(
     }    
     
     # Fetch coordinate columns:
-    .blrNames <- blrNames( s = s ) 
+    .blrNames <- blrNames.ternarySystem( s = s ) 
     from <- from[, .blrNames ]  
     to   <- to[, .blrNames ]   
     
     # Transform the coordinates into x-y values
-    fromXY <- ternary2xy( x = from, s = s ) 
-    toXY   <- ternary2xy( x = to, s = s ) 
+    fromXY <- ternary2xy.ternarySystem( s = s, x = from ) 
+    toXY   <- ternary2xy.ternarySystem( s = s, x = to ) 
     
     # Draw the arrows
     arrows(

@@ -109,11 +109,11 @@ ternaryBox.ternarySystem <- function(
         "row.names" = c( "left", "right", "top" ) 
     )   
     
-    colnames( tpBox ) <- blrNames( s = s )   
+    colnames( tpBox ) <- blrNames.ternarySystem( s = s )   
     
     
     # Convert the scale to x-y values
-    tpBox <- ternary2xy( s = s, x = tpBox ) 
+    tpBox <- ternary2xy.ternarySystem( s = s, x = tpBox ) 
     
     polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
         lwd = axis.line.lwd, col = bg, 

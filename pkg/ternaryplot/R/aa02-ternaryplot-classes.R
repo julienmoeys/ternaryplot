@@ -277,10 +277,10 @@ ternaryCheck.ternarySystem <- function(
         };  rm( testNames ) 
         
         
-        valid <- ternaryCheck( s = s[[ "ternaryGeometry" ]], 
+        valid <- ternaryCheck.ternaryGeometry( s = s[[ "ternaryGeometry" ]], 
             onFailure = onFailure, ... )
         
-        valid <- ternaryCheck( s = s[[ "ternaryVariables" ]], 
+        valid <- ternaryCheck.ternaryVariables( s = s[[ "ternaryVariables" ]], 
             onFailure = onFailure, ... )
         
         
@@ -623,7 +623,7 @@ createTernaryGeometry <- function(
     
     
     #   Check:
-    ternaryCheck( s = tg, ... )
+    ternaryCheck.ternaryGeometry( s = tg, ... )
 
     
     
@@ -752,7 +752,7 @@ createTernaryVariables <- function(
     
     
     #   Check:
-    ternaryCheck( s = tv, ... )
+    ternaryCheck.ternaryVariables( s = tv, ... )
     
     
     return( tv ) 
@@ -941,7 +941,8 @@ createTernarySystem <- function(
     
     
     #   Expected columns
-    verticesDefault <- getTpPar( "vertices" ) 
+    .tpPar <- tpPar() 
+    verticesDefault <- .tpPar[[ "vertices" ]] # getTpPar( "vertices" ) 
     
     cn <- c( colnames(verticesDefault)[1], 
         tsy[[ "ternaryVariables" ]][[ "blrNames" ]] )
@@ -955,11 +956,11 @@ createTernarySystem <- function(
     }   
     
     if( is.null( classes ) ){ 
-        tsy[[ "classes" ]] <- getTpPar( "classes" ) 
+        tsy[[ "classes" ]] <- .tpPar[[ "classes" ]] # getTpPar( "classes" ) 
     }else{ 
         tsy[[ "classes" ]] <- classes 
         
-        # cn2 <- colnames( getTpPar( "classes" ) ) 
+        # cn2 <- colnames( .tpPar[[ "classes" ]]  ) # getTpPar( "classes" )
     }   
     
     # if( is.null( labels ) ){ 
@@ -972,7 +973,7 @@ createTernarySystem <- function(
     # }   
     
     if( is.null( scale ) ){ 
-        tsy[[ "scale" ]] <- getTpPar( "scale" ) 
+        tsy[[ "scale" ]] <- .tpPar[[ "scale" ]] # getTpPar( "scale" ) 
         
         colnames( tsy[[ "scale" ]] ) <- cn[ -1 ]
     }else{ 
@@ -992,7 +993,7 @@ createTernarySystem <- function(
     
     
     #   Check:
-    ternaryCheck( s = tsy, ... ) 
+    ternaryCheck.ternarySystem( s = tsy, ... ) 
     
     
     return( tsy ) 
@@ -1024,7 +1025,7 @@ createTernarySystem <- function(
  s, 
  x  
 ){  
-    blrNames0 <- blrNames( s = s )
+    blrNames0 <- blrNames.ternarySystem( s = s )
     
     #   Check if the triangle is undefined
     if( all( blrNames0 == c( "_bottom_", "_left_", "_right_" ) ) ){
@@ -1038,7 +1039,7 @@ createTernarySystem <- function(
             blrNames( s = s )  <- colnames( x )[ 1L:3L ] 
             
             #   Set the labels if they are NA
-            if( all( is.na( blrLabels( s = s ) ) ) ){
+            if( all( is.na( blrLabels.ternarySystem( s = s ) ) ) ){
                 blrLabels( s = s ) <- colnames( x )[ 1L:3L ] 
             }   
         }   

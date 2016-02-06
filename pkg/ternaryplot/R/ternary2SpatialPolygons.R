@@ -72,10 +72,10 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
         s  <- s[, colnames( s ) != idCol ] 
         # s <- subset( s, select = eval( quote( -id ) ) )
         
-        .blrNames <- blrNames( s0 ) 
+        .blrNames <- blrNames.ternarySystem( s0 ) 
         
         #   Transform from Top-Left-Right to X-Y
-        xy <- ternary2xy( s = s0, x = s[, .blrNames ] ) 
+        xy <- ternary2xy.ternarySystem( s = s0, x = s[, .blrNames ] ) 
         
         #   Factor version of IDs
         idf <- factor( x = id, levels = unique( id ), 

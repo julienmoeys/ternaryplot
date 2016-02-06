@@ -120,7 +120,7 @@ ternary2xy.ternarySystem <- function(
  ... 
 ){  
     # Test if the ternary data are conform 
-    ternaryCheck( s = s, x = x )     
+    ternaryCheck.ternarySystem( s = s, x = x )     
     
     # #   In principle not necessary, but may catch a few 
     # #   problems
@@ -224,12 +224,12 @@ ternary2xy.ternarySystem <- function(
     s <- .fixTernarySystem( s = s, x = x ) 
     
     # Set some variables
-    .blrClock  <- blrClock( s ) 
-    .tlrAngles <- tlrAngles( s ) 
-    .fracSum   <- fracSum( s ) 
+    .blrClock  <- blrClock.ternarySystem( s ) 
+    .tlrAngles <- tlrAngles.ternarySystem( s ) 
+    .fracSum   <- fracSum.ternarySystem( s ) 
     # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
     
-    blrNames0 <- blrNames( s = s ) 
+    blrNames0 <- blrNames.ternarySystem( s = s ) 
     
     
     # Angle transformation: degree to radian
@@ -271,12 +271,12 @@ ternary2xy.ternarySystem <- function(
     s <- .fixTernarySystem( s = s, x = x ) 
     
     #   Set some variables
-    .blrClock  <- blrClock( s ) 
-    .tlrAngles <- tlrAngles( s ) 
-    .fracSum   <- fracSum( s ) 
+    .blrClock  <- blrClock.ternarySystem( s ) 
+    .tlrAngles <- tlrAngles.ternarySystem( s ) 
+    .fracSum   <- fracSum.ternarySystem( s ) 
     # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
     
-    blrNames0   <- blrNames( s = s )  
+    blrNames0   <- blrNames.ternarySystem( s = s )  
     
     
     #   Angle transformation: degree to radian
@@ -316,12 +316,12 @@ ternary2xy.ternarySystem <- function(
     s <- .fixTernarySystem( s = s, x = x ) 
     
     # Set some variables
-    .blrClock  <- blrClock( s ) 
-    .tlrAngles <- tlrAngles( s ) 
-    .fracSum   <- fracSum( s ) 
+    .blrClock  <- blrClock.ternarySystem( s ) 
+    .tlrAngles <- tlrAngles.ternarySystem( s ) 
+    .fracSum   <- fracSum.ternarySystem( s ) 
     # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
     
-    blrNames0   <- blrNames( s = s )  
+    blrNames0   <- blrNames.ternarySystem( s = s )  
     
     
     # Angle transformation: degree to radian
@@ -361,12 +361,12 @@ ternary2xy.ternarySystem <- function(
     s <- .fixTernarySystem( s = s, x = x ) 
     
     # Set some variables
-    .blrClock  <- blrClock( s ) 
-    .tlrAngles <- tlrAngles( s ) 
-    .fracSum   <- fracSum( s ) 
+    .blrClock  <- blrClock.ternarySystem( s ) 
+    .tlrAngles <- tlrAngles.ternarySystem( s ) 
+    .fracSum   <- fracSum.ternarySystem( s ) 
     # fracSumTol <- getTpPar( par = "fracSumTol" ) * fracSum 
     
-    blrNames0   <- blrNames( s = s )  
+    blrNames0   <- blrNames.ternarySystem( s = s )  
     
     
     # Angle transformation: degree to radian

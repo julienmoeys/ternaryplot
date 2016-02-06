@@ -4,9 +4,9 @@
 /pkg/ternaryplot/ternaryplot-Ex.R
 /pkg/ternaryplot/R/*.R~
 /*.TXT~
-/.gitignore~
+*.gitignore~
 /prepare/*.R~
 /pkg/*.pdf
-/ternaryplot_Linux_commit.sh
-/ternaryplot_Linux_commit.sh~
-
+ternaryplot_Linux_commit.sh
+ternaryplot_Linux_commit.sh~
+ternaryplot_linux_install.R

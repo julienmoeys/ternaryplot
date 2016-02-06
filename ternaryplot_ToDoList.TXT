@@ -1,5 +1,7 @@
-
+ 
 CREATE ternaryClassify() to classify ternary data
+
+ADD package argument 'class.label.cex' in tpPar()
 
 CREATE ternaryClassNames() and ternaryClassNames()<-
     methods to retrieve and change the (abbrev) name of 
@@ -8,9 +10,11 @@ CREATE ternaryClassNames() and ternaryClassNames()<-
 CREATE as.data.frame.ternarySystem method
     what = "vertices" or "classes"
 
-CREATE ternaryCounts ternarySystem 
+CREATE ternaryCounts ternarySystem add type = "c"
+    to ternaryPlot().
 
-CREATE ternaryLines ternarySystem 
+CREATE ternaryLines ternarySystem and add type = "l"
+    to ternaryPlot().
 
 CREATE ternaryAggregate >> ternary version of sp::aggregate
 

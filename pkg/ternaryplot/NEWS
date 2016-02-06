@@ -1,6 +1,24 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.6
+    
+    2016/02/05  Created ternaryClassify()
+     
+    2016/02/04  Reduce the number of calls to getTpPar() 
+        and par() (internal changes - small speed up).
+        
+        ternaryAxis() now follows par( "cex.lab" ) and 
+            par( "cex.axis" ) for the size of the 
+            axis labels and axis ticks labels.
+        
+        ternaryPlot() has now several new parameters:
+        type, main, sub, axes and frame.plot. Only one 
+        'type' implemented at the moment.
+        
+        Some speed up expected by calling directly a 
+        method rather than the generic (when possible)
+
 CHANGES IN VERSION 0.6.5
     
     2016/02/03  The arguments of package's functions was 
