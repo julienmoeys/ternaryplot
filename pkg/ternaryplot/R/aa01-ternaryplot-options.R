@@ -97,6 +97,8 @@ tpParList  <- new.env()
 
 .tpParList[[ "onFailure" ]]     <- stop 
 
+.tpParList[[ "terSysEnvList" ]] <- c( "ternaryplot" = "ternarySystemEnv" )
+
 # GRAPHICAL PARAMETERS
 # ====================
 
@@ -190,6 +192,17 @@ tpParList  <- new.env()
 #'  Single logical. If TRUE, all the parameters will be set to their
 #'  default value. Values are reset before any change to the parameter values, as
 #'  listed below.
+#'
+#'@param terSysEnvList 
+#'  Vector of (tagged) character strings. The character strings indicate the 
+#'  name of environments containing lists of 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} objects, and their tags 
+#'  indicate in which package these environments are found. So entry should 
+#'  follow the pattern \code{c(packageName = 'envName', ...)}, where 
+#'  \emph{packageName} is the name of the package and \emph{envName} the name of 
+#'  an environment containing \code{ternarySystem-class} objects. The mechanism 
+#'  is intended to allow other packages to attach lists new of 
+#'  \code{ternarySystem-class} objects to extend the package \code{ternaryplot}.
 #'
 ## # CHECK PARAMETERS --------------------------------------
 #'
@@ -379,6 +392,7 @@ tpPar <- function(
     # GENERAL PARAMETERS
     par    = NULL, 
     reset  = FALSE, 
+    terSysEnvList, 
     # CHECK PARAMETERS
     testRange, 
     testSum, 

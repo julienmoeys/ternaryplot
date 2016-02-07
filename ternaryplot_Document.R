@@ -1,8 +1,15 @@
 
 rm(list=ls(all=TRUE)) 
 pkgName     <- "ternaryplot"
-pkgDir      <- "C:/Users/julienm/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg"
-
+if( tolower( Sys.info()[[ "sysname" ]] ) == "linux" ){
+    pkgDir <- sprintf( 
+        "/home/%s/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot", 
+        Sys.info()[[ "user" ]] )
+}else{
+    pkgDir <- sprintf( 
+        "C:/Users/%s/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg", 
+        Sys.info()[[ "user" ]] )
+}   
 
 library( "roxygen2" )
 
@@ -15,7 +22,7 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.6.6", 
+    pkgVersion  = "0.6.7", 
     pkgDepends  = NULL, # "MASS"
     pkgSuggests = NULL, 
     pkgImports  = "sp", 

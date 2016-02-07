@@ -1,6 +1,13 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.6.7
+    
+    2016/02/07  New package argument (option) 
+        'terSysEnvList' to allow other packages 
+        to add lists of pre-defined ternarySystem 
+        to the existing list.
+    
 CHANGES IN VERSION 0.6.6
     
     2016/02/05  Created ternaryClassify()

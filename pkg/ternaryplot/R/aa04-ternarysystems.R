@@ -232,18 +232,45 @@ getTernarySystem <- function( s = "default" ){
         stop( "'s' must be a character string" )
     }   
     
+    .tpPar <- tpPar()
+    terSysEnvList <- .tpPar[[ "terSysEnvList" ]]
+    
     # Get all the ternary classifications:
     # listTernarySystem <- as.list( "ternaryplot":::"listTernarySystem" ) 
-    ternarySystemE <- as.list( ternarySystemEnv )  
     
-    # Check if the system asked is present:
-    if( s %in% names( ternarySystemE ) ){ 
-        s <- ternarySystemE[[ s ]] 
-    }else{ 
+    for( i in 1:length( terSysEnvList ) ){
+        envir <- asNamespace( names( terSysEnvList )[ i ] )
+        x     <- as.character( terSysEnvList[ i ] )
+        
+        if( exists( x = x, envir = envir ) ){
+            ternarySystemE <- get( 
+                x       = x, 
+                envir   = envir, 
+                inherit = FALSE 
+            )    
+            
+            # Check if the system asked is present:
+            if( s %in% names( ternarySystemE ) ){ 
+                s <- ternarySystemE[[ s ]] 
+                
+                break 
+            }else{ 
+                s <- NULL  
+            }   
+            
+        }else{
+            stop( sprintf( 
+                "The list of ternary plot '%s' could not be found in package '%s'.", 
+                terSysEnvList[ i ], names( terSysEnvList )[ i ] 
+            ) )  
+        }   
+    }   
+    
+    if( is.null( s ) ){
         stop( sprintf( 
             "The ternary plot (%s) could not be found", 
             s 
-        ) ) 
+        ) )  
     }   
     
     return( s ) 
