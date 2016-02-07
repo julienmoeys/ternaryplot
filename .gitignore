@@ -1,16 +1,30 @@
+
+# Exclude specific files
+# ----------------------
+
+ternaryplot_Linux_commit.sh
+ternaryplot_linux_install.R
+
+# Package tar.gz source, zip binaries 
+# and pdf manual
+# -----------------------------------
+
 /pkg/*.gz
 /pkg/*.zip
+/pkg/*.pdf
+
+# R CMD CHECK residuals
+# ---------------------
+
 /pkg/ternaryplot.Rcheck
 /pkg/ternaryplot/ternaryplot-Ex.R
-/pkg/ternaryplot/R/*.R~
-/*.TXT~
+
+# Linux backup files
+# ------------------
+
+*.R~
+*.TXT~
+*.sh~
 *.gitignore~
-/prepare/*.R~
-/pkg/*.pdf
-ternaryplot_Linux_commit.sh
-ternaryplot_Linux_commit.sh~
-ternaryplot_linux_install.R
-ternaryplot_linux_install.R~
 /pkg/ternaryplot/NEWS~
-ternaryplot_Document.R~
 

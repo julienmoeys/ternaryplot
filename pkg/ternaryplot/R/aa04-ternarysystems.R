@@ -244,9 +244,9 @@ getTernarySystem <- function( s = "default" ){
         
         if( exists( x = x, envir = envir ) ){
             ternarySystemE <- get( 
-                x       = x, 
-                envir   = envir, 
-                inherit = FALSE 
+                x        = x, 
+                envir    = envir, 
+                inherits = FALSE 
             )    
             
             # Check if the system asked is present:

@@ -1,12 +1,23 @@
 Package: ternaryplot
-Version: 0.6.6
-Date: 2016-02-05
+Version: 0.6.7
+Date: 2016-02-07
 Title: Infrastructure for ternary plots and ternary classifications (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>
 Maintainer: Julien MOEYS <Julien.Moeys@slu.se>
-Description: Infrastructure for ternary plots and ternary classifications (with S3-classes). Based purely on R package 'graphics'. 'ternaryplot' attempts to respect as much as possible (a) the plot layout of the package graphics, (b) the size and location of plot-items such as axis tick marks and (c) the name of 'graphics' parameters. Also, function names and functions arguments are as much as possible similar to those in 'graphics'. Designed primarily to support the development of soil texture plots (soil texture diagrams), but should be valid for other ternary plots as well (provided they are based on a single triangle with a horizontal base).
+Description: Infrastructure for ternary plots and ternary classifications (with
+    S3-classes). Based purely on R package 'graphics'. 'ternaryplot' attempts to
+    respect as much as possible (a) the plot layout of the package graphics, (b)
+    the size and location of plot-items such as axis tick marks and (c) the name of
+    'graphics' parameters. Also, function names and functions arguments are as much
+    as possible similar to those in 'graphics'. Designed primarily to support the
+    development of soil texture plots (soil texture diagrams), but should be valid
+    for other ternary plots as well (provided they are based on a single triangle
+    with a horizontal base).
 License: AGPL-3
 URL: http://www.slu.se/ckb
-Depends: R (>= 3.2.0)
-Imports: sp
+Depends:
+    R (>= 3.2.3)
+Imports:
+    sp
 Encoding: UTF-8
+RoxygenNote: 5.0.1

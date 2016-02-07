@@ -1,14 +1,16 @@
 
 rm(list=ls(all=TRUE)) 
-pkgName     <- "ternaryplot"
+
+pkgName <- "ternaryplot"
+
 if( tolower( Sys.info()[[ "sysname" ]] ) == "linux" ){
     pkgDir <- sprintf( 
-        "/home/%s/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot", 
-        Sys.info()[[ "user" ]] )
+        "/home/%s/Dropbox/_WORK/_PROJECTS/r_packages/%s/pkg", 
+        Sys.info()[[ "user" ]], pkgName )
 }else{
     pkgDir <- sprintf( 
-        "C:/Users/%s/Dropbox/_WORK/_PROJECTS/r_packages/ternaryplot/pkg", 
-        Sys.info()[[ "user" ]] )
+        "C:/Users/%s/Dropbox/_WORK/_PROJECTS/r_packages/%s/pkg", 
+        Sys.info()[[ "user" ]], pkgName )
 }   
 
 library( "roxygen2" )
@@ -39,3 +41,4 @@ roxygenize(
 
 
 pkgRemove( pkgName = pkgName ) 
+
