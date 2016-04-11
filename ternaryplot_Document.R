@@ -24,9 +24,9 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.6.7", 
+    pkgVersion  = "0.7.0", 
     pkgDepends  = NULL, # "MASS"
-    pkgSuggests = NULL, 
+    pkgSuggests = "knitr", 
     pkgImports  = "sp", 
     RVersion    = NULL   
 )   

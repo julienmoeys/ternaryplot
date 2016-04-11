@@ -1,6 +1,11 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.7.0
+    
+    2016/04/08  Add a first vignette to the package (work 
+        on progress).
+    
 CHANGES IN VERSION 0.6.7
     
     2016/02/07  New package argument (option) 

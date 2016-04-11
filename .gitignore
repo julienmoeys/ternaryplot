@@ -28,3 +28,5 @@ ternaryplot_linux_install.R
 *.gitignore~
 /pkg/ternaryplot/NEWS~
 
+/pkg/binaryArchive/*.gz
+/pkg/binaryArchive/*.pdf
