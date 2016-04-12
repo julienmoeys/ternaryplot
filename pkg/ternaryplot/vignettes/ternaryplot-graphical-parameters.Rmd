@@ -6,9 +6,44 @@
 ternaryplot graphical parameters: customise ternary plots
 ============================================================
 
-**Julien Moeys**
+```{r echo=FALSE}
+pv  <- sessionInfo( package = "ternaryplot" ) 
+pv  <- pv[[ "otherPkgs" ]][["ternaryplot"]][["Version"]] 
+now <- format( Sys.time(), "%Y-%m-%d %H:%M" ) 
+```
 
-Last build: `r Sys.time()`
+> **Document information:**    <a id="table-document-information"></a>
+
+|                  |                      | 
+|:-----------------|---------------------:| 
+| Author:          | **[Julien Moeys][]** | 
+| Last build:      | `r now`              | 
+| Package version: | `r pv`               | 
+
+```{r echo=FALSE}
+rm( pv, now )
+```
+
+
+
+Table of content    <a id="toc"></a>
+------------------------------------------------------------
+
+*   [Introduction](#section-intro). 
+*   [Default graphical parameters](#section-default). 
+*   [Pre-defined graphic styles with 'ternaryStyle'](#section-styles). 
+*   [Graphical parameters for the device and plot regions](#section-region). 
+*   [Graphical parameters for data points, text and lines](#section-data). 
+*   [Graphical parameters for the axes](#section-axes). 
+*   [Graphical parameters for the plot region's box and grid](#section-box-grid). 
+*   [Graphical parameters for class polygons and labels](#section-classes). 
+*   [Set the title and sub-title](#section-title). 
+*   [Session information](#session-info). 
+
+
+
+Introduction    <a id="section-intro"></a>
+------------------------------------------------------------
 
 Ternary plots produced with the package `ternaryplot` use as 
 much as possible graphical parameters from R `graphics` 
@@ -27,7 +62,7 @@ R command prompt to view the definition of these parameters
 
 
 
-Default graphical parameters    <a id="default"></a>
+Default graphical parameters    <a id="section-default"></a>
 ------------------------------------------------------------
 
 Before showing how to change the default graphical parameters 
@@ -41,12 +76,15 @@ library( 'ternaryplot' )
 .par <- par( no.readonly = TRUE )
 
 #   Default ternary plot 
-ternaryPlot( s = 'hypres' ) 
+ternaryPlot( 
+    s    = 'hypres', 
+    main = 'Default graphical parameters', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
 
-Build-in plot styles    <a id="styles"></a>
+Pre-defined graphic styles with 'ternaryStyle'    <a id="section-styles"></a>
 ------------------------------------------------------------
 
 ```{r}
@@ -55,7 +93,7 @@ par( .par )
 tpPar( reset = TRUE )
 
 #   Choose a style
-ternaryStyle( style = "publication", margin = TRUE ) 
+ternaryStyle( style = 'publication', margin = TRUE ) 
 
 #   Default ternary plot 
 ternaryPlot( s = 'hypres' ) 
@@ -63,8 +101,10 @@ ternaryPlot( s = 'hypres' )
 
 
 
-Device and plot region    <a id="region"></a>
+Graphical parameters for the device and plot regions    <a id="section-region"></a>
 ------------------------------------------------------------
+
+> **Graphical parameters for the device and the plot region**:    <a id="table-region"></a>
 
 | **.**           | **Device region** | **Plot region**    |
 |:----------------|------------------:|-------------------:| 
@@ -75,7 +115,7 @@ Device and plot region    <a id="region"></a>
 | Font            | _n.r._            | _n.r._             | 
 | Font family     | _n.r._            | _n.r._             | 
 | Line thickness  | _n.r._            | _n.r._             | 
-> **Graphical parameters for the device and the plot region**. 
+
 > _n.r._: not relevant. The plot area is defined here as the 
 > area inside the 3 axes. See `?graphics::par` and 
 > `?ternaryplot::tpPar`. 
@@ -90,17 +130,27 @@ par( .par )
 tpPar( reset = TRUE )
 
 #   Change (some) graphical parameters
-par( 'bg' = 'lightgray' ) 
-tpPar( 'plot.bg' = 'pink' ) 
+par( bg = 'ivory' ) 
+tpPar( plot.bg = 'peachpuff' ) 
 
 #   Visualise the ternary plot
-ternaryPlot( s = 'hypres' ) 
+ternaryPlot( 
+    s    = 'hypres', 
+    main = 'Custom background colours', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
+Notice that `ternaryplot` graphics internally call 
+`ternaryWindow` to prepare the base graphic area, and that 
+this function sets `par(pty='s')` (i.e. for a square 
+plot-region).
 
 
-Data points, text and lines    <a id="data"></a>
+
+Graphical parameters for data points, text and lines    <a id="section-data"></a>
 ------------------------------------------------------------
+
+> **Graphical parameters for ternary data (points, text or lines)**:    <a id="table-data"></a>
 
 | **.**           | **Points** (data) | **Text** (data) | **Lines** (data)  | 
 |:----------------|------------------:|----------------:| -----------------:| 
@@ -111,7 +161,7 @@ Data points, text and lines    <a id="data"></a>
 | Font            | _n.r._            | `font` (5)      | _n.r._            | 
 | Font family     | _n.r._            | `family` (5)    | _n.r._            | 
 | Line thickness  | `lwd` (4)         | _n.r._          | `lwd` (6)         |  
-> **Graphical parameters for ternary data (points, text or lines)**.
+
 > (1) See argument `type` in `ternaryPlot` (`'n'` for nothing, 
 > `'p'` for points). (2) Use `ternaryText` after `ternaryPlot`. 
 > (3) Use `ternaryLines` after `ternaryPlot`. (4) Use arguments 
@@ -136,14 +186,15 @@ data( 'textureDataset' )
 #   Change (some) graphical parameters
 #   Visualise the ternary plot
 s <- ternaryPlot( 
-    s   = 'hypres', 
-    x   = textureDataset[ 1:20, ], 
-    pch = 21,      # (*) 
-    col = 'red',   # (*) 
-    lwd = 2,       # (*) 
-    cex = 1.5,     # (*) 
-    bg  = 'pink' ) # (*) 
-
+    s    = 'hypres', 
+    x    = textureDataset[ 1:20, ], 
+    main = 'Custom graphical parameters for data points and text', 
+    sub  = 'package: ternaryplot', 
+    pch  = 21,           # (*) 
+    col  = 'orangered4', # (*) 
+    lwd  = 2,            # (*) 
+    cex  = 1.5,          # (*) 
+    bg   = 'orangered' ) # (*) 
 # (*)   Passed to ternaryPoints(), then to points(), 
 #       via "..."
 
@@ -151,12 +202,11 @@ ternaryText(
     s      = s, 
     x      = textureDataset[ 1:20, ], 
     labels = as.character( 1:20 ), 
-    col    = 'darkred', 
+    col    = 'purple4', 
     pos    = 4,         # to the right 
     offset = 0.5, 
     font   = 2,         # bold
     family = 'serif' )  # (**)   
-
 # (**)  Passed to text(), then to par(), via "..."
 ```
 
@@ -169,23 +219,28 @@ par( .par )
 tpPar( reset = TRUE )
 
 #   Visualise the ternary plot
-s <- ternaryPlot( s = 'hypres' )    
+s <- ternaryPlot( 
+    s    = 'hypres', 
+    main = 'Custom graphical parameters for data lines', 
+    sub  = 'package: ternaryplot' ) 
 
 ternarySegments( 
     s      = s, 
     from   = textureDataset[ 1:19, ], 
     to     = textureDataset[ 2:20, ], 
-    col    = 'red', 
+    col    = 'orangered4', 
     lwd    = 2, 
-    lty    = 3 )   
+    lty    = 5 )   
 ```
 
 
 
-Axis    <a id="axis"></a>
+Graphical parameters for the axes    <a id="section-axes"></a>
 ------------------------------------------------------------
 
-| **.**           | **Axis lines**           | **Axis ticks**            | **Axis ticks labels**  | 
+> **Graphical parameters for ternary plot axes - part 1**:    <a id="table-axes-part1"></a>
+
+| **.**           | **Axes lines**           | **Axes ticks**            | **Axes ticks labels**  | 
 |:----------------|-------------------------:|--------------------------:| ----------------------:| 
 | Draw (Y/N):     | (1)                      | (1)                       | (1)                    | 
 | Outline colour: | `tpPar('axis.line.col')` | `tpPar('ticks.line.col')` | `par('col.axis')`      | 
@@ -194,7 +249,7 @@ Axis    <a id="axis"></a>
 | Font            | _n.r._                   | _n.r._                    | `par('font.axis')`     | 
 | Font family     | _n.r._                   | _n.r._                    | `par('family')`        | 
 | Line thickness  | `tpPar('axis.line.lwd')` | `tpPar('ticks.line.lwd')` | _n.r._                 |  
-> **Graphical parameters for ternary plot axis - A**.
+
 > (1) See argument `axis` in `ternaryPlot`. See also `ternaryAxis`.
 > _n.r._: not relevant. If `tpPar('axis.line.col')` or 
 > `tpPar('ticks.line.col')` are `NULL`, `par('fg')` is used 
@@ -203,7 +258,26 @@ Axis    <a id="axis"></a>
 
 
 
-The example below show how to modify these parameters:
+First an example showing how to draw a ternary triangle without 
+axes (but with a box-frame around the plot region)
+
+```{r}
+#   Reset graphical parameters
+par( .par )
+tpPar( reset = TRUE )
+
+#   Visualise the ternary plot
+s <- ternaryPlot( 
+    s    = 'hypres', 
+    axes = FALSE, # NOTE: not 'axis'
+    main = 'Ternary plot without axes', 
+    sub  = 'package: ternaryplot' ) 
+```
+
+
+
+Then examples showing how to modify the axes graphical 
+parameters:
 
 ```{r}
 #   Reset graphical parameters
@@ -211,21 +285,25 @@ par( .par )
 tpPar( reset = TRUE )
 
 #   Change (some) graphical parameters
-par( 'col.axis' = 'orange', 'cex.axis' = 0.5, 
-    'font.axis' = 2, 'family' = 'serif' ) 
+par( col.axis = 'orangered4', cex.axis = 0.5, 
+    font.axis = 2, family = 'serif' ) 
 
-tpPar( 'axis.line.col' = 'purple', 'ticks.line.col' = 'red', 
-    'axis.line.lwd' = 2, 'ticks.line.lwd' = 3 )
+tpPar( axis.line.col = 'purple4', ticks.line.col = 'orangered4', 
+    axis.line.lwd = 2, ticks.line.lwd = 3 )
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
-    s   = 'hypres', 
-    x   = textureDataset[ 1:20, ] ) 
+    s    = 'hypres', 
+    x    = textureDataset[ 1:20, ], 
+    main = 'Custom axes graphical parameters (1/2)', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
 
-| **.**           | **Axis labels**          | **Axis arrow lines**      | 
+> **Graphical parameters for ternary plot axes - part 2**:    <a id="table-axes-part2"></a>
+
+| **.**           | **Axes labels**          | **Axes arrow lines**      | 
 |:----------------|-------------------------:|--------------------------:| 
 | Draw (Y/N):     | (1)                      | `tpPar('arrows')` (2)     | 
 | Outline colour: | `par('col.lab')`         | `tpPar('axis.line.col')`  | 
@@ -234,10 +312,10 @@ s <- ternaryPlot(
 | Font            | `par('font.lab')`        | _n.r._                    | 
 | Font family     | `par('family')`          | _n.r._                    | 
 | Line thickness  | _n.r._                   | `tpPar('axis.line.lwd')`  | 
-> **Graphical parameters for ternary plot axis - B**.
+
 > (1) See argument `axis` in `ternaryPlot`. (2) Set 
 > `toPar('arrowsBreak'=FALSE)` to suppress the direction change 
-> in the axis arrows (i.e. only parallel to the axis). 
+> in the axes arrows (i.e. only parallel to the axes). 
 > See also `ternaryAxis`. _n.r._: not relevant.  If 
 > `tpPar('axis.line.col')` is `NULL`, `par('fg')` is used 
 > instead. If `tpPar('axis.line.lwd')` is `NULL`, `par('lwd')` 
@@ -253,24 +331,28 @@ par( .par )
 tpPar( reset = TRUE )
 
 #   Change (some) graphical parameters
-par( 'col.lab' = 'orange', 'cex.lab' = 0.5, 
-    'font.lab' = 2, 'family' = 'serif' ) 
+par( col.lab = 'orangered4', cex.lab = 0.5, 
+    font.lab = 2, family = 'serif' ) 
 
-tpPar( 'axis.line.col' = 'purple', 'axis.line.lwd' = 2, 
-    'arrowsBreak' = FALSE )
+tpPar( axis.line.col = 'purple4', axis.line.lwd = 2, 
+    arrowsBreak = FALSE )
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
-    s   = 'hypres', 
-    x   = textureDataset[ 1:20, ] ) 
+    s    = 'hypres', 
+    x    = textureDataset[ 1:20, ], 
+    main = 'Custom axes graphical parameters (2/2)', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
 
-Plot-box and grid    <a id="box-grid"></a>
+Graphical parameters for the plot region's box and grid    <a id="section-box-grid"></a>
 ------------------------------------------------------------
 
-| **.**           | **Box (over axis)**      | **Grid**                  | 
+> **Graphical parameters for ternary plot box and grid**:    <a id="table-box-grid"></a>
+
+| **.**           | **Box (over axes)**      | **Grid**                  | 
 |:----------------|-------------------------:|--------------------------:| 
 | Draw (Y/N):     | (1)                      | (2)                       | 
 | Outline colour: | `tpPar('axis.line.col')` | `tpPar('grid.line.col')`  | 
@@ -279,38 +361,67 @@ Plot-box and grid    <a id="box-grid"></a>
 | Font            | _n.r._                   | _n.r._                    | 
 | Font family     | _n.r._                   | _n.r._                    | 
 | Line thickness  | `tpPar('axis.line.lwd')` | `tpPar('grid.line.lwd')`  | 
-> **Graphical parameters for ternary plot box and grid**.
+
 > (1) See argument `frame.plot` in `ternaryPlot`. (2) The grid 
 > cannot be suppressed at the moment, but consider setting 
 > `tpPar('grid.line.col'=NA)` to make it invisible. If 
 > `tpPar('grid.line.lwd')` is `NULL`, `par('lwd')` is used 
 > instead. _n.r._: not relevant. 
 
-NOTE: add argument `grid` to `ternaryPlot` 
 
 
-
-The example below show how to modify these parameters:
+First an example showing how the box around the plot and 
+the grid can be suppressed from a ternary plot.
 
 ```{r}
 #   Reset graphical parameters
 par( .par )
 tpPar( reset = TRUE )
 
-tpPar( 'axis.line.col' = 'purple', 'axis.line.lwd' = 2, 
-    'grid.line.col' = 'pink', 'grid.line.lwd' = 2, 
-    'plot.bg' = 'lightgray' ) 
+tpPar( grid.line.col = NA, axis.line.lwd = 2, 
+    ticks.line.lwd = 2 )
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
-    s   = 'hypres', 
-    x   = textureDataset[ 1:20, ] ) 
+    s          = 'default', 
+    x          = textureDataset[ 1:20, ], 
+    frame.plot = FALSE, 
+    main       = 'Ternary plot without box-frame and grid', 
+    sub        = 'package: ternaryplot' ) 
+```
+
+Notice that the absence of axes' title (axes' labels) is 
+because the default ternary system is 'neutral' and does 
+not have any pre-defined variables for each axis.
+
+
+
+The example below show how to modify the graphical parameters 
+for the plot-box and the grid:
+
+```{r}
+#   Reset graphical parameters
+par( .par )
+tpPar( reset = TRUE )
+
+tpPar( axis.line.col = 'orangered4', axis.line.lwd = 2, 
+    grid.line.col = 'gold', grid.line.lwd = 2, 
+    plot.bg = 'peachpuff' ) 
+
+#   Visualise the ternary plot
+s <- ternaryPlot( 
+    s    = 'hypres', 
+    x    = textureDataset[ 1:20, ], 
+    main = 'Custom box and grid graphical parameters', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
 
-Class polygons and labels    <a id="classes"></a>
+Graphical parameters for class polygons and labels    <a id="section-classes"></a>
 ------------------------------------------------------------
+
+> **Graphical parameters for ternary classification (polygons)**:    <a id="table-classes"></a>
 
 | **.**           | **Class polygons**          | **Class labels**           | 
 |:----------------|----------------------------:|---------------------------:| 
@@ -321,15 +432,11 @@ Class polygons and labels    <a id="classes"></a>
 | Font            | _n.r._                      | `par('font')`              | 
 | Font family     | _n.r._                      | `par('family')`            | 
 | Line thickness  | `tpPar('class.border.lwd')` | _n.r._                     | 
-> **Graphical parameters for ternary classification (polygons)**.
+
 > (1) Cannot be suppressed at the moment, but consider using 
 > an emptty ternary classification instead. If 
 > `tpPar('class.border.lwd')` is `NULL`, `par('lwd')` is used 
 > instead. _n.r._: not relevant. 
-
-NOTE: add argument `classes` to `ternaryPlot` 
-NOTE: add argument `class.label.cex` and `class.label.font` 
-    in `tpPar` and `ternaryPolygons.ternarySystem` 
 
 
 
@@ -340,24 +447,27 @@ The example below show how to modify these parameters:
 par( .par )
 tpPar( reset = TRUE )
 
-tpPar( 'class.border.col' = 'orange', 'class.border.lwd' = 2, 
-    'class.label.col' = 'cyan', 
-    'class.bg' = terrain.colors( n = 5 ) ) 
+tpPar( class.border.col = 'orangered4', 
+    class.border.lwd = 2, class.label.col = 'orangered2', 
+    class.bg = terrain.colors( n = 5 ) ) 
+
     #   Note: there must be as many colors in 'class.bg'
     #         as classes in the ternary classification 
     #         displayed! Extra colors are ignored.
 
-par( 'font' = 2, 'family' = 'serif' ) 
+par( font = 2, family = 'serif' ) 
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
-    s   = 'hypres', 
-    x   = textureDataset[ 1:20, ] ) 
+    s    = 'hypres', 
+    x    = textureDataset[ 1:20, ], 
+    main = 'Ternary-classes with custom graphical parameters', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
 
-(sub) title    <a id="title"></a>
+Set the title and sub-title    <a id="section-title"></a>
 ------------------------------------------------------------
 
 ```{r}
@@ -365,16 +475,16 @@ s <- ternaryPlot(
 par( .par )
 tpPar( reset = TRUE )
 
-par( 'col.main' = 'red', 'col.sub' = 'orange', 
-    'font.main' = 1, 'font.sub' = 2, 'cex.main' = 3, 
-    'cex.sub' = 2, 'family' = 'serif' ) 
+par( col.main = 'orangered4', col.sub = 'orangered2', 
+    font.main = 1, font.sub = 3, cex.main = 1, 
+    cex.sub = 1.5, family = 'serif' ) 
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
     s    = 'hypres', 
     x    = textureDataset[ 1:20, ], 
-    main = 'My title', 
-    sub  = 'My subtitle' ) 
+    main = 'A custom title', 
+    sub  = 'package: ternaryplot' ) 
 ```
 
 
@@ -383,4 +493,16 @@ s <- ternaryPlot(
 par( .par )
 tpPar( reset = TRUE )
 ```
+
+
+
+Session information    <a id="session-info"></a>
+------------------------------------------------------------
+
+```{r}
+sessionInfo() 
+```
+
+<!-- List of links  -->
+[Julien Moeys]:     http://julienmoeys.info "Julien Moeys homepage"
 

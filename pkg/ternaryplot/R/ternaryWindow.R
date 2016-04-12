@@ -14,7 +14,10 @@
 
 #'Set up World Coordinates for a ternary plot (invisible base plot)
 #'
-#'Set up World Coordinates for a ternary plot (invisible base plot)
+#'Set up World Coordinates for a ternary plot (invisible base plot).
+#'
+#'  Notice that \code{ternaryWindow} sets \code{par(pty='s')} 
+#'  (i.e. for a square plot-region).
 #'
 #'
 #'@param s 
@@ -184,7 +187,7 @@ ternaryWindow.ternarySystem <- function(
     
     s[[ 'scale' ]] <- scale 
     
-    par( "xpd" = oldPar ) 
+    par( oldPar[ names( oldPar ) != "pty" ] ) 
     
     return( invisible( s ) ) 
 }   
