@@ -96,7 +96,9 @@ tpPar( reset = TRUE )
 ternaryStyle( style = 'publication', margin = TRUE ) 
 
 #   Default ternary plot 
-ternaryPlot( s = 'hypres' ) 
+ternaryPlot( 
+    s    = 'hypres', 
+    main = "Pre-defined graphic styles with 'ternaryStyle'" ) 
 ```
 
 
