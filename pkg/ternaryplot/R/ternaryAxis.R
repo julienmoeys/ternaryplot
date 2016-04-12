@@ -100,10 +100,10 @@
     .par   <- par() 
     .tpPar <- tpPar() 
     
-    fg <- .par[[ "fg" ]]
+    fg            <- .par[[ "fg" ]]
     
-    col.axis <- .par[[ "col.axis" ]] 
-    font.axis <- .par[[ "font.axis" ]] 
+    col.lab       <- .par[[ "col.lab" ]] 
+    font.lab      <- .par[[ "font.lab" ]] 
     
     axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]] 
     axis.line.col <- .tpPar[[ "axis.line.col" ]] 
@@ -172,8 +172,8 @@
                 # pos  = 2, 
                 adj    = c( adj[[ "adj1" ]][ ax ], adj[[ "adj2" ]][ ax ] ), 
                 srt    = adj[[ "blrLabelAngles" ]][ ax ], 
-                col    = col.axis, 
-                font   = font.axis, 
+                col    = col.lab, 
+                font   = font.lab, 
                 cex    = .par[[ "cex.axis" ]], 
                 # offset = -5, 
                 ... ) 
