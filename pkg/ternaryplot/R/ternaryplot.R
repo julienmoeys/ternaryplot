@@ -10,11 +10,12 @@
 
 
 
-# ternaryPlot ===================================================
+# ternaryPlot ==============================================
 
 #'Plot a ternary diagram, ternary data and ternary classifications.
 #'
-#'Plot a ternary diagram, ternary data and ternary classifications.
+#'Plot a ternary diagram, ternary data and ternary 
+#'  classifications.
 #'
 #'
 #'@param s 
@@ -65,6 +66,16 @@
 #'  \code{\link[ternaryplot]{tpPar}} for suppressing the 
 #'  axis arrows or the axis arrows 'break' (straight arrows), 
 #'  respectively.
+#'
+#'@param classes 
+#'  Single logical value. If \code{TRUE}, the polygons of the 
+#'  classification system defined in \code{s} is drawn on 
+#'  the plot (with labels inside the polygons). Only relevant 
+#'  if \code{s} does have a classification system.
+#'
+#'@param grid 
+#'  Single logical value. If \code{TRUE}, a grid is drawn 
+#'  behind the ternary plot.
 #'
 #'@param frame.plot 
 #'  Single logical value. If \code{TRUE}, a frame is drawn 
@@ -141,6 +152,8 @@ ternaryPlot.ternarySystem <- function(
     main = NULL, 
     sub = NULL, 
     axes = TRUE, 
+    classes = TRUE, 
+    grid = TRUE, 
     frame.plot = TRUE,
     scale = FALSE, 
     ... 
@@ -166,7 +179,7 @@ ternaryPlot.ternarySystem <- function(
     }   
     
     #   Draw the ternary classes *background*, when relevant
-    if( nrow( s[[ "classes" ]] ) > 0 ){
+    if( classes & (nrow( s[[ "classes" ]] ) > 0) ){
         if( !all( is.na( oldTpPar[[ "class.bg" ]] ) ) ){
             ternaryPolygons.ternarySystem( 
                 s      = s, 
@@ -178,11 +191,13 @@ ternaryPlot.ternarySystem <- function(
     
     
     #   Add the grid
-    ternaryGrid.ternarySystem( s = s ) 
+    if( grid ){
+        ternaryGrid.ternarySystem( s = s ) 
+    }   
     
     
     #   Plot any ternary classification:
-    if( nrow( s[[ "classes" ]] ) > 0 ){
+    if( classes & (nrow( s[[ "classes" ]] ) > 0) ){
         # The background was already plot
         ternaryPolygons.ternarySystem( s = s, bg = NA ) 
     }   
@@ -206,9 +221,11 @@ ternaryPlot.ternarySystem <- function(
         ternaryAxis.ternarySystem( s = s ) 
     }   
     
+    
     if( frame.plot & (.par[[ "bty" ]] != "n") ){
         ternaryBox.ternarySystem( s = s ) 
     }   
+    
     
     #   Main and sub-titles
     if( is.null( main ) ){
