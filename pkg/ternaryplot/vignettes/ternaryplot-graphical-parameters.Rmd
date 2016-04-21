@@ -451,7 +451,10 @@ suppressed from the plot:
 par( .par )
 tpPar( reset = TRUE )
 
-ternaryPlot( s = "hypres", classes = FALSE )
+ternaryPlot( 
+    s       = "hypres", 
+    classes = FALSE, 
+    main    = "Ternary plot without its ternary classes" )
 ```
 
 
