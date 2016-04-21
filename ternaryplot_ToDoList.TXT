@@ -1,11 +1,4 @@
 
-ADD argument 'classes' to ternaryPlot()
-
-ADD argument 'grid' to ternaryPlot()
-
-ADD package argument 'class.label.cex' and 'class.label.font' 
-    in tpPar() and use them in ternaryPolygons.ternarySystem()
-
 ADD argument 'type' = 't' (text) to ternaryPlot()
 
 CREATE ternaryCounts ternarySystem add type = "c"

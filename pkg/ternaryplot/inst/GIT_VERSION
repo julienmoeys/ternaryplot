@@ -1,1 +1,1 @@
-00bf3f3 Revert "Revert "Now axis ticks' labels use the correct col and font""
+60a38c2 add 'classes' and 'grid' args to ternaryPlot()
