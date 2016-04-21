@@ -364,9 +364,9 @@ Graphical parameters for the plot region's box and grid    <a id="section-box-gr
 | Font family     | _n.r._                   | _n.r._                    | 
 | Line thickness  | `tpPar('axis.line.lwd')` | `tpPar('grid.line.lwd')`  | 
 
-> (1) See argument `frame.plot` in `ternaryPlot`. (2) The grid 
-> cannot be suppressed at the moment, but consider setting 
-> `tpPar('grid.line.col'=NA)` to make it invisible. If 
+> (1) Set the argument `frame.plot` to `FALSE` in `ternaryPlot` 
+> to suppress the box. (2) Set the argument `grid` to 
+> `FALSE` in `ternaryPlot` to suppress the grid. If 
 > `tpPar('grid.line.lwd')` is `NULL`, `par('lwd')` is used 
 > instead. _n.r._: not relevant. 
 
@@ -380,14 +380,14 @@ the grid can be suppressed from a ternary plot.
 par( .par )
 tpPar( reset = TRUE )
 
-tpPar( grid.line.col = NA, axis.line.lwd = 2, 
-    ticks.line.lwd = 2 )
+tpPar( axis.line.lwd = 2, ticks.line.lwd = 2 )
 
 #   Visualise the ternary plot
 s <- ternaryPlot( 
     s          = 'default', 
     x          = textureDataset[ 1:20, ], 
     frame.plot = FALSE, 
+    grid       = FALSE, 
     main       = 'Ternary plot without box-frame and grid', 
     sub        = 'package: ternaryplot' ) 
 ```
@@ -425,24 +425,39 @@ Graphical parameters for class polygons and labels    <a id="section-classes"></
 
 > **Graphical parameters for ternary classification (polygons)**:    <a id="table-classes"></a>
 
-| **.**           | **Class polygons**          | **Class labels**           | 
-|:----------------|----------------------------:|---------------------------:| 
-| Draw (Y/N):     | (1)                         | (1)                        | 
-| Outline colour: | `tpPar('class.border.col')` | `tpPar('class.label.col')` | 
-| Fill colour     | `tpPar('class.bg')`         | _n.r._                     | 
-| Expansion       | _n.r._                      | `par('cex')`               | 
-| Font            | _n.r._                      | `par('font')`              | 
-| Font family     | _n.r._                      | `par('family')`            | 
-| Line thickness  | `tpPar('class.border.lwd')` | _n.r._                     | 
+| **.**           | **Class polygons**          | **Class labels**            | 
+|:----------------|----------------------------:|----------------------------:| 
+| Draw (Y/N):     | (1)                         | (2)                         | 
+| Outline colour: | `tpPar('class.border.col')` | `tpPar('class.label.col')`  | 
+| Fill colour     | `tpPar('class.bg')`         | _n.r._                      | 
+| Expansion       | _n.r._                      | `tpPar('class.label.cex')`  | 
+| Font            | _n.r._                      | `tpPar('class.label.font')` | 
+| Font family     | _n.r._                      | `par('family')`             | 
+| Line thickness  | `tpPar('class.border.lwd')` | _n.r._                      | 
 
-> (1) Cannot be suppressed at the moment, but consider using 
-> an emptty ternary classification instead. If 
+> (1) Set the argument `classes` to `FALSE` in 
+> `ternaryPlot`. (2) Set the parameter `class.label.col` to 
+> `"transparent"` (colourless labels). If 
 > `tpPar('class.border.lwd')` is `NULL`, `par('lwd')` is used 
 > instead. _n.r._: not relevant. 
 
 
 
-The example below show how to modify these parameters:
+First an example showing how the ternary classes can be 
+suppressed from the plot:
+
+```{r}
+#   Reset graphical parameters
+par( .par )
+tpPar( reset = TRUE )
+
+ternaryPlot( s = "hypres", classes = FALSE )
+```
+
+
+
+The example below show how to modify the graphical parameters 
+of the ternary classes:
 
 ```{r}
 #   Reset graphical parameters
@@ -451,11 +466,12 @@ tpPar( reset = TRUE )
 
 tpPar( class.border.col = 'orangered4', 
     class.border.lwd = 2, class.label.col = 'orangered2', 
-    class.bg = terrain.colors( n = 5 ) ) 
+    class.bg = terrain.colors( n = 5 ), 
+    class.label.cex = 1.5, class.label.font = 3 ) 
 
-    #   Note: there must be as many colors in 'class.bg'
+    #   Note: there must be as many colours in 'class.bg'
     #         as classes in the ternary classification 
-    #         displayed! Extra colors are ignored.
+    #         displayed! Extra colours are ignored.
 
 par( font = 2, family = 'serif' ) 
 
