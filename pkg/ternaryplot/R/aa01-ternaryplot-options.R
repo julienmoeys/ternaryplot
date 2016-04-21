@@ -145,6 +145,8 @@ tpParList  <- new.env()
 .tpParList[[ "class.border.col" ]] <- gray( 0.2 ) 
 .tpParList[[ "class.bg" ]]         <- NA 
 .tpParList[[ "class.border.lwd" ]] <- NULL 
+.tpParList[[ "class.label.cex" ]]  <- NULL 
+.tpParList[[ "class.label.font" ]] <- NULL 
 
 
 
@@ -377,6 +379,18 @@ tpParList  <- new.env()
 #'@param class.border.lwd
 #'  Vector of numerical values. Line width of ternary class 
 #'  polygons (when displayed on a ternary plot)
+#'
+#'@param class.label.cex 
+#'  Single numerical value. Expansion factor of the labels 
+#'  of the ternary classification (polygons) drawn on the 
+#'  ternary plot.
+#'
+#'@param class.label.font 
+#'  Single integer. Font of the labels of the ternary 
+#'  classification (polygons) drawn on the ternary plot. 
+#'  \emph{"1 corresponds to plain text (the default), 2 to 
+#'  bold face, 3 to italic and 4 to bold italic"} (see 
+#'  \code{?par}).
 #'
 #'
 #'@return 
