@@ -443,7 +443,9 @@ tpPar <- function(
     class.label.col, 
     class.border.col, 
     class.bg, 
-    class.border.lwd 
+    class.border.lwd, 
+    class.label.cex, 
+    class.label.font
 ){  
     parList <- names( formals(tpPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset" )) ] 
