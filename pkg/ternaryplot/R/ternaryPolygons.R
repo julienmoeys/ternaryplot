@@ -244,9 +244,9 @@ ternaryPolygons.ternaryPolygons <- function(
         }   
         
         if( !is.null( font ) ){
-            if( (length( font ) == 1) & (length( nxy ) > 1) ){
-                font <- rep( font, times = length( nxy ) )
-            }   
+            # if( (length( font ) == 1) & (length( nxy ) > 1) ){
+                # font <- rep( font, times = length( nxy ) )
+            # }   
         }else{
             font <- rep( .par[[ "font" ]], times = length( nxy ) )
         }   
