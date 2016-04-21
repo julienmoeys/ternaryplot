@@ -193,6 +193,8 @@ ternaryPolygons.ternaryPolygons <- function(
             # }   
         # }   
         
+        .par <- par( no.readonly = TRUE )
+        
         #   Recycle all the parameters for the number of 
         #   polygons
         if( !is.null( density ) ){
@@ -230,7 +232,23 @@ ternaryPolygons.ternaryPolygons <- function(
                 lwd <- rep( lwd, times = length( nxy ) )
             }   
         }else{
-            lwd <- rep( par( "lwd" ), times = length( nxy ) )
+            lwd <- rep( .par[[ "lwd" ]], times = length( nxy ) )
+        }   
+        
+        if( !is.null( cex ) ){
+            if( (length( cex ) == 1) & (length( nxy ) > 1) ){
+                cex <- rep( cex, times = length( nxy ) )
+            }   
+        }else{
+            cex <- rep( .par[[ "cex" ]], times = length( nxy ) )
+        }   
+        
+        if( !is.null( font ) ){
+            if( (length( font ) == 1) & (length( nxy ) > 1) ){
+                font <- rep( font, times = length( nxy ) )
+            }   
+        }else{
+            font <- rep( .par[[ "font" ]], times = length( nxy ) )
         }   
         
         silent <- lapply( 
@@ -245,6 +263,8 @@ ternaryPolygons.ternaryPolygons <- function(
                     col     = bg[ i ], 
                     lty     = lty[ i ], 
                     lwd     = lwd[ i ], 
+                    cex     = cex, 
+                    font    = font, 
                     ...
                 )   
             }   
@@ -291,6 +311,8 @@ ternaryPolygons.ternarySystem <- function(
     col     = NULL, 
     bg      = NULL, 
     lwd     = NULL, 
+    cex     = NULL, 
+    font    = NULL, 
     ... 
 ){  
     if( nrow( s[[ "classes" ]] ) > 0 ){
@@ -318,9 +340,25 @@ ternaryPolygons.ternarySystem <- function(
             }   
         }   
         
+        if( is.null( cex ) ){
+            cex <- .tpPar[[ "class.label.cex" ]] 
+            
+            if( is.null( cex ) ){
+                cex <- par( "cex.lab" ) 
+            }   
+        }   
+        
+        if( is.null( font ) ){
+            font <- .tpPar[[ "class.label.font" ]] 
+            
+            if( is.null( font ) ){
+                font <- par( "font.lab" ) 
+            }   
+        }   
+        
         out <- ternaryPolygons.ternaryPolygons( s = tc, 
             bg = bg, col = col, border = border, lwd = lwd, 
-            ... ) 
+            cex = cex, font = font, ... ) 
     }else{
         out <- NULL 
     }   
