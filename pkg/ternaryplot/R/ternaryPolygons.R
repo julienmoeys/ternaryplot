@@ -319,6 +319,7 @@ ternaryPolygons.ternarySystem <- function(
         tc <- ternaryClasses( s = s ) 
         
         .tpPar <- tpPar() 
+        .par <- par( no.readonly = TRUE )
         
         if( is.null( border ) ){
             border <- .tpPar[[ "class.border.col" ]] 
@@ -326,6 +327,10 @@ ternaryPolygons.ternarySystem <- function(
         
         if( is.null( col ) ){
             col <- .tpPar[[ "class.label.col" ]] 
+            
+            if( is.null( col ) ){
+                col <- .par[[ "col.lab" ]] 
+            }   
         }   
         
         if( is.null( bg ) ){
@@ -336,7 +341,7 @@ ternaryPolygons.ternarySystem <- function(
             lwd <- .tpPar[[ "class.border.lwd" ]] 
             
             if( is.null( lwd ) ){
-                lwd <- par( "lwd" ) 
+                lwd <- .par[[ "lwd" ]] 
             }   
         }   
         
@@ -344,7 +349,7 @@ ternaryPolygons.ternarySystem <- function(
             cex <- .tpPar[[ "class.label.cex" ]] 
             
             if( is.null( cex ) ){
-                cex <- par( "cex.lab" ) 
+                cex <- .par[[ "cex.lab" ]] 
             }   
         }   
         
@@ -352,7 +357,7 @@ ternaryPolygons.ternarySystem <- function(
             font <- .tpPar[[ "class.label.font" ]] 
             
             if( is.null( font ) ){
-                font <- par( "font.lab" ) 
+                font <- .par[[ "font.lab" ]]
             }   
         }   
         
