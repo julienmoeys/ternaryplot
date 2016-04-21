@@ -9,7 +9,8 @@ tpPar(par = NULL, reset = FALSE, terSysEnvList, testRange, testSum,
   ticksShift, ticksLabelsShift, ticks.line.lwd, ticks.line.col, arrows,
   arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
   axis.line.lwd, axis.line.col, grid.line.col, grid.line.lwd, class.label.col,
-  class.border.col, class.bg, class.border.lwd)
+  class.border.col, class.bg, class.border.lwd, class.label.cex,
+  class.label.font)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -161,6 +162,16 @@ displayed on a ternary plot)}
 
 \item{class.border.lwd}{Vector of numerical values. Line width of ternary class 
 polygons (when displayed on a ternary plot)}
+
+\item{class.label.cex}{Single numerical value. Expansion factor of the labels 
+of the ternary classification (polygons) drawn on the 
+ternary plot.}
+
+\item{class.label.font}{Single integer. Font of the labels of the ternary 
+classification (polygons) drawn on the ternary plot. 
+\emph{"1 corresponds to plain text (the default), 2 to 
+bold face, 3 to italic and 4 to bold italic"} (see 
+\code{?par}).}
 }
 \value{
 Returns a partial or complete list of (actual) parameter 

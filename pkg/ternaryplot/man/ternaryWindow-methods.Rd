@@ -29,6 +29,10 @@ Contains the min and max limits of each of the 3 variables
 \item{\dots}{Additional parameters passed to specific methods.}
 }
 \description{
-Set up World Coordinates for a ternary plot (invisible base plot)
+Set up World Coordinates for a ternary plot (invisible base plot).
+}
+\details{
+Notice that \code{ternaryWindow} sets \code{par(pty='s')} 
+ (i.e. for a square plot-region).
 }
 

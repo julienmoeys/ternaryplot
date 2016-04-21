@@ -14,7 +14,7 @@ ternaryPolygons(s, ...)
   cex = 1, col = NULL, font = NULL, ...)
 
 \method{ternaryPolygons}{ternarySystem}(s, border = NULL, col = NULL,
-  bg = NULL, lwd = NULL, ...)
+  bg = NULL, lwd = NULL, cex = NULL, font = NULL, ...)
 }
 \arguments{
 \item{s}{Either a \code{\link[ternaryplot]{ternaryPolygons}}-object, 
