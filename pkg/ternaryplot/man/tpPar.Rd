@@ -10,7 +10,7 @@ tpPar(par = NULL, reset = FALSE, terSysEnvList, testRange, testSum,
   arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
   axis.line.lwd, axis.line.col, grid.line.col, grid.line.lwd, class.label.col,
   class.border.col, class.bg, class.border.lwd, class.label.cex,
-  class.label.font)
+  class.label.font, bin.bg.fun, bin.border.col)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -172,6 +172,18 @@ classification (polygons) drawn on the ternary plot.
 \emph{"1 corresponds to plain text (the default), 2 to 
 bold face, 3 to italic and 4 to bold italic"} (see 
 \code{?par}).}
+
+\item{bin.bg.fun}{A \code{\link[base]{function}} to be used to generate 
+a colour palette for the colour legend of 
+\code{\link[ternaryplot]{ternaryBin}}. Should have 
+one argument named \code{n} (the number of colours).
+Notice that internally the 1st colour corresponds to 
+the bin with the highest count and the last colour 
+corresponds to the bin with the lowest count.}
+
+\item{bin.border.col}{Single character string representing colours (see for 
+example \code{\link[grDevices]{colours}}). Colour of the 
+border (line) of the bins (cell-polygons).}
 }
 \value{
 Returns a partial or complete list of (actual) parameter 

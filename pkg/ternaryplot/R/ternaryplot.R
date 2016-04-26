@@ -33,11 +33,18 @@
 #'  ternary classification is drawn.
 #'
 #'@param type 
-#'  Single character string. Type of plot desired. The 
-#'  following values are possible: \code{"p"} for points 
-#'  and \code{"n"} for nothing (just a base ternary plot, 
-#'  without data overlay). See also 
-#'  \code{\link[ternaryplot]{ternaryPoints}}.
+#'  Vector of character string. Type of plot desired. The 
+#'  following values are possible: \code{"p"} for points, 
+#'  \code{"c"} for bins (counts), \code{"l"} for lines (not 
+#'  implemented yet) and \code{"n"} (or any non-standard value) 
+#'  for nothing (just a base ternary plot, without the data 
+#'  overlay). Notice that bins are plotted \emph{after} 
+#'  the classes background, but before the grid and the 
+#'  points.
+#'  
+#'  See also \code{\link[ternaryplot]{ternaryPoints}} (if 
+#'  \code{type="p"}) or \code{\link[ternaryplot]{ternaryBins}} 
+#'  (if \code{type="c"}).
 #'
 #'@param main 
 #'  Single character string, or \code{\link[base]{expression}}. 
@@ -96,7 +103,8 @@
 #'
 #'@param \dots
 #'  Additional parameters passed to 
-#'  \code{\link[ternaryplot]{ternaryPoints}}
+#'  \code{\link[ternaryplot]{ternaryPoints}} (if \code{type="p"}) or 
+#'  \code{\link[ternaryplot]{ternaryBins}} (if \code{type="c"}).
 #'
 #'
 #'@example inst/examples/ternaryPlot-example.R
@@ -190,6 +198,19 @@ ternaryPlot.ternarySystem <- function(
     }   
     
     
+    #   Plot any ternary points in x
+    if( is.null( x ) ){ x <- data.frame() } 
+    
+    if( (nrow( x ) > 0) & ("c" %in% type) ){ 
+        ternaryBins.ternarySystem( s = s, x = x, ... )
+        
+        #   If the triangle is undetermined, attribute to 
+        #   the bottom-left-right variables the names of the 
+        #   first 3 variables in x
+        # s <- .fixTernarySystem( s = s, x = x ) 
+    }   
+    
+    
     #   Add the grid
     if( grid ){
         ternaryGrid.ternarySystem( s = s ) 
@@ -204,9 +225,7 @@ ternaryPlot.ternarySystem <- function(
     
     
     #   Plot any ternary points in x
-    if( is.null( x ) ){ x <- data.frame() } 
-    
-    if( (nrow( x ) > 0) & (type == "p") ){ 
+    if( (nrow( x ) > 0) & ("p" %in% type) ){ 
         ternaryPoints.ternarySystem( s = s, x = x, ... )
         
         #   If the triangle is undetermined, attribute to 

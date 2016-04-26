@@ -2,7 +2,7 @@
 library( "ternaryplot" ) 
 
 # Simple example, with point overlay
-# ==================================
+# ==========================================================
 
 #   Save graphical parameters (to reset them later)
 op <- par( no.readonly = TRUE ) 
@@ -22,7 +22,7 @@ ternaryPlot(
 
 
 # Same example, with a ternary classification
-# ===========================================
+# ==========================================================
 
 #   Simple ternary plot with point overlay
 ternaryPlot( 
@@ -36,9 +36,20 @@ ternaryPlot(
 
 
 
+# Same example, with "bins" (or counts) of ternary data
+# ==========================================================
+
+#   Simple ternary plot with point overlay
+ternaryPlot( 
+    s    = "hypres", 
+    x    = textureDataset, 
+    type = c( "p", "c" ) ) 
+
+
+
 # Same example, with a ternary classification
 # and custom column names for the texture classes
-# ===========================================
+# ==========================================================
 
 #   Copy the dataset
 textureDataset2 <- textureDataset[, c( "CLAY", "SILT", 
@@ -67,10 +78,10 @@ ternaryPlot(
 
 
 # Vary the plot geometry
-# ======================
+# ==========================================================
 
 # Prepare the plot layout
-# -----------------------
+# ----------------------------------------------------------
 
 #   Reset plot parameters
 par( op )
@@ -85,13 +96,13 @@ ternaryStyle()
 
 
 # Default ternary plot
-# --------------------
+# ----------------------------------------------------------
 
 s <- ternaryPlot() 
 
 
 # Change axis orientation (clockwise vs counter-clockwise)
-# --------------------------------------------------------
+# ----------------------------------------------------------
 
 #   Set new orientation
 blrClock( s ) <- rep( FALSE, 3 ) 
@@ -101,7 +112,7 @@ ternaryPlot(s)
 
 
 # Change axis orientation and frame angles
-# ----------------------------------------
+# ----------------------------------------------------------
 
 #   Set new orientation and angles
 blrClock( s )  <- c( FALSE, TRUE, NA ) 
@@ -112,7 +123,7 @@ ternaryPlot(s)
 
 
 # Same, other direction
-# ---------------------
+# ----------------------------------------------------------
 
 blrClock( s ) <- c( TRUE, NA, FALSE ) 
 tlrAngles( s ) <- c(45,45,90) 

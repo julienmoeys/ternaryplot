@@ -1,6 +1,14 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.8.0
+    
+    2016/04/26  Added ternaryCount() and ternaryBins() 
+        and integrated the later in ternaryPlot() (when 
+        type = "c"). ternaryBins() calculates and plot 
+        ternary "bins" (based on ternary triangular grid 
+        cells).
+    
 CHANGES IN VERSION 0.7.0
     
     2016/04/08  Add a first vignette to the package (work 
