@@ -404,7 +404,7 @@ tpParList  <- new.env()
 #'@param bin.bg.fun 
 #'  A \code{\link[base]{function}} to be used to generate 
 #'  a colour palette for the colour legend of 
-#'  \code{\link[ternaryplot]{ternaryBin}}. Should have 
+#'  \code{\link[ternaryplot]{ternaryBins}}. Should have 
 #'  one argument named \code{n} (the number of colours).
 #'  Notice that internally the 1st colour corresponds to 
 #'  the bin with the highest count and the last colour 

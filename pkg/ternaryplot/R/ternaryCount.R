@@ -18,13 +18,13 @@
 #'  (if \code{s} is a 
 #'  \code{\link[ternaryplot]{ternaryPolygons-class}} object). 
 #'  This function is used as a basis for the plot function 
-#'  \code{\link[ternaryplot]{ternaryBin}} (binning and plotting 
+#'  \code{\link[ternaryplot]{ternaryBins}} (binning and plotting 
 #'  bins of ternary data)
 #'
 #'
 #'@seealso \code{\link[ternaryplot]{createTernaryGrid}} for 
 #'  generating a systematic triangular grid and 
-#'  \code{\link[ternaryplot]{ternaryBin}} for binning and 
+#'  \code{\link[ternaryplot]{ternaryBins}} for binning and 
 #'  plotting bins of ternary data
 #'
 #'
