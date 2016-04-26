@@ -1,9 +1,6 @@
 
 ADD argument 'type' = 't' (text) to ternaryPlot()
 
-CREATE ternaryCounts ternarySystem add type = "c"
-    to ternaryPlot().
-
 CREATE ternaryLines ternarySystem and add type = "l"
     to ternaryPlot().
 
