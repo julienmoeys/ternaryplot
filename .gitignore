@@ -31,3 +31,4 @@ ternaryplot_linux_install.R
 /pkg/binaryArchive/*.gz
 /pkg/binaryArchive/*.pdf
 /pkg/ternaryplot/inst/doc/*.html
+/pkg/binaryArchive
