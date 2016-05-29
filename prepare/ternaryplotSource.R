@@ -68,3 +68,6 @@ for( f in sourceFiles ){
 for( f in allRFiles ){
     source( file = file.path( pkgDir, pkgName, "R", f ) )
 }   
+
+.setPackageArguments( pkgname = "ternaryplot" ) 
+#   Otherwise set by .onAttach()
