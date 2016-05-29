@@ -20,7 +20,7 @@
 #'  Either \itemize{
 #'    \item A \code{\link[ternaryplot]{ternarySystem-class}} object. 
 #'    \item A character string naming an existing (pre-defined) 
-#'      \code{ternarySystem}.
+#'      \code{\link[ternaryplot]{ternarySystem-class}}.
 #'  }  
 #' 
 #'@param n
