@@ -16,7 +16,7 @@ createTernaryGrid(s, ...)
 \item{s}{Either \itemize{
   \item A \code{\link[ternaryplot]{ternarySystem-class}} object. 
   \item A character string naming an existing (pre-defined) 
-    \code{ternarySystem}.
+    \code{\link[ternaryplot]{ternarySystem-class}}.
 }}
 
 \item{n}{Single integer value. Number of subdivisions of each 

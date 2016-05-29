@@ -37,7 +37,7 @@ bottom-left-right axis.}
 }
 \description{
 Set or get the bottom-left-right axis labels of a 
- \code{ternarySystem} object.
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 \examples{
 #   See ?ternaryPlot for an example

@@ -16,9 +16,9 @@ blrNames(s, ...)
 
 \method{blrNames}{ternaryVariables}(s, ...)
 
-blrNames(s, ... ) <- value
+blrNames(s, reorder, ... ) <- value
 
-\method{blrNames}{ternarySystem}(s, ...) <- value
+\method{blrNames}{ternarySystem}(s, reorder, ...) <- value
 
 \method{blrNames}{ternaryVariables}(s, ...) <- value
 }
@@ -30,6 +30,18 @@ blrNames(s, ... ) <- value
     object.
 }}
 
+\item{reorder}{Single logical value. Only when setting new names. If 
+\code{FALSE} (the default), the name of the ternary 
+variables in the definition of the ternary classes is 
+also changed (if present). If \code{TRUE}, the name of the 
+ternary variables in the definition of the ternary classes 
+is preserved (if present). So use \code{FALSE} to rename 
+the variables but keep them on the same axis and use 
+\code{TRUE} to reorder them (i.e. the 
+same names but in a different order, on different axis). 
+The latter implies that the \code{blrNames(s)} and 
+\code{value} are the same but in a different order.}
+
 \item{value}{A vector of 3 character strings. Names of the 
 bottom-left-right axis.}
 
@@ -38,7 +50,18 @@ bottom-left-right axis.}
 }
 \description{
 Set or get the bottom-left-right axis names of a 
- \code{ternarySystem} object.
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
+}
+\details{
+When setting the names, the function can be used to rename 
+ the axis-variables, i.e. the same variables but a different 
+ name, or to reorder them, i.e. the same variables and 
+ the same names but in a different order (see \code{reorder} 
+ below).
+ 
+ When setting the names and \code{reorder} is \code{TRUE}, 
+ the value of \code{blrLabels} is also reordered, so that 
+ the two parameters are still coherent.
 }
 \examples{
 #   See ?ternaryPlot for an example

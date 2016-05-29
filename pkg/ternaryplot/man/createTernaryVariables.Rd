@@ -19,8 +19,8 @@ createTernaryVariables(blrNames = c("_bottom_", "_left_", "_right_"),
 A \code{\link[ternaryplot]{ternaryVariables-class}}.
 }
 \description{
-Creates a ternaryVariables-class object (names and labels 
- of ternary data and ternary plot)
+Creates a \code{\link[ternaryplot]{ternaryVariables-class}} 
+ object (names and labels of ternary data and ternary plot)
 }
 \examples{
 

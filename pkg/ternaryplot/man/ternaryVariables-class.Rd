@@ -27,11 +27,12 @@ The \code{S3} \code{\link[base]{class}} system is an
    \bold{b}ottom, \bold{l}eft, and \bold{r}ight axis of a 
    ternary plot. If \code{blrNames} is set to 
    \code{c( "_bottom_","_left_","_right_" )}, 
-   \code{ternarySystem}s based on the set of 
-   \code{ternaryVariables} will be \emph{undefined}, meaning 
-   that any variable name goes. In the case of ternary 
-   data points, it means that the first three columns 
-   will be used independently of how they are called.
+   \code{\link[ternaryplot]{ternarySystem-class}}es based 
+   on the set of \code{ternaryVariables} will be 
+   \emph{undefined}, meaning that any variable name goes. 
+   In the case of ternary data points, it means that the 
+   first three columns will be used independently of how 
+   they are called.
  \item \bold{\code{blrLabels}}: Vector of 3 character 
    strings or vector of 3 expressions.\bold{b}ottom, 
    \bold{l}eft, and \bold{r}ight axis' labels of a ternary 

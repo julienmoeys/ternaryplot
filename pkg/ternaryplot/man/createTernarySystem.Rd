@@ -34,8 +34,9 @@ createTernarySystem(ternaryGeometry = NULL, ternaryVariables = NULL,
 A \code{\link[ternaryplot]{ternarySystem-class}}.
 }
 \description{
-Creates a ternarySystem-class object (the full definition 
- of ternary plot and optionally classification).
+Creates a \code{\link[ternaryplot]{ternarySystem-class}} 
+ object (the full definition of ternary plot and optionally 
+ classification).
 }
 \examples{
 

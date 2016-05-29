@@ -26,15 +26,14 @@ parameters can also be set individually, using the options listed below. }}
 default value. Values are reset before any change to the parameter values, as
 listed below.}
 
-\item{terSysEnvList}{Vector of (tagged) character strings. The character strings indicate the 
-name of environments containing lists of 
-\code{\link[ternaryplot]{ternarySystem-class}} objects, and their tags 
-indicate in which package these environments are found. So entry should 
-follow the pattern \code{c(packageName = 'envName', ...)}, where 
-\emph{packageName} is the name of the package and \emph{envName} the name of 
-an environment containing \code{ternarySystem-class} objects. The mechanism 
-is intended to allow other packages to attach lists new of 
-\code{ternarySystem-class} objects to extend the package \code{ternaryplot}.}
+\item{terSysEnvList}{List of functions. The list can be tagged but does not 
+has to. When called, each function return a 
+\code{\link[base]{list}} of 
+\code{\link[ternaryplot]{ternarySystem-class}} objects.
+The mechanism is intended to allow other packages to 
+add new function(s) that return lists with additional 
+\code{\link[ternaryplot]{ternarySystem-class}} object, 
+to extend the package \code{ternaryplot}.}
 
 \item{testRange}{Single logical. Test if the range of fraction is between 0 and 
 the expected sum of fractions (1 or 100).}

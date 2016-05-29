@@ -12,7 +12,7 @@ ternarySegments(s, from, to, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object, or a 
-character string naming a pre-defined \code{ternarySystem}. 
+character string naming a pre-defined \code{\link[ternaryplot]{ternarySystem-class}}. 
 If missing, set to \code{default}.}
 
 \item{from}{A \code{\link[base]{data.frame}} or a 

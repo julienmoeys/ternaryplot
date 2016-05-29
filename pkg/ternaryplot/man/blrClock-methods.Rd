@@ -38,7 +38,7 @@ a ternarySystem object.}
 }
 \description{
 Set or get the bottom-left-right orientation of a 
- \code{ternarySystem} object.
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 \examples{
 #   See ?ternaryPlot for an example

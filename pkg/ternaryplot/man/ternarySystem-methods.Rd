@@ -25,10 +25,11 @@ replaced by the one in \code{value}.}
 \item{\dots}{Not used}
 }
 \value{
-The \code{ternarySystem} extracted from \code{s} or, 
+The \code{\link[ternaryplot]{ternarySystem-class}} 
+ extracted from \code{s} or, 
  when using the \code{`<-`} method, a 
  \code{\link[ternaryplot]{ternaryPolygons-class}} object 
- with an updated \code{ternarySystem}.
+ with an updated \code{\link[ternaryplot]{ternarySystem-class}}.
 }
 \description{
 Fetch or set the ternary system definition from another object

@@ -17,7 +17,7 @@ ternaryText(s, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object, or a 
-character string naming a pre-defined \code{ternarySystem}. 
+character string naming a pre-defined \code{\link[ternaryplot]{ternarySystem-class}}. 
 If missing, set to \code{default}.}
 
 \item{x}{A \code{\link[base]{data.frame}} or a 
@@ -42,7 +42,7 @@ on the triangle plot. See \code{\link[graphics]{text}}.}
 \item{font}{See \code{\link[graphics]{text}}.}
 
 \item{what}{Single character string. When \code{x} is a missing 
-and \code{s} is a \code{ternarySystem}, what points 
+and \code{s} is a \code{\link[ternaryplot]{ternarySystem-class}}, what points 
 should be extracted: the class vertices 
 (\code{what = 'vertices'}, the default) 
 or the class centroids 

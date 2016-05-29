@@ -11,7 +11,7 @@ getTernarySystem(s = "default")
 be fetched.}
 }
 \value{
-A \code{ternarySystem} object.
+A \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 \description{
 Fetch a pre-defined ternary classification system

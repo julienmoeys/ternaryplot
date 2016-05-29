@@ -7,8 +7,8 @@
 \method{print}{ternarySystem}(x, prefix = "", collapse = "; ", ...)
 }
 \arguments{
-\item{x}{A \code{ternarySystem} object, as created with 
-\code{\link[ternaryplot]{createTernarySystem}}.}
+\item{x}{A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+as created with \code{\link[ternaryplot]{createTernarySystem}}.}
 
 \item{prefix}{Single character string. Prefix used before the different 
 items in \code{x} (intended for internal use, for example 
@@ -22,7 +22,8 @@ items' values.}
 used).}
 }
 \description{
-Print the content of a \code{ternarySystem} object 
+Print the content of a 
+ \code{\link[ternaryplot]{ternarySystem-class}} object 
  (S3-class) in a human readable format.
 }
 

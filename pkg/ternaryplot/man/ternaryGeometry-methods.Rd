@@ -13,7 +13,8 @@ ternaryGeometry(s, ...)
 \method{ternaryGeometry}{ternarySystem}( s, ... ) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with 
+\item{s}{A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+as created with 
 \code{\link[ternaryplot]{createTernarySystem}}.}
 
 \item{value}{A \code{ternaryGeometry} object, as created with 
@@ -22,6 +23,7 @@ ternaryGeometry(s, ...)
 \item{\dots}{Additional parameters passed to specific methods.}
 }
 \description{
-Set or get the ternaryGeometry of a \code{ternarySystem} object.
+Set or get the ternaryGeometry of a 
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 

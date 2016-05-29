@@ -14,7 +14,8 @@ ternary2xy(s, ...)
 }
 \arguments{
 \item{s}{A \code{\link[ternaryplot]{ternarySystem}} object or a 
-character string naming an pre-defined \code{ternarySystem}.}
+character string naming an pre-defined 
+\code{\link[ternaryplot]{ternarySystem-class}}.}
 
 \item{x}{A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
 with ternary point-data.}
@@ -28,6 +29,6 @@ Returns a \code{\link[base]{data.frame}} with point-data in
 \description{
 Converts ternary point-data (bottom, left, right axis) into 
  x-y coordinates, according to the specification of a 
- \code{ternarySystem}
+ \code{\link[ternaryplot]{ternarySystem-class}}
 }
 

@@ -16,8 +16,8 @@ ternaryVariables( s, ... ) <- value
 \method{ternaryVariables}{ternarySystem}( s, ... ) <- value
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with 
-\code{\link[ternaryplot]{createTernarySystem}}.}
+\item{s}{A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+as created with \code{\link[ternaryplot]{createTernarySystem}}.}
 
 \item{value}{A \code{ternaryVariables} object, as created with 
 \code{\link[ternaryplot]{createTernaryVariables}}.}
@@ -25,6 +25,7 @@ ternaryVariables( s, ... ) <- value
 \item{\dots}{Additional parameters passed to specific methods.}
 }
 \description{
-Set or get the ternaryVariables of a \code{ternarySystem} object.
+Set or get the ternaryVariables of a 
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 

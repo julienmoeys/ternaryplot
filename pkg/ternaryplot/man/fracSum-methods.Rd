@@ -37,6 +37,6 @@ ternarySystem.}
 }
 \description{
 Set or get the sum of the three fractions of a 
- \code{ternarySystem} object.
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 

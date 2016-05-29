@@ -14,9 +14,9 @@ ternaryAxis(s, ...)
   arrow = TRUE, ...)
 }
 \arguments{
-\item{s}{A \code{ternarySystem} object, as created with 
-\code{\link[ternaryplot]{createTernarySystem}}, or a single 
-\code{character} string. Can be missing.}
+\item{s}{A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+as created with \code{\link[ternaryplot]{createTernarySystem}}, 
+or a single \code{character} string. Can be missing.}
 
 \item{side}{A vector of integer specifying which side of the plot the axis is to
 be drawn on.  The axis is placed as follows: 1=below, 2=left, 3=right (note 

@@ -1,6 +1,28 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.9.0
+    
+    2016/05/29  Altered again the mechanism behind 
+        getTernarySystem(). Now ternarySystem are retrieved 
+        through a list of functions listed in argument 
+        "terSysEnvList" of tpPar() or getTpPar(), in 
+        a sequential manner. This mechanism will hopefully 
+        be more flexible and robust than trying to retrieve 
+        objects in different (package) namespaces or 
+        environments.
+        
+        The function getAllTernarySystems() was created 
+        for this purpose.
+    
+CHANGES IN VERSION 0.8.1
+    
+    2016/04/26  Fixed an important bug in blrNames().
+        The function can be used to rename variables (on the 
+        same axis) or to reorder them. The later case was 
+        not accounted for. Now fixed with a new argument 
+        'reorder'.
+    
 CHANGES IN VERSION 0.8.0
     
     2016/04/26  Added ternaryCount() and ternaryBins() 
