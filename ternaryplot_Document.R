@@ -9,8 +9,8 @@ if( tolower( Sys.info()[[ "sysname" ]] ) == "linux" ){
         Sys.info()[[ "user" ]], pkgName )
 }else{
     pkgDir <- sprintf( 
-        "C:/Users/%s/Dropbox/_WORK/_PROJECTS/r_packages/%s/pkg", 
-        Sys.info()[[ "user" ]], pkgName )
+        "%s/_WORK/_PROJECTS/r_packages/%s/pkg", 
+        Sys.getenv(x = "dropboxPath" ), pkgName )
 }   
 
 library( "roxygen2" )
@@ -24,7 +24,7 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.8.0", 
+    pkgVersion  = "0.9.0", 
     pkgDepends  = NULL, # "MASS"
     pkgSuggests = "knitr", 
     pkgImports  = "sp", 
