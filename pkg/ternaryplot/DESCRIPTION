@@ -1,6 +1,6 @@
 Package: ternaryplot
-Version: 0.8.0
-Date: 2016-04-26
+Version: 0.9.0
+Date: 2016-05-29
 Title: Infrastructure for ternary plots and ternary classifications (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>
 Maintainer: Julien MOEYS <Julien.Moeys@slu.se>
@@ -11,10 +11,11 @@ Description: Infrastructure for ternary plots and ternary classifications (with
     'graphics' parameters. Also, function names and functions arguments are as much
     as possible similar to those in 'graphics'. Designed primarily to support the
     development of soil texture plots (soil texture diagrams), but should be valid
-    for other ternary plots as well (provided they are based on a single triangle
-    with a horizontal base).
+    for other ternary plots as well, provided they are based on a single triangle
+    with a horizontal base.
 License: AGPL-3
-URL: http://www.slu.se/ckb
+URL: https://github.com/julienmoeys/ternaryplot
+BugReports: https://github.com/julienmoeys/ternaryplot/issues
 Depends: 
     R (>= 3.2.0)
 Imports: 
