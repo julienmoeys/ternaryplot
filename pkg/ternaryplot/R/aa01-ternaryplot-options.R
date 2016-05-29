@@ -490,9 +490,8 @@ tpPar <- function(
     ## (1) Reset the parameter values:
     if( reset ){ 
         v  <- as.list( .tpParList ) 
+        v  <- v[ !(names( v ) %in% doNotReset) ]
         nv <- names( v ) 
-        
-        nv <- nv[ !(nv %in% doNotReset) ]
         
         lapply( 
             X   = 1:length(v), 
