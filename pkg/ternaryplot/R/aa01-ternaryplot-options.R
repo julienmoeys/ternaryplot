@@ -201,9 +201,10 @@ tpParList  <- new.env()
 #'  parameters can also be set individually, using the options listed below. }
 #'
 #'@param reset 
-#'  Single logical. If TRUE, all the parameters will be set to their
-#'  default value. Values are reset before any change to the parameter values, as
-#'  listed below.
+#'  Single logical. If TRUE, all the parameters will be set 
+#'  to their default value, except for parameters listed in 
+#'  \code{doNotReset}. Values are reset before any change to 
+#'  the parameter values, as listed below.
 #'
 #'@param terSysEnvList 
 #'  List of functions. The list can be tagged but does not 
@@ -214,6 +215,14 @@ tpParList  <- new.env()
 #'  add new function(s) that return lists with additional 
 #'  \code{\link[ternaryplot]{ternarySystem-class}} object, 
 #'  to extend the package \code{ternaryplot}.
+#'
+#'@param doNotReset
+#'  Vector of character strings. Name(s) of the package 
+#'  argument that should not be reset when \code{reset} is 
+#'  \code{TRUE}. Default is \code{doNotReset = "terSysEnvList"}.
+#'  Set to \code{""} or \code{NA} or even \code{NULL} to force 
+#'  absolutely all parameters to be reset. But this may cause 
+#'  the package to stop functioning properly.
 #'
 ## # CHECK PARAMETERS --------------------------------------
 #'
@@ -432,6 +441,7 @@ tpPar <- function(
     par    = NULL, 
     reset  = FALSE, 
     terSysEnvList, 
+    doNotReset = "terSysEnvList", 
     # CHECK PARAMETERS
     testRange, 
     testSum, 
@@ -475,13 +485,14 @@ tpPar <- function(
     bin.border.col 
 ){  
     parList <- names( formals(tpPar) ) 
-    parList <- parList[ !(parList %in% c( "par", "reset" )) ] 
-    
+    parList <- parList[ !(parList %in% c( "par", "reset", "doNotReset" )) ] 
     
     ## (1) Reset the parameter values:
     if( reset ){ 
         v  <- as.list( .tpParList ) 
         nv <- names( v ) 
+        
+        nv <- nv[ !(nv %in% doNotReset) ]
         
         lapply( 
             X   = 1:length(v), 
@@ -490,9 +501,9 @@ tpPar <- function(
             }   
         )   
         
-        #   Also reset the package arguments set during 
-        #   .onAttach()
-        .setPackageArguments( pkgname = "ternaryplot" )
+        # #   Also reset the package arguments set during 
+        # #   .onAttach()
+        # .setPackageArguments( pkgname = "ternaryplot" )
         
         rm( nv, v ) 
     }   
@@ -626,7 +637,7 @@ parNames <- names( as.list( .tpParList ) )
 
 # List of argument names
 tpParF <- names(formals(tpPar))
-tpParF <- tpParF[ !(tpParF %in% c("par","reset")) ]
+tpParF <- tpParF[ !(tpParF %in% c("par","reset","doNotReset")) ]
 
 # List of parameters handled by tpPar(): do they match with 
 # the default parameters?

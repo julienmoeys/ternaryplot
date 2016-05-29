@@ -4,11 +4,12 @@
 \alias{tpPar}
 \title{Get or set default parameters for the package.}
 \usage{
-tpPar(par = NULL, reset = FALSE, terSysEnvList, testRange, testSum,
-  fracSumTol, okClock, onFailure, vertices, classes, scale, plot.bg, ticksAt,
-  ticksShift, ticksLabelsShift, ticks.line.lwd, ticks.line.col, arrows,
-  arrowsShift, arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength,
-  axis.line.lwd, axis.line.col, grid.line.col, grid.line.lwd, class.label.col,
+tpPar(par = NULL, reset = FALSE, terSysEnvList,
+  doNotReset = "terSysEnvList", testRange, testSum, fracSumTol, okClock,
+  onFailure, vertices, classes, scale, plot.bg, ticksAt, ticksShift,
+  ticksLabelsShift, ticks.line.lwd, ticks.line.col, arrows, arrowsShift,
+  arrowsHeight, arrowsCoords, arrowsBreak, arrowsLength, axis.line.lwd,
+  axis.line.col, grid.line.col, grid.line.lwd, class.label.col,
   class.border.col, class.bg, class.border.lwd, class.label.cex,
   class.label.font, bin.bg.fun, bin.border.col)
 }
@@ -22,9 +23,10 @@ names. The value of the parameters named here will be (silently) returned.
 its new value.  Such a list is returned by \code{tpPar()}. Notice that
 parameters can also be set individually, using the options listed below. }}
 
-\item{reset}{Single logical. If TRUE, all the parameters will be set to their
-default value. Values are reset before any change to the parameter values, as
-listed below.}
+\item{reset}{Single logical. If TRUE, all the parameters will be set 
+to their default value, except for parameters listed in 
+\code{doNotReset}. Values are reset before any change to 
+the parameter values, as listed below.}
 
 \item{terSysEnvList}{List of functions. The list can be tagged but does not 
 has to. When called, each function return a 
@@ -34,6 +36,13 @@ The mechanism is intended to allow other packages to
 add new function(s) that return lists with additional 
 \code{\link[ternaryplot]{ternarySystem-class}} object, 
 to extend the package \code{ternaryplot}.}
+
+\item{doNotReset}{Vector of character strings. Name(s) of the package 
+argument that should not be reset when \code{reset} is 
+\code{TRUE}. Default is \code{doNotReset = "terSysEnvList"}.
+Set to \code{""} or \code{NA} or even \code{NULL} to force 
+absolutely all parameters to be reset. But this may cause 
+the package to stop functioning properly.}
 
 \item{testRange}{Single logical. Test if the range of fraction is between 0 and 
 the expected sum of fractions (1 or 100).}
