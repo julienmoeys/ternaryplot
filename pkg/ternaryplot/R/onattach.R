@@ -6,10 +6,24 @@
 # | License:    AGPL3, Affero General Public License version 3  |
 # +-------------------------------------------------------------+
 
+#   INTERNAL: set more package arguments that need to 
+#       be set when the package is attached (because not 
+#       available when defining the bulk of package arguments)
+#   
+#   Also used when calling tpPar( reset = TRUE ) 
+.setPackageArguments <- function( pkgname ){
+    terSysEnvList          <- list( getAllTernarySystems )
+    names( terSysEnvList ) <- pkgname 
+    tpPar( "terSysEnvList" = terSysEnvList ) 
+    rm( terSysEnvList )
+}   
+
 .onAttach <- function(# Internal. Message displayed when loading the package.
- libname, 
- pkgname  
+    libname, 
+    pkgname  
 ){  
+    .setPackageArguments( pkgname = pkgname )
+    
     # Welcome message
     if( interactive() ){ 
         gitVersion <- system.file( "GIT_VERSION", package = pkgname ) 
