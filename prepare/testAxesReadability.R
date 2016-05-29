@@ -1,7 +1,7 @@
 
 library( "ternaryplot" ) 
 
-dat    <- data.frame( "clay" = 20, "silt" = 30, "sand" = 50 )
+dat    <- data.frame( "clay" = 10, "silt" = 30, "sand" = 60 )
 
 s0 <- getTernarySystem( "default" )
 
@@ -14,6 +14,8 @@ blrLabels( s0 ) <- blrNames( s0 )
 # ----------------------------------------------------------
 
 par( mfrow = c( 2, 2 ) )
+
+ternaryStyle( "publication", margin = TRUE )
 
 tpPar( arrowsBreak = FALSE )
 
