@@ -10,7 +10,8 @@
 #       be set when the package is attached (because not 
 #       available when defining the bulk of package arguments)
 #   
-#   Also used when calling tpPar( reset = TRUE ) 
+#   Used to be called in tpPar( reset = TRUE ) too.
+#
 .setPackageArguments <- function( pkgname ){
     terSysEnvList          <- list( getAllTernarySystems )
     names( terSysEnvList ) <- pkgname 
