@@ -30,12 +30,13 @@ deg2rad <- function(
 #'
 #'Converts ternary point-data (bottom, left, right axis) into 
 #'  x-y coordinates, according to the specification of a 
-#'  \code{ternarySystem}
+#'  \code{\link[ternaryplot]{ternarySystem-class}}
 #'
 #'
 #'@param s
 #'  A \code{\link[ternaryplot]{ternarySystem}} object or a 
-#'  character string naming an pre-defined \code{ternarySystem}.
+#'  character string naming an pre-defined 
+#'  \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #'@param x
 #'  A \code{\link[base]{data.frame}} or a \code{\link[base]{matrix}} 
@@ -178,7 +179,7 @@ ternary2xy.ternarySystem <- function(
 ## #
 ## #Converts ternary point-data (bottom, left, right axis) into 
 ## #  x-y coordinates, according to the specification of a 
-## #  \code{ternarySystem}
+## #  \code{\link[ternaryplot]{ternarySystem-class}}
 ## #
 ## #
 ## #@param s
