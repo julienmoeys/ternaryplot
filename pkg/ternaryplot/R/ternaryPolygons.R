@@ -29,7 +29,7 @@
 #'  Either a \code{\link[ternaryplot]{ternaryPolygons}}-object, 
 #'  such as created by \code{\link[ternaryplot]{createTernaryGrid}} 
 #'  or by \code{\link[ternaryplot]{ternaryClasses}}, or 
-#'  a \code{ternarySystem}, such as obtained with 
+#'  a \code{\link[ternaryplot]{ternarySystem-class}}, such as obtained with 
 #'  \code{\link[ternaryplot]{getTernarySystem}} or output 
 #'  by \code{\link[ternaryplot]{ternaryPlot}}.
 #'

@@ -1002,9 +1002,9 @@ calculateArrowLength <- function( pin = NULL ){
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a single 
-#'  \code{character} string. Can be missing.
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  as created with \code{\link[ternaryplot]{createTernarySystem}}, 
+#'  or a single \code{character} string. Can be missing.
 #'
 #'@param side
 #'  A vector of integer specifying which side of the plot the axis is to

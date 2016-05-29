@@ -21,7 +21,7 @@
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, as created with 
 #'  \code{\link[ternaryplot]{createTernarySystem}}, or a single 
 #'  \code{character} string. Can be missing.
 #'
