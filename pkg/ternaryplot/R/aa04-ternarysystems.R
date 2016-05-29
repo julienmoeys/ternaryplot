@@ -8,7 +8,7 @@
 
 
 
-# ternarySystemEnv ==============================================
+# ternarySystemEnv =========================================
 
 # New environment that will contain the definition of a few 
 #   ternary classification systems
@@ -56,24 +56,28 @@ ternarySystemEnv[[ "dummy" ]] <- createTernarySystem(
 # HYPRES / EU Soil Map texture triangle
 ternarySystemEnv[[ "hypres" ]] <- createTernarySystem( 
     
-    # Info from SysCan "FAO Soil Texture" (in fact, not an FAO soil texture!)
+    # Info from SysCan "FAO Soil Texture" (in fact, not an 
+    # FAO soil texture!) 
     # http://sis.agr.gc.ca/cansis/nsdb/lpdb/faotext.html
     # 
     # <quote>
-    # >> Texture is the relative proportion of sand, silt and clay of the dominant 
-    # >> soil for each soil map polygon. Texture classes are:
+    # >> Texture is the relative proportion of sand, silt and 
+    # >> clay of the dominant soil for each soil map polygon. 
+    # >> Texture classes are:
     # 
-    # >> Coarse texture: sands, loamy sand and sandy loams with less than 18 % clay, 
-    # >> and more than 65 % sand.
+    # >> Coarse texture: sands, loamy sand and sandy loams 
+    # >> with less than 18 % clay, and more than 65 % sand.
     #
-    # >> Medium texture: sandy loams, loams, sandy clay loams, silt loams with less 
-    # >> than 35 % clay and less than 65 % sand; the sand fractions may be as high as 82 % if a minimum of 18 % clay is present.
+    # >> Medium texture: sandy loams, loams, sandy clay loams, 
+    # >> silt loams with less than 35 % clay and less than 
+    # >> 65 % sand; the sand fractions may be as high as 82 % 
+    # >> if a minimum of 18 % clay is present.
     #
-    # >> Fine texture: clays, silty clays, sandy clays, clay loams and silty clay loams 
-    # >> with more than 35 % clay.
+    # >> Fine texture: clays, silty clays, sandy clays, clay 
+    # >> loams and silty clay loams with more than 35 % clay.
     #
-    # >> Where two or three texture names appear, this means that all named textures 
-    # >> are present in the map unit.
+    # >> Where two or three texture names appear, this means 
+    # >> that all named textures are present in the map unit.
     # 
     # >> Texture Codeset
     # >> COARSE
@@ -209,7 +213,39 @@ ternarySystemEnv[[ "dummy3" ]] <- createTernarySystem(
 
 
 
-# getTernarySystem ==============================================
+# getAllTernarySystems =====================================
+
+#'INTERNAL: Fetch all the pre-defined ternary classification system
+#'
+#'INTERNAL: Fetch all the pre-defined ternary classification 
+#'  system, as a list of 
+#'  \code{\link[ternaryplot]{ternarySystem-class}}es.
+#'
+#'  The function is designed for internal use, in combination 
+#'  with the argument \code{terSysEnvList} of the functions 
+#'  \code{link[ternaryPlot]{tpPar}} or 
+#'  \code{link[ternaryPlot]{getTpPar}}, as a flexible 
+#'  mechanism to manage the list of 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} objects 
+#'  used by the package.
+#'
+#'
+#'@return 
+#'  A \code{\link[base]{list}} 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} objects.
+#'
+#'
+#'@export 
+#'
+#'@keywords internal 
+#'
+getAllTernarySystems <- function(){    
+    return( as.list( ternarySystemEnv ) ) 
+}   
+
+
+
+# getTernarySystem =========================================
 
 #'Fetch a pre-defined ternary classification system
 #'
@@ -222,7 +258,7 @@ ternarySystemEnv[[ "dummy3" ]] <- createTernarySystem(
 #'
 #'
 #'@return 
-#'  A \code{ternarySystem} object.
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@export 
@@ -239,36 +275,74 @@ getTernarySystem <- function( s = "default" ){
     # listTernarySystem <- as.list( "ternaryplot":::"listTernarySystem" ) 
     
     for( i in 1:length( terSysEnvList ) ){
-        envir <- asNamespace( names( terSysEnvList )[ i ] )
-        x     <- as.character( terSysEnvList[ i ] )
+        # envir <- asNamespace( names( terSysEnvList )[ i ] )
+        # x     <- as.character( terSysEnvList[ i ] )
         
-        if( exists( x = x, envir = envir ) ){
-            ternarySystemE <- get( 
-                x        = x, 
-                envir    = envir, 
-                inherits = FALSE 
-            )    
+        # if( exists( x = x, envir = envir ) ){
+            # ternarySystemE <- get( 
+                # x        = x, 
+                # envir    = envir, 
+                # inherits = FALSE 
+            # )    
             
-            # Check if the system asked is present:
-            if( s %in% names( ternarySystemE ) ){ 
-                s <- ternarySystemE[[ s ]] 
+            # # Check if the system asked is present:
+            # if( s %in% names( ternarySystemE ) ){ 
+                # s <- ternarySystemE[[ s ]] 
                 
-                break 
-            }else{ 
-                s <- NULL  
-            }   
+                # break 
+            # }else{ 
+                # s <- NULL  
+            # }   
             
+        # }else{
+            # stop( sprintf( 
+                # "The list of ternary plot '%s' could not be found in package '%s'.", 
+                # terSysEnvList[ i ], names( terSysEnvList )[ i ] 
+            # ) )  
+        # }   
+        
+        ## A few conformity tests before using the 
+        ## list of ternarySystems
+        
+        if( !( "function" %in% class( terSysEnvList[[ i ]] ) ) ){
+            stop( sprintf(
+                "class(getTpPar('terSysEnvList')[[%s]]) should be a 'function'. Now: %s", 
+                i, paste( class( terSysEnvList[[ i ]] ), collapse = "; " ) 
+            ) ) 
+        }   
+        
+        terSysEnvList0 <- terSysEnvList[[ i ]]()
+        
+        if( !( "list" %in% class( terSysEnvList0 ) ) ){
+            stop( sprintf(
+                "getTpPar('terSysEnvList')[[%s]]() should return a 'list'. Now: %s", 
+                i, paste( class( terSysEnvList0 ), collapse = "; " ) 
+            ) ) 
+        }   
+        
+        nm0 <- names( terSysEnvList0 )
+        
+        if( is.null( nm0 ) ){
+            stop( sprintf(
+                "names(getTpPar('terSysEnvList')[[%s]]()) is NULL (the list should be tagged/named)", 
+                i 
+            ) ) 
+        }   
+        
+        ## Fetch the ternarySystem if present
+        
+        if( s %in% nm0 ){
+            s <- terSysEnvList0[[ s ]]
+            
+            break 
         }else{
-            stop( sprintf( 
-                "The list of ternary plot '%s' could not be found in package '%s'.", 
-                terSysEnvList[ i ], names( terSysEnvList )[ i ] 
-            ) )  
+            s <- NULL 
         }   
     }   
     
     if( is.null( s ) ){
         stop( sprintf( 
-            "The ternary plot (%s) could not be found", 
+            "The ternary system (%s) could not be found", 
             s 
         ) )  
     }   
@@ -278,7 +352,7 @@ getTernarySystem <- function( s = "default" ){
 
 
 
-# listTernarySystem ==============================================
+# listTernarySystem ========================================
 
 #'List all pre-defined ternary classification systems
 #'
@@ -300,4 +374,5 @@ listTernarySystem <- function(){
     
     return( tsList ) 
 }   
+
 
