@@ -79,7 +79,7 @@ ternaryCheck <- function(
 #'
 #'@method ternaryCheck ternaryGeometry
 #'
-#'@export ternaryCheck ternaryGeometry
+#'@export 
 #'
 ternaryCheck.ternaryGeometry <- function(
  s, 
@@ -180,7 +180,7 @@ ternaryCheck.ternaryGeometry <- function(
 #'
 #'@method ternaryCheck ternaryVariables
 #'
-#'@export ternaryCheck ternaryGeometry
+#'@export 
 #'
 ternaryCheck.ternaryVariables <- function(
  s, 
@@ -242,11 +242,14 @@ ternaryCheck.ternaryVariables <- function(
 
 
 
+#'@export ternaryCheck.ternarySystem
+# Keep disjoint!
+
 #'@rdname ternaryCheck-methods
 #'
 #'@method ternaryCheck ternarySystem
 #'
-#'@export ternaryCheck ternaryGeometry
+#'@export 
 #'
 ternaryCheck.ternarySystem <- function(
  s, 
