@@ -32,3 +32,4 @@ ternaryplot_linux_install.R
 /pkg/binaryArchive/*.pdf
 /pkg/ternaryplot/inst/doc/*.html
 /pkg/binaryArchive
+/pkg/soiltexture2.Rcheck

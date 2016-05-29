@@ -1,0 +1,245 @@
+    
+    package: ternaryplot
+
+CHANGES IN VERSION 0.9.0
+    
+    2016/05/29  Altered again the mechanism behind 
+        getTernarySystem(). Now ternarySystem are retrieved 
+        through a list of functions listed in argument 
+        "terSysEnvList" of tpPar() or getTpPar(), in 
+        a sequential manner. This mechanism will hopefully 
+        be more flexible and robust than trying to retrieve 
+        objects in different (package) namespaces or 
+        environments.
+        
+        The function getAllTernarySystems() was created 
+        for this purpose.
+    
+CHANGES IN VERSION 0.8.1
+    
+    2016/04/26  Fixed an important bug in blrNames().
+        The function can be used to rename variables (on the 
+        same axis) or to reorder them. The later case was 
+        not accounted for. Now fixed with a new argument 
+        'reorder'.
+    
+CHANGES IN VERSION 0.8.0
+    
+    2016/04/26  Added ternaryCount() and ternaryBins() 
+        and integrated the later in ternaryPlot() (when 
+        type = "c"). ternaryBins() calculates and plot 
+        ternary "bins" (based on ternary triangular grid 
+        cells).
+    
+CHANGES IN VERSION 0.7.0
+    
+    2016/04/08  Add a first vignette to the package (work 
+        on progress).
+        
+        ternaryPlot() now has arguments 'classes' and 'grid' 
+        to suppress the ternary classes and/or the grid 
+        from the plot.
+        
+        Two new package options, 'class.label.cex' and 
+        'class.label.font'
+        
+CHANGES IN VERSION 0.6.7
+    
+    2016/02/07  New package argument (option) 
+        'terSysEnvList' to allow other packages 
+        to add lists of pre-defined ternarySystem 
+        to the existing list.
+    
+CHANGES IN VERSION 0.6.6
+    
+    2016/02/05  Created ternaryClassify()
+     
+    2016/02/04  Reduce the number of calls to getTpPar() 
+        and par() (internal changes - small speed up).
+        
+        ternaryAxis() now follows par( "cex.lab" ) and 
+            par( "cex.axis" ) for the size of the 
+            axis labels and axis ticks labels.
+        
+        ternaryPlot() has now several new parameters:
+        type, main, sub, axes and frame.plot. Only one 
+        'type' implemented at the moment.
+        
+        Some speed up expected by calling directly a 
+        method rather than the generic (when possible)
+
+CHANGES IN VERSION 0.6.5
+    
+    2016/02/03  The arguments of package's functions was 
+        homogenised so that argument 's' is now (almost) 
+        always the 1st argument, and 'x' is an optional 
+        extra 2nd argument (when relevant). CONTINUED 
+        (ternaryCheck(), ternarySystem())
+    
+CHANGES IN VERSION 0.6.4
+    
+    2016/02/02  Created ternaryNormalise() to normalise 
+        ternary data.
+        
+        ternaryGeometry-class is now documented.
+        
+        ternaryVariables-class is now documented.
+        
+        ternarySystem-class is now documented.
+        
+        ternaryPolygons-class is now documented.
+        
+        The 2nd class of ternaryGeometry and ternarySystem 
+        is now dropped ("geo_TTT", "geo_FFF", ...) and added 
+        internally, when relevant, using the internal function 
+        .generateTernaryGeometry2ndClass(). This avoids 
+        unexpected behaviour when the geometry is changed 
+        but the 2nd class mistakenly remains the same.
+        
+        In ternaryStyle(), the margins have been increased 
+        for the left and right side, as they were too small 
+        for right-angle triangles. 
+        
+        The arguments of package's functions was 
+        homogenised so that argument 's' is now (almost) 
+        always the 1st argument, and 'x' is an optional 
+        extra 2nd argument (when relevant). ON PROGRESS.
+        
+CHANGES IN VERSION 0.6.3
+    
+    2016/01/28  The argument .plot (whether the plot element 
+        should be plotted or just calculated and exported) 
+        was taken away from:
+        * ternaryArrows() 
+        * .ternaryTicks() 
+        * ternaryBox() 
+        * ternaryGrid() 
+        * ternaryPoints() 
+        * ternarySegments() 
+        * ternaryText() 
+        
+        The package options "sp" (higher level plot export 
+        sp version of the plot elements) was taken away from:
+        * ternaryArrows() 
+        * .ternaryTicks() 
+        * ternaryBox() 
+        * ternaryGrid() 
+        * ternaryPoints() 
+        * ternarySegments() 
+        * ternaryText() 
+        * and of course tpPar()
+        
+        The function ternaryData() was removed, and 
+        ternaryData.ternarySystem() was renamed into 
+        ternaryCheck.data.frame() (now a method for 
+        ternaryCheck()).
+        
+        Bug fix: ternaryClasses() was not setting the 
+        attribute "labels" properly (and the class labels
+        was thus not displayed in ternaryPlot())
+        
+        Bug fix: ternaryGeometry.ternarySystem() was not 
+        setting the 2nd class properly, which resulted 
+        in wrong plots after changing the ternaryGeometry 
+        of a ternarySystem
+        
+CHANGES IN VERSION 0.6.2
+    
+    2016/01/27  ternarySystem() now has a `<-` method 
+        and can change the ternarySystem of 
+        ternaryPolygons-object.
+    
+CHANGES IN VERSION 0.6.1
+
+    2016/01/26  Extended ternary2SpatialPolygons() to ternarySystems 
+    
+        Created the function ternary2SpatialPoints()
+        
+CHANGES IN VERSION 0.6.0
+    
+    2016/01/26  Created the function ternaryStyle() with 
+        predefined graphics style.
+        
+        tpPar() now gains an argument "arrows" to plot 
+        axis arrows or not.
+        
+        Added a dummy dataset data( "textureDataset" ) 
+        with dummy soil texture data
+        
+        New examples in ternaryPlot() with overlay 
+        of point ternary data
+        
+        Fix a bug in `blrNames<-.ternarySystem` where vertices 
+        where not renamed correctly (potentially in the 
+        wrong order)
+        
+CHANGES IN VERSION 0.5.1
+    
+    2016/01/26  ternary2SpatialPolygonsDataFrame() renamed 
+        to ternary2SpatialPolygons(). Internally, 
+        also output a ternary2SpatialPolygons instead of 
+        a SpatialPolygonsDataFrame.
+        
+        Now ternaryPolygons-class objects are also data.frame, 
+        and not a list containing a data.frame. Additional 
+        information are now passed as attributes (see ?attr), 
+        and a new attribute has been included, 'idCol', which 
+        contain the column that should be considered as 
+        identifier.
+        
+CHANGES IN VERSION 0.5.0
+    
+    2016/01/25  Non pre-defined ternary plots are now supported: 
+        i.e. plotting empty ternary plots without any 
+        pre-defined variable / axis names or plotting 
+        ternary data on a ternary plot with "any" variable 
+        name (first 3 columns in input data are used).
+    
+CHANGES IN VERSION 0.4.0
+    
+    2016/01/19  Function ternaryPolygons() created, to add 
+        polygons (grids or ternary classes) over an existing 
+        ternary plot. Integrated into ternaryPlot().
+        ternaryText() now takes more arguments.
+        
+        Re-organised the source code.
+        
+CHANGES IN VERSION 0.3.3
+    
+    2016/01/12  The package encoding (in DESCRIPTION) has been 
+        set to UTF-8.
+        
+        Now several (more) internal functions uses geometry 
+        specific methods (easier to maintain and improve)
+        See (in the code) ._ternaryGridBase, ._ternaryTicks, 
+        ._ternaryAxisArrowsBase and ._ternaryAxisArrows
+        
+        ternaryClassification() created. Extract the 
+        class-polygons from a ternarySystem-object (if it 
+        has classes).
+        
+        ternaryPlot() can now plot (overlay) grids generated 
+        by createTernaryGrid() and ternary classification 
+        fetched with ternaryClassification()
+        
+CHANGES IN VERSION 0.3.2
+    
+    2016/01/07  ternary2xy() now call internal function 
+        .ternary2xy() that uses specific methods for each 
+        geometry (TTT, FFF, FTX, TXF), based on the 2nd 
+        class-attribute. Makes the code clearer.
+    
+CHANGES IN VERSION 0.3.1
+
+    2016/01/07  Further development. Create a 2nd class in 
+        addition to ternaryGeometry for creating 
+        geometry-specific methods (instead of complicated
+        case specific code).
+    
+CHANGES IN VERSION 0.3.0 
+
+  2014/03/28 Package converted from S4-classes to S3-classes
+
+CHANGES IN VERSION 0.1.0 
+
+  2013/01/24 Package created 
