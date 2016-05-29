@@ -243,7 +243,7 @@ ternaryCheck.ternaryVariables <- function(
 
 
 #'@export ternaryCheck.ternarySystem
-# Keep disjoint!
+NULL 
 
 #'@rdname ternaryCheck-methods
 #'
