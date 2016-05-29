@@ -32,7 +32,7 @@
     ## #
     ## #
     ## #@param s 
-    ## #  A \code{ternarySystem} object, as created with 
+    ## #  A \code{\link[ternaryplot]{ternarySystem-class}} object, as created with 
     ## #  \code{\link[ternaryplot]{createTernarySystem}}, or a single 
     ## #  \code{character} string. Can be missing.
     ## #
@@ -55,7 +55,7 @@
     ## #  the expected sum of fractions (1 or 100).
     ## #
     ## #@param \dots
-    ## #  Additional parameters passed to \code{ternarySystem}-methods.
+    ## #  Additional parameters passed to \code{ternaryData}-methods.
     ## #
     ## #@return 
     ## #  Returns a \code{ternaryData} \code{\link[base]{data.frame}} 
