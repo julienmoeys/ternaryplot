@@ -79,7 +79,7 @@ ternaryCheck <- function(
 #'
 #'@method ternaryCheck ternaryGeometry
 #'
-#'@export
+#'@exportMethod
 #'
 ternaryCheck.ternaryGeometry <- function(
  s, 
@@ -180,7 +180,7 @@ ternaryCheck.ternaryGeometry <- function(
 #'
 #'@method ternaryCheck ternaryVariables
 #'
-#'@export
+#'@exportMethod
 #'
 ternaryCheck.ternaryVariables <- function(
  s, 
@@ -246,7 +246,7 @@ ternaryCheck.ternaryVariables <- function(
 #'
 #'@method ternaryCheck ternarySystem
 #'
-#'@export
+#'@exportMethod
 #'
 ternaryCheck.ternarySystem <- function(
  s, 
