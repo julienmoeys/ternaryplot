@@ -16,7 +16,7 @@
     terSysEnvList          <- list( getAllTernarySystems )
     names( terSysEnvList ) <- pkgname 
     tpPar( "terSysEnvList" = terSysEnvList ) 
-    rm( terSysEnvList )
+    # rm( terSysEnvList )
 }   
 
 .onAttach <- function(# Internal. Message displayed when loading the package.
