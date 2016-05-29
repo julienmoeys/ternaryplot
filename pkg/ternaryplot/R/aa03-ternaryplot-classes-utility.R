@@ -14,7 +14,17 @@
 #'  object 
 #'
 #'Set or get the bottom-left-right axis names of a 
-#'  \code{ternarySystem} object.
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
+#'
+#'  When setting the names, the function can be used to rename 
+#'  the axis-variables, i.e. the same variables but a different 
+#'  name, or to reorder them, i.e. the same variables and 
+#'  the same names but in a different order (see \code{reorder} 
+#'  below).
+#'  
+#'  When setting the names and \code{reorder} is \code{TRUE}, 
+#'  the value of \code{blrLabels} is also reordered, so that 
+#'  the two parameters are still coherent.
 #'
 #'
 #'@param s 
@@ -24,6 +34,19 @@
 #'    \item A \code{\link[ternaryplot]{ternaryVariables-class}} 
 #'      object.
 #'  }  
+#'
+#'@param reorder
+#'  Single logical value. Only when setting new names. If 
+#'  \code{FALSE} (the default), the name of the ternary 
+#'  variables in the definition of the ternary classes is 
+#'  also changed (if present). If \code{TRUE}, the name of the 
+#'  ternary variables in the definition of the ternary classes 
+#'  is preserved (if present). So use \code{FALSE} to rename 
+#'  the variables but keep them on the same axis and use 
+#'  \code{TRUE} to reorder them (i.e. the 
+#'  same names but in a different order, on different axis). 
+#'  The latter implies that the \code{blrNames(s)} and 
+#'  \code{value} are the same but in a different order.
 #'
 #'@param \dots
 #'  Additional parameters passed to 
@@ -74,14 +97,15 @@ blrNames.ternaryVariables <- function( s, ... ){
 
 #'@rdname blrNames-methods
 #'
-#'@usage blrNames(s, ... ) <- value
+#'@usage blrNames(s, reorder, ... ) <- value
 #'
 #'@export
 #'
 `blrNames<-` <- function( 
- s, 
- ..., 
- value 
+    s, 
+    reorder = FALSE, 
+    ..., 
+    value 
 ){  
     UseMethod( "blrNames<-" ) 
 }   
@@ -94,31 +118,62 @@ blrNames.ternaryVariables <- function( s, ... ){
 #'
 #'@export
 #'
-#'@usage \method{blrNames}{ternarySystem}(s, ...) <- value
+#'@usage \method{blrNames}{ternarySystem}(s, reorder, ...) <- value
 #'
 `blrNames<-.ternarySystem` <- function( 
  s, 
+ reorder = FALSE, 
  ..., 
  value 
 ){  
     #   Fetch the old names
-    oldNames <- s[[ 'ternaryVariables']][[ 'blrNames' ]] 
+    oldNames <- s[[ 'ternaryVariables' ]][[ 'blrNames' ]] 
+    
+    if( reorder ){
+        test <- all( oldNames %in% value ) & 
+            all( value %in% oldNames )
+        
+        if( !test ){
+            stop( "When 'reorder' is TRUE, all the values in blrNames(s) must be in 'value' and the other way-round." ) 
+        };  rm( test )
+    }   
     
     s[[ 'ternaryVariables']][[ 'blrNames' ]] <- value 
     
     # Change the column names in vertices and the scale
-    vertices <- s[[ 'vertices' ]] 
-    scale    <- s[[ 'scale' ]] 
-    
-    for( o in 1:length( oldNames ) ){
-        colnames( vertices )[ colnames( vertices ) == oldNames[ o ] ] <- 
-            value[ o ] 
-        colnames( scale )[ colnames( scale ) == oldNames[ o ] ] <- 
-            value[ o ] 
+    if( !reorder ){
+        vertices <- s[[ 'vertices' ]] 
+        scale    <- s[[ 'scale' ]] 
+        
+        verticeColWasChanged <- rep( FALSE, ncol( vertices ) ) 
+        scaleColWasChanged   <- rep( FALSE, ncol( scale ) ) 
+        
+        for( o in 1:length( oldNames ) ){
+            selVerticeCol <- (colnames( vertices ) == oldNames[ o ]) & 
+                (!verticeColWasChanged) 
+            colnames( vertices )[ selVerticeCol ] <- value[ o ] 
+            verticeColWasChanged[ selVerticeCol ] <- TRUE 
+            
+            selScaleCol <- (colnames( scale ) == oldNames[ o ]) & 
+                (!scaleColWasChanged) 
+            colnames( scale )[ selScaleCol ] <- value[ o ] 
+            scaleColWasChanged[ selScaleCol ] <- TRUE 
+        }    
+        
+        rm( verticeColWasChanged, scaleColWasChanged, selVerticeCol, 
+            selScaleCol )
+        
+        s[[ 'vertices' ]] <- vertices 
+        s[[ 'scale' ]]    <- scale 
+    }else{
+        newOrder <- 1:length( oldNames )
+        names( newOrder ) <- oldNames
+        newOrder <- as.integer( newOrder[ value ] )
+        
+        #   Set the axis-labels
+        s[[ "ternaryVariables" ]][[ "blrLabels" ]] <- 
+            s[[ "ternaryVariables" ]][[ "blrLabels" ]][ newOrder ] 
     }   
-    
-    s[[ 'vertices' ]] <- vertices 
-    s[[ 'scale' ]]    <- scale 
     
     ternaryCheck.ternarySystem( s = s, ... )
     
@@ -156,7 +211,7 @@ blrNames.ternaryVariables <- function( s, ... ){
 #'  object 
 #'
 #'Set or get the bottom-left-right axis labels of a 
-#'  \code{ternarySystem} object.
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
@@ -281,7 +336,7 @@ blrLabels.ternaryVariables <- function( s, ... ){
 #'  object
 #'
 #'Set or get the bottom-left-right orientation of a 
-#'  \code{ternarySystem} object.
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
@@ -435,7 +490,7 @@ blrClock.ternaryGeometry <- function(
 #'  object
 #'
 #'Set or get the sum of the three fractions of a 
-#'  \code{ternarySystem} object.
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
@@ -567,13 +622,13 @@ fracSum.ternaryGeometry <- function(
 #'  object
 #'
 #'Set or get the top, left and right angles of a 
-#'  \code{ternarySystem} object.
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}, or a 
-#'  \code{ternaryGeometry} object, as created with 
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  as created with \code{\link[ternaryplot]{createTernarySystem}}, 
+#'  or a \code{ternaryGeometry} object, as created with 
 #'  \code{\link[ternaryplot]{createTernaryGeometry}}.
 #'
 #'@param \dots
@@ -697,11 +752,13 @@ tlrAngles.ternaryGeometry <- function(
 
 #'Set or get the ternaryGeometry of a ternarySystem object
 #'
-#'Set or get the ternaryGeometry of a \code{ternarySystem} object.
+#'Set or get the ternaryGeometry of a 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  as created with 
 #'  \code{\link[ternaryplot]{createTernarySystem}}.
 #'
 #'@param \dots
@@ -873,12 +930,13 @@ print.ternaryGeometry <- function(
 
 #'Set or get the ternaryVariables of a ternarySystem object.
 #'
-#'Set or get the ternaryVariables of a \code{ternarySystem} object.
+#'Set or get the ternaryVariables of a 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
 #'@param s 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}.
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  as created with \code{\link[ternaryplot]{createTernarySystem}}.
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods.
@@ -1022,13 +1080,14 @@ print.ternaryVariables <- function(
 
 #'Print the content of a ternarySystem object in a human readable format.
 #'
-#'Print the content of a \code{ternarySystem} object 
+#'Print the content of a 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object 
 #'  (S3-class) in a human readable format.
 #'
 #'
 #'@param x 
-#'  A \code{ternarySystem} object, as created with 
-#'  \code{\link[ternaryplot]{createTernarySystem}}.
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  as created with \code{\link[ternaryplot]{createTernarySystem}}.
 #'
 #'@param prefix 
 #'  Single character string. Prefix used before the different 
@@ -1124,10 +1183,11 @@ print.ternarySystem <- function(
 #'
 #'
 #'@return 
-#'  The \code{ternarySystem} extracted from \code{s} or, 
+#'  The \code{\link[ternaryplot]{ternarySystem-class}} 
+#'  extracted from \code{s} or, 
 #'  when using the \code{`<-`} method, a 
 #'  \code{\link[ternaryplot]{ternaryPolygons-class}} object 
-#'  with an updated \code{ternarySystem}.
+#'  with an updated \code{\link[ternaryplot]{ternarySystem-class}}.
 #'
 #' 
 #'@rdname ternarySystem-methods
