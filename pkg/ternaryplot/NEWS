@@ -1,6 +1,22 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.10.0
+    
+    2016/06/03  Created new functions:
+        *   xy2ternary() to convert x-y plot coordinates 
+            into ternary variables.
+        *   ternaryClick() to click on a ternary plot and 
+            retrieve the ternary coordinate(s) of the 
+            point(s). Ternary equivalent to 
+            graphics::locator()
+         *  as.data.frame.ternarySystem(), to retrieve the 
+            coordinates (in ternary variables) of the class 
+            vertices or the class centroids.
+         *  sort.ternarySystem(), to sort the ternary classes 
+            of a ternary system according to two of its 
+            three ternary variables.
+            
 CHANGES IN VERSION 0.9.0
     
     2016/05/29  Altered again the mechanism behind 

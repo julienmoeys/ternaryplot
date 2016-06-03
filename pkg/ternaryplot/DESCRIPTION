@@ -1,18 +1,24 @@
 Package: ternaryplot
 Version: 0.9.0
 Date: 2016-05-29
-Title: Infrastructure for ternary plots and ternary classifications (S3-classes)
+Title: Infrastructure for ternary plots, ternary classifications and ternary binning (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>
 Maintainer: Julien MOEYS <Julien.Moeys@slu.se>
-Description: Infrastructure for ternary plots and ternary classifications (with
-    S3-classes). Based purely on R package 'graphics'. 'ternaryplot' attempts to
-    respect as much as possible (a) the plot layout of the package graphics, (b)
-    the size and location of plot-items such as axis tick marks and (c) the name of
-    'graphics' parameters. Also, function names and functions arguments are as much
-    as possible similar to those in 'graphics'. Designed primarily to support the
-    development of soil texture plots (soil texture diagrams), but should be valid
-    for other ternary plots as well, provided they are based on a single triangle
-    with a horizontal base.
+Description: Infrastructure for ternary plots, ternary 
+    classifications and ternary binning (with S3-classes). 
+    Designed primarily to support the development of soil 
+    texture plots (soil texture diagrams), but should be 
+    a useful infrastructure for other ternary plots as well, 
+    and especially for ternary classifications. Plots fully 
+    compatible with the graphics-package. 'ternaryplot' 
+    attempts to respect as much as possible (a) the plot 
+    layout of the graphics-package, (b) the size and location 
+    of plot-items such as axis tick marks and (c) the name 
+    of parameters in the graphics-package. Function names and 
+    functions arguments are as much as possible similar to 
+    those in the graphics-package. Several ternary plot 
+    geometries are supported, but all are based on a single 
+    triangle with a horizontal base.
 License: AGPL-3
 URL: https://github.com/julienmoeys/ternaryplot
 BugReports: https://github.com/julienmoeys/ternaryplot/issues
