@@ -24,3 +24,5 @@ tcSp <- ternary2SpatialPolygons( tc )
 # #  Add sp overlay
 # ternaryPlot( s = s ) 
 # sp::plot( tcSp, add = TRUE, border = "darkred", lty = 3 ) 
+
+tpPar( reset = TRUE )
