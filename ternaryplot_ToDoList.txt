@@ -1,0 +1,46 @@
+
+New features and improvements
+============================================================
+
+*   ADD argument 'type' = 't' (text) to ternaryPlot()
+
+*   CREATE ternaryLines ternarySystem and add type = "l"
+    to ternaryPlot().
+
+*   CREATE ternaryClassNames() and ternaryClassNames()<-
+    methods to retrieve and change the (abbrev) name of 
+    ternary classes
+
+*   CREATE ternaryAggregate >> ternary version of sp::aggregate
+
+*   CREATE ternaryNormaliseX()
+
+*   CREATE plot method for ternarySystem and ternaryPolygons
+
+
+
+Vignettes
+============================================================
+
+*   Plot ternary classification and ternary data.
+
+*   Classify ternary data.
+
+*   Customise ternary plot geometry and variable-axis 
+    associations.
+
+*   Define a new ternary system (ternary classification).
+
+*   Binning and plotting ternary data on triangular bins (counts).
+
+*   ternaryplot-package Frequently Asked Questions.
+
+
+
+Other examples
+============================================================
+    
+*   QAPF diagram:
+    http://en.wikipedia.org/wiki/QAPF_diagram
+    
+*   http://en.wikipedia.org/wiki/De_Finetti_diagram

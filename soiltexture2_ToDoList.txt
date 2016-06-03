@@ -1,0 +1,38 @@
+
+New features and improvements
+============================================================
+
+*   blrNames.textureSystem (also need to change the names 
+    in $particleSizeBoundaries).
+
+*   soiltextureLogTransform() and soiltextureLogTransformX() 
+    implement log transformation of soil texture data. 
+
+
+
+Vignettes
+============================================================
+
+*   Gallery of soil texture diagrams.
+    
+*   Plot soil texture classification and soil texture data.
+    Link to vignette in ternaryplot-package.
+
+*   Classify soil texture data.
+    Link to vignette in ternaryplot-package.
+
+*   Define a new texture system (soil texture classification).
+    
+*   Binning and plotting soil texture data on triangular 
+    bins (counts). Link to vignette in ternaryplot-package.
+
+*   soiltexture2-package Frequently Asked Questions.
+
+
+
+Other examples
+============================================================
+    
+*   Ternary Diagrams of Shepard and Pejrup:
+    http://rgm3.lab.nig.ac.jp/RGM/R_rdfile?f=rysgran/man/rysgran.ternary.Rd&d=R_CC
+    http://www.mgs.md.gov/coastal_geology/shepards.html
