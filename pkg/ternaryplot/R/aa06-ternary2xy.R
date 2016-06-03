@@ -237,10 +237,9 @@ ternary2xy.ternarySystem <- function(
     tlrAnglesRad <- deg2rad( angle = .tlrAngles )
     
     
-    #   "reverse" the bottom and right orientation to fit x 
-    #   and y orientation:
+    #   "reverse" the bottom orientation to fit x and y orientation:
     x[  , blrNames0[ 1L ] ] <- ( .fracSum - x[, blrNames0[ 1L ] ] ) 
-    x[  , blrNames0[ 3L ] ] <- ( .fracSum - x[, blrNames0[ 3L ] ] ) 
+    # x[  , blrNames0[ 3L ] ] <- ( .fracSum - x[, blrNames0[ 3L ] ] ) 
     
     
     #   The left side values are used to calculate y
@@ -284,8 +283,9 @@ ternary2xy.ternarySystem <- function(
     tlrAnglesRad <- deg2rad( angle = .tlrAngles )
     
     
-    #   "reverse" the left side to fit x and y orientation:
-    x[ , blrNames0[ 2L ] ] <- ( .fracSum - x[, blrNames0[ 2L ] ] ) 
+    #   In this case no axis need to be reverted
+    # #   "reverse" the left side to fit x and y orientation:
+    # x[ , blrNames0[ 2L ] ] <- ( .fracSum - x[, blrNames0[ 2L ] ] ) 
      
     
     #   The right side value are used to calculate y
@@ -374,9 +374,9 @@ ternary2xy.ternarySystem <- function(
     tlrAnglesRad <- deg2rad( angle = .tlrAngles )
     
     
-    #   Values on the botton side are reverted
+    #   Values on the bottom side are reverted
     x[, blrNames0[ 1L ] ] <- ( .fracSum - x[, blrNames0[ 1L ] ] ) 
-     
+    
     
     #   y coordinates are calculated from the right 
     #   side
