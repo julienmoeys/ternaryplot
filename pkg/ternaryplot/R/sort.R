@@ -11,10 +11,10 @@
 
 # sort.ternarySystem =======================================
 
-#'INTERNAL. Sort method for ternary classification (class centroids of ternarySystem).
+#'Sort method for ternary classification (class centroids of ternarySystem).
 #'
-#'INTERNAL. Sort method for ternary classification (class 
-#'  centroids of a \code{\link[ternaryplot]{ternarySystem-class}}), 
+#'Sort method for ternary classification (class centroids of 
+#'  a \code{\link[ternaryplot]{ternarySystem-class}}), 
 #'  after two of its three ternary-variables (increasing or 
 #'  decreasing order).
 #'  
@@ -27,6 +27,7 @@
 #'  the classes could be defined by order of decreasing clay 
 #'  and (then) sand content).
 #'
+#'
 #'@param x 
 #'  Either \itemize{
 #'    \item A \code{\link[ternaryplot]{ternarySystem-class}} 
@@ -35,14 +36,16 @@
 #'      \code{\link[ternaryplot]{ternaryVariables-class}}.
 #'  }  
 #'
+#'@param decreasing 
+#'  Single logical value. Should the ternary 
+#'
 #'@param by 
 #'  A vector of 2 character strings. Names of the two ternary 
 #'  variables (from \code{blrNames(x)}) after which the class 
 #'  centroids should be sorted. 
 #'
 #'@param \dots 
-#'  Additional parameters passed to \code{\link[base]{order}}, 
-#'  such as \code{decreasing}.
+#'  Additional parameters passed to \code{\link[base]{order}}.
 #'
 #'
 #'@return 
@@ -62,6 +65,7 @@
 #'
 sort.ternarySystem <- function(
     x, 
+    decreasing = FALSE, 
     by, 
     ... 
 ){  
@@ -93,6 +97,7 @@ sort.ternarySystem <- function(
         o <- order( 
             centroids[, by[ 1L ] ], 
             centroids[, by[ 2L ] ], 
+            decreasing = decreasing, 
             ... )
         
         centroids <- centroids[ o, ]

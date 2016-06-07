@@ -2,9 +2,9 @@
 % Please edit documentation in R/sort.R
 \name{sort.ternarySystem}
 \alias{sort.ternarySystem}
-\title{INTERNAL. Sort method for ternary classification (class centroids of ternarySystem).}
+\title{Sort method for ternary classification (class centroids of ternarySystem).}
 \usage{
-\method{sort}{ternarySystem}(x, by, ...)
+\method{sort}{ternarySystem}(x, decreasing = FALSE, by, ...)
 }
 \arguments{
 \item{x}{Either \itemize{
@@ -14,12 +14,13 @@
     \code{\link[ternaryplot]{ternaryVariables-class}}.
 }}
 
+\item{decreasing}{Single logical value. Should the ternary}
+
 \item{by}{A vector of 2 character strings. Names of the two ternary 
 variables (from \code{blrNames(x)}) after which the class 
 centroids should be sorted.}
 
-\item{\dots}{Additional parameters passed to \code{\link[base]{order}}, 
-such as \code{decreasing}.}
+\item{\dots}{Additional parameters passed to \code{\link[base]{order}}.}
 }
 \value{
 A \code{\link[base]{data.frame}}. The output of 
@@ -28,8 +29,8 @@ A \code{\link[base]{data.frame}}. The output of
  the two ternary-variables in \code{by}.
 }
 \description{
-INTERNAL. Sort method for ternary classification (class 
- centroids of a \code{\link[ternaryplot]{ternarySystem-class}}), 
+Sort method for ternary classification (class centroids of 
+ a \code{\link[ternaryplot]{ternarySystem-class}}), 
  after two of its three ternary-variables (increasing or 
  decreasing order).
  
