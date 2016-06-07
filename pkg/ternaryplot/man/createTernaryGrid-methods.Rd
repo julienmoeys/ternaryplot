@@ -58,6 +58,8 @@ tgSp <- ternary2SpatialPolygons( tg )
 # #   sp overlay
 # ternaryPlot( s = s )
 # sp::plot( tgSp, add = TRUE, border = "darkred", lty = 3 ) 
+
+tpPar( reset = TRUE )
 }
 \seealso{
 \code{\link[ternaryplot]{ternaryPolygons-class}}.

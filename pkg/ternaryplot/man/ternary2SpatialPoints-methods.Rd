@@ -59,5 +59,6 @@ pts2 <- ternary2SpatialPoints( s, what = "centroids" )
 sp::plot( pts1, add = TRUE, col = "darkred", pch = 1 ) 
 sp::plot( pts2, add = TRUE, col = "darkblue", pch = 3 ) 
 
+tpPar( reset = TRUE )
 }
 
