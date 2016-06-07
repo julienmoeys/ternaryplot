@@ -4,7 +4,8 @@
 \alias{as.data.frame.ternarySystem}
 \title{Extract the class vertices or the class centroids of a ternarySystem.}
 \usage{
-\method{as.data.frame}{ternarySystem}(x, what = "vertices", ...)
+\method{as.data.frame}{ternarySystem}(x, row.names, optional,
+  what = "vertices", ...)
 }
 \arguments{
 \item{x}{A \code{\link[ternaryplot]{ternarySystem-class}} object.
@@ -14,6 +15,12 @@ character string naming an existing \code{ternarySystem}
 (because the method 
 \code{\link[base]{as.data.frame.character}} 
 is already defined for other purposes).}
+
+\item{row.names}{Not used. Only here for compatibility with the generic 
+function \code{\link[base]{as.data.frame}}.}
+
+\item{optional}{Not used. Only here for compatibility with the generic 
+function \code{\link[base]{as.data.frame}}.}
 
 \item{what}{Single character string. What points should be extracted: 
 the class vertices (\code{what = 'vertices'}, the default) 
@@ -52,5 +59,9 @@ centroids
     # ternaryPlot( hypres )
     # ternaryPoints( s = hypres, x = vertices, col = "darkred" ) 
     # ternaryPoints( s = hypres, x = centroids, col = "purple" )  
+}
+\seealso{
+\code{\link[base]{as.data.frame}}, for the original 
+ generic function.
 }
 

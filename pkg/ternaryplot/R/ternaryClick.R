@@ -41,7 +41,7 @@
 #'
 #'@rdname ternaryClick-methods
 #'
-#'@examples inst/examples/ternaryClick-example.R
+#'@example inst/examples/ternaryClick-example.R
 #'
 #'@export 
 #'

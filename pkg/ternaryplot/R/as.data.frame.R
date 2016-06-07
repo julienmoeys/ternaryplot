@@ -17,6 +17,10 @@
 #'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
+#'@seealso \code{\link[base]{as.data.frame}}, for the original 
+#'  generic function.
+#'
+#'
 #'@param x 
 #'  A \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'  Contrary to many other functions in the 
@@ -25,6 +29,14 @@
 #'  (because the method 
 #'  \code{\link[base]{as.data.frame.character}} 
 #'  is already defined for other purposes).
+#'
+#'@param row.names
+#'  Not used. Only here for compatibility with the generic 
+#'  function \code{\link[base]{as.data.frame}}.
+#'
+#'@param optional
+#'  Not used. Only here for compatibility with the generic 
+#'  function \code{\link[base]{as.data.frame}}.
 #'
 #'@param what 
 #'  Single character string. What points should be extracted: 
@@ -55,9 +67,19 @@
 #'@importFrom sp coordinates 
 as.data.frame.ternarySystem <- function(
     x, 
+    row.names, 
+    optional, 
     what = 'vertices', 
     ... 
 ){  
+    if( !missing( "row.names" ) ){
+        warning( "Argument 'row.names' is not missing. Should not be used. Only there for compatibility with generic." )
+    }   
+    
+    if( !missing( "optional" ) ){
+        warning( "Argument 'optional' is not missing. Should not be used. Only there for compatibility with generic." )
+    }   
+    
     if( what == "vertices" ){
         pts <- x[[ "vertices" ]] 
         
