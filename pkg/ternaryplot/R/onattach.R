@@ -19,6 +19,7 @@
     # rm( terSysEnvList )
 }   
 
+#'@importFrom utils packageVersion
 .onAttach <- function(# Internal. Message displayed when loading the package.
     libname, 
     pkgname  
@@ -42,7 +43,7 @@
         msg <- sprintf( 
             "%s %s %s. For help type: help(pack='%s')", 
             pkgname, 
-            as.character( packageVersion( pkgname ) ), 
+            as.character( utils::packageVersion( pkgname ) ), 
             gitVersion, # svnVersion
             pkgname ) 
         
