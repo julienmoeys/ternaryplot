@@ -270,7 +270,7 @@ getAllTernarySystems <- function(){
 #'  A \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
-#'@example inst/examples/getTernarySystem-example
+#'@example inst/examples/getTernarySystem-example.R
 #'
 #'@export 
 #'

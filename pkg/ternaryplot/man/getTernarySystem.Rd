@@ -16,4 +16,19 @@ A \code{\link[ternaryplot]{ternarySystem-class}} object.
 \description{
 Fetch a pre-defined ternary classification system
 }
+\examples{
+
+library( "ternaryplot" )
+
+hypres <- getTernarySystem( s = "hypres" )
+
+class( hypres )
+
+#   ternaryPlot( hypres )
+}
+\seealso{
+\code{\link[ternaryplot]{listTernarySystem}}, 
+ \code{\link[ternaryplot]{addTernarySystem}} and 
+ \code{\link[ternaryplot]{deleteTernarySystem}}.
+}
 

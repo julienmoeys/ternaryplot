@@ -4,13 +4,42 @@
 \alias{listTernarySystem}
 \title{List all pre-defined ternary classification systems}
 \usage{
-listTernarySystem()
+listTernarySystem(definition = FALSE)
+}
+\arguments{
+\item{definition}{Single logical value. If \code{TRUE} (not the default), 
+the definition of the \code{\link[ternaryplot]{ternarySystem-class}} 
+objects are exported too (in a column named 
+\code{ternarySystem})}
 }
 \value{
-A vector of character strings, names of the pre-defined ternary 
- classification systems
+A \code{\link[base]{data.frame}}, with the following 
+ columns: \code{sourceIndex}, \code{sourceName} (the 
+ index and the name of the source as listed in 
+ \code{getTpPar('terSysEnvList')}), \code{systemName} 
+ (the name of the ternary system) and optionally 
+ \code{ternarySystem} (the full definition of the 
+ ternary system, if \code{definition=TRUE}).
 }
 \description{
 List all pre-defined ternary classification systems
+}
+\examples{
+
+library( "ternaryplot" ) 
+
+listTernarySystem()
+
+#   Notice the difference
+lts <- listTernarySystem( definition = TRUE )
+lts 
+
+names( lts[ 1L, "ternarySystem" ] )
+class( lts[ 1L, "ternarySystem" ][[ 1L ]] )
+}
+\seealso{
+\code{\link[ternaryplot]{getTernarySystem}}, 
+ \code{\link[ternaryplot]{addTernarySystem}} and 
+ \code{\link[ternaryplot]{deleteTernarySystem}}.
 }
 
