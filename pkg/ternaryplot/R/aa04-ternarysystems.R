@@ -121,20 +121,24 @@ ternarySystemEnv[[ "hypres" ]] <- createTernarySystem(
     ),  
     
     "classes" = data.frame( 
-        "abbrev" = c( "C", "M", "MF", "F", "VF" ), 
-        "name" = c( 
+        abbrev = c( 
+            "C", 
+            "MF", 
+            "M", 
+            "F", 
+            "VF" ), 
+        name   = c(
             "Coarse", 
-            "Medium", 
             "Medium fine", 
+            "Medium", 
             "Fine", 
             "Very fine" ), 
-        "verticesId" = I( list( 
-            "C"  = c(09,07,08,10), 
-            "M"  = c(07,04,05,11,10,08), 
-            "MF" = c(11,05,06,12), 
-            "F"  = c(04,02,03,06), 
-            "VF" = c(02,01,03) 
-        ) ), 
+        verticesId = I( list( 
+            C  = c(9, 7, 8, 10), 
+            MF = c(11, 5, 6, 12), 
+            M  = c(7, 4, 5, 11, 10, 8), 
+            F  = c(4, 2, 3, 6), 
+            VF = c(2, 1, 3) ) ), 
         stringsAsFactors = FALSE 
     ),  
     
