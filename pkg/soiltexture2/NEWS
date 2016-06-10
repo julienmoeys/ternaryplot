@@ -1,6 +1,13 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.2.0
+    
+    2016/06/10  The definition of the texture classes 
+        was reordered by increasing clay and sand 
+        content (important in cases of ties for texture 
+        classification)
+    
 CHANGES IN VERSION 0.1.0
     
     2016/05/29  Package test/compiled for the 1st time.
