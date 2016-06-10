@@ -279,8 +279,8 @@ soilTextEnvList[[ "aisne" ]] <- createTextureSystem(
                 "AL", 
                 "ALO" ), 
             name = c(
-                "Limon léger", 
-                "Limon léger sableux", 
+                "Limon l\xe9ger", 
+                "Limon l\xe9ger sableux", 
                 "Sable", 
                 "Sable limoneux", 
                 "Limon moyen", 
