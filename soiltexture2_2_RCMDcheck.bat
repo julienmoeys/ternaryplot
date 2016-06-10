@@ -12,7 +12,7 @@ del tmp.txt
 
 @echo :::: Processing %targzfile% ::::
 
-R CMD check %pkgname%
+R CMD check %targzfile%
 
 @REM --as-cran --no-tests 
 
