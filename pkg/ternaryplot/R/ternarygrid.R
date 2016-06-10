@@ -55,7 +55,7 @@
 #'
 #'@export
 #'
-#'@importfrom graphics par
+#'@importFrom graphics par
 .ternaryGridBase.ternarySystem <- function( 
  s, 
  type = "grid", 
