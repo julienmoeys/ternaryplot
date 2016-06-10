@@ -25,7 +25,7 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.1.0", 
+    pkgVersion  = "0.2.0", 
     pkgDepends  = "ternaryplot", # "MASS"
     pkgSuggests = "knitr", 
     pkgImports  = NULL, 
