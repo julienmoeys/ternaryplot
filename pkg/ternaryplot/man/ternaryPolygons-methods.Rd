@@ -9,9 +9,9 @@
 ternaryPolygons(s, ...)
 
 \method{ternaryPolygons}{ternaryPolygons}(s, x = NULL, density = NULL,
-  angle = 45, border = NULL, bg = NULL, lty = par("lty"), lwd = NULL,
-  labels = NULL, adj = NULL, pos = NULL, offset = 0.5, vfont = NULL,
-  cex = 1, col = NULL, font = NULL, ...)
+  angle = 45, border = NULL, bg = NULL, lty = graphics::par("lty"),
+  lwd = NULL, labels = NULL, adj = NULL, pos = NULL, offset = 0.5,
+  vfont = NULL, cex = 1, col = NULL, font = NULL, ...)
 
 \method{ternaryPolygons}{ternarySystem}(s, border = NULL, col = NULL,
   bg = NULL, lwd = NULL, cex = NULL, font = NULL, ...)

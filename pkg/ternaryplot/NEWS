@@ -1,6 +1,13 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.11.0
+    
+    2016/06/10  The classes of the hypres texture classification 
+        were reordered by increasing clay and sand content 
+        (to obtain a consistent classification in cases 
+        of ties).
+    
 CHANGES IN VERSION 0.10.0
     
     2016/06/03  Created new functions:
