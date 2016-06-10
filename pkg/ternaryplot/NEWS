@@ -7,7 +7,14 @@ CHANGES IN VERSION 0.11.0
         were reordered by increasing clay and sand content 
         (to obtain a consistent classification in cases 
         of ties).
-    
+        
+        listTernarySystem() now returns a data.frame instead 
+        of a vector of character strings. Optionally also 
+        returns all the ternary systems definitions in 
+        the data.frame.
+        
+        Created addTernarySystem() and deleteTernarySystem().
+        
 CHANGES IN VERSION 0.10.0
     
     2016/06/03  Created new functions:
