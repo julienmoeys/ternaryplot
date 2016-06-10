@@ -256,6 +256,11 @@ getAllTernarySystems <- function(){
 #'Fetch a pre-defined ternary classification system
 #'
 #'
+#'@seealso \code{\link[ternaryplot]{listTernarySystem}}, 
+#'  \code{\link[ternaryplot]{addTernarySystem}} and 
+#'  \code{\link[ternaryplot]{deleteTernarySystem}}.
+#'
+#'
 #'@param s 
 #'  Single character string. Name of the ternary classification to 
 #'  be fetched.
@@ -265,6 +270,8 @@ getAllTernarySystems <- function(){
 #'  A \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #'
+#'@example inst/examples/getTernarySystem-example
+#'
 #'@export 
 #'
 getTernarySystem <- function( s = "default" ){    
@@ -272,86 +279,30 @@ getTernarySystem <- function( s = "default" ){
         stop( "'s' must be a character string" )
     }   
     
+    if( length( s ) > 1L ){ 
+        stop( sprintf( 
+            "'s' must be a single character string (now length %s)", 
+            length( s ) 
+        ) ) 
+    }   
+    
     .tpPar <- tpPar()
     terSysEnvList <- .tpPar[[ "terSysEnvList" ]]
     
-    # Get all the ternary classifications:
-    # listTernarySystem <- as.list( "ternaryplot":::"listTernarySystem" ) 
+    lts <- listTernarySystem( definition = TRUE )
     
-    for( i in 1:length( terSysEnvList ) ){
-        # envir <- asNamespace( names( terSysEnvList )[ i ] )
-        # x     <- as.character( terSysEnvList[ i ] )
+    if( any( s %in% lts[, "systemName" ] ) ){
+        sel <- which( lts[, "systemName" ] == s )[ 1L ]
+        out <- lts[ sel, "ternarySystem" ][[ 1L ]] 
         
-        # if( exists( x = x, envir = envir ) ){
-            # ternarySystemE <- get( 
-                # x        = x, 
-                # envir    = envir, 
-                # inherits = FALSE 
-            # )    
-            
-            # # Check if the system asked is present:
-            # if( s %in% names( ternarySystemE ) ){ 
-                # s <- ternarySystemE[[ s ]] 
-                
-                # break 
-            # }else{ 
-                # s <- NULL  
-            # }   
-            
-        # }else{
-            # stop( sprintf( 
-                # "The list of ternary plot '%s' could not be found in package '%s'.", 
-                # terSysEnvList[ i ], names( terSysEnvList )[ i ] 
-            # ) )  
-        # }   
-        
-        ## A few conformity tests before using the 
-        ## list of ternarySystems
-        
-        if( !( "function" %in% class( terSysEnvList[[ i ]] ) ) ){
-            stop( sprintf(
-                "class(getTpPar('terSysEnvList')[[%s]]) should be a 'function'. Now: %s", 
-                i, paste( class( terSysEnvList[[ i ]] ), collapse = "; " ) 
-            ) ) 
-        }   
-        
-        terSysEnvList0 <- terSysEnvList[[ i ]]()
-        
-        if( !( "list" %in% class( terSysEnvList0 ) ) ){
-            stop( sprintf(
-                "getTpPar('terSysEnvList')[[%s]]() should return a 'list'. Now: %s", 
-                i, paste( class( terSysEnvList0 ), collapse = "; " ) 
-            ) ) 
-        }   
-        
-        nm0 <- names( terSysEnvList0 )
-        
-        if( is.null( nm0 ) ){
-            stop( sprintf(
-                "names(getTpPar('terSysEnvList')[[%s]]()) is NULL (the list should be tagged/named)", 
-                i 
-            ) ) 
-        }   
-        
-        ## Fetch the ternarySystem if present
-        
-        if( s %in% nm0 ){
-            s <- terSysEnvList0[[ s ]]
-            
-            break 
-        }else{
-            s <- NULL 
-        }   
-    }   
-    
-    if( is.null( s ) ){
+    }else{
         stop( sprintf( 
             "The ternary system (%s) could not be found", 
             s 
         ) )  
     }   
-    
-    return( s ) 
+      
+    return( out ) 
 }   
 
 
@@ -363,20 +314,220 @@ getTernarySystem <- function( s = "default" ){
 #'List all pre-defined ternary classification systems
 #'
 #'
-#'@return 
-#'  A vector of character strings, names of the pre-defined ternary 
-#'  classification systems
+#'@seealso \code{\link[ternaryplot]{getTernarySystem}}, 
+#'  \code{\link[ternaryplot]{addTernarySystem}} and 
+#'  \code{\link[ternaryplot]{deleteTernarySystem}}.
 #'
+#'
+#'@param definition 
+#'  Single logical value. If \code{TRUE} (not the default), 
+#'  the definition of the \code{\link[ternaryplot]{ternarySystem-class}} 
+#'  objects are exported too (in a column named 
+#'  \code{ternarySystem})
+#'
+#'
+#'@return 
+#'  A \code{\link[base]{data.frame}}, with the following 
+#'  columns: \code{sourceIndex}, \code{sourceName} (the 
+#'  index and the name of the source as listed in 
+#'  \code{getTpPar('terSysEnvList')}), \code{systemName} 
+#'  (the name of the ternary system) and optionally 
+#'  \code{ternarySystem} (the full definition of the 
+#'  ternary system, if \code{definition=TRUE}).
+#'
+#'
+#'@example inst/examples/listTernarySystem-example.R
 #'
 #'@export 
 #'
-listTernarySystem <- function(){    
-    # Get all the ternary classifications:
-    ternarySystemE <- as.list( ternarySystemEnv ) 
+listTernarySystem <- function( definition = FALSE ){ 
+    .tpPar        <- tpPar()
+    terSysEnvList <- .tpPar[[ "terSysEnvList" ]]
     
-    tsList <- names( ternarySystemE )
+    nm <- names( terSysEnvList ) 
+    
+    if( is.null( nm ) ){
+        names( terSysEnvList ) <- as.character( 1:length(terSysEnvList) ) 
+        nm <- names( terSysEnvList ) 
+    }else{
+        if( any( dup <- duplicated( nm ) ) ){
+            warning( sprintf(
+                "Some names in names(getTpPar('terSysEnvList')) are duplicated: %s", 
+                paste( x = nm[ dup ], collapse = "; " ) 
+            ) ) 
+        };  rm( dup ) 
+    }   
+    
+    tsList <- lapply(
+        X   = 1:length(terSysEnvList), 
+        FUN = function(i){
+            terSysEnvList0 <- terSysEnvList[[ i ]]()
+            
+            if( !( "list" %in% class( terSysEnvList0 ) ) ){
+                stop( sprintf(
+                    "getTpPar('terSysEnvList')[[%s]]() should return a 'list'. Now: %s", 
+                    i, paste( class( terSysEnvList0 ), collapse = "; " ) 
+                ) ) 
+            }   
+            
+            nm0 <- names( terSysEnvList0 )
+            
+            if( is.null( nm0 ) ){
+                stop( sprintf(
+                    "names(getTpPar('terSysEnvList')[[%s]]()) is NULL (the list should be tagged/named)", 
+                    i 
+                ) ) 
+            }   
+            
+            out <- data.frame(
+                "sourceIndex"    = i, 
+                "sourceName"     = nm[ i ], 
+                "systemName"     = nm0, 
+                stringsAsFactors = FALSE 
+            )   
+            
+            if( definition ){
+                out <- data.frame(
+                    out, 
+                    "ternarySystem" = I( terSysEnvList0 ), 
+                    stringsAsFactors = FALSE 
+                )   
+            }   
+            
+            return( out )
+        }   
+    )   
+    
+    tsList <- do.call( what = "rbind", args = tsList ) 
     
     return( tsList ) 
 }   
 
+
+
+# addTernarySystem =========================================
+
+#'Add or update a ternary system to the list of available ternary systems (only for this session)
+#'
+#'Add or update a ternary system to the list of available 
+#'  ternary systems. Only valid for that R session and until 
+#'  it is closed (i.e. not permanent effects). It only adds 
+#'  the ternary system for the ternary-plot package.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{getTernarySystem}}, 
+#'  \code{\link[ternaryplot]{listTernarySystem}} and 
+#'  \code{\link[ternaryplot]{deleteTernarySystem}}.
+#'  \code{\link[ternaryplot]{createTernarySystem}} should 
+#'  be used to create/define a ternary system before adding 
+#'  it to the list of available ternary systems. 
+#'
+#'
+#'@return 
+#'  Nothing. Used for its side effect.
+#'
+#'
+#'@example inst/examples/addTernarySystem-example.R
+#'
+#'@rdname addTernarySystem-methods
+#'
+#'@export 
+#'
+addTernarySystem <- function( s, name, overwrite = FALSE ){ 
+    UseMethod( "addTernarySystem" )
+}   
+
+
+#'@rdname addTernarySystem-methods
+#'
+#'@method addTernarySystem ternarySystem
+#'
+#'@export
+#'
+addTernarySystem.ternarySystem <- function( s, name, overwrite = FALSE ){    
+    ternaryCheck( s = s ) 
+    
+    if( missing( "name" ) ){
+        stop( "'name' is missing, with no default." )
+    }   
+    
+    if( length( name ) > 1 ){
+        stop( "length( name ) > 1. Only one name should be provided." )
+    }   
+    
+    # Get all the ternary classifications of the package:
+    ternarySystemE <- as.list( ternarySystemEnv ) 
+    tsList <- names( ternarySystemE )
+    
+    if( (name %in% tsList) & (!overwrite) ){
+        stop( sprintf( 
+            "'name' (%s) already exists in the list of ternary systems (ternaryplot-package), while overwrite is FALSE.", 
+            name 
+        ) ) 
+    }   
+    
+    assign( 
+        x     = name, 
+        value = s, 
+        envir = ternarySystemEnv )
+    
+    return( invisible( TRUE ) )
+}   
+
+
+# deleteTernarySystem ======================================
+
+#'Delete a ternary system from the list of available ternary systems (only for this session)
+#'
+#'Delete a ternary system from the list of available ternary 
+#'  systems. Only valid for that R session (unless the 
+#'  ternarySystem had been added during the session using 
+#'  \code{\link[ternaryplot]{addTernarySystem}}, in which 
+#'  case it disappears anyway at the end of the session). 
+#'  Can only delete a ternary system for the ternary-plot 
+#'  package.
+#'
+#'
+#'@seealso \code{\link[ternaryplot]{getTernarySystem}}, 
+#'  \code{\link[ternaryplot]{listTernarySystem}} and 
+#'  \code{\link[ternaryplot]{addTernarySystem}}.
+#'
+#'
+#'@param name 
+#'  Vector of character strings. Name of the ternary systems 
+#'  to be deleted from the list of available systems.
+#'
+#'
+#'@return 
+#'  Nothing. Used for its side effect.
+#'
+#'
+#'@example inst/examples/deleteTernarySystem-example.R
+#'
+#'@export 
+#'
+deleteTernarySystem <- function( name ){ 
+    if( missing( "name" ) ){
+        stop( "'name' is missing, with no default." )
+    }   
+
+    if( !is.character( name ) ){
+        stop( "'name' must be a vector of character strings" ) 
+    }   
+    
+    # Get all the ternary classifications of the package:
+    ternarySystemE <- as.list( ternarySystemEnv ) 
+    tsList <- names( ternarySystemE )
+    
+    if( any( nNotInList <- !(name %in% tsList) ) ){
+        stop( sprintf( 
+            "Some value(s) in 'name' cannot be found in the list of ternary systems (ternaryplot-package): %s. See also listTernarySystem()", 
+            paste( name[ nNotInList ], collapse = "; " ) 
+        ) ) 
+    }   
+    
+    rm( list = name, envir = ternarySystemEnv )
+    
+    return( invisible( TRUE ) )
+}   
 
