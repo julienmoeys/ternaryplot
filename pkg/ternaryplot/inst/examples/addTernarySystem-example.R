@@ -24,3 +24,6 @@ addTernarySystem( s = hypres_FFF, name = "hypres_FFF",
 hypres_FFF2 <- getTernarySystem( s = "hypres_FFF" )
 
 identical( hypres_FFF, hypres_FFF2 )
+
+#   Clean-up
+deleteTernarySystem( name = "hypres_FFF" )

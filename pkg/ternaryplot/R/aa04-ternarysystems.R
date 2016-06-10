@@ -423,6 +423,21 @@ listTernarySystem <- function( definition = FALSE ){
 #'  it to the list of available ternary systems. 
 #'
 #'
+#'@param s 
+#'  A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+#'  such as obtained with 
+#'  \code{\link[ternaryplot]{getTernarySystem}}.
+#'
+#'@param name 
+#'  Single character string. Name (label) of the ternary 
+#'  system to be added.
+#'
+#'@param overwrite 
+#'  Single logical value. If \code{TRUE} (not the default), 
+#'  existing ternary system with the same name as in 
+#'  \code{name} will be overwritten.
+#'
+#'
 #'@return 
 #'  Nothing. Used for its side effect.
 #'
