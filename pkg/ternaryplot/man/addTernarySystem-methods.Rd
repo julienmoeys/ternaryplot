@@ -9,6 +9,18 @@ addTernarySystem(s, name, overwrite = FALSE)
 
 \method{addTernarySystem}{ternarySystem}(s, name, overwrite = FALSE)
 }
+\arguments{
+\item{s}{A \code{\link[ternaryplot]{ternarySystem-class}} object, 
+such as obtained with 
+\code{\link[ternaryplot]{getTernarySystem}}.}
+
+\item{name}{Single character string. Name (label) of the ternary 
+system to be added.}
+
+\item{overwrite}{Single logical value. If \code{TRUE} (not the default), 
+existing ternary system with the same name as in 
+\code{name} will be overwritten.}
+}
 \value{
 Nothing. Used for its side effect.
 }
@@ -45,6 +57,9 @@ addTernarySystem( s = hypres_FFF, name = "hypres_FFF",
 hypres_FFF2 <- getTernarySystem( s = "hypres_FFF" )
 
 identical( hypres_FFF, hypres_FFF2 )
+
+#   Clean-up
+deleteTernarySystem( name = "hypres_FFF" )
 }
 \seealso{
 \code{\link[ternaryplot]{getTernarySystem}}, 
