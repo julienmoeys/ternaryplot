@@ -153,6 +153,8 @@ ternaryPlot.character <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
+#'@importFrom graphics title
 ternaryPlot.ternarySystem <- function( 
     s, 
     x = NULL, 
@@ -171,7 +173,7 @@ ternaryPlot.ternarySystem <- function(
     
     
     oldTpPar <- tpPar() # Backup parameters
-    .par     <- par()
+    .par     <- graphics::par()
     
     
     #   Draw a box without borders around the plot
@@ -252,7 +254,7 @@ ternaryPlot.ternarySystem <- function(
     }   
     
     if( any( c( !is.null( main ), !is.null( main ) ) ) ){
-        title( main = main, sub = sub )
+        graphics::title( main = main, sub = sub )
     }   
     
     

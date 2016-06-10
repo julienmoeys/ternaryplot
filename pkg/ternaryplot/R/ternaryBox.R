@@ -80,13 +80,15 @@ ternaryBox <- function( s, ... ){
 #'
 #'@export
 #' 
+#'@importFrom graphics par 
+#'@importFrom graphics polygon
 ternaryBox.ternarySystem <- function( 
  s, 
  bg = NA, 
  ... 
 ){  
     .tpPar <- tpPar()
-    .par   <- par() 
+    .par   <- graphics::par() 
     
     axis.line.lwd <- .tpPar[[ "axis.line.lwd" ]] 
     axis.line.col <- .tpPar[[ "axis.line.col" ]] 
@@ -115,7 +117,7 @@ ternaryBox.ternarySystem <- function(
     # Convert the scale to x-y values
     tpBox <- ternary2xy.ternarySystem( s = s, x = tpBox ) 
     
-    polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
+    graphics::polygon( x = tpBox[, "x" ], y = tpBox[, "y" ], 
         lwd = axis.line.lwd, col = bg, 
         border = axis.line.col, ... )
     

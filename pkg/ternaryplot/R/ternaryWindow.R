@@ -86,6 +86,8 @@ ternaryWindow.character <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
+#'@importFrom graphics plot
 ternaryWindow.ternarySystem <- function(
  s, 
  x, 
@@ -164,13 +166,13 @@ ternaryWindow.ternarySystem <- function(
     tpBox <- ternary2xy.ternarySystem( s = s90, x = tpBox ) 
     
     # Draw the plot
-    oldPar <- par( 
+    oldPar <- graphics::par( 
         # mar = c(5.1, 4.1, 4.1, 4.1), # Margins c(bottom, left, top, right)
         pty = "s",                     # Plot region is 'square' (equal ratio)
         xpd = TRUE                     # Plotting can also occur out of the plot
     )    
     
-    plot( 
+    graphics::plot( 
         x    = tpBox[,"x"], 
         y    = tpBox[,"y"], 
         bty  = "n", # no box around, 
@@ -187,7 +189,7 @@ ternaryWindow.ternarySystem <- function(
     
     s[[ 'scale' ]] <- scale 
     
-    par( oldPar[ names( oldPar ) != "pty" ] ) 
+    graphics::par( oldPar[ names( oldPar ) != "pty" ] ) 
     
     return( invisible( s ) ) 
 }   

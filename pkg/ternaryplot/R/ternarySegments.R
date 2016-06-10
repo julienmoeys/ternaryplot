@@ -96,6 +96,7 @@ ternarySegments <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics segments
 ternarySegments.ternarySystem <- function( 
  s, 
  from, 
@@ -125,7 +126,7 @@ ternarySegments.ternarySystem <- function(
     toXY   <- ternary2xy.ternarySystem( s = s, x = to ) 
     
     # Draw the segments
-    segments(
+    graphics::segments(
         x0  = fromXY[, "x" ], 
         y0  = fromXY[, "y" ], 
         x1  = toXY[, "x" ], 

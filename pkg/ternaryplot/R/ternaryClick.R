@@ -1,10 +1,10 @@
 
-# +-------------------------------------------------------------+
-# | Package:    ternaryplot                                   |
-# | Language:   R + roxygen2 inline documentation               |
-# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>             |
-# | License:    AGPL3, Affero General Public License version 3  |
-# +-------------------------------------------------------------+
+# +--------------------------------------------------------+
+# | Package:    ternaryplot                                |
+# | Language:   R + roxygen2 inline documentation          |
+# | Author(s):  Julien Moeys <Julien.Moeys@@slu.se>        |
+# | License:    AGPL3, Affero General Public License v3    |
+# +--------------------------------------------------------+
 
 
 
@@ -85,6 +85,8 @@ ternaryClick.character <- function(
 #'
 #'@export
 #'
+#'@importFrom utils flush.console
+#'@importFrom graphics locator
 ternaryClick.ternarySystem <- function( 
     s, 
     n = 1L, 
@@ -94,9 +96,9 @@ ternaryClick.ternarySystem <- function(
         "Select %s points inside (or outside) the ternary plot", 
         n 
     ) ) 
-    flush.console() 
+    utils::flush.console() 
     
-    xyData <- as.data.frame( locator( n = n, ... ) ) 
+    xyData <- as.data.frame( graphics::locator( n = n, ... ) ) 
     
     tData <- xy2ternary(
         s       = s, 

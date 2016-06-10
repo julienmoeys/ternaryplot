@@ -76,6 +76,7 @@ ternaryArrows <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics arrows
 ternaryArrows.ternarySystem <- function( 
  s, 
  from, 
@@ -105,7 +106,7 @@ ternaryArrows.ternarySystem <- function(
     toXY   <- ternary2xy.ternarySystem( s = s, x = to ) 
     
     # Draw the arrows
-    arrows(
+    graphics::arrows(
         x0  = fromXY[, "x" ], 
         y0  = fromXY[, "y" ], 
         x1  = toXY[, "x" ], 

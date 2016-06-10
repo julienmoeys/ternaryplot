@@ -68,6 +68,7 @@
 #'@export
 #'
 #'@importFrom sp rbind.SpatialLines
+#'@importFrom graphics par
 .ternaryTicks.ternarySystem <- function( 
  s, 
  side = 1:3, 
@@ -97,7 +98,7 @@
     names( out ) <- c( "B", "L", "R" ) 
     
     
-    .par   <- par() 
+    .par   <- graphics::par() 
     .tpPar <- tpPar() 
     
     fg <- .par[[ "fg" ]]
@@ -355,6 +356,7 @@
 #'
 #'@export
 #'
+#'@importFrom graphics par
 .ternaryAxisArrowsBase.ternarySystem <- function( 
  s, 
  ... 
@@ -370,7 +372,7 @@
     if( any( is.na( arrowsShift ) ) ){
         #   Note: also set in .ternaryAxisArrows
         arrowsHeight <- .tpPar[[ "arrowsHeight" ]] # getTpPar( "arrowsHeight" ) 
-        mgp          <- par( "mgp" )
+        mgp          <- graphics::par( "mgp" )
         
         arrowsShift <- (.nbMargin2diffXY() / .fracSum) * 
             c( mgp[ 1L ] - arrowsHeight, mgp[ 1L ] ) 
@@ -716,9 +718,12 @@
 
 # .ternaryAxisArrows ============================================
 
+#'@importFrom graphics par
+NULL
+
 calculateArrowLength <- function( pin = NULL ){
     if( is.null( pin ) ){
-        pin <- par( "pin" )
+        pin <- graphics::par( "pin" )
     }   
     
     #   Default arrow length in inches
@@ -771,6 +776,7 @@ calculateArrowLength <- function( pin = NULL ){
 #'
 #'@export
 #'
+#'@importFrom graphics par
 .ternaryAxisArrows.ternarySystem <- function( 
  s, 
  ... 
@@ -789,7 +795,7 @@ calculateArrowLength <- function( pin = NULL ){
     
     
     .tpPar <- tpPar() # "arrowsShift", "arrowsHeight", 
-    .par   <- par()
+    .par   <- graphics::par()
     
     arrowsBreak   <- .tpPar[[ "arrowsBreak" ]] 
     # arrowsShift   <- .tpPar$"arrowsShift" 
@@ -1067,6 +1073,7 @@ ternaryAxis.character <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
 ternaryAxis.ternarySystem <- function(
  s, 
  side = 1:3,
@@ -1076,7 +1083,7 @@ ternaryAxis.ternarySystem <- function(
  # axisTitle = TRUE, 
  ... 
 ){  
-    oldPar <- par( "xpd" = TRUE ) # Plotting can also occur out of the plot
+    oldPar <- graphics::par( "xpd" = TRUE ) # Plotting can also occur out of the plot
     
     .ternaryTicks( s = s ) 
     
@@ -1087,7 +1094,7 @@ ternaryAxis.ternarySystem <- function(
         .ternaryAxisArrows( s = s ) 
     }   
     
-    par( "xpd" = oldPar[[ "xpd" ]] ) 
+    graphics::par( "xpd" = oldPar[[ "xpd" ]] ) 
 }   
 
 

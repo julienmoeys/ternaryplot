@@ -92,6 +92,7 @@ ternaryText <- function( s, ... ){
 #'
 #'@export
 #'
+#'@importFrom graphics text
 ternaryText.ternarySystem <- function( 
     s, 
     x, 
@@ -149,7 +150,7 @@ ternaryText.ternarySystem <- function(
     }   
     
     if( !is.null( xy ) ){
-        text( x = xy[,"x"], y = xy[,"y"], labels = labels, 
+        graphics::text( x = xy[,"x"], y = xy[,"y"], labels = labels, 
             adj = adj, pos = pos, offset = offset, vfont = vfont, 
             cex = cex, col = col, font = font, ... ) 
         
@@ -170,6 +171,7 @@ ternaryText.ternarySystem <- function(
 #'@export
 #'
 #'@importFrom sp coordinates 
+#'@importFrom graphics text
 ternaryText.ternaryPolygons <- function( 
     s, 
     x, 
@@ -222,7 +224,7 @@ ternaryText.ternaryPolygons <- function(
             #   centroid
             centroids <- sp::coordinates( sSp ) 
             
-            text( x = centroids[, 1L ], y = centroids[, 2L ], 
+            graphics::text( x = centroids[, 1L ], y = centroids[, 2L ], 
                 labels = labels, adj = adj, pos = pos, 
                 offset = offset, vfont = vfont, cex = cex, 
                 col = col, font = font, ... ) 

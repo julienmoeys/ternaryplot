@@ -55,6 +55,7 @@
 #'
 #'@export
 #'
+#'@importfrom graphics par
 .ternaryGridBase.ternarySystem <- function( 
  s, 
  type = "grid", 
@@ -65,7 +66,7 @@
     tScale       <- s[[ 'scale' ]] 
     .fracSum     <- fracSum.ternarySystem( s = s ) 
     marginSize   <- .nbMargin2diffXY()
-    .par         <- par() 
+    .par         <- graphics::par() 
     .tpPar       <- tpPar() 
     
     if( type == "ticks" ){ 
@@ -739,6 +740,7 @@ ternaryGrid <- function( s, ... ){
 #'@export
 #'
 #'@importFrom sp rbind.SpatialLines
+#'@importFrom graphics par
 ternaryGrid.ternarySystem <- function( 
  s, 
  side = 1:3, 
@@ -775,7 +777,7 @@ ternaryGrid.ternarySystem <- function(
             # Draw the grid segments
             
             if( is.null( grid.line.lwd ) ){ 
-                grid.line.lwd <- par( "lwd" ) 
+                grid.line.lwd <- graphics::par( "lwd" ) 
             }   
             
             out[[ ax ]] <- ternarySegments.ternarySystem( 

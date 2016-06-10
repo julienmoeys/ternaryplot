@@ -129,7 +129,7 @@ ternaryClassify.ternarySystem <- function(
         
         #   Classify the ternary data
         #   *   Fetch the class ID
-        clsId <- sapply( spCls@polygons, function(x){slot(x,"ID")} )
+        clsId <- sapply( spCls@polygons, function(x){x@ID} ) # slot(x,"ID")
         
         #   *   Classify
         out <- clsId[ sp::over( x = spPts, y = spCls ) ] 
@@ -217,7 +217,7 @@ ternaryClassify.ternaryPolygons <- function(
         
         #   Classify the ternary data
         #   *   Fetch the class ID
-        clsId <- sapply( spCls@polygons, function(x){slot(x,"ID")} )
+        clsId <- sapply( spCls@polygons, function(x){x@ID} ) # slot(x,"ID")
         
         #   *   Classify
         out <- clsId[ sp::over( x = spPts, y = spCls ) ] 

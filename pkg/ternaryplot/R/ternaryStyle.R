@@ -55,6 +55,8 @@ ternaryStyle <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
+#'@importFrom grDevices gray
 ternaryStyle.character <- function( 
     style, 
     margin = FALSE 
@@ -65,7 +67,7 @@ ternaryStyle.character <- function(
     
     if( style == "publication" ){
         #   Set general graphical parameters (enlarged plot)
-        par( 
+        graphics::par( 
             family    = "serif", 
             font      = 2, 
             font.axis = 2, 
@@ -75,14 +77,14 @@ ternaryStyle.character <- function(
         #   Set the margins
         if( margin ){
             # mar = c(bottom, left, top, right) 
-            par( mar = c(3,3,0,3)+.1 ) 
+            graphics::par( mar = c(3,3,0,3)+.1 ) 
         }   
         
         #   Set specific graphical parameters
         tpPar( 
             grid.line.col    = "white", 
             # arrowsBreak      = FALSE, 
-            plot.bg          = gray( .95 ), 
+            plot.bg          = grDevices::gray( .95 ), 
             axis.line.lwd    = 2, 
             class.border.lwd = 2, 
             ticks.line.lwd   = 2, 
@@ -90,7 +92,7 @@ ternaryStyle.character <- function(
         
     }else if( style == "ggplot2" ){
         #   Set general graphical parameters (enlarged plot)
-        par( 
+        graphics::par( 
             family    = "sans", 
             font      = 2, 
             font.axis = 2, 
@@ -101,7 +103,7 @@ ternaryStyle.character <- function(
         #   Set the margins
         if( margin ){
             # mar = c(bottom, left, top, right) 
-            par( mar = c(3,3,0,3)+.1 ) 
+            graphics::par( mar = c(3,3,0,3)+.1 ) 
         }   
         
         #   Set specific graphical parameters
@@ -109,7 +111,7 @@ ternaryStyle.character <- function(
             grid.line.col    = "white", 
             arrows           = FALSE, 
             # arrowsBreak      = FALSE, 
-            plot.bg          = gray( .95 ), 
+            plot.bg          = grDevices::gray( .95 ), 
             axis.line.lwd    = 2, 
             axis.line.col    = NA, 
             class.border.lwd = 2, 

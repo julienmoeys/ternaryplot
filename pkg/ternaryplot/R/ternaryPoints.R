@@ -60,6 +60,7 @@ ternaryPoints <- function(
 #'@export
 #'
 #'@importFrom sp SpatialPoints
+#'@importFrom graphics points
 ternaryPoints.ternarySystem <- function( 
  s, 
  x, 
@@ -67,7 +68,7 @@ ternaryPoints.ternarySystem <- function(
 ){ 
     xy <- ternary2xy.ternarySystem( s = s, x = x ) 
     
-    points( x = xy[, "x" ], y = xy[, "y" ], ... ) 
+    graphics::points( x = xy[, "x" ], y = xy[, "y" ], ... ) 
     
     out <- xy[, c( "x", "y" ) ]
     

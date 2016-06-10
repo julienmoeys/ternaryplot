@@ -118,6 +118,8 @@ ternaryPolygons <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
+#'@importFrom graphics polygon
 ternaryPolygons.ternaryPolygons <- function( 
     s, 
     x       = NULL, 
@@ -125,7 +127,7 @@ ternaryPolygons.ternaryPolygons <- function(
     angle   = 45,
     border  = NULL, 
     bg      = NULL, 
-    lty     = par("lty"), 
+    lty     = graphics::par("lty"), 
     lwd     = NULL, 
     # ternaryText arguments
     labels  = NULL, 
@@ -193,7 +195,7 @@ ternaryPolygons.ternaryPolygons <- function(
             # }   
         # }   
         
-        .par <- par( no.readonly = TRUE )
+        .par <- graphics::par( no.readonly = TRUE )
         
         #   Recycle all the parameters for the number of 
         #   polygons
@@ -254,7 +256,7 @@ ternaryPolygons.ternaryPolygons <- function(
         silent <- lapply( 
             X   = 1:length( xy ), 
             FUN = function(i){ 
-                polygon(
+                graphics::polygon(
                     x       = xy[[ i ]][, "x" ], 
                     y       = xy[[ i ]][, "y" ], 
                     density = density[ i ], 
@@ -305,6 +307,7 @@ ternaryPolygons.ternaryPolygons <- function(
 #'
 #'@export
 #'
+#'@importFrom graphics par
 ternaryPolygons.ternarySystem <- function( 
     s, 
     border  = NULL, 
@@ -319,7 +322,7 @@ ternaryPolygons.ternarySystem <- function(
         tc <- ternaryClasses( s = s ) 
         
         .tpPar <- tpPar() 
-        .par <- par( no.readonly = TRUE )
+        .par   <- graphics::par( no.readonly = TRUE )
         
         if( is.null( border ) ){
             border <- .tpPar[[ "class.border.col" ]] 

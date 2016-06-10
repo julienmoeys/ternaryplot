@@ -11,6 +11,11 @@
 
 # .nbMargin2diffXY ==============================================
 
+#'@importFrom graphics par
+#'@importFrom graphics grconvertX
+#'@importFrom graphics grconvertY
+NULL 
+
 ## #INTERNAL: Transform a number of margin lines into a X or Y differences
 ## #
 ## #INTERNAL: Transform a number of margin lines into a X or Y differences
@@ -35,7 +40,7 @@
  cex     = NULL, # par( 'cex' ), 
  lheight = NULL  # par( 'lheight' ) 
 ){  
-    .par <- par() 
+    .par <- graphics::par() 
     
     if( is.null( cin ) ){
         cin <- .par[[ "cin" ]] 
@@ -50,11 +55,11 @@
     }   
     
     if( side %in% c( 2, 4 ) ){
-        out <- diff( grconvertX( x = 0:1, 'inches', 'user' ) ) 
+        out <- diff( graphics::grconvertX( x = 0:1, 'inches', 'user' ) ) 
         #   Inches to user coordinates
     
     }else{
-        out <- diff( grconvertY( y = 0:1, 'inches', 'user' ) ) 
+        out <- diff( graphics::grconvertY( y = 0:1, 'inches', 'user' ) ) 
         #   Inches to user coordinates
         
     }   
