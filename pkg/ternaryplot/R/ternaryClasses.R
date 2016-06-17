@@ -125,7 +125,7 @@ ternaryClasses.ternarySystem <- function(
     
     class( grd ) <- c( "ternaryPolygons", "data.frame" ) 
     
-    ternaryCheck.ternaryPolygons( s = s )
+    ternaryCheck.ternaryPolygons( s = grd )
     
     return( grd )
 }   
