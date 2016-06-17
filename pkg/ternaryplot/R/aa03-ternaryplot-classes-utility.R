@@ -1307,6 +1307,8 @@ ternarySystem.ternaryPolygons <- function(
     
     attr( x = s, which = "ternarySystem" ) <- value
     
+    ternaryCheck.ternaryPolygons( s = s )
+    
     return( s )  
 }   
 
