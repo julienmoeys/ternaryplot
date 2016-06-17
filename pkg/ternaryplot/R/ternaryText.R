@@ -189,6 +189,8 @@ ternaryText.ternaryPolygons <- function(
         warning( "'x' is not NULL. Ignored by ternaryText.ternaryPolygons()." )
     }   
     
+    ternaryCheck.ternaryPolygons( s = s )
+    
     # terSys  <- ternarySystem( s = s ) 
     
     # x  <- s[[ "grid" ]] 
