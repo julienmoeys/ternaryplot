@@ -57,11 +57,11 @@
 #'@return 
 #'  Returns a \code{\link[ternaryplot]{ternaryPolygons-class}} 
 #'  object with one extra \code{\link[base]{attr}}ibute, 
-#'  \code{counts}. \code{counts} is a tagged vector with as 
-#'  many values as grid-cells (if \code{grid} is \code{TRUE}) 
-#'  or as many values as classes in \code{s} (if 
-#'  \code{grid} is \code{FALSE}). The tags are the grid-cells 
-#'  identifier or the classes abbreviations. 
+#'  \code{data}. \code{data} is a 
+#'  \code{\link[base]{data.frame}} containing two columns: 
+#'  an identifier column, called \code{id} if \code{grid} is 
+#'  \code{TRUE} or \code{abbrev} if \code{grid} is \code{FALSE} 
+#'  (the class abbreviations), and a \code{counts} column.
 #'
 #'
 #'@rdname ternaryCount-methods
@@ -159,7 +159,18 @@ ternaryCount.ternaryPolygons <- function(
     
     #   Set the counts as attributes of the 
     #   ternaryPolygons-class grid
-    attr( x = s, which = "counts" ) <- counts
+    data <- data.frame( 
+        idCol  = names( counts ), 
+        counts = counts, 
+        stringsAsFactors = FALSE 
+    )   
+    
+    colnames( data ) <- c( idCol, "counts" )
+    rownames( data ) <- data[, idCol ] 
+    
+    attr( x = s, which = "data" ) <- data 
+    
+    ternaryCheck.ternaryPolygons( s = s )
     
     return( s )
 }   
