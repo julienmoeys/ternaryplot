@@ -60,6 +60,8 @@ ternary2SpatialPolygons.ternaryPolygons <- function(
  s, 
  ... 
 ){  
+    ternaryCheck.ternaryPolygons( s = s )
+    
     s0  <- ternarySystem( s = s )  
     # s  <- s[[ "grid" ]] 
     
