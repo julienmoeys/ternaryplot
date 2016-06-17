@@ -40,11 +40,11 @@ points per class in \code{s} instead.}
 \value{
 Returns a \code{\link[ternaryplot]{ternaryPolygons-class}} 
  object with one extra \code{\link[base]{attr}}ibute, 
- \code{counts}. \code{counts} is a tagged vector with as 
- many values as grid-cells (if \code{grid} is \code{TRUE}) 
- or as many values as classes in \code{s} (if 
- \code{grid} is \code{FALSE}). The tags are the grid-cells 
- identifier or the classes abbreviations.
+ \code{data}. \code{data} is a 
+ \code{\link[base]{data.frame}} containing two columns: 
+ an identifier column, called \code{id} if \code{grid} is 
+ \code{TRUE} or \code{abbrev} if \code{grid} is \code{FALSE} 
+ (the class abbreviations), and a \code{counts} column.
 }
 \description{
 Count the number of ternary data point falling in each cell 
@@ -72,7 +72,7 @@ data( "textureDataset", package = "ternaryplot" )
 
 counts1 <- ternaryCount( s = "hypres", x = textureDataset ) 
 
-attr( x = counts1, which = "counts" )
+head( attr( x = counts1, which = "data" ) )
 
 
 
@@ -82,7 +82,7 @@ attr( x = counts1, which = "counts" )
 counts2 <- ternaryCount( s = "hypres", x = textureDataset, 
     grid = FALSE ) 
 
-attr( x = counts2, which = "counts" )
+attr( x = counts2, which = "data" )
 
 
 }

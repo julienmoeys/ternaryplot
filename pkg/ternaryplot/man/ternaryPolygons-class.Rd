@@ -43,6 +43,11 @@ Each row in the \code{data.frame} contains the ternary
    and the labels should be given in the same order as 
    the polygons identifiers in the 
    \code{\link[base]{data.frame}}.
+ \item \bold{\code{data}}: An optional 
+   \code{\link[base]{data.frame}} containing additional 
+   variables for each of the ternary polygon. It should 
+   have at least one column, \code{idCol} the identifiers 
+   of the different polygons (see above and below).
 }
 }
 
@@ -59,9 +64,6 @@ Each row in the \code{data.frame} contains the ternary
    (where \code{x} is a \code{ternaryPolygons-class} object) 
    to fetch the current variable names.
  \item 1 column named after the attribute \code{idCol}. 
- \item \code{\link[ternaryplot]{ternary2SpatialPolygons}} 
-   (to convert the grid into a 
-   \code{\link[sp]{SpatialPolygonsDataFrame}})
 }
 }
 \seealso{

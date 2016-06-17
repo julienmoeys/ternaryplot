@@ -7,9 +7,7 @@
 \usage{
 ternaryBins(s, x, ...)
 
-\method{ternaryBins}{ternarySystem}(s, x, grid = TRUE, breaks = 6L,
-  cut.args = NULL, legend.add = TRUE, legend.x = NULL,
-  legend.title = "counts", legend.args = NULL, noZero = TRUE, ...)
+\method{ternaryBins}{ternarySystem}(s, x, grid = TRUE, noZero = TRUE, ...)
 }
 \arguments{
 \item{s}{Either \itemize{
@@ -31,43 +29,12 @@ to retrieve counts for a systematic ternary grid, and
 to \code{FALSE} to count the number of \code{x}-data 
 points per class in \code{s} instead.}
 
-\item{breaks}{See \code{\link[base]{cut}}. Break-values or number of 
-groups to be used when preparing the colour-scale and 
-the colour-scale legend for the binned values. See 
-also \code{cut.args} below.}
-
-\item{cut.args}{If not \code{NULL}, a list of additional arguments to be 
-passed to \code{\link[base]{cut}} (see \code{breaks} 
-above). Values \code{x}, \code{breaks}, \code{dig.lab} 
-and \code{include.lowest} not allowed. \code{dig.lab} 
-is internally set to 0 (as counts are integer values) 
-and \code{include.lowest} is set to \code{TRUE} internally.}
-
-\item{legend.add}{Single logical value. If \code{TRUE} (the default), 
-a legend is added on the plot.}
-
-\item{legend.x}{See argument \code{x} in \code{\link[graphics]{legend}}. 
-Position of the legend. Default value is \code{topright} 
-unless \code{tlrAngles(s)[3L]} is higher than 60 degrees 
-(which indicates a ternary system with a right-angle 
-located at the right side of the plot), in which case 
-the value is set to \code{topleft} (set internally in 
-all cases).}
-
-\item{legend.title}{See argument \code{title} in \code{\link[graphics]{legend}}. 
-Title of the legend.}
-
-\item{legend.args}{If not \code{NULL}, a list of additional arguments to be 
-passed to \code{\link[graphics]{legend}}. Arguments 
-\code{x} and \code{title} are excluded and should be set 
-with \code{legend.x} and \code{legend.title}.}
-
 \item{noZero}{Single logical value. If \code{TRUE} (the default), 
 zero-counts values are not shown on the plot. This also 
 makes the legend more readable.}
 
 \item{\dots}{Additional parameters passed to 
-\code{\link[ternaryplot]{ternaryPolygons}}.}
+\code{\link[ternaryplot]{ternaryPolygons}}. See in particular}
 }
 \value{
 Invisibly returns the output of 
@@ -95,7 +62,7 @@ ternaryBox( s = s )
 ternaryAxis( s = s )
 ternaryPoints( s = s, x = textureDataset ) 
 
-attr( cnts, "counts" )
+head( attr( cnts, "data" ) ) 
 
 # The same, all in one
 # ==========================================================
@@ -109,7 +76,7 @@ ternaryPlot( s = "hypres", x = textureDataset,
  \code{\link[ternaryplot]{ternaryCount}} for producing 
  the bins and count per bins but not plotting them.
 
- Package-options \code{bin.border.col} and \code{bin.bg.fun}  
+ Package-options \code{ternaryPolygons.border.col} and \code{ternaryPolygons.bg.fun}  
  in \code{\link[ternaryplot]{tpPar}} are used internally.
 }
 

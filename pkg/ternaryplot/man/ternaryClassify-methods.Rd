@@ -116,13 +116,11 @@ grd <- createTernaryGrid( s = "hypres" )
 #   Classify the dataset
 cls3 <- ternaryClassify( s = grd, x = textureDataset ) 
 
-#   Calculate the counts per grid cells
-counts <- as.integer( table( cls3 ) )
-names( counts ) <- names( table( cls3 ) ) 
-counts <- counts[ unique( grd[, "id" ] ) ] 
-counts[ is.na( counts ) ] <- 0 
+#   Counts per grid cells
+counts <- ternaryCount( s = grd, x = textureDataset )
+counts <- attr( x = counts, which = "data" ) 
 
-cols <- gray( 1 - counts / max( counts ) )
+cols <- gray( 1 - counts[, "counts" ] / max( counts[, "counts" ] ) )
 
 #   Simple ternary plot with point overlay
 s <- ternaryPlot( s = "hypres" ) 

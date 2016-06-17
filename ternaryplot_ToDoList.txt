@@ -13,6 +13,10 @@ New features and improvements
 
 *   CREATE plot method for ternarySystem and ternaryPolygons
 
+*   ADD argument "what = c( 'abbrev', 'name' )" to 
+    ternaryClassify(), so that the whole class description 
+    (name) can be returned, not just the classes abbreviations.
+
 
 
 Vignettes

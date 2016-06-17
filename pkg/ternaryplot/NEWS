@@ -6,7 +6,26 @@ CHANGES IN VERSION 0.12.0
     2016/06/14  Created the function ternaryClassNames() 
         and ternaryClassNames() <- values (to get or set the 
         names of the classes in a ternary classification)
-    
+        
+        The format of ternaryPolygons-class objects has been 
+        changed. They can now have a 'data' attributes, a 
+        data.frame that contains all additional attributes 
+        of the polygons (the one that are related to each 
+        polygon at least). The 'idCol' attribute is unchanged.
+        
+        This change in turn affects the behaviour of 
+        ternaryCount() and ternaryBin(). They now return 
+        a ternaryPolygons-class objects with the 'data' 
+        attribute in which the column 'counts' gives the 
+        counts in each polygon.
+        
+        The attribute 'labels' of the output of ternaryClasses() 
+        (also a ternaryPolygons-class object) is now replaced 
+        by the column 'abbrev' in the attribute 'data'.
+        
+        Created the method ternaryCheck.ternaryPolygons 
+        for ternaryCheck()
+        
 CHANGES IN VERSION 0.11.0
     
     2016/06/10  The classes of the hypres texture classification 

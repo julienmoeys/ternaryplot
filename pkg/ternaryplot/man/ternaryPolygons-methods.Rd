@@ -8,23 +8,36 @@
 \usage{
 ternaryPolygons(s, ...)
 
-\method{ternaryPolygons}{ternaryPolygons}(s, x = NULL, density = NULL,
+\method{ternaryPolygons}{ternaryPolygons}(s, z = NULL, density = NULL,
   angle = 45, border = NULL, bg = NULL, lty = graphics::par("lty"),
   lwd = NULL, labels = NULL, adj = NULL, pos = NULL, offset = 0.5,
-  vfont = NULL, cex = 1, col = NULL, font = NULL, ...)
+  vfont = NULL, cex = 1, col = NULL, font = NULL, breaks = 6L,
+  cut.args = NULL, legend.add = TRUE, legend.x = NULL,
+  legend.title = "counts", legend.args = NULL, noZero = FALSE, ...)
 
 \method{ternaryPolygons}{ternarySystem}(s, border = NULL, col = NULL,
   bg = NULL, lwd = NULL, cex = NULL, font = NULL, ...)
 }
 \arguments{
-\item{s}{Either a \code{\link[ternaryplot]{ternaryPolygons}}-object, 
-such as created by \code{\link[ternaryplot]{createTernaryGrid}} 
+\item{s}{Either a \code{\link[ternaryplot]{ternaryPolygons-class}} 
+object, such as created by 
+\code{\link[ternaryplot]{createTernaryGrid}} 
 or by \code{\link[ternaryplot]{ternaryClasses}}, or 
-a \code{\link[ternaryplot]{ternarySystem-class}}, such as obtained with 
-\code{\link[ternaryplot]{getTernarySystem}} or output 
-by \code{\link[ternaryplot]{ternaryPlot}}.}
+a \code{\link[ternaryplot]{ternarySystem-class}}, such 
+as obtained with \code{\link[ternaryplot]{getTernarySystem}} 
+or output by \code{\link[ternaryplot]{ternaryPlot}}.}
 
-\item{x}{Not used.}
+\item{z}{Single character string. When \code{s} is a 
+ \code{\link[ternaryplot]{ternaryPolygons-class}}, 
+ name of a variable in \code{attr(s,"data")} to be displayed 
+ with a colour gradient (the colour of each polygon is made 
+ proportional to the values in \code{attr(s,"data")[,"z"]}).
+ If \code{bg} is not \code{NULL}, \code{z} will be ignored 
+ and a \code{\link[base]{warning}} is emitted.
+
+ See also the arguments \code{breaks}, \code{cut.args}, 
+ \code{legend.add}, \code{legend.x}, \code{legend.title}, 
+ \code{legend.args} and \code{noZero} below.}
 
 \item{density}{See \code{\link[graphics]{polygon}}.}
 
@@ -40,11 +53,8 @@ by \code{\link[ternaryplot]{ternaryPlot}}.}
 border.}
 
 \item{labels}{Vector of character strings. Labels to be drawn on top 
-of the polygons. If \code{NULL}, the default label 
-in \code{s[[ 'labels' ]]} are used (When \code{s} is a #
-\code{ternaryPolygons}-object). If a single character 
-string, recycled for each polygon. Set to \code{NA} to 
-prevent any label to be drawn.}
+of the polygons. If \code{NULL}, the value in 
+\code{attr(s,'data')[,'abbrev']} are used, when present.}
 
 \item{adj}{See \code{\link[graphics]{text}} (parameter of the text 
 \code{labels}).}
@@ -66,6 +76,48 @@ prevent any label to be drawn.}
 
 \item{font}{See \code{\link[graphics]{text}} (parameter of the text 
 \code{labels}).}
+
+\item{breaks}{Only used if \code{z} is not \code{NULL}. 
+See \code{\link[base]{cut}}. Break-values or number of 
+groups to be used when preparing the colour-scale and 
+the colour-scale legend for the binned values. See 
+also \code{cut.args} below.}
+
+\item{cut.args}{Only used if \code{z} is not \code{NULL}. 
+If not \code{NULL}, a list of additional arguments to be 
+passed to \code{\link[base]{cut}} (see \code{breaks} 
+above). Values \code{x}, \code{breaks}, \code{dig.lab} 
+and \code{include.lowest} not allowed. \code{dig.lab} 
+is internally set to 0 (as counts are integer values) 
+and \code{include.lowest} is set to \code{TRUE} internally.}
+
+\item{legend.add}{Only used if \code{z} is not \code{NULL}. 
+Single logical value. If \code{TRUE} (the default), 
+a legend is added on the plot.}
+
+\item{legend.x}{Only used if \code{z} is not \code{NULL}. 
+See argument \code{x} in \code{\link[graphics]{legend}}. 
+Position of the legend. Default value is \code{topright} 
+unless \code{tlrAngles(s)[3L]} is higher than 60 degrees 
+(which indicates a ternary system with a right-angle 
+located at the right side of the plot), in which case 
+the value is set to \code{topleft} (set internally in 
+all cases).}
+
+\item{legend.title}{Only used if \code{z} is not \code{NULL}. 
+See argument \code{title} in \code{\link[graphics]{legend}}. 
+Title of the legend.}
+
+\item{legend.args}{Only used if \code{z} is not \code{NULL}. 
+If not \code{NULL}, a list of additional arguments to be 
+passed to \code{\link[graphics]{legend}}. Arguments 
+\code{x} and \code{title} are excluded and should be set 
+with \code{legend.x} and \code{legend.title}.}
+
+\item{noZero}{Only used if \code{z} is not \code{NULL}. 
+Single logical value. If \code{TRUE} (the default), 
+zero-counts values are not shown on the plot. This also 
+makes the legend more readable.}
 
 \item{\dots}{Additional arguments passed to \code{\link[graphics]{polygon}}.
 
