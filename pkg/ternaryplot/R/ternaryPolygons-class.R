@@ -52,6 +52,11 @@
 #'    and the labels should be given in the same order as 
 #'    the polygons identifiers in the 
 #'    \code{\link[base]{data.frame}}.
+#'  \item \bold{\code{data}}: An optional 
+#'    \code{\link[base]{data.frame}} containing additional 
+#'    variables for each of the ternary polygon. It should 
+#'    have at least one column, \code{idCol} the identifiers 
+#'    of the different polygons (see above and below).
 #'}  
 #'
 #'
@@ -67,9 +72,6 @@
 #'    (where \code{x} is a \code{ternaryPolygons-class} object) 
 #'    to fetch the current variable names.
 #'  \item 1 column named after the attribute \code{idCol}. 
-#'  \item \code{\link[ternaryplot]{ternary2SpatialPolygons}} 
-#'    (to convert the grid into a 
-#'    \code{\link[sp]{SpatialPolygonsDataFrame}})
 #'}  
 #'
 #'@seealso
@@ -91,3 +93,139 @@
 #'@rdname ternaryPolygons-class
 #'
 NULL 
+
+
+
+# ternaryCheck.ternaryPolygons =============================
+
+#'@rdname ternaryCheck-methods
+#'
+#'@method ternaryCheck ternaryPolygons
+#'
+#'@export 
+#'
+ternaryCheck.ternaryPolygons <- function(
+ s, 
+ ... 
+){  
+    valid <- TRUE 
+    
+    .tpPar <- tpPar()
+    
+    onFailure <- .tpPar[[ "onFailure" ]] # getTpPar( "onFailure" ) 
+    
+    
+    #   Check the class of 's'
+    if( !is.data.frame( s ) ){
+        onFailure( sprintf( 
+            "'s' should be a data.frame. Now a %s", 
+            paste( class( s ), collapse = "; " ) 
+        ) ) 
+        
+        valid <- FALSE 
+    }   
+    
+    
+    #   Check that 's' has a ternarySystem attribute:
+    s_ts <- attr( x = s, which = "ternarySystem" ) 
+    
+    if( is.null( s_ts ) ){
+        onFailure( "attribute 'ternarySystem' in 's' is NULL (attr(s,'ternarySystem'))." )
+        
+        valid <- FALSE 
+    }   
+    
+    if( !("ternarySystem" %in% class(s_ts)) ){
+        onFailure( sprintf( 
+            "attr(s,'ternarySystem') should be a ternarySystem (now a %s)", 
+            paste( class( s_ts ), collapse = "; " ) 
+        ) ) 
+        
+        valid <- FALSE 
+    }   
+    
+    
+    #   Check the ternary System itself
+    valid <- valid & ternaryCheck.ternarySystem( s = s_ts, ... )
+    
+    
+    #   Check that the expected bottom left right variables 
+    #   are present in 's'
+    blrNames0 <- blrNames( s = s_ts ) 
+    
+    testBlrNames <- blrNames0 %in% colnames( s ) 
+    
+    if( !all( testBlrNames ) ){
+        onFailure( sprintf( 
+            "Some expected columns in 's' are missing: %s (ternary variables).", 
+            paste( blrNames0[ !testBlrNames ], collapse = "; " ) 
+        ) ) 
+        
+        valid <- FALSE 
+    }   
+    
+    
+    #   Check the idCol attribute
+    idCol <- attr( x = s, which = "idCol" ) 
+    
+    if( is.null( idCol ) ){
+        onFailure( "attribute 'idCol' in 's' is NULL (attr(s,'idCol'))." )
+        
+        valid <- FALSE 
+    }   
+    
+    if( idCol %in% colnames( s ) ){
+        onFailure( sprintf( 
+            "Identifier column %s (attr(s,'idCol')) cannot be found in 's'", 
+            idCol 
+        ) ) 
+        
+        valid <- FALSE 
+    }   
+    
+    
+    #   Check the 'data' attribute, if present
+    data <- attr( x = s, which = "data" ) 
+    
+    if( !is.null( data ) ){
+        if( (!is.data.frame( data )) | (!is.matrix( data )) ){
+            onFailure( sprintf( 
+                "attr(s,'data') should be a data.frame or a matrix (now a %s)", 
+                paste( class( data ), collapse = "; " ) 
+            ) ) 
+            
+            valid <- FALSE 
+        }   
+        
+        if( idCol %in% colnames( data ) ){
+            onFailure( sprintf( 
+                "Column %s ('idCol') cannot be found in attr(s,'data')", 
+                idCol 
+            ) ) 
+            
+            valid <- FALSE 
+        }   
+        
+        if( !all( data[, idCol ] %in% s[, idCol ] ) ){
+            onFailure( sprintf( 
+                "Some values in attr(s,'data')[, %s ] cannot be found in s[, %s ] (%s is 'idCol')", 
+                idCol, idCol, idCol
+            ) ) 
+            
+            valid <- FALSE 
+        }   
+        
+        if( any( duplicated( data[, idCol ] ) ) ){
+            onFailure( sprintf( 
+                "Some values in attr(s,'data')[, %s ] are duplicated, while they should be unique (%s is 'idCol')", 
+                idCol, idCol  
+            ) ) 
+            
+            valid <- FALSE 
+        }   
+    }   
+    
+    
+    return( valid ) 
+}   
+
