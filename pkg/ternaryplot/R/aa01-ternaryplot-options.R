@@ -155,8 +155,8 @@ tpParList  <- new.env()
 # ----
 
 #'@importFrom sp bpy.colors
-.tpParList[[ "bin.bg.fun" ]]       <- sp::bpy.colors
-.tpParList[[ "bin.border.col" ]]   <- NA 
+.tpParList[[ "ternaryPolygons.bg.fun" ]] <- sp::bpy.colors
+.tpParList[[ "ternaryPolygons.border.col" ]]   <- NA 
 
 
 
@@ -412,16 +412,19 @@ tpParList  <- new.env()
 #'
 ## # CLASSES (GRAPHICAL PARAMETERS) ------------------------
 #'
-#'@param bin.bg.fun 
+#'@param ternaryPolygons.bg.fun 
 #'  A \code{\link[base]{function}} to be used to generate 
 #'  a colour palette for the colour legend of 
-#'  \code{\link[ternaryplot]{ternaryBins}}. Should have 
+#'  \code{\link[ternaryplot]{ternaryBins}} (and other 
+#'  plots of \code{\link{ternaryPolygons-class}} objects 
+#'  with a z-variable). Should have 
 #'  one argument named \code{n} (the number of colours).
 #'  Notice that internally the 1st colour corresponds to 
-#'  the bin with the highest count and the last colour 
-#'  corresponds to the bin with the lowest count.
+#'  the polygon/bin with the highest value/count and the last 
+#'  colour corresponds to the polygon/bin with the lowest 
+#'  value/count.
 #'
-#'@param bin.border.col
+#'@param ternaryPolygons.border.col
 #'  Single character string representing colours (see for 
 #'  example \code{\link[grDevices]{colours}}). Colour of the 
 #'  border (line) of the bins (cell-polygons).
@@ -481,8 +484,8 @@ tpPar <- function(
     class.border.lwd, 
     class.label.cex, 
     class.label.font, 
-    bin.bg.fun, 
-    bin.border.col 
+    ternaryPolygons.bg.fun, 
+    ternaryPolygons.border.col 
 ){  
     parList <- names( formals(tpPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset", "doNotReset" )) ] 
