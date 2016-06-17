@@ -204,7 +204,9 @@ ternaryClassify.ternaryPolygons <- function(
     x, 
     method = "over", 
     ...
-){  
+){      
+    ternaryCheck.ternaryPolygons( s = s )
+    
     #   Extract the ternarySystem
     terSys <- ternarySystem.ternaryPolygons( s = s )
     
