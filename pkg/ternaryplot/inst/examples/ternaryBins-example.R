@@ -16,7 +16,7 @@ ternaryBox( s = s )
 ternaryAxis( s = s )
 ternaryPoints( s = s, x = textureDataset ) 
 
-attr( cnts, "counts" )
+head( attr( cnts, "data" ) ) 
 
 # The same, all in one
 # ==========================================================
