@@ -11,7 +11,7 @@ data( "textureDataset", package = "ternaryplot" )
 
 counts1 <- ternaryCount( s = "hypres", x = textureDataset ) 
 
-attr( x = counts1, which = "counts" )
+head( attr( x = counts1, which = "data" ) )
 
 
 
@@ -21,6 +21,6 @@ attr( x = counts1, which = "counts" )
 counts2 <- ternaryCount( s = "hypres", x = textureDataset, 
     grid = FALSE ) 
 
-attr( x = counts2, which = "counts" )
+attr( x = counts2, which = "data" )
 
 
