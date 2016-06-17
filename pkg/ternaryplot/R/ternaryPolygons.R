@@ -209,6 +209,8 @@ ternaryPolygons.ternaryPolygons <- function(
     
     terSys  <- ternarySystem( s = s ) 
     
+    .tpPar <- tpPar()
+    
     
     if( nrow( s ) > 0 ){
         idCol <- attr( x = s, which = "idCol" ) 
