@@ -188,7 +188,7 @@ ternaryCheck.ternaryPolygons <- function(
     data <- attr( x = s, which = "data" ) 
     
     if( !is.null( data ) ){
-        if( (!is.data.frame( data )) | (!is.matrix( data )) ){
+        if( (!is.data.frame( data )) & (!is.matrix( data )) ){
             onFailure( sprintf( 
                 "attr(s,'data') should be a data.frame or a matrix (now a %s)", 
                 paste( class( data ), collapse = "; " ) 
