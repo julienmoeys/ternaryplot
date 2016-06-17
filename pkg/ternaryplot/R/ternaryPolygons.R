@@ -327,6 +327,8 @@ ternaryPolygons.ternaryPolygons <- function(
             if( is.null( border ) ){
                 border <- .tpPar[[ "ternaryPolygons.border.col" ]] 
             }   
+        }else{
+            zPlot <- FALSE 
         }   
         
         
