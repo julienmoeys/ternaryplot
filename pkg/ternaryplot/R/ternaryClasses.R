@@ -65,7 +65,7 @@ ternaryClasses.character <- function(
         s <- getTernarySystem( s = s )  
     }   
     
-    ternaryClasses( s = s, ... ) 
+    return( ternaryClasses( s = s, ... ) ) 
 }   
 
 
@@ -113,8 +113,9 @@ ternaryClasses.ternarySystem <- function(
     
     #   Add attributes to ternaryPolygons
     attr( x = grd, which = "ternarySystem" ) <- s 
-    attr( x = grd, which = "labels" )        <- s[[ "classes" ]][, "abbrev" ]  
+    # attr( x = grd, which = "labels" )        <- s[[ "classes" ]][, "abbrev" ]  
     attr( x = grd, which = "idCol" )         <- "abbrev" 
+    attr( x = grd, which = "data" )          <- s[[ "classes" ]][, c( "abbrev", "name" ) ]
     
     # grd <- list( 
         # "grid"          = grd, 
@@ -123,6 +124,8 @@ ternaryClasses.ternarySystem <- function(
     # )   
     
     class( grd ) <- c( "ternaryPolygons", "data.frame" ) 
+    
+    ternaryCheck.ternaryPolygons( s = s )
     
     return( grd )
 }   
