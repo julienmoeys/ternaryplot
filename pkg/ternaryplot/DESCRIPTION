@@ -1,6 +1,6 @@
 Package: ternaryplot
-Version: 0.11.0
-Date: 2016-06-10
+Version: 0.12.0
+Date: 2016-06-17
 Title: Infrastructure for ternary plots, ternary classifications and ternary binning (S3-classes)
 Author: Julien MOEYS <Julien.Moeys@slu.se>
 Maintainer: Julien MOEYS <Julien.Moeys@slu.se>

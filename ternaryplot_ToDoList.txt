@@ -7,10 +7,6 @@ New features and improvements
 *   CREATE ternaryLines ternarySystem and add type = "l"
     to ternaryPlot().
 
-*   CREATE ternaryClassNames() and ternaryClassNames()<-
-    methods to retrieve and change the (abbrev) name of 
-    ternary classes
-
 *   CREATE ternaryAggregate >> ternary version of sp::aggregate
 
 *   CREATE ternaryNormaliseX()

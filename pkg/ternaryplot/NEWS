@@ -1,6 +1,12 @@
     
     package: ternaryplot
 
+CHANGES IN VERSION 0.12.0
+    
+    2016/06/14  Created the function ternaryClassNames() 
+        and ternaryClassNames() <- values (to get or set the 
+        names of the classes in a ternary classification)
+    
 CHANGES IN VERSION 0.11.0
     
     2016/06/10  The classes of the hypres texture classification 

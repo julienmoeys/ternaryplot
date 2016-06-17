@@ -24,7 +24,7 @@ source( file.path( pkgDir, "..","packageUtilities.R" ) )
 pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.11.0", 
+    pkgVersion  = "0.12.0", 
     pkgDepends  = NULL, # "MASS"
     pkgImports  = c( "sp", "graphics", "grDevices", "utils" ), 
     pkgSuggests = "knitr", 
