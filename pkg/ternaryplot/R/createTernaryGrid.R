@@ -153,7 +153,7 @@ createTernaryGrid.ternarySystem <- function(
     
     #   Add attributes to ternaryPolygons
     attr( x = grd, which = "ternarySystem" ) <- s 
-    attr( x = grd, which = "labels" )        <- NULL 
+    # attr( x = grd, which = "labels" )        <- NULL 
     attr( x = grd, which = "idCol" )         <- "id" 
     
     # grd <- list( 
@@ -163,6 +163,8 @@ createTernaryGrid.ternarySystem <- function(
     # )   
     
     class( grd ) <- c( "ternaryPolygons", "data.frame" )
+    
+    ternaryCheck.ternaryPolygons( s = grd ) 
     
     return( grd )
 }   
