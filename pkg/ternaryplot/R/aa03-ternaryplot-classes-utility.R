@@ -52,9 +52,15 @@
 #'  Additional parameters passed to 
 #'  \code{\link[ternaryplot]{ternaryCheck}}.
 #'
+#'
 #'@param value 
-#'  A vector of 3 character strings. Names of the 
+#'  A vector of three character strings. Names of the 
 #'  bottom-left-right axis.
+#'
+#'
+#'@return
+#'  \code{blrNames(s)} returns a vector of three character 
+#'  strings, the names of the bottom, left and right variables.
 #'
 #' 
 #'@example inst/examples/blrNames-example.R
@@ -229,6 +235,12 @@ blrNames.ternaryVariables <- function( s, ... ){
 #'  A vector of 3 character strings. Names of the 
 #'  bottom-left-right axis.
 #'
+#'
+#'@return
+#'  \code{blrLabels(s)} returns a vector of three character 
+#'  strings, the names of the bottom, left and right 
+#'  variable-labels.
+#'
 #' 
 #'@example inst/examples/blrLabels-example.R
 #'
@@ -355,7 +367,12 @@ blrLabels.ternaryVariables <- function( s, ... ){
 #'  A vector of 3 logical values. Bottom-left-right orientation of 
 #'  a ternarySystem object.
 #'
-#' 
+#'
+#'@return
+#'  \code{blrClock(s)} returns a vector of three logical values, 
+#'  the direction of the bottom, left and right axis.
+#'
+#'
 #'@example inst/examples/blrClock-example.R
 #'
 #'@rdname blrClock-methods
@@ -508,6 +525,12 @@ blrClock.ternaryGeometry <- function(
 #'  Single numerical value. Sum of the three fractions of the 
 #'  ternarySystem.
 #'
+#'
+#'@return
+#'  \code{fracSum(s)} returns a single numeric value, the sum 
+#'  of the three variables (1 if they are fractions and 100 
+#'  if they are percentages).
+#'
 #' 
 #'@rdname fracSum-methods
 #'
@@ -637,6 +660,12 @@ fracSum.ternaryGeometry <- function(
 #'@param value
 #'  Vector of three numerical values, summing to 180. Top, left 
 #'  and right angles of the ternary system object.
+#'
+#'
+#'@return
+#'  \code{tlrAngles(s)} returns a vector of three numeric 
+#'  values, the angles of the top, left and right triangle 
+#'  vertices (in degrees).
 #'
 #' 
 #'@example inst/examples/tlrAngles-example.R
@@ -768,7 +797,12 @@ tlrAngles.ternaryGeometry <- function(
 #'  A \code{ternaryGeometry} object, as created with 
 #'  \code{\link[ternaryplot]{createTernaryGeometry}}.
 #'
-#' 
+#'
+#'@return
+#'  \code{ternaryGeometry(s)} returns a 
+#'  \code{\link[ternaryplot]{ternaryGeometry-class}} object.
+#'
+#'
 #'@rdname ternaryGeometry-methods
 #'
 #'@export 
@@ -944,6 +978,11 @@ print.ternaryGeometry <- function(
 #'@param value
 #'  A \code{ternaryVariables} object, as created with 
 #'  \code{\link[ternaryplot]{createTernaryVariables}}.
+#'
+#'
+#'@return
+#'  \code{ternaryVariables(s)} returns a 
+#'  \code{\link[ternaryplot]{ternaryVariables-class}} object.
 #'
 #' 
 #'@rdname ternaryVariables-methods
@@ -1188,6 +1227,11 @@ print.ternarySystem <- function(
 #'  when using the \code{`<-`} method, a 
 #'  \code{\link[ternaryplot]{ternaryPolygons-class}} object 
 #'  with an updated \code{\link[ternaryplot]{ternarySystem-class}}.
+#'
+#'
+#'@return
+#'  \code{ternarySystem(s)} returns a 
+#'  \code{\link[ternaryplot]{ternarySystem-class}} object.
 #'
 #' 
 #'@rdname ternarySystem-methods
