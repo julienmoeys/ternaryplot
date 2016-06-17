@@ -259,7 +259,7 @@ ternaryPolygons.ternaryPolygons <- function(
                 
                 #   Select only the polygons with a non zero 
                 #   z-value
-                grd <- grd[ grd[, idCol ] %in% data[, idCol ], ]
+                s <- s[ s[, idCol ] %in% data[, idCol ], ]
                 
                 rm( zIsZero )
             }   
