@@ -102,8 +102,6 @@ ternaryBins.ternarySystem <- function(
     noZero = TRUE, 
     ... 
 ){  
-    .tpPar <- tpPar()
-    
     grd <- ternaryCount.ternarySystem( s = s, x = x, 
         grid = grid )
     
