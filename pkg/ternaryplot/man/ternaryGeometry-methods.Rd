@@ -22,6 +22,10 @@ as created with
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }
+\value{
+\code{ternaryGeometry(s)} returns a 
+ \code{\link[ternaryplot]{ternaryGeometry-class}} object.
+}
 \description{
 Set or get the ternaryGeometry of a 
  \code{\link[ternaryplot]{ternarySystem-class}} object.

@@ -36,6 +36,10 @@ a ternarySystem object.}
 \item{\dots}{Additional parameters passed to 
 \code{\link[ternaryplot]{ternaryCheck}}.}
 }
+\value{
+\code{blrClock(s)} returns a vector of three logical values, 
+ the direction of the bottom, left and right axis.
+}
 \description{
 Set or get the bottom-left-right orientation of a 
  \code{\link[ternaryplot]{ternarySystem-class}} object.

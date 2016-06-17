@@ -36,6 +36,11 @@ and right angles of the ternary system object.}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }
+\value{
+\code{tlrAngles(s)} returns a vector of three numeric 
+ values, the angles of the top, left and right triangle 
+ vertices (in degrees).
+}
 \description{
 Set or get the top, left and right angles of a 
  \code{\link[ternaryplot]{ternarySystem-class}} object.

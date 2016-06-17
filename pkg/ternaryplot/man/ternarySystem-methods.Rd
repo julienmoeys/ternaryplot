@@ -30,6 +30,9 @@ The \code{\link[ternaryplot]{ternarySystem-class}}
  when using the \code{`<-`} method, a 
  \code{\link[ternaryplot]{ternaryPolygons-class}} object 
  with an updated \code{\link[ternaryplot]{ternarySystem-class}}.
+
+\code{ternarySystem(s)} returns a 
+ \code{\link[ternaryplot]{ternarySystem-class}} object.
 }
 \description{
 Fetch or set the ternary system definition from another object

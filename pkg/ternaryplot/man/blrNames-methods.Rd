@@ -42,11 +42,15 @@ same names but in a different order, on different axis).
 The latter implies that the \code{blrNames(s)} and 
 \code{value} are the same but in a different order.}
 
-\item{value}{A vector of 3 character strings. Names of the 
+\item{value}{A vector of three character strings. Names of the 
 bottom-left-right axis.}
 
 \item{\dots}{Additional parameters passed to 
 \code{\link[ternaryplot]{ternaryCheck}}.}
+}
+\value{
+\code{blrNames(s)} returns a vector of three character 
+ strings, the names of the bottom, left and right variables.
 }
 \description{
 Set or get the bottom-left-right axis names of a 

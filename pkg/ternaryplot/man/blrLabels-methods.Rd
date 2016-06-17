@@ -35,6 +35,11 @@ bottom-left-right axis.}
 
 \item{\dots}{Additional parameters passed to \code{\link[ternaryplot]{ternaryCheck}}.}
 }
+\value{
+\code{blrLabels(s)} returns a vector of three character 
+ strings, the names of the bottom, left and right 
+ variable-labels.
+}
 \description{
 Set or get the bottom-left-right axis labels of a 
  \code{\link[ternaryplot]{ternarySystem-class}} object.

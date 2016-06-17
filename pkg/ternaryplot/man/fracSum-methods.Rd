@@ -35,6 +35,11 @@ ternarySystem.}
 
 \item{\dots}{Additional parameters passed to specific methods.}
 }
+\value{
+\code{fracSum(s)} returns a single numeric value, the sum 
+ of the three variables (1 if they are fractions and 100 
+ if they are percentages).
+}
 \description{
 Set or get the sum of the three fractions of a 
  \code{\link[ternaryplot]{ternarySystem-class}} object.
