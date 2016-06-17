@@ -233,7 +233,7 @@ ternaryPolygons.ternaryPolygons <- function(
                 ) ) 
             }   
             
-            if( length(z) == 1L ){
+            if( length(z) != 1L ){
                 stop( sprintf( 
                     "length(z) should be 1 (now %s)", 
                     length(z)
