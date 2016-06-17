@@ -197,9 +197,9 @@ ternaryCheck.ternaryPolygons <- function(
             valid <- FALSE 
         }   
         
-        if( idCol %in% colnames( data ) ){
+        if( !(idCol %in% colnames( data )) ){
             onFailure( sprintf( 
-                "Column %s ('idCol') cannot be found in attr(s,'data')", 
+                "Column '%s' ('idCol') cannot be found in attr(s,'data')", 
                 idCol 
             ) ) 
             
