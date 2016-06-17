@@ -155,8 +155,8 @@ tpParList  <- new.env()
 # ----
 
 #'@importFrom sp bpy.colors
-.tpParList[[ "ternaryPolygons.bg.fun" ]] <- sp::bpy.colors
-.tpParList[[ "ternaryPolygons.border.col" ]]   <- NA 
+.tpParList[[ "ternaryPolygons.bg.fun" ]]     <- sp::bpy.colors
+.tpParList[[ "ternaryPolygons.border.col" ]] <- NA 
 
 
 
